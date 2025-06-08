@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-development/rdf-to-csv-tool 2" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.8.1">
+<title data-rh="true">RDF to CSV Conversion Tools | ISBD for Manifestation</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://iflastandards.github.io/standards-dev/ISBDM/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://iflastandards.github.io/standards-dev/ISBDM/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://iflastandards.github.io/standards-dev/ISBDM/docs/development/rdf-to-csv-tool 2"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="RDF to CSV Conversion Tools | ISBD for Manifestation"><meta data-rh="true" name="description" content="Overview"><meta data-rh="true" property="og:description" content="Overview"><link data-rh="true" rel="icon" href="/standards-dev/ISBDM/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://iflastandards.github.io/standards-dev/ISBDM/docs/development/rdf-to-csv-tool 2"><link data-rh="true" rel="alternate" href="https://iflastandards.github.io/standards-dev/ISBDM/docs/development/rdf-to-csv-tool 2" hreflang="en"><link data-rh="true" rel="alternate" href="https://iflastandards.github.io/standards-dev/ISBDM/docs/development/rdf-to-csv-tool 2" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/standards-dev/ISBDM/blog/rss.xml" title="ISBD for Manifestation RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/standards-dev/ISBDM/blog/atom.xml" title="ISBD for Manifestation Atom Feed"><link rel="stylesheet" href="/standards-dev/ISBDM/assets/css/styles.01e3e159.css">
+<script src="/standards-dev/ISBDM/assets/js/runtime~main.367109c4.js" defer="defer"></script>
+<script src="/standards-dev/ISBDM/assets/js/main.6cf228b5.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}(),document.documentElement.setAttribute("data-announcement-bar-initially-dismissed",function(){try{return"true"===localStorage.getItem("docusaurus.announcement.dismiss")}catch(t){}return!1}())</script><div id="__docusaurus"><link rel="preload" as="image" href="/standards-dev/ISBDM/img/logo-ifla_black.png"><link rel="preload" as="image" href="/standards-dev/ISBDM/img/cc0_by.png"><div role="region" aria-label="Skip to main content"><a class="skipToContent_hb8_" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><div class="theme-announcement-bar announcementBar_lJpr" style="background-color:#fafbfc;color:#091E42" role="banner"><div class="content_N7T7 announcementBarContent_RQDU">⭐️ This is an active development site for IFLA standards ⭐️</div></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/standards-dev/ISBDM/"><div class="navbar__logo"><img src="/standards-dev/ISBDM/img/logo-ifla_black.png" alt="IFLA Logo" class="themedComponent_cRnt themedComponent--light_GC0F"><img src="/standards-dev/ISBDM/img/logo-ifla_black.png" alt="IFLA Logo" class="themedComponent_cRnt themedComponent--dark_afNp"></div><b class="navbar__title text--truncate">ISBDM</b></a><div class="navbar__item dropdown dropdown--hoverable"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">Instructions</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/standards-dev/ISBDM/docs/intro/index">Introduction</a></li><li><a class="dropdown__link" href="/standards-dev/ISBDM/docs/assess/index">Assessment</a></li><li><a class="dropdown__link" href="/standards-dev/ISBDM/docs/glossary/">Glossary</a></li><li><a class="dropdown__link" href="/standards-dev/ISBDM/docs/fullex/">Examples</a></li></ul></div><div class="navbar__item dropdown dropdown--hoverable"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">Elements</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/standards-dev/ISBDM/docs/statements/">Statements</a></li><li><a class="dropdown__link" href="/standards-dev/ISBDM/docs/notes/">Notes</a></li><li><a class="dropdown__link" href="/standards-dev/ISBDM/docs/attributes/">Attributes</a></li><li><a class="dropdown__link" href="/standards-dev/ISBDM/docs/relationships/index">Relationships</a></li></ul></div><div class="navbar__item dropdown dropdown--hoverable"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">Values</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/standards-dev/ISBDM/docs/ves/">Value Vocabularies</a></li><li><a class="dropdown__link" href="/standards-dev/ISBDM/docs/ves/ISBDMSES">String Encodings Schemes</a></li></ul></div></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">About</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/standards-dev/ISBDM/docs/about/">About ISBDM</a></li><li><a class="dropdown__link" href="/standards-dev/ISBDM/docs/about/docusaurus-for-ifla">Modern Documentation Platform</a></li></ul></div><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">Resources</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/standards-dev/ISBDM/rdf/">RDF Downloads</a></li><li><a href="https://iflastandards.info/" target="_blank" rel="noopener noreferrer" class="dropdown__link">Vocabulary Server<svg width="12" height="12" aria-hidden="true" class="iconExternalLink_FKmW"><use href="#theme-svg-external-link"></use></svg></a></li><li><a href="https://www.ifla.org/" target="_blank" rel="noopener noreferrer" class="dropdown__link">IFLA Website<svg width="12" height="12" aria-hidden="true" class="iconExternalLink_FKmW"><use href="#theme-svg-external-link"></use></svg></a></li><li><a href="https://github.com/iflastandards/standards-dev" target="_blank" rel="noopener noreferrer" class="dropdown__link" aria-label="GitHub repository">GitHub Repository<svg width="12" height="12" aria-hidden="true" class="iconExternalLink_FKmW"><use href="#theme-svg-external-link"></use></svg></a></li><li><a class="dropdown__link" href="/standards-dev/ISBDM/portal/">Portal</a></li></ul></div><a class="navbar__item navbar__link" href="/standards-dev/ISBDM/blog">Blog</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/standards-dev/ISBDM/docs/development/rdf-to-csv-tool 2">Latest</a><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" class="iconLanguage_gTc9"><path fill="currentColor" d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"></path></svg>English</a><ul class="dropdown__menu"><li><a href="/standards-dev/ISBDM/docs/development/rdf-to-csv-tool 2" target="_self" rel="noopener noreferrer" class="dropdown__link dropdown__link--active" lang="en">English</a></li></ul></div><div class="navbarSearchContainer_MNxX"><div class="navbar__search searchBarContainer_xiBO" dir="ltr"><input placeholder="Search" aria-label="Search" class="navbar__search-input searchInput_rCR4" value=""><div class="loadingRing_X9sU searchBarLoadingRing_xumq"><div></div><div></div><div></div><div></div></div></div></div><div class="toggle_wjTp colorModeToggle_FZKj"><button class="clean-btn toggleButton_QsYN toggleButtonDisabled_hcRM" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_em_3 lightToggleIcon_v2AQ"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_em_3 darkToggleIcon_kQjm"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_em_3 systemToggleIcon__PcA"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_Legu"><div class="docsWrapper_dVYn"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_s5F0" type="button"></button><div class="docRoot_S3ue"><main class="docMainContainer_luUW docMainContainerEnhanced_InXV"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_LDUx"><div class="docItemContainer_UM_e"><article><div class="tocCollapsible_LlyC theme-doc-toc-mobile tocMobile_mATH"><button type="button" class="clean-btn tocCollapsibleButton_fLMJ">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>RDF to CSV Conversion Tools</h1></header>
+<h2 class="anchor anchorWithStickyNavbar_OsBA" id="overview">Overview<a href="#overview" class="hash-link" aria-label="Direct link to Overview" title="Direct link to Overview">​</a></h2>
+<p>This package provides two scripts for converting RDF files to CSV format:</p>
+<ol>
+<li><strong><code>rdf-to-csv.ts</code></strong> - Converts individual RDF files to CSV</li>
+<li><strong><code>rdf-folder-to-csv.ts</code></strong> - Batch converts entire directory structures</li>
+</ol>
+<p>Both tools support intelligent namespace prefix handling, multilingual properties with repeatability based on DCTAP profiles, and multiple RDF formats including Turtle, N-Triples, RDF/XML, and JSON-LD.</p>
+<h2 class="anchor anchorWithStickyNavbar_OsBA" id="table-of-contents">Table of Contents<a href="#table-of-contents" class="hash-link" aria-label="Direct link to Table of Contents" title="Direct link to Table of Contents">​</a></h2>
+<ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#single-file-converter">Single File Converter</a>
+<ul>
+<li><a href="#basic-usage">Basic Usage</a></li>
+<li><a href="#command-line-options">Command-Line Options</a></li>
+<li><a href="#examples">Examples</a></li>
+</ul>
+</li>
+<li><a href="#batch-conversion-tool">Batch Conversion Tool</a>
+<ul>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#command-line-options-1">Command-Line Options</a></li>
+<li><a href="#default-output-directory">Default Output Directory</a></li>
+<li><a href="#examples-1">Examples</a></li>
+<li><a href="#features">Features</a></li>
+</ul>
+</li>
+<li><a href="#supported-rdf-formats">Supported RDF Formats</a></li>
+<li><a href="#features-1">Features</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#extending-the-tool">Extending the Tool</a></li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_OsBA" id="installation">Installation<a href="#installation" class="hash-link" aria-label="Direct link to Installation" title="Direct link to Installation">​</a></h2>
+<p>The scripts are located in <code>/scripts/</code> and require the following dependencies:</p>
+<div class="language-bash codeBlockContainer_T5Du theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_xXly"><pre tabindex="0" class="prism-code language-bash codeBlock_YCjF thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_Lq7m"><span class="token-line" style="color:#393A34"><span class="token plain">yarn add n3 csv-parse csv-stringify commander @types/n3 jsonld @types/jsonld rdfxml-streaming-parser glob @types/glob chalk ora</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">yarn add -D tsx  # For running TypeScript files directly</span><br></span></code></pre></div></div>
+<h2 class="anchor anchorWithStickyNavbar_OsBA" id="single-file-converter">Single File Converter<a href="#single-file-converter" class="hash-link" aria-label="Direct link to Single File Converter" title="Direct link to Single File Converter">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="basic-usage">Basic Usage<a href="#basic-usage" class="hash-link" aria-label="Direct link to Basic Usage" title="Direct link to Basic Usage">​</a></h3>
+<div class="language-bash codeBlockContainer_T5Du theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_xXly"><pre tabindex="0" class="prism-code language-bash codeBlock_YCjF thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_Lq7m"><span class="token-line" style="color:#393A34"><span class="token plain">yarn rdf:to-csv &lt;rdf-file&gt; [options]</span><br></span></code></pre></div></div>
+<p>Or directly:</p>
+<div class="language-bash codeBlockContainer_T5Du theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_xXly"><pre tabindex="0" class="prism-code language-bash codeBlock_YCjF thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_Lq7m"><span class="token-line" style="color:#393A34"><span class="token plain">tsx scripts/rdf-to-csv.ts &lt;rdf-file&gt; [options]</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="command-line-options">Command-Line Options<a href="#command-line-options" class="hash-link" aria-label="Direct link to Command-Line Options" title="Direct link to Command-Line Options">​</a></h3>
+<ul>
+<li><code>-p, --profile &lt;dctap-file&gt;</code>: Path to DCTAP profile CSV file (optional)</li>
+<li><code>-o, --output &lt;output-file&gt;</code>: Output CSV file path (default: stdout)</li>
+<li><code>-f, --format &lt;format&gt;</code>: Force RDF format (auto-detected by default)</li>
+<li><code>-h, --help</code>: Display help information</li>
+<li><code>-V, --version</code>: Display version information</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="examples">Examples<a href="#examples" class="hash-link" aria-label="Direct link to Examples" title="Direct link to Examples">​</a></h3>
+<ol>
+<li>
+<p><strong>Basic conversion to stdout:</strong></p>
+<div class="language-bash codeBlockContainer_T5Du theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_xXly"><pre tabindex="0" class="prism-code language-bash codeBlock_YCjF thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_Lq7m"><span class="token-line" style="color:#393A34"><span class="token plain">yarn rdf:to-csv /path/to/file.ttl</span><br></span></code></pre></div></div>
+</li>
+<li>
+<p><strong>Save to file:</strong></p>
+<div class="language-bash codeBlockContainer_T5Du theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_xXly"><pre tabindex="0" class="prism-code language-bash codeBlock_YCjF thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_Lq7m"><span class="token-line" style="color:#393A34"><span class="token plain">yarn rdf:to-csv /path/to/file.ttl -o output.csv</span><br></span></code></pre></div></div>
+</li>
+<li>
+<p><strong>Use DCTAP profile:</strong></p>
+<div class="language-bash codeBlockContainer_T5Du theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_xXly"><pre tabindex="0" class="prism-code language-bash codeBlock_YCjF thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_Lq7m"><span class="token-line" style="color:#393A34"><span class="token plain">yarn rdf:to-csv /path/to/file.ttl -p profile.csv -o output.csv</span><br></span></code></pre></div></div>
+</li>
+<li>
+<p><strong>Real-world examples:</strong></p>
+<div class="language-bash codeBlockContainer_T5Du theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_xXly"><pre tabindex="0" class="prism-code language-bash codeBlock_YCjF thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_Lq7m"><span class="token-line" style="color:#393A34"><span class="token plain"># Turtle format</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">yarn rdf:to-csv /Users/jonphipps/Code/isbd/ttl/ns/isbd/elements.ttl -o isbd-elements.csv</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># N-Triples format</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">yarn rdf:to-csv /Users/jonphipps/Code/isbd/nt/ns/isbd/elements.nt -o isbd-elements.csv</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># RDF/XML format</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">yarn rdf:to-csv /Users/jonphipps/Code/isbd/xml/ns/isbd/elements.xml -o isbd-elements.csv</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># JSON-LD format</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">yarn rdf:to-csv /Users/jonphipps/Code/isbd/jsonld/ns/isbd/elements.jsonld -o isbd-elements.csv</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Force format detection</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">yarn rdf:to-csv data.rdf -f application/rdf+xml -o output.csv</span><br></span></code></pre></div></div>
+</li>
+</ol>
+<h2 class="anchor anchorWithStickyNavbar_OsBA" id="batch-conversion-tool">Batch Conversion Tool<a href="#batch-conversion-tool" class="hash-link" aria-label="Direct link to Batch Conversion Tool" title="Direct link to Batch Conversion Tool">​</a></h2>
+<p>The <code>rdf-folder-to-csv.ts</code> script recursively converts all RDF files in a directory structure to CSV format, preserving the folder hierarchy.</p>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="usage">Usage<a href="#usage" class="hash-link" aria-label="Direct link to Usage" title="Direct link to Usage">​</a></h3>
+<div class="language-bash codeBlockContainer_T5Du theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_xXly"><pre tabindex="0" class="prism-code language-bash codeBlock_YCjF thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_Lq7m"><span class="token-line" style="color:#393A34"><span class="token plain">yarn rdf:folder-to-csv &lt;source-dir&gt; [output-dir] [options]</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="command-line-options-1">Command-Line Options<a href="#command-line-options-1" class="hash-link" aria-label="Direct link to Command-Line Options" title="Direct link to Command-Line Options">​</a></h3>
+<ul>
+<li><code>-p, --profile &lt;dctap-file&gt;</code>: Path to DCTAP profile CSV file</li>
+<li><code>-d, --dry-run</code>: Show what would be converted without actually converting</li>
+<li><code>-v, --verbose</code>: Show detailed progress information</li>
+<li><code>-e, --extensions &lt;exts&gt;</code>: Comma-separated list of file extensions to process</li>
+<li><code>-h, --help</code>: Display help information</li>
+<li><code>-V, --version</code>: Display version information</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="default-output-directory">Default Output Directory<a href="#default-output-directory" class="hash-link" aria-label="Direct link to Default Output Directory" title="Direct link to Default Output Directory">​</a></h3>
+<p>The tool intelligently determines the default output directory:</p>
+<ul>
+<li>If source directory ends with <code>/ttl</code>, it replaces it with <code>/csv</code></li>
+<li>Otherwise, it adds <code>_csv</code> suffix to the source directory name</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="examples-1">Examples<a href="#examples-1" class="hash-link" aria-label="Direct link to Examples" title="Direct link to Examples">​</a></h3>
+<ol>
+<li>
+<p><strong>Basic batch conversion:</strong></p>
+<div class="language-bash codeBlockContainer_T5Du theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_xXly"><pre tabindex="0" class="prism-code language-bash codeBlock_YCjF thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_Lq7m"><span class="token-line" style="color:#393A34"><span class="token plain"># Converts /path/to/ttl/* to /path/to/csv/*</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">yarn rdf:folder-to-csv /path/to/ttl</span><br></span></code></pre></div></div>
+</li>
+<li>
+<p><strong>Specify output directory:</strong></p>
+<div class="language-bash codeBlockContainer_T5Du theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_xXly"><pre tabindex="0" class="prism-code language-bash codeBlock_YCjF thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_Lq7m"><span class="token-line" style="color:#393A34"><span class="token plain">yarn rdf:folder-to-csv /path/to/rdf /path/to/output</span><br></span></code></pre></div></div>
+</li>
+<li>
+<p><strong>Dry run to preview:</strong></p>
+<div class="language-bash codeBlockContainer_T5Du theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_xXly"><pre tabindex="0" class="prism-code language-bash codeBlock_YCjF thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_Lq7m"><span class="token-line" style="color:#393A34"><span class="token plain">yarn rdf:folder-to-csv /path/to/ttl --dry-run</span><br></span></code></pre></div></div>
+</li>
+<li>
+<p><strong>Verbose output with progress:</strong></p>
+<div class="language-bash codeBlockContainer_T5Du theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_xXly"><pre tabindex="0" class="prism-code language-bash codeBlock_YCjF thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_Lq7m"><span class="token-line" style="color:#393A34"><span class="token plain">yarn rdf:folder-to-csv /path/to/ttl --verbose</span><br></span></code></pre></div></div>
+</li>
+<li>
+<p><strong>With DCTAP profile:</strong></p>
+<div class="language-bash codeBlockContainer_T5Du theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_xXly"><pre tabindex="0" class="prism-code language-bash codeBlock_YCjF thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_Lq7m"><span class="token-line" style="color:#393A34"><span class="token plain">yarn rdf:folder-to-csv /path/to/ttl -p profile.csv</span><br></span></code></pre></div></div>
+</li>
+<li>
+<p><strong>Custom file extensions:</strong></p>
+<div class="language-bash codeBlockContainer_T5Du theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_xXly"><pre tabindex="0" class="prism-code language-bash codeBlock_YCjF thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_Lq7m"><span class="token-line" style="color:#393A34"><span class="token plain"># Only process .ttl and .rdf files</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">yarn rdf:folder-to-csv /path/to/mixed -e &quot;.ttl,.rdf&quot;</span><br></span></code></pre></div></div>
+</li>
+<li>
+<p><strong>Real-world example:</strong></p>
+<div class="language-bash codeBlockContainer_T5Du theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_xXly"><pre tabindex="0" class="prism-code language-bash codeBlock_YCjF thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_Lq7m"><span class="token-line" style="color:#393A34"><span class="token plain"># Convert ISBD vocabularies</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">yarn rdf:folder-to-csv /Users/jonphipps/Code/ISBDM/static/vocabs/ttl</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Output: /Users/jonphipps/Code/ISBDM/static/vocabs/csv/</span><br></span></code></pre></div></div>
+</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="features">Features<a href="#features" class="hash-link" aria-label="Direct link to Features" title="Direct link to Features">​</a></h3>
+<ul>
+<li><strong>Recursive processing</strong>: Finds all RDF files in subdirectories</li>
+<li><strong>Structure preservation</strong>: Maintains the same folder hierarchy in output</li>
+<li><strong>Progress reporting</strong>: Shows real-time conversion progress</li>
+<li><strong>Error handling</strong>: Continues processing even if individual files fail</li>
+<li><strong>Summary statistics</strong>: Reports success/failure counts</li>
+<li><strong>Flexible extensions</strong>: Configurable file type filtering</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_OsBA" id="supported-rdf-formats">Supported RDF Formats<a href="#supported-rdf-formats" class="hash-link" aria-label="Direct link to Supported RDF Formats" title="Direct link to Supported RDF Formats">​</a></h2>
+<p>The tool automatically detects RDF format based on file extension:</p>
+<table><thead><tr><th>Extension</th><th>Format</th><th>MIME Type</th><th>Support Level</th></tr></thead><tbody><tr><td><code>.ttl</code>, <code>.turtle</code></td><td>Turtle</td><td><code>text/turtle</code></td><td>Full</td></tr><tr><td><code>.n3</code></td><td>Notation3</td><td><code>text/n3</code></td><td>Full</td></tr><tr><td><code>.nt</code>, <code>.ntriples</code></td><td>N-Triples</td><td><code>application/n-triples</code></td><td>Full</td></tr><tr><td><code>.rdf</code>, <code>.xml</code>, <code>.owl</code></td><td>RDF/XML</td><td><code>application/rdf+xml</code></td><td>Full</td></tr><tr><td><code>.jsonld</code>, <code>.json</code></td><td>JSON-LD</td><td><code>application/ld+json</code></td><td>Full*</td></tr></tbody></table>
+<p>*JSON-LD files that reference remote contexts will use local fallback context files if available. The tool includes context files for common vocabularies in <code>static/data/contexts/</code>.</p>
+<h2 class="anchor anchorWithStickyNavbar_OsBA" id="features-1">Features<a href="#features-1" class="hash-link" aria-label="Direct link to Features" title="Direct link to Features">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="1-dynamic-namespace-prefix-extraction">1. Dynamic Namespace Prefix Extraction<a href="#1-dynamic-namespace-prefix-extraction" class="hash-link" aria-label="Direct link to 1. Dynamic Namespace Prefix Extraction" title="Direct link to 1. Dynamic Namespace Prefix Extraction">​</a></h3>
+<p>The tool automatically extracts namespace prefixes from:</p>
+<ul>
+<li><code>@prefix</code> declarations in the RDF file</li>
+<li>Intelligent inference from URI patterns in the data</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="2-intelligent-namespace-inference">2. Intelligent Namespace Inference<a href="#2-intelligent-namespace-inference" class="hash-link" aria-label="Direct link to 2. Intelligent Namespace Inference" title="Direct link to 2. Intelligent Namespace Inference">​</a></h3>
+<p>The script uses a tree-based algorithm to infer namespace prefixes when not explicitly declared:</p>
+<ol>
+<li><strong>Builds a URI segment tree</strong> from all URIs in the RDF data</li>
+<li><strong>Identifies namespace boundaries</strong> by analyzing:<!-- -->
+<ul>
+<li>Branching points in the URI structure</li>
+<li>Frequency of URI patterns</li>
+<li>Common namespace indicators (ns, vocab, onto, schema)</li>
+</ul>
+</li>
+<li><strong>Prioritizes namespaces</strong> based on depth and frequency</li>
+<li><strong>Generates readable prefixes</strong> from URI segments</li>
+</ol>
+<p>Example inference:</p>
+<ul>
+<li><code>http://iflastandards.info/ns/isbd/</code> → <code>isbd:</code></li>
+<li><code>http://iflastandards.info/ns/isbd/elements/P1001</code> → <code>isbd:elements/P1001</code></li>
+<li><code>http://iflastandards.info/ns/isbd/unc/elements/P1001</code> → <code>isbd:unc/elements/P1001</code></li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="3-multilingual-property-support">3. Multilingual Property Support<a href="#3-multilingual-property-support" class="hash-link" aria-label="Direct link to 3. Multilingual Property Support" title="Direct link to 3. Multilingual Property Support">​</a></h3>
+<p>Properties with language tags are handled with separate columns:</p>
+<ul>
+<li><code>skos:definition@en</code> - English definition</li>
+<li><code>skos:definition@es</code> - Spanish definition</li>
+<li>Properties without language tags have no suffix</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="4-repeatable-property-handling">4. Repeatable Property Handling<a href="#4-repeatable-property-handling" class="hash-link" aria-label="Direct link to 4. Repeatable Property Handling" title="Direct link to 4. Repeatable Property Handling">​</a></h3>
+<p>Repeatable properties (as defined in DCTAP or defaults) use indexed columns:</p>
+<ul>
+<li><code>skos:definition@en[0]</code> - First English definition</li>
+<li><code>skos:definition@en[1]</code> - Second English definition</li>
+<li><code>rdfs:label@es[0]</code> - First Spanish label</li>
+<li><code>rdfs:label@es[1]</code> - Second Spanish label</li>
+</ul>
+<p>Default repeatable properties:</p>
+<ul>
+<li><code>skos:definition</code></li>
+<li><code>skos:scopeNote</code></li>
+<li><code>rdfs:label</code></li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="5-csv-output-format">5. CSV Output Format<a href="#5-csv-output-format" class="hash-link" aria-label="Direct link to 5. CSV Output Format" title="Direct link to 5. CSV Output Format">​</a></h3>
+<p>The CSV output includes:</p>
+<ul>
+<li><strong>First column</strong>: Resource URI (as CURIE if possible)</li>
+<li><strong>Subsequent columns</strong>: Property values with headers indicating property, language, and index</li>
+<li><strong>All URIs converted to CURIEs</strong> where possible for readability</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_OsBA" id="dctap-profile-format">DCTAP Profile Format<a href="#dctap-profile-format" class="hash-link" aria-label="Direct link to DCTAP Profile Format" title="Direct link to DCTAP Profile Format">​</a></h2>
+<p>The DCTAP profile should be a CSV file with at least these columns:</p>
+<table><thead><tr><th>propertyID</th><th>repeatable</th></tr></thead><tbody><tr><td>skos<!-- -->:definition</td><td>true</td></tr><tr><td>rdfs<!-- -->:label</td><td>true</td></tr><tr><td>dcterms<!-- -->:title</td><td>false</td></tr></tbody></table>
+<p>The <code>repeatable</code> column accepts: <code>true</code>, <code>yes</code>, <code>1</code> (case-insensitive) for repeatable properties.</p>
+<p>Example DCTAP profile:</p>
+<div class="language-csv codeBlockContainer_T5Du theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_xXly"><pre tabindex="0" class="prism-code language-csv codeBlock_YCjF thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_Lq7m"><span class="token-line" style="color:#393A34"><span class="token plain">shapeID,shapeLabel,propertyID,propertyLabel,mandatory,repeatable,valueDataType,valueShape,valueConstraint,valueConstraintType,note</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">,,skos:definition,Definition,false,true,,,,,</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">,,rdfs:label,Label,true,true,,,,,</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">,,dcterms:created,Date Created,false,false,xsd:date,,,,</span><br></span></code></pre></div></div>
+<h2 class="anchor anchorWithStickyNavbar_OsBA" id="algorithm-details">Algorithm Details<a href="#algorithm-details" class="hash-link" aria-label="Direct link to Algorithm Details" title="Direct link to Algorithm Details">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="namespace-inference-algorithm">Namespace Inference Algorithm<a href="#namespace-inference-algorithm" class="hash-link" aria-label="Direct link to Namespace Inference Algorithm" title="Direct link to Namespace Inference Algorithm">​</a></h3>
+<p>The namespace inference works in multiple phases:</p>
+<ol>
+<li>
+<p><strong>Tree Construction Phase:</strong></p>
+<ul>
+<li>Parse all URIs into a hierarchical tree structure</li>
+<li>Track frequency of each path segment</li>
+</ul>
+</li>
+<li>
+<p><strong>Candidate Identification Phase:</strong></p>
+<ul>
+<li>Identify potential namespace boundaries based on:<!-- -->
+<ul>
+<li>Multiple child branches (indicating a common parent)</li>
+<li>High frequency (used by many resources)</li>
+<li>Namespace indicators in path segments</li>
+<li>Reasonable depth (2-5 segments)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Scoring and Selection Phase:</strong></p>
+<ul>
+<li>Score candidates: <code>score = frequency × log(depth + 1)</code></li>
+<li>Higher scores indicate better namespace candidates</li>
+<li>Avoid overlapping namespaces</li>
+</ul>
+</li>
+<li>
+<p><strong>Prefix Generation Phase:</strong></p>
+<ul>
+<li>Extract meaningful prefix from last segment</li>
+<li>Ensure no prefix conflicts</li>
+</ul>
+</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="csv-generation-process">CSV Generation Process<a href="#csv-generation-process" class="hash-link" aria-label="Direct link to CSV Generation Process" title="Direct link to CSV Generation Process">​</a></h3>
+<ol>
+<li>
+<p><strong>Resource Extraction:</strong></p>
+<ul>
+<li>Identify all unique subject URIs</li>
+<li>Group properties by subject</li>
+</ul>
+</li>
+<li>
+<p><strong>Header Generation:</strong></p>
+<ul>
+<li>Count all property-language combinations</li>
+<li>Determine maximum occurrences for repeatable properties</li>
+<li>Generate indexed headers for repeatable properties</li>
+</ul>
+</li>
+<li>
+<p><strong>Row Generation:</strong></p>
+<ul>
+<li>Convert resource URIs to CURIEs</li>
+<li>Map property values to appropriate columns</li>
+<li>Handle language tags and indices correctly</li>
+</ul>
+</li>
+</ol>
+<h2 class="anchor anchorWithStickyNavbar_OsBA" id="output-example">Output Example<a href="#output-example" class="hash-link" aria-label="Direct link to Output Example" title="Direct link to Output Example">​</a></h2>
+<p>Given this RDF:</p>
+<div class="language-turtle codeBlockContainer_T5Du theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_xXly"><pre tabindex="0" class="prism-code language-turtle codeBlock_YCjF thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_Lq7m"><span class="token-line" style="color:#393A34"><span class="token plain">@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">&lt;http://example.org/concept/123&gt;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    rdfs:label &quot;Example&quot;@en ;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    rdfs:label &quot;Ejemplo&quot;@es ;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    skos:definition &quot;First definition&quot;@en ;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    skos:definition &quot;Second definition&quot;@en ;</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    skos:definition &quot;Definición&quot;@es .</span><br></span></code></pre></div></div>
+<p>The CSV output would be:</p>
+<div class="language-csv codeBlockContainer_T5Du theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_xXly"><pre tabindex="0" class="prism-code language-csv codeBlock_YCjF thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_Lq7m"><span class="token-line" style="color:#393A34"><span class="token plain">uri,rdfs:label@en,rdfs:label@es,skos:definition@en[0],skos:definition@en[1],skos:definition@es</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">ex:concept/123,Example,Ejemplo,First definition,Second definition,Definición</span><br></span></code></pre></div></div>
+<h2 class="anchor anchorWithStickyNavbar_OsBA" id="troubleshooting">Troubleshooting<a href="#troubleshooting" class="hash-link" aria-label="Direct link to Troubleshooting" title="Direct link to Troubleshooting">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="common-issues">Common Issues<a href="#common-issues" class="hash-link" aria-label="Direct link to Common Issues" title="Direct link to Common Issues">​</a></h3>
+<ol>
+<li>
+<p><strong>Missing prefixes in output:</strong></p>
+<ul>
+<li>Check if the RDF file contains <code>@prefix</code> declarations</li>
+<li>The inference algorithm needs sufficient data to detect patterns</li>
+<li>Manually add prefixes to the DEFAULT_PREFIXES in the script if needed</li>
+</ul>
+</li>
+<li>
+<p><strong>Properties not marked as repeatable:</strong></p>
+<ul>
+<li>Provide a DCTAP profile with the <code>-p</code> option</li>
+<li>Or modify the default repeatable properties in the script</li>
+</ul>
+</li>
+<li>
+<p><strong>Memory issues with large files:</strong></p>
+<ul>
+<li>The script loads the entire RDF file into memory</li>
+<li>Consider splitting large files or increasing Node.js memory limit</li>
+</ul>
+</li>
+<li>
+<p><strong>JSON-LD remote context errors:</strong></p>
+<ul>
+<li>Ensure local context files exist in <code>static/data/contexts/</code></li>
+<li>Check that the context file name matches the expected pattern</li>
+<li>Verify the local context file contains proper JSON-LD context definitions</li>
+</ul>
+</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="debugging">Debugging<a href="#debugging" class="hash-link" aria-label="Direct link to Debugging" title="Direct link to Debugging">​</a></h3>
+<p>Run with stderr to see inference information:</p>
+<div class="language-bash codeBlockContainer_T5Du theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_xXly"><pre tabindex="0" class="prism-code language-bash codeBlock_YCjF thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_Lq7m"><span class="token-line" style="color:#393A34"><span class="token plain">yarn rdf:to-csv input.ttl -o output.csv 2&gt; debug.log</span><br></span></code></pre></div></div>
+<p>The debug output shows:</p>
+<ul>
+<li>Extracted prefixes from the RDF file</li>
+<li>Inferred namespace prefixes</li>
+<li>Number of resources found</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_OsBA" id="extending-the-tool">Extending the Tool<a href="#extending-the-tool" class="hash-link" aria-label="Direct link to Extending the Tool" title="Direct link to Extending the Tool">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="adding-additional-rdf-format-support">Adding Additional RDF Format Support<a href="#adding-additional-rdf-format-support" class="hash-link" aria-label="Direct link to Adding Additional RDF Format Support" title="Direct link to Adding Additional RDF Format Support">​</a></h3>
+<p>To add support for new RDF formats:</p>
+<ol>
+<li>
+<p><strong>Update format detection</strong> in <code>detectRdfFormat()</code>:</p>
+<div class="language-typescript codeBlockContainer_T5Du theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_xXly"><pre tabindex="0" class="prism-code language-typescript codeBlock_YCjF thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_Lq7m"><span class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">const</span><span class="token plain"> formatMap</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> Record</span><span class="token operator" style="color:#393A34">&lt;</span><span class="token builtin">string</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token builtin">string</span><span class="token operator" style="color:#393A34">&gt;</span><span class="token plain"> </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token string-property property" style="color:#36acaa">&#x27;.newext&#x27;</span><span class="token operator" style="color:#393A34">:</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">&#x27;application/new-format&#x27;</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic">// ... existing formats</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token punctuation" style="color:#393A34">;</span><br></span></code></pre></div></div>
+</li>
+<li>
+<p><strong>Add parser support</strong>:</p>
+<ul>
+<li>For formats supported by N3.js: Update the <code>format</code> parameter</li>
+<li>For other formats: Add a new parser library and handle in <code>parseRdfFile()</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Handle format-specific requirements</strong>:</p>
+<ul>
+<li>Namespace extraction</li>
+<li>Special parsing considerations</li>
+<li>Error handling</li>
+</ul>
+</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="json-ld-context-files">JSON-LD Context Files<a href="#json-ld-context-files" class="hash-link" aria-label="Direct link to JSON-LD Context Files" title="Direct link to JSON-LD Context Files">​</a></h3>
+<p>The tool automatically handles JSON-LD files that reference remote contexts by using local fallback context files. When a JSON-LD file references a remote context URL that is unavailable, the tool will:</p>
+<ol>
+<li>Detect the remote context URL (e.g., <code>http://metadataregistry.org/uri/schema/Contexts/elements_langmap.jsonld</code>)</li>
+<li>Load the corresponding local context file from <code>static/data/contexts/</code></li>
+<li>Use the local context to properly parse the JSON-LD data</li>
+</ol>
+<p>Available local context files:</p>
+<ul>
+<li><code>elements_langmap.jsonld</code> - For RDFS/OWL elements (metadataregistry.org element sets)</li>
+<li><code>concepts_langmap.jsonld</code> - For SKOS concepts (metadataregistry.org concept schemes)</li>
+</ul>
+<p>These context files define the necessary mappings for custom properties used in metadata registry JSON-LD files, ensuring proper conversion even when remote contexts are unavailable.</p>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="custom-namespace-inference">Custom Namespace Inference<a href="#custom-namespace-inference" class="hash-link" aria-label="Direct link to Custom Namespace Inference" title="Direct link to Custom Namespace Inference">​</a></h3>
+<p>To customize namespace detection:</p>
+<ol>
+<li>Modify the <code>namespaceIndicators</code> array</li>
+<li>Adjust scoring algorithm in <code>inferNamespaceFromURIs()</code></li>
+<li>Change depth limits or frequency thresholds</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_OsBA" id="additional-output-formats">Additional Output Formats<a href="#additional-output-formats" class="hash-link" aria-label="Direct link to Additional Output Formats" title="Direct link to Additional Output Formats">​</a></h3>
+<p>The tool could be extended to support:</p>
+<ul>
+<li>JSON-LD output</li>
+<li>Direct database insertion</li>
+<li>Custom delimiters or quoting styles</li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/iflastandards/ISBDM/tree/main/docs/development/rdf-to-csv-tool 2.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_oV0t" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_n2kU"><span class="theme-last-updated">Last updated<!-- --> on <b><time datetime="2025-06-08T21:43:05.000Z" itemprop="dateModified">Jun 8, 2025</time></b> by <b>Jon Phipps</b></span></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"></nav></div></div><div class="col col--3"><div class="tableOfContents_AJzk thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#overview" class="table-of-contents__link toc-highlight">Overview</a></li><li><a href="#table-of-contents" class="table-of-contents__link toc-highlight">Table of Contents</a></li><li><a href="#installation" class="table-of-contents__link toc-highlight">Installation</a></li><li><a href="#single-file-converter" class="table-of-contents__link toc-highlight">Single File Converter</a><ul><li><a href="#basic-usage" class="table-of-contents__link toc-highlight">Basic Usage</a></li><li><a href="#command-line-options" class="table-of-contents__link toc-highlight">Command-Line Options</a></li><li><a href="#examples" class="table-of-contents__link toc-highlight">Examples</a></li></ul></li><li><a href="#batch-conversion-tool" class="table-of-contents__link toc-highlight">Batch Conversion Tool</a><ul><li><a href="#usage" class="table-of-contents__link toc-highlight">Usage</a></li><li><a href="#command-line-options-1" class="table-of-contents__link toc-highlight">Command-Line Options</a></li><li><a href="#default-output-directory" class="table-of-contents__link toc-highlight">Default Output Directory</a></li><li><a href="#examples-1" class="table-of-contents__link toc-highlight">Examples</a></li><li><a href="#features" class="table-of-contents__link toc-highlight">Features</a></li></ul></li><li><a href="#supported-rdf-formats" class="table-of-contents__link toc-highlight">Supported RDF Formats</a></li><li><a href="#features-1" class="table-of-contents__link toc-highlight">Features</a><ul><li><a href="#1-dynamic-namespace-prefix-extraction" class="table-of-contents__link toc-highlight">1. Dynamic Namespace Prefix Extraction</a></li><li><a href="#2-intelligent-namespace-inference" class="table-of-contents__link toc-highlight">2. Intelligent Namespace Inference</a></li><li><a href="#3-multilingual-property-support" class="table-of-contents__link toc-highlight">3. Multilingual Property Support</a></li><li><a href="#4-repeatable-property-handling" class="table-of-contents__link toc-highlight">4. Repeatable Property Handling</a></li><li><a href="#5-csv-output-format" class="table-of-contents__link toc-highlight">5. CSV Output Format</a></li></ul></li><li><a href="#dctap-profile-format" class="table-of-contents__link toc-highlight">DCTAP Profile Format</a></li><li><a href="#algorithm-details" class="table-of-contents__link toc-highlight">Algorithm Details</a><ul><li><a href="#namespace-inference-algorithm" class="table-of-contents__link toc-highlight">Namespace Inference Algorithm</a></li><li><a href="#csv-generation-process" class="table-of-contents__link toc-highlight">CSV Generation Process</a></li></ul></li><li><a href="#output-example" class="table-of-contents__link toc-highlight">Output Example</a></li><li><a href="#troubleshooting" class="table-of-contents__link toc-highlight">Troubleshooting</a><ul><li><a href="#common-issues" class="table-of-contents__link toc-highlight">Common Issues</a></li><li><a href="#debugging" class="table-of-contents__link toc-highlight">Debugging</a></li></ul></li><li><a href="#extending-the-tool" class="table-of-contents__link toc-highlight">Extending the Tool</a><ul><li><a href="#adding-additional-rdf-format-support" class="table-of-contents__link toc-highlight">Adding Additional RDF Format Support</a></li><li><a href="#json-ld-context-files" class="table-of-contents__link toc-highlight">JSON-LD Context Files</a></li><li><a href="#custom-namespace-inference" class="table-of-contents__link toc-highlight">Custom Namespace Inference</a></li><li><a href="#additional-output-formats" class="table-of-contents__link toc-highlight">Additional Output Formats</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="iflaFooter_av9l"><div class="footerContainer_LFSZ"><div class="footerContent_OT00"><div class="footerSection_rWOM"><h3 class="footerTitle_YMaa">Quick Links</h3><ul class="footerLinks_GoD5"><li><a href="/standards-dev/ISBDM/docs">Documentation</a></li><li><a href="/standards-dev/ISBDM/docs/about">About</a></li><li><a href="/standards-dev/ISBDM/blog">Blog</a></li><li><a href="/standards-dev/ISBDM/sitemap">Sitemap</a></li></ul></div><div class="footerSection_rWOM"><h3 class="footerTitle_YMaa">ISBD Elements</h3><ul class="footerLinks_GoD5"><li><a href="/standards-dev/ISBDM/docs/statements">Statements</a></li><li><a href="/standards-dev/ISBDM/docs/notes">Notes</a></li><li><a href="/standards-dev/ISBDM/docs/attributes">Attributes</a></li><li><a href="/standards-dev/ISBDM/docs/relationships/index">Relationships</a></li></ul></div><div class="footerSection_rWOM"><h3 class="footerTitle_YMaa">Resources</h3><ul class="footerLinks_GoD5"><li><a href="/standards-dev/ISBDM/docs/ves">Value Vocabularies</a></li><li><a href="/standards-dev/ISBDM/docs/ses">String Encoding Schemes</a></li><li><a href="/standards-dev/ISBDM/docs/glossary">Glossary</a></li><li><a href="/standards-dev/ISBDM/docs/fullex">Examples</a></li></ul></div><div class="footerSection_rWOM"><h3 class="footerTitle_YMaa">Connect</h3><ul class="footerLinks_GoD5"><li><a href="https://github.com/iflastandards/ISBDM" target="_blank" rel="noopener noreferrer">GitHub</a></li><li><a href="https://www.ifla.org" target="_blank" rel="noopener noreferrer">IFLA Website</a></li></ul></div></div><div class="footerBottom_VVvR"><div class="copyright_Dpgh"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer"><img src="/standards-dev/ISBDM/img/cc0_by.png" alt="Badge for Creative Commons Attribution 4.0 International license" height="30"></a><span>Gordon Dunsire and Mirna Willer (Main design and content editors).</span></div></div></div></footer></div>
+</body>
+</html>

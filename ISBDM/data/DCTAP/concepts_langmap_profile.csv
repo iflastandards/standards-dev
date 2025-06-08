@@ -1,0 +1,57 @@
+propertyID,propertyLabel,mandatory,repeatable,valueNodeType,valueDataType,valueConstraint,valueConstraintType,note
+dc:title,Title,false,false,LITERAL,xsd:string,,,Dublin Core title element
+dc:creator,Creator,false,true,LITERAL,xsd:string,,,Dublin Core creator element
+dc:subject,Subject,false,true,LITERAL,xsd:string,,,Dublin Core subject element
+dc:description,Description,false,false,LITERAL,xsd:string,,,Dublin Core description element
+dc:publisher,Publisher,false,false,LITERAL,xsd:string,,,Dublin Core publisher element
+dc:contributor,Contributor,false,true,LITERAL,xsd:string,,,Dublin Core contributor element
+dc:date,Date,false,false,LITERAL,xsd:date,,,Dublin Core date element
+dc:type,Type,false,true,LITERAL,xsd:string,,,Dublin Core type element
+dc:format,Format,false,true,LITERAL,xsd:string,,,Dublin Core format element
+dc:identifier,Identifier,false,true,LITERAL,xsd:string,,,Dublin Core identifier element
+dc:source,Source,false,true,LITERAL,xsd:string,,,Dublin Core source element
+dc:language,Language,false,true,LITERAL,xsd:string,,,Dublin Core language element
+dc:relation,Relation,false,true,LITERAL,xsd:string,,,Dublin Core relation element
+dc:coverage,Coverage,false,true,LITERAL,xsd:string,,,Dublin Core coverage element
+dc:rights,Rights,false,false,LITERAL,xsd:string,,,Dublin Core rights element
+rdf:type,Type,false,true,IRI,,,,RDF type property
+rdfs:label,Label,false,true,LITERAL,rdf:langString,,,RDFS label
+rdfs:comment,Comment,false,true,LITERAL,rdf:langString,,,RDFS comment
+reg:identifier,API Identifier,false,false,IRI,,,,Registry identifier (mapped as 'api')
+reg:uri,URI,false,false,IRI,,,,Registry URI
+reg:url,URL,false,false,LITERAL,xsd:anyURI,,,Registry URL
+reg:currentVersion,Version,false,false,LITERAL,xsd:string,,,Registry current version (mapped as 'version')
+skos:ConceptScheme,Concept Scheme,false,false,IRI,,,,SKOS Concept Scheme class
+skos:Concept,Concept,false,false,IRI,,,,SKOS Concept class
+skos:prefLabel,Preferred Label,true,true,LITERAL,rdf:langString,maxPerLanguage:1,languageTag,"SKOS preferred label - mandatory, max one per language"
+skos:altLabel,Alternative Label,false,true,LITERAL,rdf:langString,,,SKOS alternative label with language container
+skos:hiddenLabel,Hidden Label,false,true,LITERAL,rdf:langString,,,SKOS hidden label with language container
+skos:definition,Definition,false,true,LITERAL,rdf:langString,,,SKOS definition with language container
+skos:scopeNote,Scope Note,false,true,LITERAL,rdf:langString,,,SKOS scope note with language container
+skos:note,Note,false,true,LITERAL,rdf:langString,,,SKOS general note with language container
+skos:editorialNote,Editorial Note,false,true,LITERAL,rdf:langString,,,SKOS editorial note with language container
+skos:changeNote,Change Note,false,true,LITERAL,rdf:langString,,,SKOS change note with language container
+skos:historyNote,History Note,false,true,LITERAL,rdf:langString,,,SKOS history note with language container
+skos:example,Example,false,true,LITERAL,rdf:langString,,,SKOS example with language container
+skos:notation,Notation,false,true,LITERAL,rdf:langString,,,SKOS notation with language container
+skos:broader,Broader,false,true,IRI,,,,SKOS broader concept relationship
+skos:narrower,Narrower,false,true,IRI,,,,SKOS narrower concept relationship
+skos:related,Related,false,true,IRI,,,,SKOS related concept relationship
+skos:hasTopConcept,Has Top Concept,false,true,IRI,,,,SKOS has top concept relationship
+skos:topConceptOf,Top Concept Of,false,true,IRI,,,,SKOS top concept of relationship
+skos:inScheme,In Scheme,false,true,IRI,,,,SKOS in scheme relationship
+skos:exactMatch,Exact Match,false,true,IRI,,,,SKOS exact match relationship
+skos:closeMatch,Close Match,false,true,IRI,,,,SKOS close match relationship
+skos:broadMatch,Broad Match,false,true,IRI,,,,SKOS broad match relationship
+skos:narrowMatch,Narrow Match,false,true,IRI,,,,SKOS narrow match relationship
+skos:relatedMatch,Related Match,false,true,IRI,,,,SKOS related match relationship
+skos:mappingRelation,Mapping Relation,false,true,IRI,,,,SKOS mapping relation
+skos:altSymbol,Alternative Symbol,false,true,IRI,,,,SKOS alternative symbol
+skos:prefSymbol,Preferred Symbol,false,true,IRI,,,,SKOS preferred symbol
+skos:symbol,Symbol,false,true,IRI,,,,SKOS symbol
+skos:isPrimarySubjectOf,Is Primary Subject Of,false,true,IRI,,,,SKOS is primary subject of relationship
+skos:isSubjectOf,Is Subject Of,false,true,IRI,,,,SKOS is subject of relationship
+skos:primarySubject,Primary Subject,false,true,IRI,,,,SKOS primary subject relationship
+skos:subject,Subject,false,true,IRI,,,,SKOS subject relationship
+skos:subjectIndicator,Subject Indicator,false,true,IRI,,,,SKOS subject indicator
+,,,,,,,,

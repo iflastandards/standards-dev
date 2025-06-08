@@ -1,0 +1,116 @@
+{"@context": {
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "reg": "http://metadataregistry.org/uri/profile/RegAp/",
+    "isbdm": "http://iflastandards.info/ns/isbd/isbdm/elements/",
+
+    "RDF": {
+        "@id": "@graph"
+    },
+    "uri": {
+        "@id": "@id"
+    },
+    "url": {
+        "@id": "reg:url",
+        "@type": "@id"
+    },
+
+    "label": {
+        "@id": "rdfs:label",
+        "@container": "@language"
+    },
+    "definition": {
+        "@id": "skos:definition",
+        "@container": "@language"
+    },
+    "scopeNote": {
+        "@id": "skos:scopeNote",
+        "@container": "@language"
+    },
+
+    "domain": {
+        "@id": "rdfs:domain",
+        "@type": "@id"
+    },
+    "range": {
+        "@id": "rdfs:range",
+        "@type": "@id"
+    },
+    "type": {
+        "@id": "rdf:type",
+        "@type": "@id"
+    },
+
+    "elementSubType": {
+        "@id": "skos:narrower",
+        "@type": "@id",
+        "@container": "@set"
+    },
+    "elementSuperType": {
+        "@id": "rdfs:subPropertyOf",
+        "@type": "@id",
+        "@container": "@set"
+    },
+    "subPropertyOf": {
+        "@id": "rdfs:subPropertyOf",
+        "@type": "@id",
+        "@container": "@set"
+    },
+    "equivalentProperty": {
+        "@id": "owl:equivalentProperty",
+        "@type": "@id",
+        "@container": "@set"
+    },
+    "inverseOf": {
+        "@id": "owl:inverseOf",
+        "@type": "@id",
+        "@container": "@set"
+    },
+
+    "status": {
+        "@id": "reg:status",
+        "@type": "@id"
+    },
+    "isDefinedBy": {
+        "@id": "rdfs:isDefinedBy",
+        "@type": "@id"
+    },
+
+    "deprecated": {
+        "@id": "owl:deprecated",
+        "@type": "xsd:boolean"
+    },
+    "deprecatedInVersion": {
+        "@id": "dcterms:isReplacedBy"
+    },
+    "willBeRemovedInVersion": {
+        "@id": "dcterms:valid"
+    },
+
+    "DatatypeProperty": {
+        "@id": "owl:DatatypeProperty",
+        "@type": "@id"
+    },
+    "ObjectProperty": {
+        "@id": "owl:ObjectProperty",
+        "@type": "@id"
+    },
+
+    "changeNote": {
+        "@id": "skos:changeNote",
+        "@container": "@language"
+    },
+    "description": {
+        "@id": "dcterms:description",
+        "@container": "@language"
+    },
+    "note": {
+        "@id": "skos:note",
+        "@container": "@language"
+    }
+}}

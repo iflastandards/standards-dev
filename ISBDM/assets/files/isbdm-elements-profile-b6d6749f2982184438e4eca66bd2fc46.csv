@@ -1,0 +1,25 @@
+shapeID,shapeLabel,propertyID,propertyLabel,mandatory,repeatable,valueNodeType,valueDataType,valueConstraint,valueConstraintType,valueShape,note
+Element,ISBDM Element,RDF,RDF Metadata,TRUE,FALSE,IRI,,,,,Container for all element metadata
+Element,ISBDM Element,RDF.label,Element Label,TRUE,TRUE,literal,langString,,,,"The label/name of the element, e.g. 'has manifestation statement' - repeatable with language tags"
+Element,ISBDM Element,RDF.definition,Element Definition,TRUE,TRUE,literal,langString,,,,"Full definition of the element, e.g. 'Relates a manifestation to a statement that appears in a manifestation to represent aspects of itself.' - repeatable with language tags"
+Element,ISBDM Element,RDF.scopeNote,Scope Note,FALSE,TRUE,literal,langString,,,,Additional information about the element's scope and usage - repeatable with language tags
+Element,ISBDM Element,RDF.domain,Domain,TRUE,FALSE,literal,string,"Manifestation,Agent,Nomen,Item",picklist,,The domain of the element (what type of resource it applies to)
+Element,ISBDM Element,RDF.range,Range,FALSE,FALSE,literal,string,"Manifestation,Agent,Nomen,Item,Literal",picklist,,The range of the element (what type of value it can take)
+Element,ISBDM Element,RDF.elementSubType,Element Sub-Types,FALSE,TRUE,IRI,,,,ElementSubType,References to more specific elements that are sub-types of this element
+Element,ISBDM Element,RDF.elementSuperType,Element Super-Types,FALSE,TRUE,IRI,,,,ElementSuperType,References to more general elements that are super-types of this element
+Element,ISBDM Element,RDF.uri,Element URI,TRUE,FALSE,IRI,,http://iflastandards.info/ns/isbd/isbdm/elements/,IRIstem,,"The URI identifier of the element, e.g. 'http://iflastandards.info/ns/isbd/isbdm/elements/1025'"
+Element,ISBDM Element,RDF.type,RDF Type,TRUE,FALSE,literal,string,"DatatypeProperty,ObjectProperty",picklist,,"The type of RDF property ('DatatypeProperty' for literal values, 'ObjectProperty' for resource values)"
+Element,ISBDM Element,RDF.subPropertyOf,Sub-Property Of,FALSE,FALSE,IRI,,,,,URIs of properties that this property is a sub-property of
+Element,ISBDM Element,RDF.equivalentProperty,Equivalent Property,FALSE,TRUE,IRI,,,,,URIs of properties that are equivalent to this property
+Element,ISBDM Element,RDF.inverseOf,Inverse Of,FALSE,TRUE,IRI,,,,,URIs of properties that are inverse of this property
+Element,ISBDM Element,RDF.status,Publication Status,FALSE,FALSE,literal,string,"Published,Draft,Deprecated",picklist,,The publication status of the element
+Element,ISBDM Element,RDF.isDefinedBy,Defined By,FALSE,FALSE,IRI,,http://iflastandards.info/ns/isbd/isbdm/elements/,IRIstem,,The namespace that defines this element
+Element,ISBDM Element,RDF.deprecated,Deprecated Flag,FALSE,FALSE,literal,boolean,,,,Boolean flag indicating if the element is deprecated
+Element,ISBDM Element,RDF.deprecatedInVersion,Deprecated In Version,FALSE,FALSE,literal,string,,,,Version in which the element was deprecated
+Element,ISBDM Element,RDF.willBeRemovedInVersion,Will Be Removed In,FALSE,FALSE,literal,string,,,,Version in which the element will be removed
+ElementSubType,Element Sub-Type Reference,uri,Sub-Type URI,TRUE,FALSE,IRI,,http://iflastandards.info/ns/isbd/isbdm/elements/,IRIstem,,URI of the sub-type element
+ElementSubType,Element Sub-Type Reference,url,Sub-Type URL,TRUE,FALSE,IRI,,/docs/,IRIstem,,Relative URL to the sub-type element's documentation
+ElementSubType,Element Sub-Type Reference,label,Sub-Type Label,TRUE,FALSE,literal,string,,,,Label of the sub-type element
+ElementSuperType,Element Super-Type Reference,uri,Super-Type URI,TRUE,FALSE,IRI,,http://iflastandards.info/ns/isbd/isbdm/elements/,IRIstem,,URI of the super-type element
+ElementSuperType,Element Super-Type Reference,url,Super-Type URL,TRUE,FALSE,IRI,,/docs/,IRIstem,,Relative URL to the super-type element's documentation
+ElementSuperType,Element Super-Type Reference,label,Super-Type Label,TRUE,FALSE,literal,string,,,,Label of the super-type element

@@ -1,0 +1,47 @@
+propertyID,propertyLabel,mandatory,repeatable,valueNodeType,valueDataType,valueConstraint,valueConstraintType,note
+dc:title,Title,false,false,LITERAL,xsd:string,,,Dublin Core title element
+dc:creator,Creator,false,true,LITERAL,xsd:string,,,Dublin Core creator element
+dc:subject,Subject,false,true,LITERAL,xsd:string,,,Dublin Core subject element
+dc:description,Description,false,false,LITERAL,xsd:string,,,Dublin Core description element
+dc:publisher,Publisher,false,false,LITERAL,xsd:string,,,Dublin Core publisher element
+dc:contributor,Contributor,false,true,LITERAL,xsd:string,,,Dublin Core contributor element
+dc:date,Date,false,false,LITERAL,xsd:date,,,Dublin Core date element
+dc:type,Type,false,true,LITERAL,xsd:string,,,Dublin Core type element
+dc:format,Format,false,true,LITERAL,xsd:string,,,Dublin Core format element
+dc:identifier,Identifier,false,true,LITERAL,xsd:string,,,Dublin Core identifier element
+dc:source,Source,false,true,LITERAL,xsd:string,,,Dublin Core source element
+dc:language,Language,false,true,LITERAL,xsd:string,,,Dublin Core language element
+dc:relation,Relation,false,true,LITERAL,xsd:string,,,Dublin Core relation element
+dc:coverage,Coverage,false,true,LITERAL,xsd:string,,,Dublin Core coverage element
+dc:rights,Rights,false,false,LITERAL,xsd:string,,,Dublin Core rights element
+rdf:type,Type,false,true,IRI,,,,RDF type property
+rdf:Property,Property,false,false,IRI,,,,RDF Property class
+rdf:Class,Class,false,false,IRI,,,,RDF Class
+rdfs:label,Label,false,true,LITERAL,rdf:langString,,,RDFS label with language container
+rdfs:comment,Comment,false,true,LITERAL,,,,RDFS comment
+rdfs:domain,Domain,false,true,IRI,,,,RDFS domain
+rdfs:range,Range,false,true,IRI,,,,RDFS range
+rdfs:subClassOf,Subclass Of,false,true,IRI,,,,RDFS subclass relationship
+rdfs:subPropertyOf,Subproperty Of,false,true,IRI,,,,RDFS subproperty relationship
+rdfs:isDefinedBy,Is Defined By,false,true,IRI,,,,RDFS defined by property
+owl:disjointWith,Disjoint With,false,true,IRI,,,,OWL disjoint with property
+owl:equivalentClass,Equivalent Class,false,true,IRI,,,,OWL equivalent class property
+owl:equivalentProperty,Equivalent Property,false,true,IRI,,,,OWL equivalent property
+owl:inverseOf,Inverse Of,false,true,IRI,,,,OWL inverse property
+owl:propertyDisjointWith,Property Disjoint With,false,true,IRI,,,,OWL property disjoint with
+owl:sameAs,Same As,false,true,IRI,,,,OWL same as property
+skos:prefLabel,Preferred Label,false,true,LITERAL,rdf:langString,maxPerLanguage:1,languageTag,"SKOS preferred label - not mandatory for elements, max one per language"
+skos:altLabel,Alternative Label,false,true,LITERAL,rdf:langString,,,SKOS alternative label with language container
+skos:broadMatch,Broad Match,false,true,IRI,,,,SKOS broad match relationship
+skos:closeMatch,Close Match,false,true,IRI,,,,SKOS close match relationship
+skos:narrowMatch,Narrow Match,false,true,IRI,,,,SKOS narrow match relationship
+skos:definition,Definition,false,true,LITERAL,rdf:langString,,,SKOS definition with language container
+skos:changeNote,Change Note,false,true,LITERAL,rdf:langString,,,SKOS change note with language container
+skos:scopeNote,Scope Note,false,true,LITERAL,rdf:langString,,,SKOS scope note with language container (mapped as 'note')
+reg:lexicalAlias,Lexical Alias,false,true,IRI,,,,Registry lexical alias
+reg:hasSubproperty,Has Subproperty,false,true,IRI,,,,Registry has subproperty
+reg:hasSubclass,Has Subclass,false,true,IRI,,,,Registry has subclass
+reg:hasUnconstrained,Has Unconstrained,false,false,IRI,,,,Registry has unconstrained (mapped as 'hasunconstrained')
+reg:name,Name,false,true,LITERAL,rdf:langString,,,Registry name with language container
+reg:status,Status,false,false,IRI,,,,Registry status
+reg:url,URL,false,false,LITERAL,xsd:anyURI,,,Registry URL

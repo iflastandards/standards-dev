@@ -1,0 +1,40 @@
+shapeID,shapeLabel,propertyID,propertyLabel,mandatory,repeatable,valueNodeType,valueDataType,valueConstraint,valueConstraintType,valueShape,note
+# ComponentConfig - Properties used only for component configuration
+ComponentConfig,Component Configuration,startCounter,Term ID Start Counter,FALSE,FALSE,literal,integer,1000,,,"Starting number for term IDs when using numeric URIs, defaults to 1000"
+ComponentConfig,Component Configuration,uriStyle,URI Style,FALSE,FALSE,literal,string,"numeric,slug",picklist,,'Method for generating URIs: ''numeric'' (default) or ''slug'''
+ComponentConfig,Component Configuration,caseStyle,Case Style,FALSE,FALSE,literal,string,"kebab-case,snake_case,camelCase,PascalCase",picklist,,'"Case style for slug URIs: ''kebab-case'' (default)', snake_case, camelCase,' or ''PascalCase''"'
+ComponentConfig,Component Configuration,showTitle,Show Title,FALSE,FALSE,literal,boolean,false,,,"Whether to display the title in the component, defaults to false"
+ComponentConfig,Component Configuration,showFilter,Show Filter,FALSE,FALSE,literal,boolean,true,,,"Whether to display the filter input, defaults to true"
+ComponentConfig,Component Configuration,filterPlaceholder,Filter Placeholder,FALSE,FALSE,literal,string,Filter vocabulary terms...,,,"Placeholder text for the filter input,' defaults to ''Filter vocabulary terms...''"'
+# ConceptScheme - Properties of the vocabulary as a whole (skos:ConceptScheme)
+ConceptScheme,ISBDM Value Vocabulary,vocabularyId,Vocabulary ID,TRUE,FALSE,literal,string,,,,"Unique identifier for the vocabulary (e.g., 1275)"
+ConceptScheme,ISBDM Value Vocabulary,title,Vocabulary Title,TRUE,FALSE,literal,string,,,,"Title of the vocabulary (e.g., ISBDM Extent of Unitary Structure value vocabulary)"
+ConceptScheme,ISBDM Value Vocabulary,prefix,URI Prefix,FALSE,FALSE,literal,string,isbdm,pattern,,"Namespace prefix for URIs,' defaults to ''isbdm''"'
+ConceptScheme,ISBDM Value Vocabulary,uri,Vocabulary URI,TRUE,FALSE,IRI,,http://iflastandards.info/ns/isbdm/values/,IRIstem,,"URI of the vocabulary (e.g., http://iflastandards.info/ns/isbdm/values/1275)"
+ConceptScheme,ISBDM Value Vocabulary,description,Vocabulary Description,TRUE,FALSE,literal,string,,,,'Description of the vocabulary''s purpose'
+ConceptScheme,ISBDM Value Vocabulary,scopeNote,Vocabulary Scope Note,FALSE,FALSE,literal,string,,,,'Additional notes about the vocabulary''s scope and usage'
+ConceptScheme,ISBDM Value Vocabulary,isDefinedBy,Defined By,FALSE,FALSE,IRI,,http://iflastandards.info/ns/isbdm/values/,IRIstem,,Namespace URI that defines this vocabulary
+ConceptScheme,ISBDM Value Vocabulary,RDF,RDF Metadata,TRUE,FALSE,IRI,,,,ConceptSchemeRDF,Container for all RDF metadata
+# ConceptSchemeRDF - RDF properties of the ConceptScheme
+ConceptSchemeRDF,Vocabulary RDF Metadata,rdf:type,RDF Type,TRUE,FALSE,IRI,,skos:ConceptScheme,pattern,,'RDF type of the vocabulary: ''skos:ConceptScheme'''
+ConceptSchemeRDF,Vocabulary RDF Metadata,skos:prefLabel,Preferred Label,TRUE,FALSE,literal,langString,Unique lang tags per item,,,Preferred label for the vocabulary with language tags - repeatable across languages but unique per language
+ConceptSchemeRDF,Vocabulary RDF Metadata,skos:definition,Definition,FALSE,TRUE,literal,langString,,,,Definition of the vocabulary with language tags
+ConceptSchemeRDF,Vocabulary RDF Metadata,skos:scopeNote,Scope Note,FALSE,TRUE,literal,langString,,,,Scope note for the vocabulary with language tags
+ConceptSchemeRDF,Vocabulary RDF Metadata,skos:changeNote,Change Note,FALSE,TRUE,literal,langString,,,,Note about modifications to the vocabulary
+ConceptSchemeRDF,Vocabulary RDF Metadata,skos:historyNote,History Note,FALSE,TRUE,literal,langString,,,,Note about past state or meaning of the vocabulary
+ConceptSchemeRDF,Vocabulary RDF Metadata,skos:editorialNote,Editorial Note,FALSE,TRUE,literal,langString,,,,Note for editors or maintainers of the vocabulary
+ConceptSchemeRDF,Vocabulary RDF Metadata,skos:example,Example,FALSE,TRUE,literal,langString,,,,Example of the use of the vocabulary
+ConceptSchemeRDF,Vocabulary RDF Metadata,skos:hasTopConcept,Has Top Concept,FALSE,TRUE,IRI,,,,Concept,Array of terms in the vocabulary as top concepts
+# Concept - Properties of individual vocabulary terms (skos:Concept)
+Concept,Vocabulary Term,skos:inScheme,In Scheme,TRUE,FALSE,IRI,,,,Reference to the parent ConceptScheme
+Concept,Vocabulary Term,rdf:type,RDF Type,TRUE,FALSE,IRI,,skos:Concept,pattern,,'RDF type of the term: ''skos:Concept'''
+Concept,Vocabulary Term,skos:prefLabel,Preferred Label,TRUE,FALSE,literal,langString,Unique lang tags per item,,,"Preferred label of the term with language tags (e.g., activity card) - repeatable across languages but unique per language"
+Concept,Vocabulary Term,skos:altLabel,Alternate Label,FALSE,TRUE,literal,langString,,,,Definition of the term with language tags
+Concept,Vocabulary Term,skos:definition,Term Definition,FALSE,TRUE,literal,langString,,,,Definition of the term with language tags
+Concept,Vocabulary Term,skos:scopeNote,Term Scope Note,FALSE,TRUE,literal,langString,,,,Additional scope information for the term with language tags
+Concept,Vocabulary Term,skos:notation,Term Notation,FALSE,TRUE,literal,langString,,,,Notation or code for the term with language tags
+Concept,Vocabulary Term,skos:example,Term Example,FALSE,TRUE,literal,langString,,,,'Example of the term''s usage with language tags'
+Concept,Vocabulary Term,skos:changeNote,Change Note,FALSE,TRUE,literal,langString,,,,Note about modifications to the term with language tags
+Concept,Vocabulary Term,skos:historyNote,History Note,FALSE,TRUE,literal,langString,,,,Note about past state or meaning of the term with language tags
+Concept,Vocabulary Term,skos:editorialNote,Editorial Note,FALSE,TRUE,literal,langString,,,,Note for editors or maintainers about the term with language tags
+Concept,Vocabulary Term,skos:topConceptOf,Top Concept Of,FALSE,FALSE,IRI,,,,Reference to the parent ConceptScheme

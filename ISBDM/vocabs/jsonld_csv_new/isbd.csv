@@ -1,0 +1,2 @@
+uri,http://metadataregistry.org/uri/profile/RegAp/status,skos:definition@en[0]
+http://www.openvoc.info/isbd/,regstat:1008,"Experimental set of ISBD properties without domains or ranges, for use by non-ISBD communities and applications, and for mappings between ISBD and other namespaces."
