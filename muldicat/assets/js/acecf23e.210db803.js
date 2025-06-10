@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkstandards_dev=self.webpackChunkstandards_dev||[]).push([["7627"],{4966:function(s){s.exports=JSON.parse('{"blogBasePath":"/standards-dev/muldicat/blog","blogTitle":"Blog","authorsListPath":"/standards-dev/muldicat/blog/authors"}')}}]);

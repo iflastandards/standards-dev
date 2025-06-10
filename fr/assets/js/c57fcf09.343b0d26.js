@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkstandards_dev=self.webpackChunkstandards_dev||[]).push([["7578"],{1998:function(a){a.exports=JSON.parse('{"metadata":{"permalink":"/standards-dev/fr/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":4,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);

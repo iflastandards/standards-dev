@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkstandards_dev=self.webpackChunkstandards_dev||[]).push([[7699],{2190:a=>{a.exports=JSON.parse('{"metadata":{"permalink":"/standards-dev/portal/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":4,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);

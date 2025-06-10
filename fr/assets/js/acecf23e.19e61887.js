@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkstandards_dev=self.webpackChunkstandards_dev||[]).push([[1903],{3411:s=>{s.exports=JSON.parse('{"blogBasePath":"/standards-dev/LRM/blog","blogTitle":"Blog","authorsListPath":"/standards-dev/LRM/blog/authors"}')}}]);
