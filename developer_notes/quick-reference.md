@@ -23,7 +23,8 @@ pnpm start:lrm       # http://localhost:3002
 pnpm start:fr        # http://localhost:3003
 
 # Build/start all sites
-pnpm build:all       # Builds all sites concurrently
+pnpm build:all       # Builds all sites concurrently (recommended)
+pnpm build:all:sequential  # Builds all sites sequentially (backup option)
 pnpm start:all       # Starts all sites on different ports
 pnpm stop:all        # Kills all running docusaurus processes
 
@@ -277,6 +278,23 @@ pnpm clear
 # Check for TypeScript errors
 pnpm build:site-name
 ```
+
+### Build Contamination Issues
+If sites are getting incorrect footer links or configuration from other sites:
+
+```bash
+# First, try individual builds to verify configuration is correct
+pnpm build:muldicat  # Should only have site-specific links
+
+# If individual builds work but parallel builds don't:
+pnpm build:all:sequential  # Use sequential builds as workaround
+
+# Check for deep cloning issues in configuration
+# Avoid JSON.parse(JSON.stringify()) in config files
+# Use normal object spreading instead: {...config}
+```
+
+**Note**: Configuration contamination is usually caused by improper object cloning, not parallel builds themselves. See `developer_notes/build_contamination_investigation.md` for details.
 
 ### Import Errors
 ```bash

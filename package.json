@@ -12,7 +12,6 @@
     "build:all": "pnpm run build:theme && concurrently \"pnpm run build:portal\" \"pnpm run build:isbdm\" \"pnpm run build:lrm\" \"pnpm run build:fr\" \"pnpm run build:isbd\" \"pnpm run build:muldicat\" \"pnpm run build:unimarc\"",
     "build:all:safe": "pnpm clear:all && pnpm build:theme && pnpm build:all",
     "build:all:sequential": "pnpm run build:theme && pnpm run build:portal && pnpm run build:isbdm && pnpm run build:lrm && pnpm run build:fr && pnpm run build:isbd && pnpm run build:muldicat && pnpm run build:unimarc",
-    "build:all:isolated": "pnpm run build:theme && node scripts/build-isolated.js",
     "build:fr": "docusaurus build standards/fr",
     "build:isbd": "docusaurus build standards/isbd",
     "build:isbdm": "docusaurus build standards/ISBDM",
