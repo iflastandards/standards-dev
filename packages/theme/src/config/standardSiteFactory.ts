@@ -8,7 +8,8 @@ import {
   sharedPlugins,
   sharedThemes,
   baseDocusaurusConfig,
-  standardsDropdown
+  standardsDropdown,
+  sharedThemeConfig
 } from './docusaurus';
 import { VOCABULARY_DEFAULTS } from './docusaurus.base';
 
@@ -385,7 +386,40 @@ export function createStandardSiteConfig(options: StandardSiteOptions): Config {
     themes: sharedThemes,
 
     // Site-specific theme config with shared elements
-    themeConfig: {
+    themeConfig: useResourcesInsteadOfSites ? {
+      // For sites using custom resources, build theme config from scratch to avoid contamination
+      ...sharedThemeConfig,
+
+      // Site-specific docs config
+      docs: {
+        sidebar: {
+          hideable: true,
+          autoCollapseCategories: true,
+        },
+        versionPersistence: 'localStorage',
+      },
+
+      // Site-specific navbar
+      navbar: {
+        ...sharedThemeConfig.navbar,
+        title,
+        items: navbarItems,
+      },
+
+      // Custom footer with resources
+      footer: {
+        ...sharedThemeConfig.footer,
+        links: [
+          {
+            title: 'Resources',
+            items: createCustomFooterResources(currentEnv, additionalResourceLinks),
+          },
+          // Add the static footer sections (Community, More) from sharedThemeConfig
+          ...sharedThemeConfig.footer.links,
+        ],
+      },
+    } : {
+      // For sites using standard footer, use base config
       ...(baseDocusaurusConfig(currentEnv).themeConfig as any),
 
       // Site-specific docs config
@@ -403,21 +437,6 @@ export function createStandardSiteConfig(options: StandardSiteOptions): Config {
         title,
         items: navbarItems,
       },
-
-      // Custom footer if requested
-      ...(useResourcesInsteadOfSites ? {
-        footer: {
-          ...(baseDocusaurusConfig(currentEnv).themeConfig as any)?.footer,
-          links: [
-            {
-              title: 'Resources',
-              items: createCustomFooterResources(currentEnv, additionalResourceLinks),
-            },
-            // Keep the other footer sections from base config
-            ...((baseDocusaurusConfig(currentEnv).themeConfig as any)?.footer?.links || []).slice(1),
-          ],
-        },
-      } : {}),
     } satisfies Preset.ThemeConfig,
   };
 
