@@ -22,7 +22,10 @@ jobs:
           node-version: '22'
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
-      
+
+      - name: Build theme package
+        run: pnpm run build:theme
+
       - name: Build portal
         run: pnpm exec docusaurus build portal
         env:
