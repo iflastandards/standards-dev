@@ -17,8 +17,8 @@ export interface SiteConfig {
 export const sites: Record<SiteKey, Record<DocsEnv, SiteConfig>> = {
   portal: {
     [DocsEnv.Localhost]: { url: 'http://localhost:3000', baseUrl: '/portal/', port: 3000 },
-    [DocsEnv.Preview]: { url: 'https://iflastandards.github.io', baseUrl: '/standards-dev/portal/', port: 3000 },
-    [DocsEnv.Production]: { url: 'https://iflastandards.info', baseUrl: '/portal/', port: 3000 },
+    [DocsEnv.Preview]: { url: 'https://iflastandards.github.io', baseUrl: '/standards-dev/', port: 3000 },
+    [DocsEnv.Production]: { url: 'https://iflastandards.info', baseUrl: '/', port: 3000 },
   },
   ISBDM: {
     [DocsEnv.Localhost]: { url: 'http://localhost:3001', baseUrl: '/ISBDM/', port: 3001 },
