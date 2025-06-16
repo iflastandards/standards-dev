@@ -5,21 +5,108 @@ slug: /
 hide_table_of_contents: true
 ---
 
+import { Figure } from '@ifla/theme';
+import { InLink } from '@ifla/theme';
+import { OutLink } from '@ifla/theme';
 import { QuickStart, DownloadPanel } from '@ifla/theme';
 
 # International Standard Bibliographic Description
 
-<QuickStart 
-  standard="ISBD"
+<div className="row my-2">
+  <div className="col-md-5">
+    <div className="row gx-0 me-4">
+      <div className="col-md-12">
+        <nav className="d-flex flex-column" aria-label="Navigation for main sections">
+          <div className="d-flex align-items-center">
+            <InLink to="/intro/" className="linkMenuEntry">Introduction</InLink>
+          </div>
+
+          <div className="d-flex align-items-center">
+            <InLink to="/elements/" className="linkMenuEntry">ISBD Element Sets</InLink>
+          </div>
+
+          <div className="d-flex align-items-center">
+            <InLink to="/examples/" className="linkMenuEntry">Value Vocabularies</InLink>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <div className="col-md-7 border rounded">
+    <div className="row my-2">
+      <div className="tptit">
+        <p>International Standard Bibliographic Description</p>
+      </div>
+
+      <div className="tpsor">
+        <p>Developed by the ISBD Review Group</p>
+        <p>Approved by the IFLA Committee on Standards</p>
+        <p>Endorsed by the IFLA Professional Committee</p>
+      </div>
+
+      <div className="tppub">
+        <p>Published as an online resource by IFLA: International Federation of Library Associations and Institutions</p>
+        <p>First version: 1971</p>
+        <p>Current version: Consolidated Edition 2011</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<QuickStart
   introductionPath="/intro/"
   elementsPath="/elements/"
   examplesPath="/examples/"
 />
 
-<DownloadPanel 
-  standard="ISBD"
+<DownloadPanel
   pdfUrl="#"
   ttlUrl="/rdf/ttl/isbd.ttl"
   jsonLdUrl="/rdf/jsonld/isbd.jsonld"
   xmlUrl="/rdf/xml/isbd.xml"
 />
+
+## Overview
+
+This page introduces the ISBD Element Sets and Value Vocabularies.
+
+## ISBD Element Sets
+
+* **ISBD Elements** - The ISBD element set is a registration of classes and properties from International Standard Bibliographic Description (ISBD), consolidated edition, published by De Gruyter Saur in July 2011 (ISBN 978-3-11-026379-4).
+
+* **ISBD Elements (unconstrained)** - The ISBD element set is a registration of classes and properties from International Standard Bibliographic Description (ISBD), consolidated edition, published by De Gruyter Saur in July 2011 (ISBN 978-3-11-026379-4). This version has the same local URI part, label, and definition as each element in the constrained version, but no domain (i.e. Resource) or range is declared.
+
+## ISBD Value Vocabularies
+
+The ISBD element set vocabulary includes RDF classes and properties corresponding to ISBD elements. Six concept vocabularies give the controlled terminologies of the ISBD area 0 content forms, qualifications, and media types. Each class, concept, and property has a Uniform Resource Identifier (URI) for use in Semantic Web data triples.
+
+* **ISBD Content Form** - Content form categories reflect the fundamental form or forms in which the content of a resource is expressed.
+
+* **ISBD Content Form Qualified Base** - Compound terms for qualified ISBD content forms that map to RDA/ONIX Framework for Resource Categorization base content categories.
+
+* **ISBD Content Qualification of Dimensionality** - Content qualification sub-categories for the number of spatial dimensions in which the image content of a resource is intended to be perceived which expand the content form category of image.
+
+* **ISBD Content Qualification of Motion** - Content qualification sub-categories for the perceived presence or absence of movement in the image content of a resource which expand the content form category of image.
+
+* **ISBD Content Qualification of Sensory Specification** - Content qualification sub-categories for sensory specification, a human sense through which the content of a resource as published is intended to be perceived, which expand content form categories.
+
+* **ISBD Content Qualification of Type** - Content qualification sub-categories for type which expand content form categories.
+
+* **ISBD Media Type** - Media type categories record the type or types of carrier used to convey the content of the resource. Categories generally reflect the format of the storage medium and housing of a carrier in combination with the type of intermediation device required to render, view, run, etc., the content of a resource.
+
+*Added to this site: July 2020*
+
+<div className="row my-1 py-1 navISBDMMain text-center">
+  <p className="m-0 p-0">&#10058;<OutLink to="/siteMap" className="linkFooter">Site map</OutLink>&#10058;</p>
+  <div className="m-1 p-0">
+    <OutLink to="https://creativecommons.org/licenses/by/4.0/" className="me-1">
+      <Figure
+        src="/img/cc0_by.png"
+        alt="Badge for Creative Commons Attribution 4.0 International license"
+        caption=""
+      />
+    </OutLink>
+    <p className="m-0">ISBD Review Group (Main design and content editors).</p>
+  </div>
+</div>

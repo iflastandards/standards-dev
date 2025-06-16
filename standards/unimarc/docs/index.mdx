@@ -5,21 +5,148 @@ slug: /
 hide_table_of_contents: true
 ---
 
+import { Figure } from '@ifla/theme';
+import { InLink } from '@ifla/theme';
+import { OutLink } from '@ifla/theme';
 import { QuickStart, DownloadPanel } from '@ifla/theme';
 
 # Universal MARC Format
 
-<QuickStart 
-  standard="UNIMARC"
+<div className="row my-2">
+  <div className="col-md-5">
+    <div className="row gx-0 me-4">
+      <div className="col-md-12">
+        <nav className="d-flex flex-column" aria-label="Navigation for main sections">
+          <div className="d-flex align-items-center">
+            <InLink to="/intro/" className="linkMenuEntry">Introduction</InLink>
+          </div>
+
+          <div className="d-flex align-items-center">
+            <InLink to="/elements/" className="linkMenuEntry">UNIMARC Element Sets</InLink>
+          </div>
+
+          <div className="d-flex align-items-center">
+            <InLink to="/examples/" className="linkMenuEntry">Value Vocabularies</InLink>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <div className="col-md-7 border rounded">
+    <div className="row my-2">
+      <div className="tptit">
+        <p>Universal MARC Format</p>
+      </div>
+
+      <div className="tpsor">
+        <p>Developed by the Permanent UNIMARC Committee (PUC)</p>
+        <p>Approved by the IFLA Committee on Standards</p>
+        <p>Endorsed by the IFLA Professional Committee</p>
+      </div>
+
+      <div className="tppub">
+        <p>Published as an online resource by IFLA: International Federation of Library Associations and Institutions</p>
+        <p>First version: 1977</p>
+        <p>Current version: UNIMARC Bibliographic 3rd edition with updates up to 2016</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<QuickStart
   introductionPath="/intro/"
   elementsPath="/elements/"
   examplesPath="/examples/"
 />
 
-<DownloadPanel 
-  standard="UNIMARC"
+<DownloadPanel
   pdfUrl="#"
   ttlUrl="/rdf/ttl/unimarc.ttl"
   jsonLdUrl="/rdf/jsonld/unimarc.jsonld"
   xmlUrl="/rdf/xml/unimarc.xml"
 />
+
+## Overview
+
+**UNIMARC Standard**
+
+The UNIMARC format is a widely used standard for the representation and exchange of bibliographic data in machine-readable form. It defines the codes and conventions (tags, indicators, subfield codes, and coded values) that identify the data elements in UNIMARC bibliographic and authority records. UNIMARC is maintained by an IFLA committee, the Permanent UNIMARC Committee (PUC). Proposals for change usually originate with those creating UNIMARC records or those using UNIMARC records. Changes are made only through the PUC.
+
+The version included here: UNIMARC Bibliographic 3rd edition with updates up to 2016.
+Last updated on this site: June 2020
+
+Newer edition to be added to this site in summer 2023
+
+More information see [UNIMARC Updates](https://www.ifla.org/unimarc-updates/)
+
+## UNIMARC Element Sets
+
+* UNIMARC/B elements 0XX
+* UNIMARC/B elements 1XX
+* UNIMARC/B elements 2XX
+* UNIMARC/B elements 3XX
+* UNIMARC/B elements 41X
+* UNIMARC/B elements 42X
+* UNIMARC/B elements 43X
+* UNIMARC/B elements 44X
+* UNIMARC/B elements 45X
+* UNIMARC/B elements 46X
+* UNIMARC/B elements 47X
+* UNIMARC/B elements 48X
+* UNIMARC/B elements 5XX
+* UNIMARC/B elements 60X
+* UNIMARC/B elements 61X
+* UNIMARC/B elements 62X
+* UNIMARC/B elements 66X
+* UNIMARC/B elements 67X
+* UNIMARC/B elements 68X
+* UNIMARC/B elements 7XX
+* UNIMARC/B elements 801
+* UNIMARC/B elements 802
+* UNIMARC/B elements 830
+* UNIMARC/B elements 850
+* UNIMARC/B elements 856
+* UNIMARC/B elements 886
+
+## UNIMARC Value Vocabularies
+
+### Cartographic materials
+* **Cartographic materials: Altitude of sensor** - The altitude of the platform of an aerial photography or remote sensing sensor.
+* **Cartographic materials: Attitude of sensor** - The attitude of a sensed image resulting from the angle of an aerial photography or remote sensing sensor.
+* **Cartographic materials: Category of satellite** - The category of satellite for a remote sensing image.
+* **Cartographic materials: Character** - The character of a cartographic Image.
+* **Cartographic materials: Colour indicator** - Indicator of the use of colour on a cartographic item.
+* **Cartographic materials: Form of item** - The form of a cartographic item.
+* **Cartographic materials: Map projection** - The type of map projection of a cartographic item.
+* **Cartographic materials: Name of satellite** - The name of the satellite for a remote sensing image.
+* **Cartographic materials: Planet** - The planet to which cartographic materials apply.
+* **Cartographic materials: Position of platform** - The position of the platform for a photographic or remote sensing image.
+* **Cartographic materials: Presentation technique** - Presentation technique for a photographic or non-photographic cartographic image.
+* **Cartographic materials: Recording technique for remote sensing image** - The recording technique for a remote sensing image.
+* **Cartographic materials: Relief** - The type of relief of a cartographic item.
+* **Cartographic materials: Type of scale** - The type of scale of a cartographic item.
+
+### Graphics
+* **Graphics: Functional designation** - The functional form of the graphics item.
+* **Graphics: Primary support material** - The type of material used for the primary support (i.e., the support or base on which an image is printed or executed) of a non-projected graphic.
+* **Graphics: Specific material designation** - The specific material designation that describes the special class of material (usually the class of physical object) to which the non-projected graphic item belongs.
+* **Graphics: Technique (prints)** - The technique in which prints are executed.
+* **Graphics: Techniques (drawings, paintings)** - The technique in which drawing and paintings are executed.
+
+### Sound Recordings
+* **Sound recordings: Accompanying textual material** - The contents of programme notes and other accompanying text of a sound recording.
+* **Sound recordings: Dimensions** - The diameter of an open reel tape or a disc, or the dimensions of a cassette, cartridge or cylinder form of sound recording.
+* **Sound recordings: Form of release** - The form of release of a sound recording.
+* **Sound recordings: Groove width** - The width of the grooves on sound recording discs.
+* **Sound recordings: Kind of cutting** - The kind of cutting of a sound recording disk or cylinder.
+* **Sound recordings: Kind of sound** - The recording mode of a sound recording.
+* **Sound recordings: Recording technique** - The recording technique of a sound recording.
+* **Sound recordings: Special reproduction characteristics** - The reproduction characteristics of a sound recording.
+* **Sound recordings: Speed** - The speed of a sound recording.
+* **Sound recordings: Tape configuration** - The tape configuration of a sound recording.
+* **Sound recordings: Tape width** - The width of a tape of a sound recording.
+* **Sound recordings: Type of recording** - The type of sound recording disc, cylinder or tape.
+
+*Added to this site: July 2020*
+

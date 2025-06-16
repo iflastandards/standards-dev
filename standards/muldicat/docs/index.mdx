@@ -5,21 +5,80 @@ slug: /
 hide_table_of_contents: true
 ---
 
+import { Figure } from '@ifla/theme';
+import { InLink } from '@ifla/theme';
+import { OutLink } from '@ifla/theme';
 import { QuickStart, DownloadPanel } from '@ifla/theme';
 
 # Multilingual Dictionary of Cataloguing Terms
 
-<QuickStart 
-  standard="MULDICAT"
+<div className="row my-2">
+  <div className="col-md-5">
+    <div className="row gx-0 me-4">
+      <div className="col-md-12">
+        <nav className="d-flex flex-column" aria-label="Navigation for main sections">
+          <div className="d-flex align-items-center">
+            <InLink to="/intro/" className="linkMenuEntry">Introduction</InLink>
+          </div>
+
+          <div className="d-flex align-items-center">
+            <InLink to="/elements/" className="linkMenuEntry">Dictionary Terms</InLink>
+          </div>
+
+          <div className="d-flex align-items-center">
+            <InLink to="/examples/" className="linkMenuEntry">Examples</InLink>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <div className="col-md-7 border rounded">
+    <div className="row my-2">
+      <div className="tptit">
+        <p>Multilingual Dictionary of Cataloguing Terms</p>
+      </div>
+
+      <div className="tpsor">
+        <p>Developed by the IFLA Working Groups</p>
+        <p>Approved by the IFLA Committee on Standards</p>
+        <p>Endorsed by the IFLA Professional Committee</p>
+      </div>
+
+      <div className="tppub">
+        <p>Published as an online resource by IFLA: International Federation of Library Associations and Institutions</p>
+        <p>First version: 2020</p>
+        <p>Current version: 2020</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<QuickStart
   introductionPath="/intro/"
   elementsPath="/elements/"
   examplesPath="/examples/"
 />
 
-<DownloadPanel 
-  standard="MULDICAT"
+<DownloadPanel
   pdfUrl="#"
   ttlUrl="/rdf/ttl/muldicat.ttl"
   jsonLdUrl="/rdf/jsonld/muldicat.jsonld"
   xmlUrl="/rdf/xml/muldicat.xml"
 />
+
+*Added to this site: July 2020*
+
+<div className="row my-1 py-1 navISBDMMain text-center">
+  <p className="m-0 p-0">&#10058;<OutLink to="/siteMap" className="linkFooter">Site map</OutLink>&#10058;</p>
+  <div className="m-1 p-0">
+    <OutLink to="https://creativecommons.org/licenses/by/4.0/" className="me-1">
+      <Figure
+        src="/img/cc0_by.png"
+        alt="Badge for Creative Commons Attribution 4.0 International license"
+        caption=""
+      />
+    </OutLink>
+    <p className="m-0">IFLA Working Groups (Main design and content editors).</p>
+  </div>
+</div>

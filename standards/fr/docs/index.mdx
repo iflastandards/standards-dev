@@ -5,21 +5,100 @@ slug: /
 hide_table_of_contents: true
 ---
 
+import { Figure } from '@ifla/theme';
+import { InLink } from '@ifla/theme';
+import { OutLink } from '@ifla/theme';
 import { QuickStart, DownloadPanel } from '@ifla/theme';
 
 # Functional Requirements
 
-<QuickStart 
-  standard="FR"
+<div className="row my-2">
+  <div className="col-md-5">
+    <div className="row gx-0 me-4">
+      <div className="col-md-12">
+        <nav className="d-flex flex-column" aria-label="Navigation for main sections">
+          <div className="d-flex align-items-center">
+            <InLink to="/intro/" className="linkMenuEntry">Introduction</InLink>
+          </div>
+
+          <div className="d-flex align-items-center">
+            <InLink to="/elements/" className="linkMenuEntry">FRBR Element Sets</InLink>
+          </div>
+
+          <div className="d-flex align-items-center">
+            <InLink to="/examples/" className="linkMenuEntry">Value Vocabularies</InLink>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <div className="col-md-7 border rounded">
+    <div className="row my-2">
+      <div className="tptit">
+        <p>Functional Requirements</p>
+      </div>
+
+      <div className="tpsor">
+        <p>Developed by the IFLA Working Groups</p>
+        <p>Approved by the IFLA Committee on Standards</p>
+        <p>Endorsed by the IFLA Professional Committee</p>
+      </div>
+
+      <div className="tppub">
+        <p>Published as an online resource by IFLA: International Federation of Library Associations and Institutions</p>
+        <p>First version: 1998-2009</p>
+        <p>Current version: Consolidated 2017</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<QuickStart
   introductionPath="/intro/"
   elementsPath="/elements/"
   examplesPath="/examples/"
 />
 
-<DownloadPanel 
-  standard="FR"
+<DownloadPanel
   pdfUrl="#"
   ttlUrl="/rdf/ttl/fr.ttl"
   jsonLdUrl="/rdf/jsonld/fr.jsonld"
   xmlUrl="/rdf/xml/fr.xml"
 />
+
+## Overview
+
+This page introduces the FRBR Element Sets and Value Vocabularies.
+
+## FRBR Element Sets
+
+* **FRAD model** - This is the element set of native RDF classes and properties described in the Functional Requirements for Authority Data model. The model also uses elements previously described in the Functional Requirements for Bibliographic Records (FRBR) entity-relationship model.
+
+* **FRBRer model** - This is the element set of native RDF classes and properties described in the current text (Feb 2009) of the Functional Requirements for Bibliographic Records (FRBR) entity-relationship model.
+
+* **FRBRoo model** - Element set of the Functional Requirements for Bibliographic Records object-oriented extension to the the CIDOC Conceptual Reference Model (CRM)
+
+* **FRSAD model** - This is the element set of native RDF classes and properties described in the Functional Requirements for Subject Authority Data model. The model also uses elements previously described in the Functional Requirements for Bibliographic Records (FRBR) entity-relationship model.
+
+## FRBR Value Vocabularies
+
+* **FRBRer User Tasks** - Based on the current text, Feb 2009.
+
+* **FRSAD User Tasks** - User tasks for Subject Authority Data.
+
+*Added to this site: July 2020*
+
+<div className="row my-1 py-1 navISBDMMain text-center">
+  <p className="m-0 p-0">&#10058;<OutLink to="/siteMap" className="linkFooter">Site map</OutLink>&#10058;</p>
+  <div className="m-1 p-0">
+    <OutLink to="https://creativecommons.org/licenses/by/4.0/" className="me-1">
+      <Figure
+        src="/img/cc0_by.png"
+        alt="Badge for Creative Commons Attribution 4.0 International license"
+        caption=""
+      />
+    </OutLink>
+    <p className="m-0">IFLA Working Groups (Main design and content editors).</p>
+  </div>
+</div>
