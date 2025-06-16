@@ -2,7 +2,7 @@
 <rss version="2.0">
     <channel>
         <title>MulDiCat: RDA to MARC21 and UNIMARC Blog</title>
-        <link>http://localhost:3005/muldicat/blog</link>
+        <link>https://iflastandards.github.io/standards-dev/muldicat/blog</link>
         <description>MulDiCat: RDA to MARC21 and UNIMARC Blog</description>
         <lastBuildDate>Thu, 26 Aug 2021 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
@@ -10,8 +10,8 @@
         <language>en</language>
         <item>
             <title><![CDATA[Welcome]]></title>
-            <link>http://localhost:3005/muldicat/blog/welcome</link>
-            <guid>http://localhost:3005/muldicat/blog/welcome</guid>
+            <link>https://iflastandards.github.io/standards-dev/muldicat/blog/welcome</link>
+            <guid>https://iflastandards.github.io/standards-dev/muldicat/blog/welcome</guid>
             <pubDate>Thu, 26 Aug 2021 00:00:00 GMT</pubDate>
             <description><![CDATA[Docusaurus blogging features are powered by the blog plugin.]]></description>
             <category>Facebook</category>
@@ -20,16 +20,16 @@
         </item>
         <item>
             <title><![CDATA[MDX Blog Post]]></title>
-            <link>http://localhost:3005/muldicat/blog/mdx-blog-post</link>
-            <guid>http://localhost:3005/muldicat/blog/mdx-blog-post</guid>
+            <link>https://iflastandards.github.io/standards-dev/muldicat/blog/mdx-blog-post</link>
+            <guid>https://iflastandards.github.io/standards-dev/muldicat/blog/mdx-blog-post</guid>
             <pubDate>Sun, 01 Aug 2021 00:00:00 GMT</pubDate>
             <description><![CDATA[Blog posts support Docusaurus Markdown features, such as MDX.]]></description>
             <category>Docusaurus</category>
         </item>
         <item>
             <title><![CDATA[Long Blog Post]]></title>
-            <link>http://localhost:3005/muldicat/blog/long-blog-post</link>
-            <guid>http://localhost:3005/muldicat/blog/long-blog-post</guid>
+            <link>https://iflastandards.github.io/standards-dev/muldicat/blog/long-blog-post</link>
+            <guid>https://iflastandards.github.io/standards-dev/muldicat/blog/long-blog-post</guid>
             <pubDate>Wed, 29 May 2019 00:00:00 GMT</pubDate>
             <description><![CDATA[This is the summary of a very long blog post,]]></description>
             <category>Hello</category>
@@ -37,8 +37,8 @@
         </item>
         <item>
             <title><![CDATA[First Blog Post]]></title>
-            <link>http://localhost:3005/muldicat/blog/first-blog-post</link>
-            <guid>http://localhost:3005/muldicat/blog/first-blog-post</guid>
+            <link>https://iflastandards.github.io/standards-dev/muldicat/blog/first-blog-post</link>
+            <guid>https://iflastandards.github.io/standards-dev/muldicat/blog/first-blog-post</guid>
             <pubDate>Tue, 28 May 2019 00:00:00 GMT</pubDate>
             <description><![CDATA[Lorem ipsum dolor sit amet...]]></description>
             <category>Hola</category>
