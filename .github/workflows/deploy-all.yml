@@ -118,7 +118,10 @@ jobs:
           
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-        
+
+      - name: Build theme package
+        run: pnpm build:theme
+
       - name: Build portal
         run: pnpm exec docusaurus build portal
         env:
@@ -199,7 +202,11 @@ jobs:
       - name: Install dependencies
         if: steps.should-build.outputs.build == 'true'
         run: pnpm install --frozen-lockfile
-        
+
+      - name: Build theme package
+        if: steps.should-build.outputs.build == 'true'
+        run: pnpm build:theme
+
       - name: Build ${{ matrix.standard }}
         if: steps.should-build.outputs.build == 'true'
         run: pnpm exec docusaurus build standards/${{ matrix.standard }}
