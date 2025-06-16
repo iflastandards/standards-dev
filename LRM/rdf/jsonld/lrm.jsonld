@@ -1,0 +1,36 @@
+{
+  "@context": {
+    "lrmer": "http://iflastandards.info/ns/lrm/lrmer/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dct": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "http://iflastandards.info/ns/lrm/lrmer/",
+  "@type": "skos:ConceptScheme",
+  "dct:title": {
+    "@value": "IFLA Library Reference Model",
+    "@language": "en"
+  },
+  "dct:description": {
+    "@value": "A high-level conceptual reference model developed by IFLA",
+    "@language": "en"
+  },
+  "dct:created": {
+    "@value": "2017-08-01",
+    "@type": "xsd:date"
+  },
+  "dct:modified": {
+    "@value": "2024-01-01",
+    "@type": "xsd:date"
+  },
+  "dct:publisher": {
+    "@id": "https://www.ifla.org"
+  },
+  "rdfs:comment": {
+    "@value": "This is a placeholder file. Complete RDF data will be available soon.",
+    "@language": "en"
+  },
+  "_comment": "Placeholder for LRM elements - Total elements: 117"
+}
