@@ -2,8 +2,8 @@ import { createStandardSiteConfig } from '@ifla/theme/config';
 
 const config = createStandardSiteConfig({
   siteKey: 'muldicat',
-  title: 'MulDiCat: RDA to MARC21 and UNIMARC',
-  tagline: 'MulDiCat: RDA to MARC21 and UNIMARC',
+  title: 'MulDiCat',
+  tagline: 'Multilingual Dictionary of Cataloguing Terms and Concepts',
   projectName: 'MULDICAT',
 
   // MulDiCat-specific vocabulary configuration
