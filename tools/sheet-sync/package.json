@@ -1,2 +1,25 @@
 {
-  "name":"sheet-sync","private":true,"bin":"index.ts"}
+  "name": "sheet-sync",
+  "version": "1.0.0",
+  "description": "CLI tool for syncing CSV files with Google Sheets",
+  "private": true,
+  "bin": {
+    "sheet-sync": "./index.ts"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node index.ts"
+  },
+  "dependencies": {
+    "commander": "^12.0.0",
+    "googleapis": "^144.0.0",
+    "csv-parse": "^5.5.6",
+    "csv-stringify": "^6.5.1",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.8.0",
+    "ts-node": "^10.9.0"
+  }
+}

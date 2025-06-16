@@ -45,7 +45,7 @@ Since Prettier doesn't fully support MDX v3, we've added MDX files to `.prettier
 To lint all MDX files:
 
 ```bash
-yarn lint:mdx
+pnpm lint:mdx
 ```
 
 This will check for issues in all `.md` and `.mdx` files in the `docs` and `src/components` directories.
@@ -55,7 +55,7 @@ This will check for issues in all `.md` and `.mdx` files in the `docs` and `src/
 To format MDX files with remark:
 
 ```bash
-yarn format:mdx
+pnpm format:mdx
 ```
 
 This will process all `.md` and `.mdx` files according to the remark configuration.
@@ -65,7 +65,7 @@ This will process all `.md` and `.mdx` files according to the remark configurati
 For general linting of all supported files:
 
 ```bash
-yarn lint
+pnpm lint
 ```
 
 ## Best Practices
@@ -104,7 +104,7 @@ yarn lint
 
 **Solution**: Make sure all dependencies are properly installed. Try reinstalling with:
 ```bash
-yarn add --dev eslint-plugin-mdx
+pnpm add --save-dev eslint-plugin-mdx
 ```
 
 ## References

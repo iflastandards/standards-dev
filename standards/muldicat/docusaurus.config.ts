@@ -4,7 +4,7 @@ const config = createStandardSiteConfig({
   siteKey: 'muldicat',
   title: 'MulDiCat: RDA to MARC21 and UNIMARC',
   tagline: 'MulDiCat: RDA to MARC21 and UNIMARC',
-  projectName: 'muldicat',
+  projectName: 'MULDICAT',
 
   // MulDiCat-specific vocabulary configuration
   vocabularyDefaults: {
