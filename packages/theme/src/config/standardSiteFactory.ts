@@ -7,8 +7,6 @@ import { getCurrentEnv } from './siteConfig.server';
 import {
   sharedPlugins,
   sharedThemes,
-  baseDocusaurusConfig,
-  standardsDropdown,
   sharedThemeConfig
 } from './docusaurus';
 import { VOCABULARY_DEFAULTS } from './docusaurus.base';
@@ -101,294 +99,264 @@ export interface StandardSiteOptions {
 }
 
 /**
- * Creates a customized standards dropdown that can hide the current site
+ * Creates a factory function that generates site configuration with proper isolation.
+ * This ensures that each site gets its own configuration object without any shared references.
  */
-function createCustomStandardsDropdown(currentEnv: DocsEnv, currentSiteKey: SiteKey, position: 'left' | 'right' = 'left', hideCurrentSite: boolean = false) {
-  const allItems = [
-    { label: 'Portal Home', href: getSiteUrl('portal', '/', currentEnv), siteKey: 'portal' },
-    { label: 'ISBD', href: getSiteUrl('isbd', '/', currentEnv), siteKey: 'isbd' },
-    { label: 'LRM', href: getSiteUrl('LRM', '/', currentEnv), siteKey: 'LRM' },
-    { label: 'UNIMARC', href: getSiteUrl('unimarc', '/', currentEnv), siteKey: 'unimarc' },
-    { label: 'ISBDM', href: getSiteUrl('ISBDM', '/', currentEnv), siteKey: 'ISBDM' },
-    { label: 'FRBR', href: getSiteUrl('fr', '/', currentEnv), siteKey: 'fr' },
-    { label: 'Muldicat', href: getSiteUrl('muldicat', '/', currentEnv), siteKey: 'muldicat' },
-  ];
+function createConfigurationFactory() {
+  /**
+   * Creates fresh navigation items for each site to prevent contamination
+   */
+  function createFreshStandardsDropdown(currentEnv: DocsEnv, currentSiteKey: SiteKey, position: 'left' | 'right' = 'left', hideCurrentSite: boolean = false) {
+    const allItems = [
+      { label: 'Portal Home', href: getSiteUrl('portal', '/', currentEnv), siteKey: 'portal' },
+      { label: 'ISBD', href: getSiteUrl('isbd', '/', currentEnv), siteKey: 'isbd' },
+      { label: 'LRM', href: getSiteUrl('LRM', '/', currentEnv), siteKey: 'LRM' },
+      { label: 'UNIMARC', href: getSiteUrl('unimarc', '/', currentEnv), siteKey: 'unimarc' },
+      { label: 'ISBDM', href: getSiteUrl('ISBDM', '/', currentEnv), siteKey: 'ISBDM' },
+      { label: 'FRBR Family', href: getSiteUrl('fr', '/', currentEnv), siteKey: 'fr' }, // Updated label to clarify it's not French
+      { label: 'Muldicat', href: getSiteUrl('muldicat', '/', currentEnv), siteKey: 'muldicat' },
+    ];
 
-  const items = hideCurrentSite
-    ? allItems.filter(item => item.siteKey !== currentSiteKey)
-    : allItems;
+    const items = hideCurrentSite
+      ? allItems.filter(item => item.siteKey !== currentSiteKey)
+      : allItems;
 
-  return {
-    type: 'dropdown',
-    label: 'Standards',
-    position,
-    items: items.map(({ siteKey, ...item }) => item), // Remove siteKey from final items
-  };
-}
-
-/**
- * Creates a customized footer resources section
- */
-function createCustomFooterResources(currentEnv: DocsEnv, additionalLinks: Array<{ label: string; href: string }> = []) {
-  return [
-    {
-      label: 'RDF Downloads',
-      href: './rdf/',
-    },
-    {
-      label: 'Sitemap',
-      to: '/sitemap',
-    },
-    ...additionalLinks,
-  ];
-}
-
-/**
- * Creates a standardized Docusaurus configuration for IFLA standards sites
- */
-export function createStandardSiteConfig(options: StandardSiteOptions): Config {
-  const {
-    siteKey,
-    title,
-    tagline,
-    projectName = siteKey,
-    vocabularyDefaults,
-    i18n,
-    editUrl,
-    navbar,
-    navigation = {},
-    footer = {},
-    additionalPlugins = [],
-    redirects,
-    overrides = {},
-    customSidebarGenerator = false
-  } = options;
-
-  // Navigation defaults
-  const {
-    hideCurrentSiteFromStandardsDropdown = false,
-    standardsDropdownPosition = 'left',
-    includeResourcesDropdown = true,
-    includeDocumentationItem = true
-  } = navigation;
-
-  // Footer defaults
-  const {
-    useResourcesInsteadOfSites = false,
-    additionalResourceLinks = []
-  } = footer;
-  
-  const currentEnv: DocsEnv = getCurrentEnv();
-  const currentSiteConfig = getSiteDocusaurusConfig(siteKey, currentEnv);
-  const portalUrl = getSiteUrl('portal', '/', currentEnv);
-  
-  // Get vocabulary defaults for this site type
-  const defaultVocabulary = VOCABULARY_DEFAULTS[siteKey as keyof typeof VOCABULARY_DEFAULTS] || VOCABULARY_DEFAULTS.GENERIC;
-  const mergedVocabularyDefaults = {
-    ...defaultVocabulary,
-    ...vocabularyDefaults
-  };
-  
-  // Build navbar items based on configuration
-  const navbarItems: any[] = [];
-
-  // Add default Documentation item (if enabled)
-  if (includeDocumentationItem) {
-    navbarItems.push({
-      type: 'doc',
-      position: 'left',
-      docId: 'index',
-      label: 'Documentation',
-    });
-  }
-
-  // Add custom navbar items (if any)
-  if (navbar?.items) {
-    navbarItems.push(...navbar.items);
-  }
-
-  // Add standards dropdown (customizable position and content)
-  navbarItems.push(
-    createCustomStandardsDropdown(
-      currentEnv,
-      siteKey,
-      standardsDropdownPosition,
-      hideCurrentSiteFromStandardsDropdown
-    )
-  );
-
-  // Add resources dropdown (if enabled)
-  if (includeResourcesDropdown) {
-    navbarItems.push({
-      label: 'Resources',
-      position: 'right',
+    return {
       type: 'dropdown',
-      items: [
-        {
-          label: 'RDF Downloads',
-          href: './rdf/',
-        },
-        {
-          label: 'Vocabulary Server',
-          href: 'https://iflastandards.info/',
-        },
-        {
-          label: 'IFLA Website',
-          href: 'https://www.ifla.org/',
-        },
-        {
-          label: 'GitHub Repository',
-          href: 'https://github.com/iflastandards/standards-dev',
-          'aria-label': 'GitHub repository',
-        },
-        {
-          label: 'Portal',
-          href: portalUrl,
-        },
-      ],
-    });
+      label: 'Standards',
+      position,
+      items: items.map(({ siteKey: _siteKey, ...item }) => item), // Remove siteKey from final items
+    };
   }
 
-  // Add standard right-side items
-  navbarItems.push(
-    { to: '/blog', label: 'Blog', position: 'right' },
-    {
-      type: 'docsVersionDropdown',
-      position: 'right',
-    },
-    {
-      type: 'localeDropdown',
-      position: 'right',
-    },
-    {
-      type: 'search',
-      position: 'right',
-    }
-  );
-
-  
-  // Standard plugins with optional redirects
-  const plugins = [
-    ...sharedPlugins,
-    ...additionalPlugins,
-  ];
-  
-  if (redirects) {
-    plugins.push([
-      '@docusaurus/plugin-client-redirects',
+  /**
+   * Creates fresh footer resources section
+   */
+  function createFreshFooterResources(currentEnv: DocsEnv, additionalLinks: Array<{ label: string; href: string }> = []) {
+    return [
       {
-        redirects: redirects.redirects || [],
-        createRedirects: redirects.createRedirects || (() => undefined),
+        label: 'RDF Downloads',
+        to: '/rdf/', // Changed from href to 'to' for internal link
       },
-    ]);
+      {
+        label: 'Sitemap',
+        to: '/sitemap',
+      },
+      ...additionalLinks.map(link => ({ ...link })), // Create fresh copies
+    ];
   }
-  
-  // Default sidebar generator that filters index.mdx files
-  const defaultSidebarItemsGenerator = async (generatorArgs: SidebarItemsGeneratorArgs) => {
-    const { defaultSidebarItemsGenerator, ...args } = generatorArgs as CustomSidebarItemsGeneratorArgs;
-    const sidebarItems: NormalizedSidebarItem[] = await defaultSidebarItemsGenerator(args);
 
-    function filterIndexMdx(items: NormalizedSidebarItem[]): NormalizedSidebarItem[] {
-      return items
-        .filter((item: NormalizedSidebarItem) => {
-          if (item.type === 'doc') {
-            const docId = item.id || (item as any).docId || '';
-            if (docId === 'index' || 
-                docId.endsWith('/index') || 
-                docId.split('/').pop() === 'index') {
-              return false;
-            }
-          }
-          return true;
-        })
-        .map((item: NormalizedSidebarItem) => {
-          if (item.type === 'category' && item.items) {
-            return {
-              ...item,
-              items: filterIndexMdx(item.items as NormalizedSidebarItem[]),
-            };
-          }
-          return item;
-        });
+  /**
+   * Creates fresh footer site links
+   */
+  function createFreshFooterSiteLinks(currentEnv: DocsEnv) {
+    return [
+      {
+        label: 'Homepage',
+        href: getSiteUrl('portal', '/', currentEnv),
+      },
+      {
+        label: 'ISBD',
+        href: getSiteUrl('isbd', '/', currentEnv),
+      },
+      {
+        label: 'LRM',
+        href: getSiteUrl('LRM', '/', currentEnv),
+      },
+      {
+        label: 'UNIMARC',
+        href: getSiteUrl('unimarc', '/', currentEnv),
+      },
+      { label: 'ISBDM', href: getSiteUrl('ISBDM', '/', currentEnv) },
+      { label: 'FRBR Family', href: getSiteUrl('fr', '/', currentEnv) }, // Updated label
+      { label: 'Muldicat', href: getSiteUrl('muldicat', '/', currentEnv) },
+    ];
+  }
+
+  /**
+   * The main factory function that creates a fresh configuration for each site
+   */
+  return function createStandardSiteConfig(options: StandardSiteOptions): Config {
+    const {
+      siteKey,
+      title,
+      tagline,
+      projectName = siteKey,
+      vocabularyDefaults,
+      i18n,
+      editUrl,
+      navbar,
+      navigation = {},
+      footer = {},
+      additionalPlugins = [],
+      redirects,
+      overrides = {},
+      customSidebarGenerator = false
+    } = options;
+
+    // Navigation defaults
+    const {
+      hideCurrentSiteFromStandardsDropdown = false,
+      standardsDropdownPosition = 'left',
+      includeResourcesDropdown = true,
+      includeDocumentationItem = true
+    } = navigation;
+
+    // Footer defaults
+    const {
+      useResourcesInsteadOfSites = false,
+      additionalResourceLinks = []
+    } = footer;
+
+    // Get current environment and site configuration
+    const currentEnv: DocsEnv = getCurrentEnv();
+    const currentSiteConfig = getSiteDocusaurusConfig(siteKey, currentEnv);
+    const portalUrl = getSiteUrl('portal', '/', currentEnv);
+
+    // Get vocabulary defaults for this site type - create a fresh copy
+    const defaultVocabulary = VOCABULARY_DEFAULTS[siteKey as keyof typeof VOCABULARY_DEFAULTS] || VOCABULARY_DEFAULTS.GENERIC;
+    const mergedVocabularyDefaults = {
+      ...defaultVocabulary,
+      ...(vocabularyDefaults || {})
+    };
+
+    // Build navbar items from scratch for each site
+    const navbarItems: any[] = [];
+
+    // Add default Documentation item (if enabled)
+    if (includeDocumentationItem) {
+      navbarItems.push({
+        type: 'doc',
+        position: 'left',
+        docId: 'index',
+        label: 'Documentation',
+      });
     }
 
-    return filterIndexMdx(sidebarItems);
-  };
-  
-  const config: Config = {
-    ...baseDocusaurusConfig(currentEnv),
-    url: currentSiteConfig.url,
-    title,
-    tagline,
-    baseUrl: currentSiteConfig.baseUrl,
-    projectName,
+    // Add custom navbar items (if any) - create fresh copies
+    if (navbar?.items) {
+      navbarItems.push(...navbar.items.map(item => ({ ...item })));
+    }
 
-    // Apply overrides
-    ...overrides,
-    
-    customFields: {
-      vocabularyDefaults: mergedVocabularyDefaults,
-    },
+    // Add standards dropdown with fresh configuration
+    navbarItems.push(
+      createFreshStandardsDropdown(
+        currentEnv,
+        siteKey,
+        standardsDropdownPosition,
+        hideCurrentSiteFromStandardsDropdown
+      )
+    );
 
-    // Site-specific i18n
-    i18n: {
-      defaultLocale: 'en',
-      locales: ['en'],
-      localeConfigs: {
-        en: {
-          label: 'English',
-        },
+    // Add resources dropdown (if enabled) with fresh items
+    if (includeResourcesDropdown) {
+      navbarItems.push({
+        label: 'Resources',
+        position: 'right',
+        type: 'dropdown',
+        items: [
+          {
+            label: 'RDF Downloads',
+            to: '/rdf/', // Changed from href to 'to' for internal link
+          },
+          {
+            label: 'Vocabulary Server',
+            href: 'https://iflastandards.info/',
+          },
+          {
+            label: 'IFLA Website',
+            href: 'https://www.ifla.org/',
+          },
+          {
+            label: 'GitHub Repository',
+            href: 'https://github.com/iflastandards/standards-dev',
+            'aria-label': 'GitHub repository',
+          },
+          {
+            label: 'Portal',
+            href: portalUrl,
+          },
+        ],
+      });
+    }
+
+    // Add standard right-side items
+    navbarItems.push(
+      { to: '/blog', label: 'Blog', position: 'right' },
+      {
+        type: 'docsVersionDropdown',
+        position: 'right',
       },
-      ...i18n,
-    },
+      {
+        type: 'localeDropdown',
+        position: 'right',
+      },
+      {
+        type: 'search',
+        position: 'right',
+      }
+    );
 
-    plugins,
+    // Create fresh plugins array
+    const plugins = [
+      ...sharedPlugins.map(plugin => Array.isArray(plugin) ? [...plugin] : plugin),
+      ...additionalPlugins.map(plugin => Array.isArray(plugin) ? [...plugin] : plugin),
+    ];
 
-    // Site-specific presets
-    presets: [
-      [
-        'classic',
+    if (redirects) {
+      plugins.push([
+        '@docusaurus/plugin-client-redirects',
         {
-          docs: {
-            sidebarPath: './sidebars.ts',
-            editUrl: editUrl || `https://github.com/iflastandards/${siteKey}/tree/main/`,
-            showLastUpdateAuthor: true,
-            showLastUpdateTime: true,
-            versions: {
-              current: {
-                label: 'Latest',
-                path: '',
-              },
-            },
-            lastVersion: 'current',
-            onlyIncludeVersions: ['current'],
-            ...(customSidebarGenerator ? {} : { sidebarItemsGenerator: defaultSidebarItemsGenerator }),
-          },
-          blog: {
-            showReadingTime: true,
-            feedOptions: {
-              type: ['rss', 'atom'],
-              xslt: true,
-            },
-            editUrl: editUrl || `https://github.com/iflastandards/${siteKey}/tree/main/`,
-            onInlineTags: 'warn',
-            onInlineAuthors: 'warn',
-            onUntruncatedBlogPosts: 'warn',
-          },
-          theme: {
-            customCss: './src/css/custom.css',
-          },
-        } satisfies Preset.Options,
-      ],
-    ],
+          redirects: redirects.redirects || [],
+          createRedirects: redirects.createRedirects || (() => undefined),
+        },
+      ]);
+    }
 
-    // Shared themes
-    themes: sharedThemes,
+    // Default sidebar generator that filters index.mdx files
+    const defaultSidebarItemsGenerator = async (generatorArgs: SidebarItemsGeneratorArgs) => {
+      const { defaultSidebarItemsGenerator, ...args } = generatorArgs as CustomSidebarItemsGeneratorArgs;
+      const sidebarItems: NormalizedSidebarItem[] = await defaultSidebarItemsGenerator(args);
 
-    // Site-specific theme config with shared elements
-    themeConfig: useResourcesInsteadOfSites ? {
-      // For sites using custom resources, build theme config from scratch to avoid contamination
-      ...sharedThemeConfig,
+      function filterIndexMdx(items: NormalizedSidebarItem[]): NormalizedSidebarItem[] {
+        return items
+          .filter((item: NormalizedSidebarItem) => {
+            if (item.type === 'doc') {
+              const docId = item.id || (item as any).docId || '';
+              if (docId === 'index' ||
+                docId.endsWith('/index') ||
+                docId.split('/').pop() === 'index') {
+                return false;
+              }
+            }
+            return true;
+          })
+          .map((item: NormalizedSidebarItem) => {
+            if (item.type === 'category' && item.items) {
+              return {
+                ...item,
+                items: filterIndexMdx(item.items as NormalizedSidebarItem[]),
+              };
+            }
+            return item;
+          });
+      }
+
+      return filterIndexMdx(sidebarItems);
+    };
+
+    // Create fresh theme configuration
+    const themeConfig = {
+      // Copy shared theme config properties
+      prism: { ...sharedThemeConfig.prism },
+      tableOfContents: { ...sharedThemeConfig.tableOfContents },
+      colorMode: {
+        defaultMode: 'light' as 'light' | 'dark',
+        disableSwitch: false,
+        respectPrefersColorScheme: true,
+      },
+      image: sharedThemeConfig.image,
+      announcementBar: { ...sharedThemeConfig.announcementBar },
 
       // Site-specific docs config
       docs: {
@@ -399,46 +367,179 @@ export function createStandardSiteConfig(options: StandardSiteOptions): Config {
         versionPersistence: 'localStorage',
       },
 
-      // Site-specific navbar
+      // Site-specific navbar with fresh configuration
       navbar: {
-        ...sharedThemeConfig.navbar,
+        logo: { ...sharedThemeConfig.navbar.logo },
         title,
         items: navbarItems,
       },
 
-      // Custom footer with resources
+      // Site-specific footer with fresh configuration
       footer: {
-        ...sharedThemeConfig.footer,
-        links: [
+        style: 'dark',
+        links: useResourcesInsteadOfSites ? [
           {
             title: 'Resources',
-            items: createCustomFooterResources(currentEnv, additionalResourceLinks),
+            items: createFreshFooterResources(currentEnv, additionalResourceLinks),
           },
-          // Add the static footer sections (Community, More) from sharedThemeConfig
-          ...sharedThemeConfig.footer.links,
+          {
+            title: 'Community',
+            items: [
+              {
+                label: 'IFLA Website',
+                href: 'https://www.ifla.org/',
+              },
+              {
+                label: 'IFLA Standards',
+                href: 'https://www.ifla.org/programmes/ifla-standards/',
+              },
+            ],
+          },
+          {
+            title: 'More',
+            items: [
+              {
+                label: 'Blog',
+                to: '/blog',
+              },
+              {
+                label: 'GitHub',
+                href: 'https://github.com/iflastandards/standards-dev',
+              },
+            ],
+          },
+        ] : [
+          {
+            title: 'Sites',
+            items: createFreshFooterSiteLinks(currentEnv),
+          },
+          {
+            title: 'Community',
+            items: [
+              {
+                label: 'IFLA Website',
+                href: 'https://www.ifla.org/',
+              },
+              {
+                label: 'IFLA Standards',
+                href: 'https://www.ifla.org/programmes/ifla-standards/',
+              },
+            ],
+          },
+          {
+            title: 'More',
+            items: [
+              {
+                label: 'Blog',
+                to: '/blog',
+              },
+              {
+                label: 'GitHub',
+                href: 'https://github.com/iflastandards/standards-dev',
+              },
+            ],
+          },
         ],
+        copyright: sharedThemeConfig.footer.copyright,
       },
-    } : {
-      // For sites using standard footer, use base config
-      ...(baseDocusaurusConfig(currentEnv).themeConfig as any),
+    } satisfies Preset.ThemeConfig;
 
-      // Site-specific docs config
-      docs: {
-        sidebar: {
-          hideable: true,
-          autoCollapseCategories: true,
+    // Create the final configuration object
+    const config: Config = {
+      // Base settings
+      future: {
+        experimental_faster: false,
+        v4: true,
+      },
+      favicon: 'img/favicon.ico',
+      organizationName: 'iflastandards',
+      trailingSlash: false,
+      onBrokenLinks: 'warn',
+      onBrokenMarkdownLinks: 'warn',
+      onBrokenAnchors: 'warn',
+      onDuplicateRoutes: 'warn',
+      markdown: {
+        mermaid: true,
+      },
+      staticDirectories: ['static', '../../packages/theme/static'],
+
+      // Site-specific configuration
+      url: currentSiteConfig.url,
+      title,
+      tagline,
+      baseUrl: currentSiteConfig.baseUrl,
+      projectName,
+
+      // Apply overrides
+      ...overrides,
+
+      customFields: {
+        vocabularyDefaults: mergedVocabularyDefaults,
+      },
+
+      // Site-specific i18n
+      i18n: {
+        defaultLocale: 'en',
+        locales: ['en'],
+        localeConfigs: {
+          en: {
+            label: 'English',
+          },
         },
-        versionPersistence: 'localStorage',
+        // Explicitly disable locale detection to prevent 'fr' site from being treated as French locale
+        path: 'i18n',
+        ...(i18n || {}),
       },
 
-      // Site-specific navbar
-      navbar: {
-        ...(baseDocusaurusConfig(currentEnv).themeConfig as any)?.navbar,
-        title,
-        items: navbarItems,
-      },
-    } satisfies Preset.ThemeConfig,
+      plugins,
+
+      // Site-specific presets
+      presets: [
+        [
+          'classic',
+          {
+            docs: {
+              sidebarPath: './sidebars.ts',
+              editUrl: editUrl || `https://github.com/iflastandards/${siteKey}/tree/main/`,
+              showLastUpdateAuthor: true,
+              showLastUpdateTime: true,
+              versions: {
+                current: {
+                  label: 'Latest',
+                  path: '',
+                },
+              },
+              lastVersion: 'current',
+              onlyIncludeVersions: ['current'],
+              ...(customSidebarGenerator ? {} : { sidebarItemsGenerator: defaultSidebarItemsGenerator }),
+            },
+            blog: {
+              showReadingTime: true,
+              feedOptions: {
+                type: ['rss', 'atom'],
+                xslt: true,
+              },
+              editUrl: editUrl || `https://github.com/iflastandards/${siteKey}/tree/main/`,
+              onInlineTags: 'warn',
+              onInlineAuthors: 'warn',
+              onUntruncatedBlogPosts: 'warn',
+            },
+            theme: {
+              customCss: './src/css/custom.css',
+            },
+          } satisfies Preset.Options,
+        ],
+      ],
+
+      // Shared themes
+      themes: sharedThemes.map(theme => Array.isArray(theme) ? [...theme] : theme),
+
+      themeConfig,
+    };
+
+    return config;
   };
-
-  return config;
 }
+
+// Export the factory function
+export const createStandardSiteConfig = createConfigurationFactory();
