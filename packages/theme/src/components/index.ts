@@ -9,6 +9,9 @@ export {
   VocabularyTableFromCSV
 } from './VocabularyTable';
 
+// Management components
+export { default as SiteManagement } from './SiteManagement';
+
 // Link components
 export { default as InLink } from './InLink';
 export { default as OutLink } from './OutLink';
@@ -45,6 +48,7 @@ export type {
 // Export component-specific types
 export type { DownloadPanelProps } from './DownloadPanel';
 export type { QuickStartProps } from './QuickStart';
+export type { SiteManagementProps } from './SiteManagement';
 
 // Re-export VocabularyTable-specific types
 export type {

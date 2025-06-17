@@ -1113,3 +1113,13 @@ h1 {
 .navbar__items--right .react-toggle:focus-within .react-toggle-track {
   box-shadow: 0 0 0 3px rgba(253, 185, 19, 0.4) !important;
 }
+
+/* Management menu - hidden by default, shown for authorized users */
+.navbar__item--management {
+  display: none;
+}
+
+/* Show management menu for authorized users */
+body.user-authorized .navbar__item--management {
+  display: flex;
+}

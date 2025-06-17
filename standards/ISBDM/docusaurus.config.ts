@@ -139,6 +139,13 @@ const config = createStandardSiteConfig({
         ]
       },
       {
+        type: 'doc',
+        docId: 'manage',
+        label: 'Management',
+        position: 'left',
+        className: 'navbar__item--management',
+      },
+      {
         type: 'dropdown',
         label: 'About',
         position: 'right',

@@ -1,0 +1,331 @@
+/* Site Management Component Styles */
+
+.managementContainer {
+  padding: 2rem 0 4rem;
+  min-height: 80vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.headerDescription {
+  font-size: 1.2rem;
+  color: var(--ifla-color-text-secondary);
+  margin: 0;
+}
+
+/* Tab Navigation */
+.tabNavigation {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--ifla-color-border);
+  overflow-x: auto;
+  gap: 0;
+}
+
+.tabButton {
+  background: none;
+  border: none;
+  padding: 1rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ifla-color-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: var(--ifla-color-primary);
+    background-color: var(--ifla-color-background-subtle);
+  }
+}
+
+.tabButtonActive {
+  color: var(--ifla-color-primary);
+  border-bottom-color: var(--ifla-color-primary);
+  font-weight: 600;
+}
+
+/* Tab Content */
+.tabContent {
+  min-height: 500px;
+}
+
+.tabHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  h2 {
+    margin-bottom: 0.5rem;
+    color: var(--ifla-color-primary);
+  }
+
+  p {
+    color: var(--ifla-color-text-secondary);
+    margin: 0;
+  }
+}
+
+/* Overview Dashboard */
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.statusCard {
+  background: var(--ifla-color-background-card);
+  border: 1px solid var(--ifla-color-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+
+  h3 {
+    margin: 0 0 1rem 0;
+    color: var(--ifla-color-primary);
+    font-size: 1.1rem;
+  }
+}
+
+.statusItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--ifla-color-border-subtle);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.statusLabel {
+  font-weight: 500;
+  color: var(--ifla-color-text);
+}
+
+.statusValue {
+  font-weight: 600;
+  color: var(--ifla-color-text-secondary);
+}
+
+.statusSuccess {
+  color: #28a745;
+}
+
+.activityList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.activityItem {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.activityTime {
+  font-size: 0.8rem;
+  color: var(--ifla-color-text-secondary);
+  min-width: 3rem;
+}
+
+.activityText {
+  font-size: 0.9rem;
+  color: var(--ifla-color-text);
+}
+
+.quickActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.teamStats {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+}
+
+.statItem {
+  text-align: center;
+}
+
+.statNumber {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--ifla-color-primary);
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  color: var(--ifla-color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Action Grid */
+.actionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.actionCard {
+  background: var(--ifla-color-background-card);
+  border: 1px solid var(--ifla-color-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--ifla-color-primary);
+  }
+}
+
+.actionDisabled {
+  opacity: 0.7;
+
+  &:hover {
+    box-shadow: none;
+    border-color: var(--ifla-color-border);
+  }
+}
+
+.actionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+
+  h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--ifla-color-text);
+    flex: 1;
+  }
+}
+
+.actionType {
+  font-size: 1.2rem;
+  margin-left: 0.5rem;
+}
+
+.actionDescription {
+  color: var(--ifla-color-text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  flex: 1;
+}
+
+.actionFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.actionTypeLabel {
+  font-size: 0.75rem;
+  color: var(--ifla-color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Footer */
+.managementFooter {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--ifla-color-border);
+}
+
+.footerSection {
+  h4 {
+    margin: 0 0 1rem 0;
+    color: var(--ifla-color-primary);
+  }
+}
+
+.footerLinks {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Dark mode adjustments */
+[data-theme='dark'] {
+  .statusCard,
+  .actionCard {
+    background: var(--ifla-color-background-card-dark, #1e1e1e);
+    border-color: var(--ifla-color-border-dark, #444);
+  }
+
+  .tabButton:hover {
+    background-color: var(--ifla-color-background-subtle-dark, #2a2a2a);
+  }
+
+  .actionCard:hover {
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .tabNavigation {
+    justify-content: flex-start;
+  }
+  
+  .tabButton {
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .dashboardGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .actionGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .footerLinks {
+    flex-direction: column;
+  }
+  
+  .actionFooter {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  
+  .teamStats {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .managementContainer {
+    padding: 1rem 0 2rem;
+  }
+  
+  .header {
+    margin-bottom: 2rem;
+  }
+  
+  .headerDescription {
+    font-size: 1rem;
+  }
+}

@@ -3,6 +3,9 @@
 import { DocsEnv, type SiteKey, sites } from './siteConfigCore';
 import { getCurrentEnv } from './siteConfig.server';
 
+// Re-export types for external consumption
+export type { SiteKey } from './siteConfigCore';
+
 /**
  * Generates a full URL to a page on a specified IFLA Docusaurus site, considering the target environment.
  * If `targetEnv` is not provided, it defaults to the current site's environment.
