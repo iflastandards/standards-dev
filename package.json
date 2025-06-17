@@ -51,6 +51,7 @@
     "lint:eslint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:quiet": "eslint . --quiet",
+    "lint:quiet:fix": "eslint . --quiet --fix",
     "lint:mdx": "remark . --ext .mdx,.md",
     "profile-copy": "tsx tools/profile-copy.ts",
     "rdf:folder-to-csv": "tsx scripts/rdf-folder-to-csv.ts",
@@ -94,7 +95,8 @@
     "vocabulary:create": "tsx scripts/create-vocabulary-sheet.ts",
     "vocabulary:create-action": "tsx scripts/create-vocabulary-sheet-action.ts",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "write-translations": "docusaurus write-translations"
+    "write-translations": "docusaurus write-translations",
+    "prepare": "husky"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.52.0",
@@ -218,7 +220,9 @@
     "find-up": "^7.0.0",
     "gray-matter": "^4.0.3",
     "http-server": "^14.1.1",
+    "husky": "^9.1.7",
     "jest-axe": "^10.0.0",
+    "lint-staged": "^16.1.2",
     "npm-run-all": "^4.1.5",
     "playwright": "^1.52.0",
     "prop-types": "^15.8.1",
@@ -269,5 +273,10 @@
   },
   "volta": {
     "node": "22.16.0"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "eslint --quiet --fix"
+    ]
   }
 }
