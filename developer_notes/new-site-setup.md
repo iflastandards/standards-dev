@@ -17,7 +17,7 @@ export const sites = {
 } as const;
 
 // Add to SiteKey type
-export type SiteKey = 'portal' | 'ISBDM' | 'LRM' | 'fr' | 'isbd' | 'muldicat' | 'unimarc' | 'your-site-key';
+export type SiteKey = 'portal' | 'ISBDM' | 'LRM' | 'FRBR' | 'isbd' | 'muldicat' | 'unimarc' | 'your-site-key';
 ```
 
 ### 2. Create Site Directory Structure

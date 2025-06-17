@@ -20,7 +20,7 @@ pnpm build --env localhost --site isbdm
 
 ### Options
 - `--env` : Environment to build for (localhost, preview, production)
-- `--site` : Site to build (all, portal, isbdm, lrm, fr, isbd, muldicat, unimarc)
+- `--site` : Site to build (all, portal, isbdm, lrm, frbr, isbd, muldicat, unimarc)
 - `--clean-theme` : Clean and rebuild theme package before building
 
 ## Developer Guide

@@ -11,7 +11,7 @@ pnpm build:theme
 pnpm build:portal    # Portal (port 3000)
 pnpm build:isbdm     # ISBDM (port 3001)
 pnpm build:lrm       # LRM (port 3002)
-pnpm build:fr        # FR (port 3003)
+pnpm build:frbr      # FRBR (port 3003)
 pnpm build:isbd      # ISBD (port 3004)
 pnpm build:muldicat  # Muldicat (port 3005)
 pnpm build:unimarc   # Unimarc (port 3006)
@@ -20,7 +20,7 @@ pnpm build:unimarc   # Unimarc (port 3006)
 pnpm start:portal    # http://localhost:3000
 pnpm start:isbdm     # http://localhost:3001
 pnpm start:lrm       # http://localhost:3002
-pnpm start:fr        # http://localhost:3003
+pnpm start:frbr      # http://localhost:3003
 
 # Build/start all sites
 pnpm build:all       # Builds all sites concurrently (recommended)
@@ -250,7 +250,7 @@ export default sidebars;
 - Portal: `https://iflastandards.github.io/standards-dev/portal/`
 - ISBDM: `https://iflastandards.github.io/standards-dev/ISBDM/`
 - LRM: `https://iflastandards.github.io/standards-dev/LRM/`
-- fr: `https://iflastandards.github.io/standards-dev/fr/`
+- FRBR: `https://iflastandards.github.io/standards-dev/FRBR/`
 - isbd: `https://iflastandards.github.io/standards-dev/isbd/`
 - muldicat: `https://iflastandards.github.io/standards-dev/muldicat/`
 - unimarc: `https://iflastandards.github.io/standards-dev/unimarc/`
@@ -259,7 +259,7 @@ export default sidebars;
 - Portal: `https://iflastandards.info/portal/`
 - ISBDM: `https://iflastandards.info/ISBDM/`
 - LRM: `https://iflastandards.info/LRM/`
-- fr: `https://iflastandards.info/fr/`
+- FRBR: `https://iflastandards.info/FRBR/`
 - isbd: `https://iflastandards.info/isbd/`
 - muldicat: `https://iflastandards.info/muldicat/`
 - unimarc: `https://iflastandards.info/unimarc/`

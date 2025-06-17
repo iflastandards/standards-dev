@@ -32,8 +32,8 @@ export const standardsDropdown = (currentEnv: DocsEnv): NavbarItem => ({
       href: getSiteUrl('ISBDM', '/', currentEnv),
     },
     {
-      label: 'FRBR', // Assuming 'fr' is the key for FRBR family
-      href: getSiteUrl('fr', '/', currentEnv),
+      label: 'FRBR', // FRBR family of models
+      href: getSiteUrl('FRBR', '/', currentEnv),
     },
     {
       label: 'Muldicat',
@@ -60,7 +60,7 @@ export const sharedFooterSiteLinks = (currentEnv: DocsEnv): FooterLinkItem[] => 
     href: getSiteUrl('unimarc', '/', currentEnv),
   },
   { label: 'ISBDM', href: getSiteUrl('ISBDM', '/', currentEnv) },
-  { label: 'FRBR Family', href: getSiteUrl('fr', '/', currentEnv) },
+  { label: 'FRBR Family', href: getSiteUrl('FRBR', '/', currentEnv) },
   { label: 'Muldicat', href: getSiteUrl('muldicat', '/', currentEnv) },
 ];
 

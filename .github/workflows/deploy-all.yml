@@ -17,7 +17,7 @@ on:
         default: 'false'
         type: boolean
       force_build_standards:
-        description: 'Force build specific standards (space-separated: ISBDM LRM fr isbd muldicat unimarc)'
+        description: 'Force build specific standards (space-separated: ISBDM LRM FRBR isbd muldicat unimarc)'
         required: false
         default: ''
         type: string
@@ -142,7 +142,7 @@ jobs:
     if: needs.detect-changes.outputs.standards == 'true' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.force_build_all == 'true' || github.event.inputs.force_build_standards != ''))
     strategy:
       matrix:
-        standard: [ISBDM, LRM, fr, isbd, muldicat, unimarc]
+        standard: [ISBDM, LRM, FRBR, isbd, muldicat, unimarc]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -290,7 +290,7 @@ jobs:
       - name: Create standards index if needed
         if: needs.build-standards.result == 'success'
         run: |
-          if [ -d "deployment/ISBDM" ] || [ -d "deployment/LRM" ] || [ -d "deployment/fr" ] || [ -d "deployment/isbd" ] || [ -d "deployment/muldicat" ] || [ -d "deployment/unimarc" ]; then
+          if [ -d "deployment/ISBDM" ] || [ -d "deployment/LRM" ] || [ -d "deployment/FRBR" ] || [ -d "deployment/isbd" ] || [ -d "deployment/muldicat" ] || [ -d "deployment/unimarc" ]; then
             cat > deployment/standards.html << 'INDEXEOF'
           <!DOCTYPE html>
           <html>

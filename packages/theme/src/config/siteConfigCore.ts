@@ -4,7 +4,7 @@ export enum DocsEnv {
   Production = 'production',
 }
 
-export type SiteKey = 'portal' | 'ISBDM' | 'LRM' | 'fr' | 'isbd' | 'muldicat' | 'unimarc' | 'github';
+export type SiteKey = 'portal' | 'ISBDM' | 'LRM' | 'FRBR' | 'isbd' | 'muldicat' | 'unimarc' | 'github';
 
 export interface SiteConfig {
   url: string;
@@ -30,10 +30,10 @@ export const sites: Record<SiteKey, Record<DocsEnv, SiteConfig>> = {
     [DocsEnv.Preview]: { url: 'https://iflastandards.github.io', baseUrl: '/standards-dev/LRM/', port: 3002 },
     [DocsEnv.Production]: { url: 'https://iflastandards.info', baseUrl: '/LRM/', port: 3002 },
   },
-  fr: {
-    [DocsEnv.Localhost]: { url: 'http://localhost:3003', baseUrl: '/fr/', port: 3003 },
-    [DocsEnv.Preview]: { url: 'https://iflastandards.github.io', baseUrl: '/standards-dev/fr/', port: 3003 },
-    [DocsEnv.Production]: { url: 'https://iflastandards.info', baseUrl: '/fr/', port: 3003 },
+  FRBR: {
+    [DocsEnv.Localhost]: { url: 'http://localhost:3003', baseUrl: '/FRBR/', port: 3003 },
+    [DocsEnv.Preview]: { url: 'https://iflastandards.github.io', baseUrl: '/standards-dev/FRBR/', port: 3003 },
+    [DocsEnv.Production]: { url: 'https://iflastandards.info', baseUrl: '/FRBR/', port: 3003 },
   },
   isbd: {
     [DocsEnv.Localhost]: { url: 'http://localhost:3004', baseUrl: '/isbd/', port: 3004 },

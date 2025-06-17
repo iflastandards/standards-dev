@@ -1,11 +1,11 @@
 /**
- * FR site-specific CSS customizations with IFLA theming
+ * FRBR site-specific CSS customizations with IFLA theming
  * Import the comprehensive IFLA theme styles first
  */
 
 @import '@ifla/theme/styles';
 
-/* FR-specific overrides can be added here if needed */
+/* FRBR-specific overrides can be added here if needed */
 /* These will override the base IFLA theme styles for site-specific customizations */
 
 /* Example: Site-specific color overrides */

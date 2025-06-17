@@ -5,7 +5,7 @@ const { program } = require('commander');
 const inquirer = require('inquirer').default;
 
 const validEnvironments = ['localhost', 'preview', 'production'];
-const validSites = ['all', 'portal', 'isbdm', 'lrm', 'fr', 'isbd', 'muldicat', 'unimarc'];
+const validSites = ['all', 'portal', 'isbdm', 'lrm', 'frbr', 'isbd', 'muldicat', 'unimarc'];
 
 program
   .option('--env <environment>', 'Environment to build for')

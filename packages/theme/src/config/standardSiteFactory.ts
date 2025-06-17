@@ -113,7 +113,7 @@ function createConfigurationFactory() {
       { label: 'LRM', href: getSiteUrl('LRM', '/', currentEnv), siteKey: 'LRM' },
       { label: 'UNIMARC', href: getSiteUrl('unimarc', '/', currentEnv), siteKey: 'unimarc' },
       { label: 'ISBDM', href: getSiteUrl('ISBDM', '/', currentEnv), siteKey: 'ISBDM' },
-      { label: 'FRBR Family', href: getSiteUrl('fr', '/', currentEnv), siteKey: 'fr' }, // Updated label to clarify it's not French
+      { label: 'FRBR Family', href: getSiteUrl('FRBR', '/', currentEnv), siteKey: 'FRBR' }, // FRBR family of models
       { label: 'Muldicat', href: getSiteUrl('muldicat', '/', currentEnv), siteKey: 'muldicat' },
     ];
 
@@ -168,7 +168,7 @@ function createConfigurationFactory() {
         href: getSiteUrl('unimarc', '/', currentEnv),
       },
       { label: 'ISBDM', href: getSiteUrl('ISBDM', '/', currentEnv) },
-      { label: 'FRBR Family', href: getSiteUrl('fr', '/', currentEnv) }, // Updated label
+      { label: 'FRBR Family', href: getSiteUrl('FRBR', '/', currentEnv) }, // FRBR family of models
       { label: 'Muldicat', href: getSiteUrl('muldicat', '/', currentEnv) },
     ];
   }

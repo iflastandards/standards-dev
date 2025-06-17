@@ -1,12 +1,12 @@
 import { createStandardSiteConfig } from '@ifla/theme/config';
 
 const config = createStandardSiteConfig({
-  siteKey: 'fr',
-  title: 'IFLA FR Family of Models',
+  siteKey: 'FRBR',
+  title: 'IFLA FRBR Family of Models',
   tagline: 'Conceptual Models for Bibliographic Information',
-  projectName: 'fr',
+  projectName: 'FRBR',
 
-  // FR-specific vocabulary configuration
+  // FRBR-specific vocabulary configuration
   vocabularyDefaults: {
     prefix: "ifla",
     numberPrefix: "T",
@@ -18,7 +18,7 @@ const config = createStandardSiteConfig({
   },
 
   // GitHub configuration
-  editUrl: 'https://github.com/iflastandards/FR/tree/main/',
+  editUrl: 'https://github.com/iflastandards/FRBR/tree/main/',
 
   // Navigation customization
   navigation: {
