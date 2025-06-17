@@ -29,7 +29,6 @@ const config = createStandardSiteConfig({
 
   // Footer customization
   footer: {
-    useResourcesInsteadOfSites: true,
     additionalResourceLinks: [],
   },
 });

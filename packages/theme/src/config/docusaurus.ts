@@ -42,27 +42,7 @@ export const standardsDropdown = (currentEnv: DocsEnv): NavbarItem => ({
   ],
 });
 
-export const sharedFooterSiteLinks = (currentEnv: DocsEnv): FooterLinkItem[] => [
-  {
-    label: 'Homepage',
-    href: getSiteUrl('portal', '/', currentEnv),
-  },
-  {
-    label: 'ISBD',
-    href: getSiteUrl('isbd', '/', currentEnv),
-  },
-  {
-    label: 'LRM',
-    href: getSiteUrl('LRM', '/', currentEnv),
-  },
-  {
-    label: 'UNIMARC',
-    href: getSiteUrl('unimarc', '/', currentEnv),
-  },
-  { label: 'ISBDM', href: getSiteUrl('ISBDM', '/', currentEnv) },
-  { label: 'FR Family', href: getSiteUrl('FRBR', '/', currentEnv) },
-  { label: 'Muldicat', href: getSiteUrl('muldicat', '/', currentEnv) },
-];
+
 
 // Shared theme configuration - only truly global items
 export const sharedThemeConfig = {
@@ -205,16 +185,7 @@ export const baseDocusaurusConfig = (currentEnv: DocsEnv): Partial<Config> => {
         items: [], // Sites are responsible for populating this themselves
       },
       footer: {
-        ...(sharedThemeConfig.footer as any), // Spreads style, copyright, and the now static (Community, More) links
-        // Reconstruct the links array to include the dynamic 'Sites' group first,
-        // followed by the other static groups from sharedThemeConfig.footer.links.
-        links: [
-          {
-            title: 'Sites', // Restored title
-            items: sharedFooterSiteLinks(currentEnv),
-          },
-          ...sharedThemeConfig.footer.links, // Appends 'Community' and 'More' groups
-        ],
+        ...sharedThemeConfig.footer, // Use the shared footer configuration directly
       },
     },
   };

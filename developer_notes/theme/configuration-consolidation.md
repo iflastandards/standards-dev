@@ -21,16 +21,16 @@ Recent changes have centralized the Docusaurus configuration to avoid duplicatio
 
 #### 2. Navigation Components
 - `standardsDropdown()` - Creates consistent standards dropdown for navbar
-- `sharedFooterSiteLinks()` - Generates footer links with proper URLs per environment
-- Both functions accept `currentEnv` parameter for dynamic URL generation
+- Function accepts `currentEnv` parameter for dynamic URL generation
 
-#### 3. Footer Simplification
-- Removed custom footer implementation from ISBDM
-- All sites now use the shared footer configuration from theme package
+#### 3. Footer Standardization
+- All sites now use the "Resources" footer pattern via `createStandardSiteConfig()`
+- Removed legacy "Sites" footer functionality
 - Footer includes:
-  - Dynamic "Sites" section with links to all standards
+  - Dynamic "Resources" section with RDF Downloads, Sitemap, and custom links
   - Static "Community" and "More" sections
   - Copyright with CC BY license image
+- Sites can customize resources via `additionalResourceLinks` configuration
 
 #### 4. Site Configuration Updates
 All standard sites (ISBDM, LRM, fr, isbd, muldicat, unimarc) now:

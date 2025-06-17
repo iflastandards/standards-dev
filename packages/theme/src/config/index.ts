@@ -13,8 +13,7 @@ export {
   sharedPlugins,
   sharedThemes,
   baseDocusaurusConfig as commonDefaults,
-  standardsDropdown,
-  sharedFooterSiteLinks
+  standardsDropdown
   // Removed staticBaseSettings from here, assuming it's not part of the public API
 } from './docusaurus';
 

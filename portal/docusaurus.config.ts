@@ -1,107 +1,71 @@
-import type { Config } from '@docusaurus/types';
-import {
-  DocsEnv,
-  type SiteKey,
-  getSiteDocusaurusConfig,
-  getCurrentEnv,
-  commonDefaults,
-  standardsDropdown,
-  sharedFooterSiteLinks
-} from '@ifla/theme/config';
-import { themes as prismThemes } from 'prism-react-renderer';
+import { createStandardSiteConfig } from '@ifla/theme/config';
 
-const siteKey: SiteKey = 'portal';
-const currentEnv = getCurrentEnv();
-const { url, baseUrl } = getSiteDocusaurusConfig(siteKey, currentEnv);
-
-const config: Config = {
-  ...commonDefaults(currentEnv),
-  url,
+const config = createStandardSiteConfig({
+  siteKey: 'portal',
   title: 'IFLA Standards Portal',
   tagline: 'International Federation of Library Associations and Institutions',
-  baseUrl,
   projectName: 'standards-portal',
-  staticDirectories: ['static', '../packages/theme/static'],
-  trailingSlash: currentEnv === DocsEnv.Preview ? false : commonDefaults(currentEnv).trailingSlash,
-  onBrokenAnchors: 'ignore', // Changed from default 'warn'
 
-  customFields: {
-    docsEnv: currentEnv,
+  // Portal-specific vocabulary configuration (minimal since portal doesn't have RDF content)
+  vocabularyDefaults: {
+    prefix: "ifla",
+    numberPrefix: "T",
+    profile: "vocabulary-profile.csv",
+    elementDefaults: {
+      uri: "https://www.iflastandards.info/elements",
+      profile: "elements-profile.csv",
+    }
   },
 
-  // Portal-specific i18n
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+  // GitHub configuration
+  editUrl: 'https://github.com/iflastandards/standards-dev/tree/main/portal/',
+
+  // Portal-specific overrides
+  overrides: {
+    onBrokenAnchors: 'ignore', // Changed from default 'warn'
+    staticDirectories: ['static', '../packages/theme/static'],
   },
 
-  presets: [
-    [
-      'classic',
+  // Custom navbar items for portal
+  navbar: {
+    items: [
       {
-        docs: {
-          sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/iflastandards/standards-dev/tree/main/portal/',
-        },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/iflastandards/standards-dev/tree/main/portal/',
-        },
-        theme: {
-          customCss: [
-            require.resolve('@ifla/theme/styles.css'),
-            require.resolve('./src/css/custom.css'),
-          ],
-        },
-      } satisfies import('@docusaurus/preset-classic').Options,
-    ],
-  ],
-
-  themeConfig: {
-    ...commonDefaults(currentEnv).themeConfig,
-    // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
-    navbar: {
-      title: 'IFLA Standards Portal',
-      logo: {
-        alt: 'IFLA Logo',
-        src: 'img/logo-ifla_black.png',
-        srcDark: 'img/logo-ifla_black.png',
+        type: 'docSidebar',
+        sidebarId: 'tutorialSidebar',
+        position: 'left',
+        label: 'Documentation',
       },
-      items: [
-        {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Documentation',
-        },
-        {to: '/blog', label: 'Blog', position: 'left'},
-        {
-          to: '/manage',
-          label: 'Management',
-          position: 'left',
-          className: 'navbar__item--management',
-        },
-        standardsDropdown(currentEnv),
-        {
-          href: 'https://github.com/iflastandards/standards-dev',
-          label: 'GitHub',
-          position: 'right',
-        },
-      ],
-    },
-    // Footer is now inherited from commonDefaults(currentEnv).themeConfig
-    prism: {
-      theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
-    },
-  } satisfies import('@docusaurus/preset-classic').ThemeConfig,
-};
+      {to: '/blog', label: 'Blog', position: 'left'},
+      {
+        to: '/manage',
+        label: 'Management',
+        position: 'left',
+        className: 'navbar__item--management',
+      },
+    ],
+  },
+
+  // Navigation customization for portal
+  navigation: {
+    hideCurrentSiteFromStandardsDropdown: false, // Portal should show all standards including itself
+    standardsDropdownPosition: 'right',
+    includeResourcesDropdown: false, // Portal has its own management interface
+    includeDocumentationItem: false, // Portal has custom documentation structure
+  },
+
+  // Footer customization for portal
+  footer: {
+    additionalResourceLinks: [
+      {
+        label: 'Vocabulary Server',
+        href: 'https://iflastandards.info/',
+      },
+      {
+        label: 'GitHub Repository',
+        href: 'https://github.com/iflastandards/standards-dev',
+      },
+    ],
+  },
+});
 
 export default config;

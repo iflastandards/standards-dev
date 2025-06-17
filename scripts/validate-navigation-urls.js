@@ -2,7 +2,7 @@
 
 const { getCurrentEnv } = require('../packages/theme/dist/config/siteConfig.server');
 const { getSiteUrl } = require('../packages/theme/dist/config/siteConfig');
-const { standardsDropdown, sharedFooterSiteLinks } = require('../packages/theme/dist/config/docusaurus');
+const { standardsDropdown } = require('../packages/theme/dist/config/docusaurus');
 const { sites, DocsEnv } = require('../packages/theme/dist/config/siteConfigCore');
 
 /**
@@ -97,25 +97,7 @@ function validateNavigationUrls() {
     }
   });
   
-  // Test footer site links
-  console.log('\n🔍 Testing Footer Site Links...');
-  const footerLinks = sharedFooterSiteLinks(env);
-  footerLinks.forEach(link => {
-    const url = link.href;
-    console.log(`  Testing: ${link.label} -> ${url}`);
-    
-    // Similar validation for footer links
-    const anyMatch = Object.entries(expectedPatterns).some(([, pattern]) => pattern.test(url));
-    if (!anyMatch && url.startsWith('http')) { // Only check full URLs
-      issues.push({
-        type: 'Footer Link',
-        label: link.label,
-        url,
-        expected: 'Valid site pattern',
-        site: 'unknown'
-      });
-    }
-  });
+  // Note: Footer site links validation removed as all sites now use Resources footer pattern
   
   // Test individual getSiteUrl calls
   console.log('\n🔍 Testing getSiteUrl Function...');
@@ -175,11 +157,7 @@ function showNavigationUrls() {
     console.log(`   ${item.label}: ${item.href}`);
   });
   
-  console.log('\n🔗 Footer Site Links:');
-  const footerLinks = sharedFooterSiteLinks(env);
-  footerLinks.forEach(link => {
-    console.log(`   ${link.label}: ${link.href}`);
-  });
+  console.log('\n🔗 Footer Site Links: (Removed - all sites now use Resources footer pattern)');
   
   console.log('\n🔗 Sample getSiteUrl calls:');
   // Get first 3 sites (excluding github) from central configuration

@@ -71,7 +71,6 @@ export interface StandardSiteOptions {
 
   // Footer customization
   footer?: {
-    useResourcesInsteadOfSites?: boolean;
     additionalResourceLinks?: Array<{
       label: string;
       href: string;
@@ -146,32 +145,7 @@ function createConfigurationFactory() {
     ];
   }
 
-  /**
-   * Creates fresh footer site links
-   */
-  function createFreshFooterSiteLinks(currentEnv: DocsEnv) {
-    return [
-      {
-        label: 'Homepage',
-        href: getSiteUrl('portal', '/', currentEnv),
-      },
-      {
-        label: 'ISBD',
-        href: getSiteUrl('isbd', '/', currentEnv),
-      },
-      {
-        label: 'LRM',
-        href: getSiteUrl('LRM', '/', currentEnv),
-      },
-      {
-        label: 'UNIMARC',
-        href: getSiteUrl('unimarc', '/', currentEnv),
-      },
-      { label: 'ISBDM', href: getSiteUrl('ISBDM', '/', currentEnv) },
-      { label: 'FR Family', href: getSiteUrl('FRBR', '/', currentEnv) }, // FR family of models
-      { label: 'Muldicat', href: getSiteUrl('muldicat', '/', currentEnv) },
-    ];
-  }
+
 
   /**
    * The main factory function that creates a fresh configuration for each site
@@ -204,7 +178,6 @@ function createConfigurationFactory() {
 
     // Footer defaults
     const {
-      useResourcesInsteadOfSites = false,
       additionalResourceLinks = []
     } = footer;
 
@@ -377,41 +350,10 @@ function createConfigurationFactory() {
       // Site-specific footer with fresh configuration
       footer: {
         style: 'dark',
-        links: useResourcesInsteadOfSites ? [
+        links: [
           {
             title: 'Resources',
             items: createFreshFooterResources(currentEnv, additionalResourceLinks),
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'IFLA Website',
-                href: 'https://www.ifla.org/',
-              },
-              {
-                label: 'IFLA Standards',
-                href: 'https://www.ifla.org/programmes/ifla-standards/',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/iflastandards/standards-dev',
-              },
-            ],
-          },
-        ] : [
-          {
-            title: 'Sites',
-            items: createFreshFooterSiteLinks(currentEnv),
           },
           {
             title: 'Community',
