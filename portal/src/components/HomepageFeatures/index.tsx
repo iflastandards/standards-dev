@@ -53,14 +53,14 @@ const StandardsList: StandardItem[] = [
   },
   {
     title: 'Functional Requirements (FR)',
-    code: 'FR',
+    code: 'FRBR',
     description: (
       <>
         Specifications for functional requirements that support discovery, identification, selection, 
         and access to bibliographic resources.
       </>
     ),
-    siteKey: 'fr' as SiteKey,
+    siteKey: 'FRBR' as SiteKey,
     status: 'development',
   },
   {

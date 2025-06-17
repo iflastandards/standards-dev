@@ -175,7 +175,7 @@ export default config;
 
 ### Phase 2: Simple Sites Migration
 1. Migrate LRM (simplest case)
-2. Migrate fr, isbd, muldicat, unimarc (similar patterns)
+2. Migrate FRBR, isbd, muldicat, unimarc (similar patterns)
 3. Test and validate functionality
 
 ### Phase 3: Complex Sites Migration

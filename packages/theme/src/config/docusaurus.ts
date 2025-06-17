@@ -32,7 +32,7 @@ export const standardsDropdown = (currentEnv: DocsEnv): NavbarItem => ({
       href: getSiteUrl('ISBDM', '/', currentEnv),
     },
     {
-      label: 'FRBR', // FRBR family of models
+      label: 'FRBR', // Assuming 'FRBR' is the key for FR family
       href: getSiteUrl('FRBR', '/', currentEnv),
     },
     {

@@ -82,7 +82,7 @@ graph TD
 - **Purpose**: Documentation for IFLA standards
 - **Configuration**: Use `createStandardSiteConfig()` factory
 - **Features**: Vocabulary defaults, standardized navigation, RDF downloads
-- **Examples**: LRM, ISBDM, fr, isbd, muldicat, unimarc
+- **Examples**: LRM, ISBDM, FRBR, isbd, muldicat, unimarc
 
 ### Portal Site (Custom Configuration)
 - **Purpose**: Gateway for consumers + workplace for editors

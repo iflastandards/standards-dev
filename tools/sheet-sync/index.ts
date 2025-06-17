@@ -42,10 +42,10 @@ const STANDARDS: Record<string, StandardConfig> = {
     csvDir: join(PROJECT_ROOT, 'standards/LRM/csv'),
     configPath: join(PROJECT_ROOT, 'standards/LRM/.config/sheet.json')
   },
-  fr: {
-    name: 'fr',
-    csvDir: join(PROJECT_ROOT, 'standards/fr/csv'),
-    configPath: join(PROJECT_ROOT, 'standards/fr/.config/sheet.json')
+  FRBR: {
+    name: 'FRBR',
+    csvDir: join(PROJECT_ROOT, 'standards/FRBR/csv'),
+    configPath: join(PROJECT_ROOT, 'standards/FRBR/.config/sheet.json')
   },
   isbd: {
     name: 'isbd',

@@ -86,7 +86,7 @@ function ManagementDashboard(): React.ReactNode {
                   { code: 'ISBDM', name: 'ISBD for Manifestation', href: getSiteUrl('ISBDM' as SiteKey, '/manage', currentEnv), status: 'published' },
                   { code: 'LRM', name: 'Library Reference Model', href: getSiteUrl('LRM' as SiteKey, '/manage', currentEnv), status: 'published' },
                   { code: 'ISBD', name: 'International Standard Bibliographic Description', href: getSiteUrl('isbd' as SiteKey, '/manage', currentEnv), status: 'development' },
-                  { code: 'FR', name: 'Functional Requirements', href: getSiteUrl('fr' as SiteKey, '/manage', currentEnv), status: 'development' },
+                  { code: 'FRBR', name: 'Functional Requirements', href: getSiteUrl('FRBR' as SiteKey, '/manage', currentEnv), status: 'development' },
                   { code: 'MulDiCat', name: 'Multilingual Dictionary', href: getSiteUrl('muldicat' as SiteKey, '/manage', currentEnv), status: 'development' },
                   { code: 'UNIMARC', name: 'UNIMARC', href: getSiteUrl('unimarc' as SiteKey, '/manage', currentEnv), status: 'development' },
                 ].map((standard) => (

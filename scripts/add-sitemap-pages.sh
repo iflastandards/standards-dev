@@ -3,11 +3,11 @@
 # Script to add sitemap pages to IFLA standards sites that don't have them
 
 # Sites that need sitemap pages
-SITES=("fr" "isbd" "muldicat" "unimarc")
+SITES=("FRBR" "isbd" "muldicat" "unimarc")
 
 # Site titles mapping
 declare -A SITE_TITLES
-SITE_TITLES["fr"]="IFLA FR"
+SITE_TITLES["FRBR"]="IFLA FR"
 SITE_TITLES["isbd"]="ISBD"
 SITE_TITLES["muldicat"]="MULDICAT"
 SITE_TITLES["unimarc"]="UNIMARC"

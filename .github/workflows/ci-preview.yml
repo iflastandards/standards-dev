@@ -54,10 +54,10 @@ jobs:
           NODE_ENV: production
           DOCS_ENV: preview
           
-      - name: Build FR
-        run: pnpm exec docusaurus build standards/fr
+      - name: Build FRBR
+        run: pnpm exec docusaurus build standards/FRBR
         env:
-          BASE_URL: /standards-dev/fr/
+          BASE_URL: /standards-dev/FRBR/
           NODE_ENV: production
           DOCS_ENV: preview
           
@@ -83,7 +83,7 @@ jobs:
           mkdir -p build/ISBDM && cp -r standards/ISBDM/build/* build/ISBDM/
           mkdir -p build/LRM && cp -r standards/LRM/build/* build/LRM/
           mkdir -p build/isbd && cp -r standards/isbd/build/* build/isbd/
-          mkdir -p build/fr && cp -r standards/fr/build/* build/fr/
+          mkdir -p build/FRBR && cp -r standards/FRBR/build/* build/FRBR/
           mkdir -p build/muldicat && cp -r standards/muldicat/build/* build/muldicat/
           mkdir -p build/unimarc && cp -r standards/unimarc/build/* build/unimarc/
           

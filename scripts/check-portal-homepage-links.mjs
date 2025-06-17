@@ -25,7 +25,7 @@ async function checkLinks(targetUrl, currentEnv) {
     
     { text: 'Navbar ISBDM', type: 'navExternal', toSite: 'ISBDM' },
     { text: 'Navbar LRM', type: 'navExternal', toSite: 'LRM' },
-    { text: 'Navbar FR', type: 'navExternal', toSite: 'fr' },
+    { text: 'Navbar FRBR', type: 'navExternal', toSite: 'FRBR' },
     { text: 'Navbar ISBD', type: 'navExternal', toSite: 'isbd' },
     { text: 'Navbar Muldicat', type: 'navExternal', toSite: 'muldicat' },
     { text: 'Navbar Unimarc', type: 'navExternal', toSite: 'unimarc' },

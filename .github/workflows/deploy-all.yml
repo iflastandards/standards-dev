@@ -67,7 +67,7 @@ jobs:
           # Check for manual triggers with force options
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             if [ "${{ github.event.inputs.force_build_all }}" = "true" ]; then
-              echo "standards=ISBDM LRM fr isbd muldicat unimarc" >> $GITHUB_OUTPUT
+              echo "standards=ISBDM LRM FRBR isbd muldicat unimarc" >> $GITHUB_OUTPUT
             elif [ -n "${{ github.event.inputs.force_build_standards }}" ]; then
               echo "standards=${{ github.event.inputs.force_build_standards }}" >> $GITHUB_OUTPUT
             else
@@ -80,7 +80,7 @@ jobs:
               echo "standards=$changed" >> $GITHUB_OUTPUT
             else
               # If only packages/theme changed, build all standards
-              echo "standards=ISBDM LRM fr isbd muldicat unimarc" >> $GITHUB_OUTPUT
+              echo "standards=ISBDM LRM FRBR isbd muldicat unimarc" >> $GITHUB_OUTPUT
             fi
           else
             echo "standards=" >> $GITHUB_OUTPUT
@@ -255,12 +255,12 @@ jobs:
           path: deployment/LRM
         continue-on-error: true
         
-      - name: Download fr build
+      - name: Download FRBR build
         if: needs.build-standards.result == 'success'
         uses: actions/download-artifact@v4
         with:
-          name: fr-build
-          path: deployment/fr
+          name: FRBR-build
+          path: deployment/FRBR
         continue-on-error: true
         
       - name: Download isbd build
@@ -371,8 +371,8 @@ jobs:
                           </a>
                       </li>
                       <li>
-                          <a href="./fr/">
-                              <span class="standard-name">FR</span>
+                          <a href="./FRBR/">
+                              <span class="standard-name">FRBR</span>
                               <span class="standard-desc">Functional Requirements</span>
                           </a>
                       </li>

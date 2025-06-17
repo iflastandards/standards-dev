@@ -12,7 +12,7 @@
 # IFLA Standards Development Project Context
 
 ## Project Architecture
-- **Monorepo**: pnpm workspaces with portal + 6 standards (ISBDM, LRM, fr, isbd, muldicat, unimarc)
+- **Monorepo**: pnpm workspaces with portal + 6 standards (ISBDM, LRM, FRBR, isbd, muldicat, unimarc)
 - **Portal**: Shared Docusaurus site for onboarding, dashboards & tooling links
 - **Per-standard sites**: Each standard is its own Docusaurus project with MDX + RDF front-matter
 - **CSV → RDF workflow**: csv/ (source) → tap-to-rdf build → rdf/{ttl,jsonld,xml}/ (output)

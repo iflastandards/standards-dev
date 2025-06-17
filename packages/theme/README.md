@@ -311,7 +311,7 @@ import {
 } from '@ifla/theme/utils';
 
 // Handle multilingual text
-const text = getLocalizedText(multilingualText, 'en', 'fr');
+const text = getLocalizedText(multilingualText, 'en', 'FRBR');
 
 // Create URL-safe slugs
 const slug = createSlug("My Element Title", "kebab-case");
@@ -428,4 +428,4 @@ MIT International Federation of Library Associations and Institutions (IFLA)
 
 ---
 
-**Built with by the IFLA community**
+**Built with 🩷 by the IFLA community**
