@@ -625,7 +625,7 @@ function generateValidationIndexHtml(indexData, validationDir) {
   const path = require('path');
   const fs = require('fs');
   
-  const allSites = ['portal', 'isbdm', 'lrm', 'fr', 'isbd', 'muldicat', 'unimarc'];
+  const allSites = ['portal', 'isbdm', 'lrm', 'FRBR', 'isbd', 'muldicat', 'unimarc'];
   
   const html = `<!DOCTYPE html>
 <html lang="en">

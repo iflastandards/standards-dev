@@ -60,7 +60,7 @@ export const sharedFooterSiteLinks = (currentEnv: DocsEnv): FooterLinkItem[] => 
     href: getSiteUrl('unimarc', '/', currentEnv),
   },
   { label: 'ISBDM', href: getSiteUrl('ISBDM', '/', currentEnv) },
-  { label: 'FRBR Family', href: getSiteUrl('FRBR', '/', currentEnv) },
+  { label: 'FR Family', href: getSiteUrl('FRBR', '/', currentEnv) },
   { label: 'Muldicat', href: getSiteUrl('muldicat', '/', currentEnv) },
 ];
 

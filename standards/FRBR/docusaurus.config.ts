@@ -2,7 +2,7 @@ import { createStandardSiteConfig } from '@ifla/theme/config';
 
 const config = createStandardSiteConfig({
   siteKey: 'FRBR',
-  title: 'IFLA FRBR Family of Models',
+  title: 'IFLA FR Family of Models',
   tagline: 'Conceptual Models for Bibliographic Information',
   projectName: 'FRBR',
 

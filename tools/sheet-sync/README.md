@@ -51,7 +51,7 @@ pnpm standards sync-sheet list
 
 - **ISBDM**: International Standard Bibliographic Description for Manifestation
 - **LRM**: Library Reference Model
-- **fr**: IFLA FR Family of Models
+- **FRBR**: IFLA FR Family of Models
 - **isbd**: International Standard Bibliographic Description
 - **muldicat**: Multilingual Dictionary of Cataloguing Terms
 - **unimarc**: Universal MARC Format

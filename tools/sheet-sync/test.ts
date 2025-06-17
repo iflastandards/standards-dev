@@ -23,7 +23,7 @@ function testListCommand() {
   const output = execSync('npx ts-node index.ts list', { encoding: 'utf8' });
   
   // Check that all expected standards are listed
-  const expectedStandards = ['ISBDM', 'LRM', 'fr', 'isbd', 'muldicat', 'unimarc'];
+  const expectedStandards = ['ISBDM', 'LRM', 'FRBR', 'isbd', 'muldicat', 'unimarc'];
   for (const standard of expectedStandards) {
     if (!output.includes(standard)) {
       throw new Error(`Standard ${standard} not found in list output`);
@@ -52,7 +52,7 @@ function testConfigurationFiles() {
   const expectedConfigs = [
     'standards/ISBDM/.config/sheet.json',
     'standards/LRM/.config/sheet.json',
-    'standards/fr/.config/sheet.json',
+    'standards/FRBR/.config/sheet.json',
     'standards/isbd/.config/sheet.json',
     'standards/muldicat/.config/sheet.json',
     'standards/unimarc/.config/sheet.json'
