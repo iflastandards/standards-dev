@@ -185,6 +185,21 @@ export default function ElementReference({
   const { colorMode } = useColorMode();
   const isDarkTheme = colorMode === 'dark';
 
+  // Pre-process URLs for element sub-types and super-types to avoid calling hooks in callbacks
+  const processedElementSubTypes = React.useMemo(() => {
+    return elementSubType?.map(subType => ({
+      ...subType,
+      processedUrl: subType.url
+    })) || [];
+  }, [elementSubType]);
+
+  const processedElementSuperTypes = React.useMemo(() => {
+    return elementSuperType?.map(superType => ({
+      ...superType,
+      processedUrl: superType.url
+    })) || [];
+  }, [elementSuperType]);
+
   // Generate JSON-LD
   const jsonLD = generateJsonLD(adaptedFrontMatter.RDF);
 
@@ -224,15 +239,15 @@ export default function ElementReference({
               <div className={styles.label}>Range</div>
               <div className={styles.value}>{range}</div>
             </div>
-            {elementSubType && elementSubType.length > 0 && (
+            {processedElementSubTypes.length > 0 && (
               <div className={styles.row}>
                 <div className={styles.label}>Element sub-type</div>
                 <div className={styles.value}>
                   <div className={styles.elementLinks}>
-                    {elementSubType.map((subType) => (
+                    {processedElementSubTypes.map((subType) => (
                       <Link
                         key={subType.uri}
-                        to={useBaseUrl(subType.url)}
+                        to={subType.processedUrl}
                         className={styles.elementLink}
                         data-testid="docusaurus-link"
                       >
@@ -243,15 +258,15 @@ export default function ElementReference({
                 </div>
               </div>
             )}
-            {elementSuperType && elementSuperType.length > 0 && (
+            {processedElementSuperTypes.length > 0 && (
               <div className={styles.row}>
                 <div className={styles.label}>Element super-type</div>
                 <div className={styles.value}>
                   <div className={styles.elementLinks}>
-                    {elementSuperType.map((superType) => (
+                    {processedElementSuperTypes.map((superType) => (
                       <Link
                         key={superType.uri}
-                        to={useBaseUrl(superType.url)}
+                        to={superType.processedUrl}
                         className={styles.elementLink}
                         data-testid="docusaurus-link"
                       >

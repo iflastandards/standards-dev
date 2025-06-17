@@ -13,6 +13,18 @@ interface DocItem {
   // Add any other properties that might be in the GlobalDoc type
 }
 
+// Custom component to handle individual doc links
+function DocLink({ doc }: { doc: DocItem }) {
+  const processedPath = useBaseUrl(doc.path);
+  return (
+    <li key={doc.id}>
+      <Link to={processedPath}>
+        {doc.title}
+      </Link>
+    </li>
+  );
+}
+
 export default function Sitemap(): JSX.Element {
   const allDocsData = useAllDocsData();
   
@@ -75,9 +87,9 @@ export default function Sitemap(): JSX.Element {
           {Object.entries(allDocsData).map(([pluginId, pluginData]) => {
             const latestVersion = pluginData.versions.find(v => v.isLast);
             if (!latestVersion) return null;
-            
+
             const categories = organizeDocsByCategory(latestVersion.docs as unknown as DocItem[]);
-            
+
             return (
               <div key={pluginId} className={styles.versionSection}>
                 <div className={styles.categoryGrid}>
@@ -86,11 +98,7 @@ export default function Sitemap(): JSX.Element {
                       <h3 className={styles.categoryTitle}>{categoryName}</h3>
                       <ul className={styles.docsList}>
                         {docs.map(doc => (
-                          <li key={doc.id}>
-                            <Link to={useBaseUrl(doc.path)}>
-                              {doc.title}
-                            </Link>
-                          </li>
+                          <DocLink key={doc.id} doc={doc} />
                         ))}
                       </ul>
                     </div>

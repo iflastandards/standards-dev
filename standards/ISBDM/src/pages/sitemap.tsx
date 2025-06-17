@@ -15,6 +15,18 @@ interface DocItem {
 
 // Removing unused interface
 
+// Custom component to handle individual doc links
+function DocLink({ doc }: { doc: DocItem }) {
+  const processedPath = useBaseUrl(doc.path);
+  return (
+    <li key={doc.id}>
+      <Link to={processedPath}>
+        {doc.title || doc.id}
+      </Link>
+    </li>
+  );
+}
+
 export default function Sitemap(): JSX.Element {
   const allDocsData = useAllDocsData();
   
@@ -103,9 +115,11 @@ export default function Sitemap(): JSX.Element {
           {Object.entries(allDocsData).map(([pluginId, pluginData]) => {
             const latestVersion = pluginData.versions.find(v => v.isLast);
             if (!latestVersion) return null;
-            
+
             const categories = organizeDocsByCategory(latestVersion.docs as unknown as DocItem[]);
-            
+
+
+
             return (
               <div key={pluginId} className={styles.versionSection}>
                 <div className={styles.categoryGrid}>
@@ -116,11 +130,7 @@ export default function Sitemap(): JSX.Element {
                         {docs
                           .sort((a, b) => (a.title || '').localeCompare(b.title || ''))
                           .map(doc => (
-                            <li key={doc.id}>
-                              <Link to={useBaseUrl(doc.path)}>
-                                {doc.title || doc.id}
-                              </Link>
-                            </li>
+                            <DocLink key={doc.id} doc={doc} />
                           ))}
                       </ul>
                     </div>

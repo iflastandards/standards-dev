@@ -41,11 +41,12 @@ export const OutLink: React.FC<OutLinkProps> = ({
     }
     return /^(https?:\/\/|www\.|[^/]+\.[^/]+)/.test(href);
   }, [href, external]);
-  
-  // Process URLs for internal links
+
+  // Process URLs for internal links - call hook unconditionally
+  const baseProcessedHref = useBaseUrl(href);
   const processedHref = React.useMemo(() => {
-    return isExternal ? href : useBaseUrl(href);
-  }, [href, isExternal]);
+    return isExternal ? href : baseProcessedHref;
+  }, [href, isExternal, baseProcessedHref]);
   
   return (
     <a

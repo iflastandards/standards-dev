@@ -40,8 +40,10 @@ export const Figure: React.FC<FigureProps> = ({
 }) => {
   const figureId = React.useId();
   const captionId = `fig-caption-${figureId}`;
+
+  // Process URLs unconditionally to avoid conditional hook calls
   const processedSrc = useBaseUrl(src);
-  const processedExpandLink = expandLink ? useBaseUrl(expandLink) : undefined;
+  const processedExpandLink = useBaseUrl(expandLink || '');
   
   return (
     <div className={styles.figureWrapper} role="group" aria-labelledby={captionId}>
@@ -73,7 +75,7 @@ export const Figure: React.FC<FigureProps> = ({
           {caption}
           {expandLink && (
             <div className={styles.figureExpandLink}>
-              <a 
+              <a
                 href={processedExpandLink}
                 className={clsx(
                   'linkImage',
