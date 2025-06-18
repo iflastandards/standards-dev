@@ -15,7 +15,7 @@ const config = createStandardSiteConfig({
       uri: "__ELEMENTS_URI__",
       profile: "__ELEMENTS_PROFILE__",
     }
-  },
+  },this only happwn
 
   // GitHub configuration
   editUrl: '__EDIT_URL__',

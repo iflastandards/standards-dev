@@ -1,6 +1,24 @@
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import type { SidebarItemsGeneratorArgs, NormalizedSidebarItem } from '@docusaurus/plugin-content-docs/lib/sidebars/types';
+// Use structuredClone with fallback for environments that don't support it
+const deepClone = typeof structuredClone !== 'undefined'
+  ? structuredClone
+  : <T>(obj: T): T => {
+      if (obj === null || typeof obj !== 'object') return obj;
+      if (obj instanceof Date) return new Date(obj.getTime()) as T;
+      if (obj instanceof Array) return obj.map(item => deepClone(item)) as T;
+      if (typeof obj === 'object') {
+        const cloned = {} as T;
+        for (const key in obj) {
+          if (obj.hasOwnProperty(key)) {
+            cloned[key] = deepClone(obj[key]);
+          }
+        }
+        return cloned;
+      }
+      return obj;
+    };
 import { type SiteKey, type DocsEnv } from './siteConfigCore';
 import { getSiteDocusaurusConfig, getSiteUrl } from './siteConfig';
 import { getCurrentEnv } from './siteConfig.server';
@@ -270,10 +288,10 @@ function createConfigurationFactory() {
       }
     );
 
-    // Create fresh plugins array
+    // Create fresh plugins array with deep cloning to prevent configuration mutation
     const plugins = [
-      ...sharedPlugins.map(plugin => Array.isArray(plugin) ? [...plugin] : plugin),
-      ...additionalPlugins.map(plugin => Array.isArray(plugin) ? [...plugin] : plugin),
+      ...sharedPlugins.map(p => deepClone(p)),
+      ...additionalPlugins.map(p => deepClone(p)),
     ];
 
     if (redirects) {
@@ -320,16 +338,16 @@ function createConfigurationFactory() {
 
     // Create fresh theme configuration
     const themeConfig = {
-      // Copy shared theme config properties
-      prism: { ...sharedThemeConfig.prism },
-      tableOfContents: { ...sharedThemeConfig.tableOfContents },
+      // Deep clone shared theme config properties to prevent contamination
+      prism: deepClone(sharedThemeConfig.prism),
+      tableOfContents: deepClone(sharedThemeConfig.tableOfContents),
       colorMode: {
         defaultMode: 'light' as 'light' | 'dark',
         disableSwitch: false,
         respectPrefersColorScheme: true,
       },
-      image: sharedThemeConfig.image,
-      announcementBar: { ...sharedThemeConfig.announcementBar },
+      image: deepClone(sharedThemeConfig.image),
+      announcementBar: deepClone(sharedThemeConfig.announcementBar),
 
       // Site-specific docs config
       docs: {
@@ -342,7 +360,7 @@ function createConfigurationFactory() {
 
       // Site-specific navbar with fresh configuration
       navbar: {
-        logo: { ...sharedThemeConfig.navbar.logo },
+        logo: deepClone(sharedThemeConfig.navbar.logo),
         title,
         items: navbarItems,
       },
@@ -382,7 +400,7 @@ function createConfigurationFactory() {
             ],
           },
         ],
-        copyright: sharedThemeConfig.footer.copyright,
+        copyright: deepClone(sharedThemeConfig.footer.copyright),
       },
     } satisfies Preset.ThemeConfig;
 
@@ -473,8 +491,8 @@ function createConfigurationFactory() {
         ],
       ],
 
-      // Shared themes
-      themes: sharedThemes.map(theme => Array.isArray(theme) ? [...theme] : theme),
+      // Shared themes with deep cloning to prevent configuration mutation
+      themes: sharedThemes.map(t => deepClone(t)),
 
       themeConfig,
     };
