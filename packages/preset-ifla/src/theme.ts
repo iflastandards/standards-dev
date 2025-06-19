@@ -171,40 +171,64 @@ export function buildFooterConfig(
   ];
 
 
-  // Portal footer customization
-  const docsSection = siteKey === 'portal' ? {
-    title: 'Docs',
-    items: [
-      {
-        label: 'Documentation',
-        to: '/docs/',
-      },
-      {
-        label: 'Standards Portal',
-        href: getSiteUrl('portal', '/', env),
-      },
-    ],
-  } : {
-    title: 'Docs',
-    items: [
-      {
-        label: 'Standards Portal',
-        href: getSiteUrl('portal', '/', env),
-      },
-      {
-        label: 'Introduction',
-        to: '/docs/intro',
-      },
-      {
-        label: 'Elements',
-        to: '/docs/elements',
-      },
-      {
-        label: 'Examples',
-        to: '/docs/examples',
-      },
-    ],
-  };
+  // Footer docs section customization based on site
+  const docsSection = (() => {
+    if (siteKey === 'portal') {
+      return {
+        title: 'Docs',
+        items: [
+          {
+            label: 'Documentation',
+            to: '/docs/',
+          },
+          {
+            label: 'Standards Portal',
+            href: getSiteUrl('portal', '/', env),
+          },
+        ],
+      };
+    }
+    
+    // ISBDM has rich content with elements and examples
+    if (siteKey === 'ISBDM') {
+      return {
+        title: 'Docs',
+        items: [
+          {
+            label: 'Standards Portal',
+            href: getSiteUrl('portal', '/', env),
+          },
+          {
+            label: 'Introduction',
+            to: '/docs/intro',
+          },
+          {
+            label: 'Elements',
+            to: '/docs/elements',
+          },
+          {
+            label: 'Examples',
+            to: '/docs/examples',
+          },
+        ],
+      };
+    }
+    
+    // Other standards have basic documentation structure
+    return {
+      title: 'Docs',
+      items: [
+        {
+          label: 'Standards Portal',
+          href: getSiteUrl('portal', '/', env),
+        },
+        {
+          label: 'Introduction',
+          to: '/docs/intro',
+        },
+      ],
+    };
+  })();
 
   return {
     style: 'dark',
