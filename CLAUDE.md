@@ -9,6 +9,7 @@
 - when writing scripts that need to use the url of a site for navigation, validation, or any purpose that equates a site with a url, use the configuration from this file: /Users/jonphipps/Code/IFLA/standards-dev/packages/theme/src/config/siteConfigCore.ts
 - if you need to start a server or build ask me to do it and tell you when it's running so you don't waste time waiting for it to load and timeout
 - when planning a complex project, break down the plan into epics and tasks to create a clear roadmap and track progress systematically
+- warn me when you start up if your environment isn't set to the project root
 
 ## Essential Commands
 

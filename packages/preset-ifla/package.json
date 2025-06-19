@@ -1,0 +1,36 @@
+{
+  "name": "@ifla/preset-ifla",
+  "version": "0.0.0",
+  "description": "Official IFLA Docusaurus preset for standards sites",
+  "keywords": [
+    "docusaurus",
+    "preset",
+    "ifla",
+    "standards",
+    "bibliographic"
+  ],
+  "license": "ISC",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "dist",
+    "src"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "pnpm exec tsup"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=18.0"
+  }
+}

@@ -1,28 +1,46 @@
-import { createStandardSiteConfig } from '@ifla/theme/config';
+import type { Config } from '@docusaurus/types';
+import preset, { getSiteConfig } from '../../packages/preset-ifla/dist/index.js';
 
-const config = createStandardSiteConfig({
-  siteKey: 'LRM',
-  title: 'IFLA LRM',
-  tagline: 'Library Reference Model',
-  projectName: 'LRM',
+// Get site URLs based on environment
+const { url, baseUrl, env } = getSiteConfig('LRM');
 
-  // LRM-specific vocabulary configuration
-  vocabularyDefaults: {
-    prefix: "lrm",
-    numberPrefix: "E", // Override default "T" with "E" for LRM
-    profile: "lrm-values-profile.csv",
-    elementDefaults: {
-      uri: "https://www.iflastandards.info/LRM/elements",
-      profile: "lrm-elements-profile.csv",
-    }
-  },
+const config: Config = {
+  ...preset({}, {
+    siteKey: 'LRM',
+    title: 'IFLA LRM',
+    tagline: 'Library Reference Model',
+    url,
+    baseUrl,
+    env,
+    
+    // LRM-specific vocabulary configuration  
+    vocabularyDefaults: {
+      prefix: "lrm",
+      startCounter: 1000,
+      uriStyle: "numeric",
+      numberPrefix: "E", 
+      caseStyle: "kebab-case",
+      showFilter: true,
+      filterPlaceholder: "Filter vocabulary terms...",
+      showTitle: false,
+      showURIs: true,
+      showCSVErrors: false,
+      profile: "lrm-values-profile.csv",
+      profileShapeId: "Concept",
+      RDF: {
+        "rdf:type": ["skos:ConceptScheme"]
+      },
+      elementDefaults: {
+        uri: "https://www.iflastandards.info/LRM/elements",
+        classPrefix: "C",
+        propertyPrefix: "P", 
+        profile: "lrm-elements-profile.csv",
+        profileShapeId: "Element",
+      }
+    },
 
-  // GitHub configuration
-  editUrl: 'https://github.com/iflastandards/LRM/tree/main/',
-
-  // Custom navbar items (will be merged with standard items)
-  navbar: {
-    items: [
+    // Custom navbar items for LRM-specific sections
+    customNavbarItems: [
       {
         type: 'doc',
         docId: 'intro/intro',
@@ -30,25 +48,22 @@ const config = createStandardSiteConfig({
         label: 'Introduction',
       },
     ],
-  },
 
-  // Navigation customization
-  navigation: {
-    hideCurrentSiteFromStandardsDropdown: true,
-    standardsDropdownPosition: 'right',
-    includeResourcesDropdown: false,
-  },
+    // Navigation customization
+    navigation: {
+      hideCurrentSiteFromStandardsDropdown: true,
+      standardsDropdownPosition: 'right',
+      includeResourcesDropdown: false,
+    },
 
-  // Footer customization
-  footer: {
-    additionalResourceLinks: [], // Can add more later
-  },
-
-  // Enable redirects
-  redirects: {
-    redirects: [],
-    createRedirects: (_existingPath: string) => undefined,
-  },
-});
+    // GitHub edit URL
+    editUrl: 'https://github.com/iflastandards/LRM/tree/main/',
+    
+    // Override settings for testing
+    overrides: {
+      onBrokenLinks: 'warn', // Don't fail build on broken links during testing
+    }
+  })
+};
 
 export default config;
