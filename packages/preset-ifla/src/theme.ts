@@ -396,3 +396,86 @@ export function buildThemeConfig(
 
   return themeConfig;
 }
+
+/**
+ * Build theme configuration with provided navbar and footer
+ */
+export function buildThemeConfigWithProvided(
+  title: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  navbar?: any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  footerConfig?: any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  prismTheme?: any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  prismDarkTheme?: any,
+  enableMermaid?: boolean
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+): any {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const themeConfig: any = {
+    // Color mode configuration
+    colorMode: {
+      defaultMode: 'light',
+      disableSwitch: false,
+      respectPrefersColorScheme: true,
+    },
+
+    // Docs configuration
+    docs: {
+      sidebar: {
+        hideable: true,
+        autoCollapseCategories: true,
+      },
+      versionPersistence: 'localStorage',
+    },
+
+    // Table of contents
+    tableOfContents: {
+      minHeadingLevel: 2,
+      maxHeadingLevel: 5,
+    },
+
+    // Social card
+    image: 'img/docusaurus-social-card.jpg',
+
+    // Announcement bar
+    announcementBar: {
+      id: 'support_us',
+      content: '⭐️ This is an active development site for IFLA standards ⭐️',
+      backgroundColor: '#fafbfc',
+      textColor: '#091E42',
+      isCloseable: false,
+    },
+
+    // Prism configuration for code highlighting
+    prism: {
+      theme: prismTheme || prismThemes.github,
+      darkTheme: prismDarkTheme || prismThemes.dracula,
+      additionalLanguages: ['bash', 'diff', 'json', 'turtle'],
+    },
+  };
+
+  // Use provided navbar if available
+  if (navbar) {
+    themeConfig.navbar = navbar;
+  }
+
+  // Use provided footer if available  
+  if (footerConfig) {
+    themeConfig.footer = footerConfig;
+  }
+
+  // Add mermaid configuration if enabled
+  if (enableMermaid) {
+    themeConfig.mermaid = {
+      theme: { light: 'default', dark: 'dark' },
+      options: {
+        maxTextSize: 50000,
+      },
+    };
+  }
+
+  return themeConfig;
+}

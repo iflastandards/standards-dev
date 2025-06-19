@@ -91,6 +91,23 @@ export interface IFLAOverrideOptions {
 }
 
 /**
+ * Pre-built navigation items to prevent configuration contamination
+ */
+export interface IFLAPrebuiltNavigation {
+  standardsDropdownItems: Array<{ label: string; href: string }>;
+}
+
+/**
+ * Pre-built footer links to prevent configuration contamination  
+ */
+export interface IFLAPrebuiltFooter {
+  docsLinks: Array<{ label: string; to?: string; href?: string }>;
+  standardsLinks: Array<{ label: string; href: string }>;
+  resourceLinks: Array<{ label: string; to?: string; href?: string }>;
+  moreLinks: Array<{ label: string; to?: string; href?: string }>;
+}
+
+/**
  * Main options interface for the IFLA preset
  */
 export interface IFLAPresetOptions {
