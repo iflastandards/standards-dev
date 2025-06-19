@@ -99,7 +99,7 @@ const preset: IFLAPresetFunction = function (
       xslt: blogPluginOptions.feedOptions?.xslt ?? true,
       copyright: blogPluginOptions.feedOptions?.copyright || `Copyright © ${new Date().getFullYear()} IFLA`,
     },
-    onInlineAuthors: 'throw',
+    onInlineAuthors: 'ignore',
     onInlineTags: 'warn',
     onUntruncatedBlogPosts: 'ignore',
   };

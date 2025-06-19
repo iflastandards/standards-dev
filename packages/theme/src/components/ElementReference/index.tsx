@@ -335,7 +335,7 @@ export default function ElementReference({
           <CodeBlock language="turtle" data-testid="codeblock-turtle">{turtle}</CodeBlock>
         </TabItem>
         <TabItem value="rdf-xml" label="RDF/XML" data-testid="tab-rdf-xml">
-          <CodeBlock language="xml" data-testid="codeblock-xml">{rdfXML}</CodeBlock>
+          <CodeBlock language="markup" data-testid="codeblock-xml">{rdfXML}</CodeBlock>
         </TabItem>
       </Tabs>
     </div>

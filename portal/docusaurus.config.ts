@@ -38,6 +38,7 @@ const config: Config = {
 
     // Footer customization for portal
     footer: {
+      hideDefaultResourceLinks: true,
       additionalResourceLinks: [
         {
           label: 'Vocabulary Server',

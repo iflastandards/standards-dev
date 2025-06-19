@@ -3,6 +3,7 @@
  */
 
 import type { NavbarItem } from '@docusaurus/theme-common';
+import { themes as prismThemes } from 'prism-react-renderer';
 import { SiteKey, DocsEnv, IFLANavigationOptions, IFLAFooterOptions } from './types';
 import { getSiteUrl } from './utils';
 
@@ -169,11 +170,6 @@ export function buildFooterConfig(
     },
   ];
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const _resourcesItems = [
-    ...defaultResourceLinks,
-    ...additionalResourceLinks,
-  ];
 
   // Portal footer customization
   const docsSection = siteKey === 'portal' ? {
@@ -253,10 +249,7 @@ export function buildFooterConfig(
       {
         title: 'Resources',
         items: [
-          {
-            label: 'RDF Downloads',
-            to: '/rdf/',
-          },
+          ...defaultResourceLinks,
           {
             label: 'Vocabulary Server',
             href: getSiteUrl('portal', '/', env).replace(/\/portal\/$/, '/'), // Root URL for vocab server
@@ -283,10 +276,10 @@ export function buildFooterConfig(
             label: 'GitHub',
             href: 'https://github.com/iflastandards/standards-dev',
           },
-          {
+          ...(hideDefaultResourceLinks ? [] : [{
             label: 'Sitemap',
             to: '/sitemap',
-          },
+          }]),
         ],
       },
     ],
@@ -355,9 +348,9 @@ export function buildThemeConfig(
 
     // Prism configuration for code highlighting
     prism: {
-      theme: prismTheme || { plain: {}, styles: [] },
-      darkTheme: prismDarkTheme || { plain: {}, styles: [] },
-      additionalLanguages: ['bash', 'diff', 'json'],
+      theme: prismTheme || prismThemes.github,
+      darkTheme: prismDarkTheme || prismThemes.dracula,
+      additionalLanguages: ['bash', 'diff', 'json', 'turtle'],
     },
 
     // Navbar configuration
