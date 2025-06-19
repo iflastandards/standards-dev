@@ -7,37 +7,37 @@ import { SiteKey, DocsEnv, VocabularyDefaults } from './types';
 // Simple site configuration lookup by siteId and environment
 const SITE_URLS: Record<string, Record<DocsEnv, { url: string; baseUrl: string }>> = {
   portal: {
-    [DocsEnv.Localhost]: { url: 'http://localhost:3000', baseUrl: '/' },
+    [DocsEnv.Localhost]: { url: 'http://localhost:3000', baseUrl: '/portal/' },
     [DocsEnv.Preview]: { url: 'https://iflastandards.github.io', baseUrl: '/standards-dev/' },
     [DocsEnv.Production]: { url: 'https://iflastandards.info', baseUrl: '/' },
   },
   isbdm: {
-    [DocsEnv.Localhost]: { url: 'http://localhost:3001', baseUrl: '/' },
+    [DocsEnv.Localhost]: { url: 'http://localhost:3001', baseUrl: '/ISBDM/' },
     [DocsEnv.Preview]: { url: 'https://iflastandards.github.io', baseUrl: '/standards-dev/isbdm/' },
     [DocsEnv.Production]: { url: 'https://iflastandards.info', baseUrl: '/ISBDM/' },
   },
   lrm: {
-    [DocsEnv.Localhost]: { url: 'http://localhost:3002', baseUrl: '/' },
+    [DocsEnv.Localhost]: { url: 'http://localhost:3002', baseUrl: '/LRM/' },
     [DocsEnv.Preview]: { url: 'https://iflastandards.github.io', baseUrl: '/standards-dev/lrm/' },
     [DocsEnv.Production]: { url: 'https://iflastandards.info', baseUrl: '/LRM/' },
   },
   frbr: {
-    [DocsEnv.Localhost]: { url: 'http://localhost:3003', baseUrl: '/' },
+    [DocsEnv.Localhost]: { url: 'http://localhost:3003', baseUrl: '/FRBR/' },
     [DocsEnv.Preview]: { url: 'https://iflastandards.github.io', baseUrl: '/standards-dev/FRBR/' },
     [DocsEnv.Production]: { url: 'https://iflastandards.info', baseUrl: '/FRBR/' },
   },
   isbd: {
-    [DocsEnv.Localhost]: { url: 'http://localhost:3004', baseUrl: '/' },
+    [DocsEnv.Localhost]: { url: 'http://localhost:3004', baseUrl: '/isbd/' },
     [DocsEnv.Preview]: { url: 'https://iflastandards.github.io', baseUrl: '/standards-dev/isbd/' },
     [DocsEnv.Production]: { url: 'https://iflastandards.info', baseUrl: '/isbd/' },
   },
   muldicat: {
-    [DocsEnv.Localhost]: { url: 'http://localhost:3005', baseUrl: '/' },
+    [DocsEnv.Localhost]: { url: 'http://localhost:3005', baseUrl: '/muldicat/' },
     [DocsEnv.Preview]: { url: 'https://iflastandards.github.io', baseUrl: '/standards-dev/muldicat/' },
     [DocsEnv.Production]: { url: 'https://iflastandards.info', baseUrl: '/muldicat/' },
   },
   unimarc: {
-    [DocsEnv.Localhost]: { url: 'http://localhost:3006', baseUrl: '/' },
+    [DocsEnv.Localhost]: { url: 'http://localhost:3006', baseUrl: '/unimarc/' },
     [DocsEnv.Preview]: { url: 'https://iflastandards.github.io', baseUrl: '/standards-dev/unimarc/' },
     [DocsEnv.Production]: { url: 'https://iflastandards.info', baseUrl: '/unimarc/' },
   },
