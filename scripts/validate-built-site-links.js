@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { execSync } = require('child_process');
+// const { execSync } = require('child_process'); // Unused for now
 const { program } = require('commander');
 const inquirer = require('inquirer').default;
 const puppeteer = require('puppeteer');
@@ -8,7 +8,7 @@ const path = require('path');
 const fs = require('fs');
 
 // Get valid sites from the theme configuration
-const { sites } = require('../packages/theme/dist/config/siteConfigCore');
+const { sites, DocsEnv } = require('../packages/theme/dist/config/siteConfigCore');
 const validSites = Object.keys(sites).filter(site => site !== 'github');
 
 program
@@ -48,19 +48,31 @@ const GENERATED_CONTENT_PATTERNS = {
 
 async function validateBuiltSiteLinks(siteKey, options = {}) {
   const {
-    port = '3000',
+    port = null, // Will use site config if not provided
     timeout = 10000,
     maxLinks = 100,
     buildDir = 'build',
     includeGenerated = false
   } = options;
   
+  // Get site configuration for localhost environment
+  const siteConfig = sites[siteKey]?.[DocsEnv.Localhost];
+  if (!siteConfig) {
+    console.error(`❌ No configuration found for site '${siteKey}' in localhost environment`);
+    process.exit(1);
+  }
+  
+  // Use configured port if not overridden
+  const actualPort = port || siteConfig.port || '3000';
+  const baseUrl = siteConfig.url; // Use full URL from config
+  
   const siteDir = siteKey.toLowerCase() === 'portal' ? 'portal' : `standards/${siteKey}`;
   const buildPath = path.join(process.cwd(), siteDir, buildDir);
   
   console.log(`\n🔍 Validating BUILT site links for ${siteKey.toUpperCase()}...`);
   console.log(`📁 Build directory: ${buildPath}`);
-  console.log(`🌐 Testing against: http://localhost:${port}`);
+  console.log(`🌐 Testing against: ${baseUrl} (port ${actualPort})`);
+  console.log(`🔗 Base URL: ${siteConfig.baseUrl}`);
   console.log(`⏱️  Timeout: ${timeout}ms per link`);
   console.log(`🔢 Max links: ${maxLinks}`);
   console.log(`🔗 Include generated links: ${includeGenerated ? 'YES' : 'NO'}`);
@@ -71,8 +83,6 @@ async function validateBuiltSiteLinks(siteKey, options = {}) {
     console.error(`💡 Run: pnpm run build:${siteKey.toLowerCase()} first`);
     process.exit(1);
   }
-  
-  const baseUrl = `http://localhost:${port}`;
   
   const browser = await puppeteer.launch({ 
     headless: true,
@@ -102,22 +112,32 @@ async function validateBuiltSiteLinks(siteKey, options = {}) {
     
     console.log('📄 Loading built site homepage...');
     
+    // Construct the full homepage URL including baseUrl path
+    const homepageUrl = `${baseUrl}${siteConfig.baseUrl}`.replace(/\/+$/, '/');
+    
     try {
-      await page.goto(baseUrl, { waitUntil: 'networkidle0', timeout: 30000 });
-    } catch (error) {
-      console.error(`❌ Failed to load ${baseUrl}`);
-      console.error(`💡 Make sure you're serving the built site on port ${port}`);
+      await page.goto(homepageUrl, { waitUntil: 'networkidle0', timeout: 30000 });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_error) {
+      console.error(`❌ Failed to load ${homepageUrl}`);
+      console.error(`💡 Make sure you're serving the built site on port ${actualPort}`);
       console.error(`   For built sites, use: pnpm run serve`);
       console.error(`   For specific site: cd ${siteDir} && pnpm run serve`);
       process.exit(1);
     }
     
     // Extract all internal links
-    const allLinks = await page.evaluate(() => {
+    const allLinks = await page.evaluate((siteBaseUrl) => {
       const links = [];
       document.querySelectorAll('a[href]').forEach(el => {
         const href = el.getAttribute('href');
-        if (href && (href.startsWith('/') || href.includes(window.location.hostname))) {
+        if (href && (
+          href.startsWith('/') || 
+          href.includes(window.location.hostname) ||
+          href.startsWith(siteBaseUrl) ||
+          href.startsWith('.') ||
+          !href.includes('://')  // Relative links without protocol
+        )) {
           links.push({
             href,
             text: el.textContent?.trim() || '',
@@ -128,7 +148,7 @@ async function validateBuiltSiteLinks(siteKey, options = {}) {
         }
       });
       return links;
-    });
+    }, siteConfig.baseUrl);
     
     // Apply ignore patterns
     let ignorePatterns = [...GLOBAL_IGNORE_PATTERNS];
@@ -165,9 +185,16 @@ async function validateBuiltSiteLinks(siteKey, options = {}) {
     for (const link of finalLinks) {
       try {
         // Handle relative vs absolute URLs
-        const testUrl = link.href.startsWith('http') ? link.href : 
-                       link.href.startsWith('/') ? `${baseUrl}${link.href}` :
-                       `${baseUrl}/${link.href}`;
+        let testUrl;
+        if (link.href.startsWith('http')) {
+          testUrl = link.href;
+        } else if (link.href.startsWith('/')) {
+          // For links starting with /, they should be relative to domain root
+          testUrl = `${baseUrl}${link.href}`;
+        } else {
+          // For relative links, append to current baseUrl
+          testUrl = `${baseUrl}${siteConfig.baseUrl}${link.href}`.replace(/\/+/g, '/');
+        }
         
         console.log(`  [${results.tested + 1}/${finalLinks.length}] Testing: "${link.text.substring(0, 30)}..." -> ${link.href}`);
         

@@ -1,5 +1,6 @@
 import puppeteer from 'puppeteer';
-import { getSiteUrl, sites, DocsEnv } from '../packages/theme/src/config/siteConfig.ts';
+import { getSiteUrl } from '../packages/theme/dist/config/siteConfig.js';
+import { sites, DocsEnv } from '../packages/theme/dist/config/siteConfigCore.js';
 import fs from 'fs';
 
 const portalSiteKey = 'portal';
