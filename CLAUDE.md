@@ -8,6 +8,39 @@
 - when you're searching for missing code, recursively search /Users/jonphipps/Code/IFLA/standards-dev first, then search the git repo history and and branches, then recuresively search /Users/jonphipps/Code/IFLA/
 - when writing scripts that need to use the url of a site for navigation, validation, or any purpose that equates a site with a url, use the configuration from this file: /Users/jonphipps/Code/IFLA/standards-dev/packages/theme/src/config/siteConfigCore.ts
 - if you need to start a server or build ask me to do it and tell you when it's running so you don't waste time waiting for it to load and timeout
+- when planning a complex project, break down the plan into epics and tasks to create a clear roadmap and track progress systematically
+
+## Essential Commands
+
+### Building
+- `pnpm build:all` - Build all sites in parallel (theme first)
+- `pnpm build:{site}` - Build specific site (portal, isbdm, lrm, frbr, isbd, muldicat, unimarc)
+- `pnpm build:preset` - Build preset package after changes
+- `pnpm build:theme` - Build theme package
+
+### Code Quality
+- `pnpm lint:fix` - Fix linting issues automatically
+- `pnpm lint:quiet:fix` - Fix linting issues quietly (suppress warnings)
+- `pnpm typecheck` - Check TypeScript types
+- `pnpm test` - Run vitest tests
+
+### Development
+- `pnpm start:{site}` - Start dev server for specific site
+- `pnpm start:all` - Start all dev servers (ports 3000-3006)
+- `pnpm serve:{site}` - Serve built site for testing
+- `pnpm clear:all` - Clear all builds and caches (includes preset)
+- `pnpm clear:packages` - Clear theme and preset builds
+- `pnpm clear:sites` - Clear all site builds
+
+### Validation
+- `pnpm validate:navigation` - Check navigation URLs
+- `pnpm validate:built-site` - Validate built site links
+- `pnpm validate:env-urls` - Validate environment URLs
+
+### Before Committing
+Always run: `pnpm lint:fix && pnpm typecheck`
+
+For full command reference, see: `developer_notes/commands-reference.md`
 
 # IFLA Standards Development Project Context
 
