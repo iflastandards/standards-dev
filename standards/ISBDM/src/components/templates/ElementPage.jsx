@@ -1,6 +1,4 @@
 import React from 'react';
-import clsx from 'clsx';
-import Admonition from '@theme/Admonition';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import Heading from '@theme/Heading';

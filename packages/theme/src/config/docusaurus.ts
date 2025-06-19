@@ -1,6 +1,6 @@
 import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
-import type { NavbarItem, FooterLinkItem } from '@docusaurus/theme-common';
+import type { NavbarItem } from '@docusaurus/theme-common';
 import { type DocsEnv } from './siteConfigCore';
 import { getSiteUrl } from './siteConfig';
 

@@ -252,7 +252,7 @@ function StatusDashboard({ siteTitle, siteCode }: { siteTitle: string, siteCode:
   return (
     <div className={styles.dashboardGrid}>
       <div className={styles.statusCard}>
-        <h3>Current Status</h3>
+        <h3>{siteTitle} Status</h3>
         <div className={styles.statusItem}>
           <span className={styles.statusLabel}>Last Updated:</span>
           <span className={styles.statusValue}>2 hours ago</span>
@@ -272,7 +272,7 @@ function StatusDashboard({ siteTitle, siteCode }: { siteTitle: string, siteCode:
       </div>
       
       <div className={styles.statusCard}>
-        <h3>Recent Activity</h3>
+        <h3>Recent Activity - {siteCode}</h3>
         <div className={styles.activityList}>
           <div className={styles.activityItem}>
             <span className={styles.activityTime}>2h ago</span>

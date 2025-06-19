@@ -6,7 +6,7 @@ import navbarItems from './navbar';
 const { url, baseUrl, env } = getSiteConfig('portal');
 
 const config: Config = {
-  ...preset({}, {
+  ...preset(undefined as any, {
     siteKey: 'portal',
     title: 'IFLA Standards Portal',
     tagline: 'International Federation of Library Associations and Institutions',

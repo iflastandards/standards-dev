@@ -1,4 +1,4 @@
-import React, {JSX} from 'react';
+import React from 'react';
 import Layout from '@theme/Layout';
 import {useAllDocsData} from '@docusaurus/plugin-content-docs/lib/client';
 import Link from '@docusaurus/Link';

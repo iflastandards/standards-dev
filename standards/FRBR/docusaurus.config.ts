@@ -6,7 +6,7 @@ import navbarItems from './navbar';
 const { url, baseUrl, env } = getSiteConfig('frbr');
 
 const config: Config = {
-  ...preset({}, {
+  ...preset(undefined as any, {
     siteKey: 'frbr',
     title: 'IFLA FR Family of Models',
     tagline: 'Conceptual Models for Bibliographic Information',

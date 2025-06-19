@@ -1,5 +1,4 @@
 // Profile-based validation for ISBDM Value vocabularies
-import { CSVConceptRow } from './types';
 
 export interface ProfileProperty {
   propertyID: string;

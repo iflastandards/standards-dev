@@ -1,6 +1,6 @@
 // src/tests/components/ElementReference.test.tsx
 import React from 'react';
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import ElementReference from '@ifla/theme/components/ElementReference';
 

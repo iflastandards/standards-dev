@@ -33,7 +33,8 @@
       "react",
       "docusaurus-plugin-sass",
       "@docusaurus/theme-classic",
-      "@docusaurus/types"
+      "@docusaurus/types",
+      "vitest/globals"
     ],
     //paths and aliases
     "baseUrl": ".",
@@ -71,6 +72,7 @@
   "exclude": [
     "node_modules",
     "build",
-    "coverage"
+    "coverage",
+    "tools"
   ]
 }

@@ -44,7 +44,7 @@ const isbdmSidebarGenerator = async (generatorArgs: SidebarItemsGeneratorArgs) =
 };
 
 const config: Config = {
-  ...preset({}, {
+  ...preset(undefined as any, {
     siteKey: 'ISBDM',
     title: 'ISBD for Manifestation',
     tagline: 'International Standard Bibliographic Description for Manifestation',

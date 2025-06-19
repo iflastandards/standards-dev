@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { Parser, Store, DataFactory, Quad, Writer } from 'n3';
+import { Parser, Store, DataFactory, Quad } from 'n3';
 import * as fs from 'fs';
 import * as path from 'path';
 import { parse } from 'csv-parse/sync';

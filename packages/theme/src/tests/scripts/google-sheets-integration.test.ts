@@ -1,7 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { google } from 'googleapis';
-import * as fs from 'fs';
-import * as path from 'path';
+import { describe, it, expect } from 'vitest';
 
 // Real integration tests that test actual logic, not just mocks
 describe('Google Sheets Integration - Real Logic Tests', () => {

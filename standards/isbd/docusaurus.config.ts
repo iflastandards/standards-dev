@@ -6,7 +6,7 @@ import navbarItems from './navbar';
 const { url, baseUrl, env } = getSiteConfig('isbd');
 
 const config: Config = {
-  ...preset({}, {
+  ...preset(undefined as any, {
     siteKey: 'isbd',
     title: 'ISBD: International Standard Bibliographic Description',
     tagline: 'Consolidated Edition',

@@ -6,7 +6,7 @@ import navbarItems from './navbar';
 const { url, baseUrl, env } = getSiteConfig('muldicat');
 
 const config: Config = {
-  ...preset({}, {
+  ...preset(undefined as any, {
     siteKey: 'muldicat',
     title: 'MulDiCat',
     tagline: 'Multilingual Dictionary of Cataloguing Terms and Concepts',

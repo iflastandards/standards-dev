@@ -1,14 +1,8 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import * as fs from 'fs';
-import * as path from 'path';
+import { describe, it, expect } from 'vitest';
 
 // Import the actual functions we want to test
-import { 
-  createDctapProfileSheet,
-  createVocabularySheet,
-  findOrCreateWorkbook,
-  updateIndexSheet
-} from '../../../../../scripts/create-vocabulary-sheet';
+
+
 
 // Test the actual business logic, not the mocks
 describe('create-vocabulary-sheet - Business Logic Tests', () => {

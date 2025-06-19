@@ -1,5 +1,4 @@
 // MDXComponents.tsx
-import React from 'react';
 // Import the original MDX components
 import MDXComponents from '@theme-original/MDXComponents';
 // Import shared theme components

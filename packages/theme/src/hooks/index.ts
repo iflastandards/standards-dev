@@ -3,8 +3,8 @@
  */
 
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
-import { ConceptProps, CSVConceptRow, MultilingualText, LanguageConfig } from '../types';
-import { parseCSVToConcepts, getLocalizedText, extractAvailableLanguages, debounce } from '../utils';
+import { ConceptProps, CSVConceptRow, MultilingualText } from '../types';
+import { getLocalizedText, extractAvailableLanguages, debounce } from '../utils';
 
 /**
  * Hook for loading and parsing CSV data

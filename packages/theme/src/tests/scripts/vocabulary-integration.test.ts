@@ -1,6 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { google } from 'googleapis';
-import * as fs from 'fs';
 import {
   setupMockEnvironment,
   cleanupMockEnvironment,

@@ -1,8 +1,7 @@
 import { CSVConceptRow } from './types';
 import { 
   getBasePropertyName, 
-  isRepeatableProperty, 
-  isMandatoryProperty,
+  isRepeatableProperty,
   isValidPropertyColumn,
   getLanguageFromColumn,
   requiresLanguageTag

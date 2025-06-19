@@ -19,6 +19,7 @@ export default defineConfig({
             '@theme/Tabs': path.resolve(__dirname, 'packages/theme/src/tests/__mocks__/tabs.tsx'),
             '@theme/TabItem': path.resolve(__dirname, 'packages/theme/src/tests/__mocks__/TabItem.tsx'),
             '@theme/CodeBlock': path.resolve(__dirname, 'packages/theme/src/tests/__mocks__/CodeBlock.tsx'),
+            '@theme/Heading': path.resolve(__dirname, 'packages/theme/src/tests/__mocks__/Heading.tsx'),
             '@ifla/theme': path.resolve(__dirname, 'packages/theme/src'),
        },
     },
@@ -27,6 +28,6 @@ export default defineConfig({
         environment: 'jsdom',
         setupFiles: ['./packages/theme/src/tests/setup.ts'],
         include: ['**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-        exclude: ['**/node_modules/**', '**/dist/**', '**/build/**'],
+        exclude: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/e2e/**'],
     },
 });

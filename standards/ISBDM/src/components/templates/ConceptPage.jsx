@@ -1,7 +1,5 @@
 import React from 'react';
-import clsx from 'clsx';
 import Heading from '@theme/Heading';
-import Admonition from '@theme/Admonition';
 import Details from '@theme/Details';
 import Mermaid from '@theme/Mermaid';
 

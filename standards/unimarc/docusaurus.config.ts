@@ -6,7 +6,7 @@ import navbarItems from './navbar';
 const { url, baseUrl, env } = getSiteConfig('unimarc');
 
 const config: Config = {
-  ...preset({}, {
+  ...preset(undefined as any, {
     siteKey: 'unimarc',
     title: 'IFLA UNIMARC',
     tagline: 'Universal MARC Format',

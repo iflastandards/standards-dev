@@ -1,9 +1,8 @@
-import React, { useState, useMemo, JSX, Fragment } from 'react';
+import React, { useState, useMemo, JSX } from 'react';
 import { useColorMode } from '@docusaurus/theme-common';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { 
-  VocabularyTableProps, 
-  ConceptProps,
+  VocabularyTableProps,
   VocabularyDefaults,
   DEFAULT_LANGUAGE_CONFIG 
 } from './types';

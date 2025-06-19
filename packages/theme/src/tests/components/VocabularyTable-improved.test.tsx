@@ -1,7 +1,7 @@
 import React from 'react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { VocabularyTable } from '@ifla/theme/components/VocabularyTable';
-import { expect, describe, it, vi, beforeEach, afterEach } from 'vitest';
+import { expect, describe, it, vi, beforeEach } from 'vitest';
 
 // Create a more flexible mock for color mode that we can control
 let mockColorMode = 'light';

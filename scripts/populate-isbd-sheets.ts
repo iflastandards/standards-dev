@@ -4,7 +4,6 @@ import 'dotenv/config';
 import * as fs from 'fs';
 import * as path from 'path';
 import { parse } from 'csv-parse/sync';
-import { google } from 'googleapis';
 import { initializeGoogle } from './create-vocabulary-sheet';
 
 interface CSVRow {

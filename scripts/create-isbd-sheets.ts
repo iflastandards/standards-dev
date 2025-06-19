@@ -9,7 +9,6 @@ import {
   createVocabularySheet,
   DCTAP_PROFILES 
 } from './create-vocabulary-sheet';
-import { google } from 'googleapis';
 
 interface ISBDVocabulary {
   name: string;

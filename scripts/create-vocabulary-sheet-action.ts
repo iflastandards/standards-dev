@@ -4,7 +4,6 @@
 
 import { google } from 'googleapis';
 import * as fs from 'fs';
-import * as path from 'path';
 import { sheets_v4, drive_v3 } from 'googleapis';
 
 // Types

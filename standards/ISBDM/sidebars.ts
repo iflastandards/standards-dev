@@ -1,16 +1,11 @@
-import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 // sidebars.ts
 // Docusaurus v3.7 sidebar configuration with custom Relationships leaves
 
-import {
-  agents,
-  resources,
-  placetimes,
-  nomens,
-} from './scripts/relationshipsSidebarLeaves';
+
+
 
 const sidebars = {
   docs: [

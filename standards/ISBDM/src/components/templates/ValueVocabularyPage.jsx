@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import clsx from 'clsx';
 import Heading from '@theme/Heading';
-import Admonition from '@theme/Admonition';
 
 /**
  * Value Vocabulary Page Template
