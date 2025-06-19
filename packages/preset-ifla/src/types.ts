@@ -24,6 +24,7 @@ export interface VocabularyDefaults {
   profile: string;
   profileShapeId: string;
   RDF: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;
   };
   elementDefaults: {
@@ -83,6 +84,8 @@ export interface IFLAOverrideOptions {
   onBrokenLinks?: 'ignore' | 'warn' | 'throw';
   /** How to handle broken anchors */
   onBrokenAnchors?: 'ignore' | 'warn' | 'throw';
+  /** How to handle broken markdown links */
+  onBrokenMarkdownLinks?: 'ignore' | 'warn' | 'throw';
   /** Whether to add trailing slashes */
   trailingSlash?: boolean;
 }
@@ -128,6 +131,7 @@ export interface IFLAPresetOptions {
   editUrl?: string;
   
   /** Additional plugins to include */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   additionalPlugins?: any[];
   
   /** Redirect configuration */
@@ -147,6 +151,7 @@ export interface IFLAPresetOptions {
   };
   
   /** Webpack configuration function */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   webpackConfig?: (config: any, isServer: boolean, utils: any) => any;
   
   /** Enable ideal image plugin */
@@ -182,7 +187,9 @@ export interface IFLAPresetOptions {
   };
   
   /** Prism theme configuration */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   prismTheme?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   prismDarkTheme?: any;
 }
 
@@ -206,10 +213,16 @@ export type IFLAPresetFunction = (
   context: LoadContext,
   options: IFLAPresetOptions
 ) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   presets: any[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   plugins: any[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   themes: any[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   themeConfig: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   customFields: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 };

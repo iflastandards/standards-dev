@@ -125,9 +125,9 @@ const preset: IFLAPresetFunction = function (
     },
     
     // Error handling
-    onBrokenLinks: overrides?.onBrokenLinks || 'throw',
+    onBrokenLinks: overrides?.onBrokenLinks || 'warn',
     onBrokenAnchors: overrides?.onBrokenAnchors || 'warn',
-    onBrokenMarkdownLinks: 'warn',
+    onBrokenMarkdownLinks: overrides?.onBrokenMarkdownLinks || 'warn',
     onDuplicateRoutes: 'warn',
     
     // Markdown configuration

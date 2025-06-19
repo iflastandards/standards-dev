@@ -21,9 +21,9 @@ const SITE_URLS: Record<string, Record<DocsEnv, { url: string; baseUrl: string }
     [DocsEnv.Preview]: { url: 'https://iflastandards.github.io', baseUrl: '/standards-dev/lrm/' },
     [DocsEnv.Production]: { url: 'https://iflastandards.info', baseUrl: '/LRM/' },
   },
-  fr: {
+  frbr: {
     [DocsEnv.Localhost]: { url: 'http://localhost:3003', baseUrl: '/' },
-    [DocsEnv.Preview]: { url: 'https://iflastandards.github.io', baseUrl: '/standards-dev/fr/' },
+    [DocsEnv.Preview]: { url: 'https://iflastandards.github.io', baseUrl: '/standards-dev/FRBR/' },
     [DocsEnv.Production]: { url: 'https://iflastandards.info', baseUrl: '/FRBR/' },
   },
   isbd: {

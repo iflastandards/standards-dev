@@ -1,12 +1,18 @@
 import type { Config } from '@docusaurus/types';
-import preset from '../../packages/preset-ifla/dist/index.js';
+import preset, { getSiteConfig } from '../../packages/preset-ifla/dist/index.js';
+import navbarItems from './navbar';
+
+// Get site URLs based on environment
+const { url, baseUrl, env } = getSiteConfig('isbd');
 
 const config: Config = {
   ...preset({}, {
     siteKey: 'isbd',
     title: 'ISBD: International Standard Bibliographic Description',
     tagline: 'Consolidated Edition',
-    projectName: 'isbd',
+    url,
+    baseUrl,
+    env,
 
     // ISBD-specific vocabulary configuration
     vocabularyDefaults: {
@@ -18,6 +24,9 @@ const config: Config = {
         profile: "isbd-elements-profile.csv",
       }
     },
+
+    // Custom navbar items
+    customNavbarItems: navbarItems,
 
     // Navigation customization
     navigation: {

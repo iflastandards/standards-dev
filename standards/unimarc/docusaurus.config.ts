@@ -1,12 +1,18 @@
 import type { Config } from '@docusaurus/types';
-import preset from '../../packages/preset-ifla/dist/index.js';
+import preset, { getSiteConfig } from '../../packages/preset-ifla/dist/index.js';
+import navbarItems from './navbar';
+
+// Get site URLs based on environment
+const { url, baseUrl, env } = getSiteConfig('unimarc');
 
 const config: Config = {
   ...preset({}, {
     siteKey: 'unimarc',
     title: 'IFLA UNIMARC',
     tagline: 'Universal MARC Format',
-    projectName: 'UNIMARC',
+    url,
+    baseUrl,
+    env,
 
     // UNIMARC-specific vocabulary configuration
     vocabularyDefaults: {
@@ -18,6 +24,9 @@ const config: Config = {
         profile: "elements-profile.csv",
       }
     },
+
+    // Custom navbar items
+    customNavbarItems: navbarItems,
 
     // Navigation customization
     navigation: {

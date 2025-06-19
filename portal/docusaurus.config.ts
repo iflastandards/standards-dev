@@ -1,5 +1,6 @@
 import type { Config } from '@docusaurus/types';
 import preset, { getSiteConfig } from '../packages/preset-ifla/dist/index.js';
+import navbarItems from './navbar';
 
 // Get site URLs based on environment
 const { url, baseUrl, env } = getSiteConfig('portal');
@@ -12,7 +13,6 @@ const config: Config = {
     url,
     baseUrl,
     env,
-    projectName: 'standards-portal',
 
     // Portal-specific vocabulary configuration (minimal since portal doesn't have RDF content)
     vocabularyDefaults: {
@@ -25,22 +25,8 @@ const config: Config = {
       }
     },
 
-    // Custom navbar items for portal
-    customNavbarItems: [
-      {
-        type: 'docSidebar',
-        sidebarId: 'tutorialSidebar',
-        position: 'left',
-        label: 'Documentation',
-      },
-      {to: '/blog', label: 'Blog', position: 'left'},
-      {
-        to: '/manage',
-        label: 'Management',
-        position: 'left',
-        className: 'navbar__item--management',
-      },
-    ],
+    // Custom navbar items
+    customNavbarItems: navbarItems,
 
     // Navigation customization for portal
     navigation: {
@@ -52,7 +38,6 @@ const config: Config = {
 
     // Footer customization for portal
     footer: {
-      hideDefaultResourceLinks: true, // Portal doesn't have RDF downloads or sitemap
       additionalResourceLinks: [
         {
           label: 'Vocabulary Server',
@@ -70,7 +55,6 @@ const config: Config = {
 
     // Portal-specific overrides
     overrides: {
-      onBrokenLinks: 'ignore', // Ignore broken RDF/sitemap links for Portal
       onBrokenAnchors: 'ignore', // Changed from default 'warn'
       staticDirectories: ['static', '../packages/theme/static'],
     },

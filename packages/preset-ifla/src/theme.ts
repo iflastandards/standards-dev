@@ -84,6 +84,7 @@ export function buildNavbarConfig(
   env: DocsEnv,
   customNavbarItems: NavbarItem[] = [],
   navigation: IFLANavigationOptions = {}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): any {
   const {
     includeDocumentationItem = true,
@@ -153,6 +154,7 @@ export function buildFooterConfig(
   env: DocsEnv,
   footerOptions: IFLAFooterOptions = {},
   siteKey?: string
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): any {
   const { additionalResourceLinks = [], hideDefaultResourceLinks = false } = footerOptions;
 
@@ -308,10 +310,14 @@ export function buildThemeConfig(
   customNavbarItems: NavbarItem[] = [],
   navigation: IFLANavigationOptions = {},
   footer: IFLAFooterOptions = {},
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   prismTheme?: any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   prismDarkTheme?: any,
   enableMermaid?: boolean
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): any {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const themeConfig: any = {
     // Color mode configuration
     colorMode: {

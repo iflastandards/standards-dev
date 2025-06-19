@@ -1,12 +1,18 @@
 import type { Config } from '@docusaurus/types';
-import preset from '../../packages/preset-ifla/dist/index.js';
+import preset, { getSiteConfig } from '../../packages/preset-ifla/dist/index.js';
+import navbarItems from './navbar';
+
+// Get site URLs based on environment
+const { url, baseUrl, env } = getSiteConfig('frbr');
 
 const config: Config = {
   ...preset({}, {
-    siteKey: 'FRBR',
+    siteKey: 'frbr',
     title: 'IFLA FR Family of Models',
     tagline: 'Conceptual Models for Bibliographic Information',
-    projectName: 'FRBR',
+    url,
+    baseUrl,
+    env,
 
     // FRBR-specific vocabulary configuration
     vocabularyDefaults: {
@@ -18,6 +24,9 @@ const config: Config = {
         profile: "elements-profile.csv",
       }
     },
+
+    // Custom navbar items
+    customNavbarItems: navbarItems,
 
     // Navigation customization
     navigation: {

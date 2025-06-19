@@ -2,13 +2,13 @@
  * Plugin configuration for the IFLA preset
  */
 
-import type { Plugin } from '@docusaurus/types';
 import type { IFLAPresetOptions } from './types';
 
 /**
  * Create webpack configuration for Node.js polyfills
  */
 export function createWebpackConfig(webpackConfig?: IFLAPresetOptions['webpackConfig']) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function configureWebpack(config: any, isServer: boolean, utils: any) {
     // Apply custom webpack config if provided
     if (webpackConfig) {
@@ -54,10 +54,12 @@ export function createSidebarGenerator(customSidebarGenerator?: boolean) {
   return async function sidebarItemsGenerator({
     defaultSidebarItemsGenerator,
     ...args
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   }: any) {
     const sidebarItems = await defaultSidebarItemsGenerator(args);
 
     // Helper function to recursively filter out index.mdx files
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     function filterIndexFiles(items: any[]): any[] {
       return items
         .filter((item) => {
@@ -95,7 +97,8 @@ export function createSidebarGenerator(customSidebarGenerator?: boolean) {
  */
 export function configureRedirectPlugin(
   redirects?: IFLAPresetOptions['redirects']
-): Plugin | null {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+): [string, any] | null {
   if (!redirects || (!redirects.redirects?.length && !redirects.createRedirects)) {
     return null;
   }
@@ -114,7 +117,7 @@ export function configureRedirectPlugin(
  */
 export function configureIdealImagePlugin(
   enableIdealImage?: boolean
-): Plugin | null {
+): string | null {
   if (!enableIdealImage) {
     return null;
   }
@@ -127,7 +130,8 @@ export function configureIdealImagePlugin(
  */
 export function configureLocalSearchPlugin(
   enableLocalSearch?: boolean
-): Plugin | null {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+): [string, any] | null {
   if (!enableLocalSearch) {
     return null;
   }
@@ -189,8 +193,10 @@ export function configureMermaidTheme(
 /**
  * Get all configured plugins
  */
-export function getPlugins(options: IFLAPresetOptions): Plugin[] {
-  const plugins: Plugin[] = [
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function getPlugins(options: IFLAPresetOptions): any[] {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const plugins: any[] = [
     'docusaurus-plugin-sass',
     ...options.additionalPlugins || [],
   ];

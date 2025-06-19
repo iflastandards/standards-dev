@@ -56,7 +56,7 @@ The component automatically detects the current Docusaurus locale and uses it as
 <VocabularyTable csvFile="terms.csv" />
 <!-- ^ Will default to English interface -->
 
-<!-- On French pages (/fr/...) -->
+<!-- On French pages (/FR/...) -->
 <VocabularyTable csvFile="terms.csv" />
 <!-- ^ Will default to French interface if available, otherwise English -->
 ```

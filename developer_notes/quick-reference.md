@@ -108,7 +108,7 @@ export type SiteKey = 'portal' | 'ISBDM' | 'LRM' | 'fr' | 'isbd' | 'muldicat' | 
 ```json
 {
   "build:all": "concurrently \"pnpm run build:portal\" \"pnpm run build:isbdm\" \"pnpm run build:lrm\" \"pnpm run build:fr\" \"pnpm run build:isbd\" \"pnpm run build:muldicat\" \"pnpm run build:unimarc\" \"pnpm run build:new-site\" \"pnpm run build:theme\"",
-  "start:all": "concurrently \"docusaurus start portal --port 3000\" \"docusaurus start standards/ISBDM --port 3001\" \"docusaurus start standards/LRM --port 3002\" \"docusaurus start standards/fr --port 3003\" \"docusaurus start standards/isbd --port 3004\" \"docusaurus start standards/muldicat --port 3005\" \"docusaurus start standards/unimarc --port 3006\" \"docusaurus start standards/new-site --port 3007\""
+  "start:all": "concurrently \"docusaurus start portal --port 3000\" \"docusaurus start standards/ISBDM --port 3001\" \"docusaurus start standards/LRM --port 3002\" \"docusaurus start standards/FR --port 3003\" \"docusaurus start standards/isbd --port 3004\" \"docusaurus start standards/muldicat --port 3005\" \"docusaurus start standards/unimarc --port 3006\" \"docusaurus start standards/new-site --port 3007\""
 }
 ```
 
@@ -241,7 +241,7 @@ export default sidebars;
 - Portal: `http://localhost:3000/portal/` (pnpm start:portal)
 - ISBDM: `http://localhost:3001/ISBDM/` (pnpm start:isbdm)
 - LRM: `http://localhost:3002/LRM/` (pnpm start:lrm)
-- fr: `http://localhost:3003/fr/` (pnpm start:fr)
+- fr: `http://localhost:3003/FR/` (pnpm start:fr)
 - isbd: `http://localhost:3004/isbd/` (pnpm start:isbd)
 - muldicat: `http://localhost:3005/muldicat/` (pnpm start:muldicat)
 - unimarc: `http://localhost:3006/unimarc/` (pnpm start:unimarc)

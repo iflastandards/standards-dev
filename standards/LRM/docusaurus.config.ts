@@ -1,5 +1,6 @@
 import type { Config } from '@docusaurus/types';
 import preset, { getSiteConfig } from '../../packages/preset-ifla/dist/index.js';
+import navbarItems from './navbar';
 
 // Get site URLs based on environment
 const { url, baseUrl, env } = getSiteConfig('LRM');
@@ -39,15 +40,8 @@ const config: Config = {
       }
     },
 
-    // Custom navbar items for LRM-specific sections
-    customNavbarItems: [
-      {
-        type: 'doc',
-        docId: 'intro/intro',
-        position: 'left',
-        label: 'Introduction',
-      },
-    ],
+    // Custom navbar items
+    customNavbarItems: navbarItems,
 
     // Navigation customization
     navigation: {
@@ -58,11 +52,6 @@ const config: Config = {
 
     // GitHub edit URL
     editUrl: 'https://github.com/iflastandards/LRM/tree/main/',
-    
-    // Override settings for testing
-    overrides: {
-      onBrokenLinks: 'warn', // Don't fail build on broken links during testing
-    }
   })
 };
 

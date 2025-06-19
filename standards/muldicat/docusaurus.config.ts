@@ -1,12 +1,18 @@
 import type { Config } from '@docusaurus/types';
-import preset from '../../packages/preset-ifla/dist/index.js';
+import preset, { getSiteConfig } from '../../packages/preset-ifla/dist/index.js';
+import navbarItems from './navbar';
+
+// Get site URLs based on environment
+const { url, baseUrl, env } = getSiteConfig('muldicat');
 
 const config: Config = {
   ...preset({}, {
     siteKey: 'muldicat',
     title: 'MulDiCat',
     tagline: 'Multilingual Dictionary of Cataloguing Terms and Concepts',
-    projectName: 'MULDICAT',
+    url,
+    baseUrl,
+    env,
 
     // MulDiCat-specific vocabulary configuration
     vocabularyDefaults: {
@@ -20,14 +26,7 @@ const config: Config = {
     },
 
     // Custom navbar items
-    customNavbarItems: [
-      {
-        type: 'doc',
-        docId: 'intro',
-        position: 'left',
-        label: 'Introduction',
-      },
-    ],
+    customNavbarItems: navbarItems,
 
     // Navigation customization
     navigation: {

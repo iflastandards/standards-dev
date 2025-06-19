@@ -1,36 +1,43 @@
-import { createStandardSiteConfig } from '@ifla/theme/config';
+import type { Config } from '@docusaurus/types';
+import preset, { getSiteConfig } from '../../packages/preset-ifla/dist/index.js';
+import navbarItems from './navbar';
 
-const config = createStandardSiteConfig({
-  siteKey: '__CODE__',
-  title: '__TITLE__',
-  tagline: '__TAGLINE__',
-  projectName: '__CODE__',
+// Get site URLs based on environment
+const { url, baseUrl, env } = getSiteConfig('__CODE__');
 
-  // __CODE__-specific vocabulary configuration
-  vocabularyDefaults: {
-    prefix: "__PREFIX__",
-    numberPrefix: "__NUMBER_PREFIX__",
-    profile: "__PROFILE__",
-    elementDefaults: {
-      uri: "__ELEMENTS_URI__",
-      profile: "__ELEMENTS_PROFILE__",
-    }
-  },this only happwn
+const config: Config = {
+  ...preset({}, {
+    siteKey: '__CODE__',
+    title: '__TITLE__',
+    tagline: '__TAGLINE__',
+    url,
+    baseUrl,
+    env,
 
-  // GitHub configuration
-  editUrl: '__EDIT_URL__',
+    // __CODE__-specific vocabulary configuration
+    vocabularyDefaults: {
+      prefix: "__PREFIX__",
+      numberPrefix: "__NUMBER_PREFIX__",
+      profile: "__PROFILE__",
+      elementDefaults: {
+        uri: "__ELEMENTS_URI__",
+        profile: "__ELEMENTS_PROFILE__",
+      }
+    },
 
-  // Navigation customization
-  navigation: {
-    hideCurrentSiteFromStandardsDropdown: true,
-    standardsDropdownPosition: 'right',
-    includeResourcesDropdown: false,
-  },
+    // Custom navbar items
+    customNavbarItems: navbarItems,
 
-  // Footer customization
-  footer: {
-    additionalResourceLinks: [],
-  },
-});
+    // Navigation customization
+    navigation: {
+      hideCurrentSiteFromStandardsDropdown: true,
+      standardsDropdownPosition: 'right',
+      includeResourcesDropdown: false,
+    },
+
+    // GitHub configuration
+    editUrl: '__EDIT_URL__',
+  })
+};
 
 export default config;
