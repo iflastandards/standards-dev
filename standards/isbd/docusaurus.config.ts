@@ -27,6 +27,9 @@ const config: Config = {
 
   favicon: 'img/favicon.ico',
   
+  // Shared static directories for all standards sites
+  staticDirectories: ['static', '../../packages/theme/static'],
+  
   customFields: {
     vocabularyDefaults: {
       prefix: "isbd",
