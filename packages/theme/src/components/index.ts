@@ -11,7 +11,6 @@ export {
 
 // Management components
 export { default as SiteManagement } from './SiteManagement';
-export { default as SiteConfigBuilder } from './SiteConfigBuilder';
 
 // Link components
 export { default as InLink } from './InLink';

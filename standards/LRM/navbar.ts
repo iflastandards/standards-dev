@@ -2,7 +2,7 @@
 export default [
   {
     type: 'doc',
-    docId: 'intro',
+    docId: 'intro/intro',
     position: 'left' as const,
     label: 'Introduction',
   },
