@@ -4,7 +4,7 @@ import Heading from '@theme/Heading';
 import Link from '@docusaurus/Link';
 import styles from './styles.module.css';
 import { getSiteUrl, type SiteKey } from '@ifla/theme/config/siteConfig';
-import { useDocsEnv } from '@ifla/theme/hooks/useDocsEnv';
+import { getCurrentEnv } from '@ifla/theme/config/siteConfig.server';
 
 type StandardItem = {
   title: string;
@@ -12,7 +12,11 @@ type StandardItem = {
   description: ReactNode;
   siteKey: SiteKey;
   status: 'published' | 'draft' | 'development';
+  href: string; // Pre-computed URL
 };
+
+// Get current environment at build time
+const currentEnv = getCurrentEnv();
 
 const StandardsList: StandardItem[] = [
   {
@@ -26,6 +30,7 @@ const StandardsList: StandardItem[] = [
     ),
     siteKey: 'ISBDM' as SiteKey,
     status: 'published',
+    href: getSiteUrl('ISBDM' as SiteKey, '', currentEnv),
   },
   {
     title: 'Library Reference Model (LRM)',
@@ -38,6 +43,7 @@ const StandardsList: StandardItem[] = [
     ),
     siteKey: 'LRM' as SiteKey,
     status: 'published',
+    href: getSiteUrl('LRM' as SiteKey, '', currentEnv),
   },
   {
     title: 'International Standard Bibliographic Description (ISBD)',
@@ -50,6 +56,7 @@ const StandardsList: StandardItem[] = [
     ),
     siteKey: 'isbd' as SiteKey,
     status: 'development',
+    href: getSiteUrl('isbd' as SiteKey, '', currentEnv),
   },
   {
     title: 'Functional Requirements (FR)',
@@ -62,6 +69,7 @@ const StandardsList: StandardItem[] = [
     ),
     siteKey: 'FRBR' as SiteKey,
     status: 'development',
+    href: getSiteUrl('FRBR' as SiteKey, '', currentEnv),
   },
   {
     title: 'Multilingual Dictionary of Cataloguing Terms (MulDiCat)',
@@ -74,6 +82,7 @@ const StandardsList: StandardItem[] = [
     ),
     siteKey: 'muldicat' as SiteKey,
     status: 'development',
+    href: getSiteUrl('muldicat' as SiteKey, '', currentEnv),
   },
   {
     title: 'UNIMARC',
@@ -86,13 +95,11 @@ const StandardsList: StandardItem[] = [
     ),
     siteKey: 'unimarc' as SiteKey,
     status: 'development',
+    href: getSiteUrl('unimarc' as SiteKey, '', currentEnv),
   },
 ];
 
-function StandardCard({title, code, description, siteKey, status}: StandardItem) {
-  const currentEnv = useDocsEnv();
-  const href = getSiteUrl(siteKey, '', currentEnv);
-  
+function StandardCard({title, code, description, href, status}: StandardItem) {
   const statusClass = status === 'published' ? styles.statusPublished : 
                      status === 'draft' ? styles.statusDraft : styles.statusDevelopment;
   
