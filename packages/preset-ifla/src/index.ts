@@ -27,11 +27,11 @@ export default function preset(
     
     plugins: [
       // Sass support
-      require.resolve('docusaurus-plugin-sass'),
+      'docusaurus-plugin-sass',
       
       // Ideal image optimization
       [
-        require.resolve('@docusaurus/plugin-ideal-image'),
+        '@docusaurus/plugin-ideal-image',
         {
           quality: 70,
           max: 1030,
@@ -43,7 +43,7 @@ export default function preset(
       
       // Local search functionality
       [
-        require.resolve('@easyops-cn/docusaurus-search-local'),
+        '@easyops-cn/docusaurus-search-local',
         {
           hashed: true,
           indexBlog: false,
