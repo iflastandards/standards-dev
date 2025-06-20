@@ -3,7 +3,7 @@ export default [
   {
     type: 'dropdown',
     label: 'Instructions',
-    position: 'left',
+    position: 'left' as const,
     items: [
       {
         type: 'doc',
@@ -30,7 +30,7 @@ export default [
   {
     type: 'dropdown',
     label: 'Elements',
-    position: 'left',
+    position: 'left' as const,
     items: [
       {
         type: 'doc',
@@ -56,7 +56,7 @@ export default [
   },
   {
     type: 'dropdown',
-    position: 'left',
+    position: 'left' as const,
     label: 'Values',
     items: [
       {
@@ -75,13 +75,13 @@ export default [
     type: 'doc',
     docId: 'manage',
     label: 'Management',
-    position: 'left',
+    position: 'left' as const,
     className: 'navbar__item--management',
   },
   {
     type: 'dropdown',
     label: 'About',
-    position: 'right',
+    position: 'right' as const,
     items: [
       {
         type: 'doc',

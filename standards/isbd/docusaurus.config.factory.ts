@@ -1,12 +1,13 @@
 import type { Config } from '@docusaurus/types';
 import preset from '../../packages/preset-ifla/dist/index.js';
 import { SiteConfigBuilder } from '../../packages/theme/dist/index.js';
+import { DocsEnv } from '../../packages/theme/dist/config/siteConfigCore.js';
 import navbarItems from './navbar';
 
 // Use the SiteConfigBuilder function to dynamically resolve configuration
 // This prevents any build-time caching contamination between sites
 const configData = SiteConfigBuilder({
-  siteKey: 'muldicat',
+  siteKey: 'isbd',
   hideCurrentSiteFromDropdown: true,
   hideDefaultResourceLinks: false
 });
@@ -15,7 +16,7 @@ const { url, baseUrl, env, standardsDropdownItems, footerLinks } = configData;
 
 // Build navbar configuration using standard Docusaurus format
 const navbar = {
-  title: 'MulDiCat',
+  title: 'ISBD: International Standard Bibliographic Description',
   logo: {
     alt: 'IFLA Logo',
     src: 'img/logo-ifla_black.png',
@@ -88,31 +89,29 @@ const footer = {
 };
 
 const presetConfig = preset(undefined as any, {
-  siteKey: 'muldicat',
-  title: 'MulDiCat',
-  tagline: 'Multilingual Dictionary of Cataloguing Terms and Concepts',
+  siteKey: 'isbd',
+  title: 'ISBD: International Standard Bibliographic Description',
+  tagline: 'Consolidated Edition',
   url,
   baseUrl,
-  env,
+  env: env as DocsEnv,
 
-  // MulDiCat-specific vocabulary configuration
+  // ISBD-specific vocabulary configuration
   vocabularyDefaults: {
-    prefix: "ifla",
+    prefix: "isbd",
     numberPrefix: "T",
-    profile: "vocabulary-profile.csv",
+    profile: "isbd-values-profile.csv",
     elementDefaults: {
-      uri: "https://www.iflastandards.info/elements",
-      profile: "elements-profile.csv",
+      uri: "https://www.iflastandards.info/ISBD/elements",
+      classPrefix: "class",
+      propertyPrefix: "prop",
+      profile: "isbd-elements-profile.csv",
+      profileShapeId: "ElementShape",
     }
   },
 
   // GitHub configuration
-  editUrl: 'https://github.com/iflastandards/standards-dev/tree/main/standards/muldicat/',
-
-  // Enable redirects
-  redirects: {
-    createRedirects: (_existingPath: string) => undefined,
-  },
+  editUrl: 'https://github.com/iflastandards/standards-dev/tree/main/standards/isbd/',
 });
 
 const config: Config = {

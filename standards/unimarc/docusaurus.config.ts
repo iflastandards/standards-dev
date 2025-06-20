@@ -21,7 +21,10 @@ const config: Config = {
       profile: "vocabulary-profile.csv",
       elementDefaults: {
         uri: "https://www.iflastandards.info/elements",
+        classPrefix: "class",
+        propertyPrefix: "prop",
         profile: "elements-profile.csv",
+        profileShapeId: "ElementShape",
       }
     },
 

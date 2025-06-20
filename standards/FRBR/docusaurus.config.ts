@@ -3,11 +3,11 @@ import preset, { getSiteConfig } from '../../packages/preset-ifla/dist/index.js'
 import navbarItems from './navbar';
 
 // Get site URLs based on environment
-const { url, baseUrl, env } = getSiteConfig('frbr');
+const { url, baseUrl, env } = getSiteConfig('FRBR');
 
 const config: Config = {
   ...preset(undefined as any, {
-    siteKey: 'frbr',
+    siteKey: 'FRBR',
     title: 'IFLA FR Family of Models',
     tagline: 'Conceptual Models for Bibliographic Information',
     url,
@@ -21,7 +21,10 @@ const config: Config = {
       profile: "vocabulary-profile.csv",
       elementDefaults: {
         uri: "https://www.iflastandards.info/elements",
+        classPrefix: "class",
+        propertyPrefix: "prop",
         profile: "elements-profile.csv",
+        profileShapeId: "ElementShape",
       }
     },
 

@@ -117,7 +117,7 @@ async function validateBuiltSiteLinks(siteKey, options = {}) {
     
     try {
       await page.goto(homepageUrl, { waitUntil: 'networkidle0', timeout: 30000 });
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     
     } catch (_error) {
       console.error(`❌ Failed to load ${homepageUrl}`);
       console.error(`💡 Make sure you're serving the built site on port ${actualPort}`);

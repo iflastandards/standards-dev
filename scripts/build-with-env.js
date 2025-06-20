@@ -105,7 +105,7 @@ async function main() {
       execSync('pnpm build:theme', { stdio: 'inherit' });
       execSync('pnpm build:preset', { stdio: 'inherit' });
       console.log('Theme and preset packages rebuilt successfully.');
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+       
     } catch (error) {
       console.error('Failed to rebuild packages.');
       process.exit(1);
@@ -118,7 +118,7 @@ async function main() {
         execSync('pnpm clear:theme', { stdio: 'inherit' });
         execSync('pnpm build:theme', { stdio: 'inherit' });
         console.log('Theme package rebuilt successfully.');
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+         
       } catch (error) {
         console.error('Failed to rebuild theme package.');
         process.exit(1);
@@ -131,7 +131,7 @@ async function main() {
         execSync('pnpm clear:preset', { stdio: 'inherit' });
         execSync('pnpm build:preset', { stdio: 'inherit' });
         console.log('Preset package rebuilt successfully.');
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+         
       } catch (error) {
         console.error('Failed to rebuild preset package.');
         process.exit(1);
@@ -154,7 +154,7 @@ async function main() {
       }
     });
     console.log(`\nSuccessfully built ${site} for ${env} environment.`);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     
   } catch (error) {
     console.error(`\nBuild failed for ${site} in ${env} environment.`);
     process.exit(1);

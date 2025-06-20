@@ -21,7 +21,10 @@ const config: Config = {
       profile: "isbd-values-profile.csv",
       elementDefaults: {
         uri: "https://www.iflastandards.info/ISBD/elements",
+        classPrefix: "class",
+        propertyPrefix: "prop",
         profile: "isbd-elements-profile.csv",
+        profileShapeId: "ElementShape",
       }
     },
 

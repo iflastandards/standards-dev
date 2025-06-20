@@ -64,14 +64,8 @@ const preset: IFLAPresetFunction = function (
   // Merge vocabulary defaults with user overrides
   const mergedVocabularyDefaults = mergeVocabularyDefaults(vocabularyDefaults);
 
-  // Build complete theme configuration
+  // Build base theme configuration (no navbar/footer - those are built in individual configs)
   const themeConfig = buildThemeConfig(
-    title,
-    siteKey,
-    resolvedEnv,
-    customNavbarItems,
-    navigation,
-    footer,
     prismTheme,
     prismDarkTheme,
     enableMermaid

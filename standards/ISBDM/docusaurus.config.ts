@@ -59,7 +59,10 @@ const config: Config = {
       profile: "isbdm-values-profile-revised.csv",
       elementDefaults: {
         uri: "https://www.iflastandards.info/ISBDM/elements",
+        classPrefix: "class",
+        propertyPrefix: "prop",
         profile: "isbdm-elements-profile.csv",
+        profileShapeId: "ElementShape",
       }
     },
 
