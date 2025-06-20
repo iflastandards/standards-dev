@@ -31,6 +31,8 @@ const config: Config = {
   staticDirectories: ['static', '../packages/theme/static'],
   
   customFields: {
+    // Current environment for client-side components
+    docsEnv: currentEnv,
     // Portal-specific vocabulary configuration (minimal since portal doesn't have RDF content)
     vocabularyDefaults: {
       prefix: "ifla",
@@ -114,27 +116,10 @@ const config: Config = {
       ],
     },
     
-    // Footer - Portal has custom resource links
+    // Footer - Portal has simplified links (no RDF downloads/sitemap)
     footer: {
       style: 'dark',
       links: [
-        {
-          title: 'Resources',
-          items: [
-            {
-              label: 'Vocabulary Server',
-              href: 'https://iflastandards.info/',
-            },
-            {
-              label: 'GitHub Repository',
-              href: 'https://github.com/iflastandards/standards-dev',
-            },
-            {
-              label: 'Sitemap',
-              to: '/sitemap',
-            },
-          ],
-        },
         {
           title: 'Community',
           items: [
