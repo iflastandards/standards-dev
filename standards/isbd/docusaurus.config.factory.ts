@@ -1,7 +1,6 @@
 import type { Config } from '@docusaurus/types';
 import preset from '../../packages/preset-ifla/dist/index.js';
 import { SiteConfigBuilder } from '../../packages/theme/dist/index.js';
-import { DocsEnv } from '../../packages/theme/dist/config/siteConfigCore.js';
 import navbarItems from './navbar';
 
 // Use the SiteConfigBuilder function to dynamically resolve configuration
@@ -25,8 +24,8 @@ const navbar = {
     {
       type: 'doc',
       position: 'left' as const,
-      docId: 'index',
-      label: 'Documentation',
+      docId: 'intro',
+      label: 'Introduction',
     },
     ...navbarItems,
     {

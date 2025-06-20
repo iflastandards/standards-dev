@@ -1,7 +1,6 @@
 import type { Config } from '@docusaurus/types';
 import preset from '../../packages/preset-ifla/dist/index.js';
 import { SiteConfigBuilder } from '../../packages/theme/dist/index.js';
-import { DocsEnv } from '../../packages/theme/dist/config/siteConfigCore.js';
 import navbarItems from './navbar';
 
 // Use the SiteConfigBuilder function to dynamically resolve configuration
@@ -25,8 +24,8 @@ const navbar = {
     {
       type: 'doc',
       position: 'left' as const,
-      docId: 'index',
-      label: 'Documentation',
+      docId: 'intro/index',
+      label: 'Introduction',
     },
     ...navbarItems,
     {
@@ -72,7 +71,13 @@ const footer = {
     },
     {
       title: 'Resources',
-      items: footerLinks.resourceLinks,
+      items: [
+        ...footerLinks.resourceLinks,
+        {
+          label: 'GitHub Repository',
+          href: 'https://github.com/iflastandards/LRM',
+        },
+      ],
     },
     {
       title: 'More',
@@ -94,7 +99,7 @@ const presetConfig = preset(undefined as any, {
   tagline: 'Library Reference Model',
   url,
   baseUrl,
-  env: env as DocsEnv,
+  env,
   
   // LRM-specific vocabulary configuration  
   vocabularyDefaults: {
@@ -122,13 +127,8 @@ const presetConfig = preset(undefined as any, {
     }
   },
 
-  // GitHub configuration
-  editUrl: 'https://github.com/iflastandards/standards-dev/tree/main/standards/LRM/',
-
-  // Enable redirects
-  redirects: {
-    createRedirects: (_existingPath: string) => undefined,
-  },
+  // GitHub edit URL
+  editUrl: 'https://github.com/iflastandards/LRM/tree/main/',
 });
 
 const config: Config = {

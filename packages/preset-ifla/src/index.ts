@@ -38,9 +38,7 @@ const preset: IFLAPresetFunction = function (
     projectName = siteKey,
     env,
     vocabularyDefaults,
-    customNavbarItems = [],
-    navigation = {},
-    footer = {},
+    // customNavbarItems, navigation, footer - DEPRECATED: ignored, use docusaurus.config.factory.ts
     editUrl,
     // additionalPlugins = [], // TODO: implement when needed
     // redirects, // TODO: implement when needed  
@@ -64,7 +62,7 @@ const preset: IFLAPresetFunction = function (
   // Merge vocabulary defaults with user overrides
   const mergedVocabularyDefaults = mergeVocabularyDefaults(vocabularyDefaults);
 
-  // Build base theme configuration (no navbar/footer - those are built in individual configs)
+  // Build base theme configuration (no navbar/footer - those are built in individual site configs)
   const themeConfig = buildThemeConfig(
     prismTheme,
     prismDarkTheme,
@@ -182,4 +180,4 @@ export default preset;
 export { getSiteConfig } from './utils';
 
 // Export types for consumer use
-export type { IFLAPresetOptions, IFLANavigationOptions, IFLAFooterOptions } from './types';
+export type { IFLAPresetOptions } from './types';

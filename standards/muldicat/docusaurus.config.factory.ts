@@ -6,7 +6,7 @@ import navbarItems from './navbar';
 // Use the SiteConfigBuilder function to dynamically resolve configuration
 // This prevents any build-time caching contamination between sites
 const configData = SiteConfigBuilder({
-  siteKey: 'unimarc',
+  siteKey: 'muldicat',
   hideCurrentSiteFromDropdown: true,
   hideDefaultResourceLinks: false
 });
@@ -15,7 +15,7 @@ const { url, baseUrl, env, standardsDropdownItems, footerLinks } = configData;
 
 // Build navbar configuration using standard Docusaurus format
 const navbar = {
-  title: 'IFLA UNIMARC',
+  title: 'MulDiCat',
   logo: {
     alt: 'IFLA Logo',
     src: 'img/logo-ifla_black.png',
@@ -71,7 +71,13 @@ const footer = {
     },
     {
       title: 'Resources',
-      items: footerLinks.resourceLinks,
+      items: [
+        ...footerLinks.resourceLinks,
+        {
+          label: 'GitHub Repository',
+          href: 'https://github.com/iflastandards/muldicat',
+        },
+      ],
     },
     {
       title: 'More',
@@ -88,14 +94,14 @@ const footer = {
 };
 
 const presetConfig = preset(undefined as any, {
-  siteKey: 'unimarc',
-  title: 'IFLA UNIMARC',
-  tagline: 'Universal MARC Format',
+  siteKey: 'muldicat',
+  title: 'MulDiCat',
+  tagline: 'Multilingual Dictionary of Cataloguing Terms and Concepts',
   url,
   baseUrl,
-  env: env as DocsEnv,
+  env,
 
-  // UNIMARC-specific vocabulary configuration
+  // MulDiCat-specific vocabulary configuration
   vocabularyDefaults: {
     prefix: "ifla",
     numberPrefix: "T",
@@ -110,7 +116,7 @@ const presetConfig = preset(undefined as any, {
   },
 
   // GitHub configuration
-  editUrl: 'https://github.com/iflastandards/standards-dev/tree/main/standards/unimarc/',
+  editUrl: 'https://github.com/iflastandards/muldicat/tree/main/',
 });
 
 const config: Config = {

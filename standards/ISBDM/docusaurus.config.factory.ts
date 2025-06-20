@@ -2,7 +2,6 @@ import type { Config } from '@docusaurus/types';
 import type { SidebarItemsGeneratorArgs, NormalizedSidebarItem } from '@docusaurus/plugin-content-docs/lib/sidebars/types';
 import preset from '../../packages/preset-ifla/dist/index.js';
 import { SiteConfigBuilder } from '../../packages/theme/dist/index.js';
-import { DocsEnv } from '../../packages/theme/dist/config/siteConfigCore.js';
 import navbarItems from './navbar';
 
 // Use the SiteConfigBuilder function to dynamically resolve configuration

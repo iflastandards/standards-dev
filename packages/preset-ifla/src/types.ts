@@ -36,32 +36,8 @@ export interface VocabularyDefaults {
   };
 }
 
-/**
- * Navigation options for the preset
- */
-export interface IFLANavigationOptions {
-  /** Hide the current site from the Standards dropdown */
-  hideCurrentSiteFromStandardsDropdown?: boolean;
-  /** Position of the Standards dropdown in navbar */
-  standardsDropdownPosition?: 'left' | 'right';
-  /** Whether to include the Resources dropdown */
-  includeResourcesDropdown?: boolean;
-  /** Whether to include the Documentation navbar item */
-  includeDocumentationItem?: boolean;
-}
-
-/**
- * Footer customization options
- */
-export interface IFLAFooterOptions {
-  /** Additional resource links to add to the footer */
-  additionalResourceLinks?: Array<{
-    label: string;
-    href: string;
-  }>;
-  /** Hide default resource links (RDF Downloads, Sitemap) for sites that don't have them */
-  hideDefaultResourceLinks?: boolean;
-}
+// NOTE: Navigation and footer options removed - these should be handled 
+// in individual site configs using SiteConfigBuilder to prevent caching contamination
 
 /**
  * Redirect configuration options
@@ -135,14 +111,14 @@ export interface IFLAPresetOptions {
   /** Vocabulary configuration overrides */
   vocabularyDefaults?: Partial<VocabularyDefaults>;
   
-  /** Custom navbar items to add (in addition to standard items) */
+  /** Custom navbar items to add (in addition to standard items) - DEPRECATED: Use docusaurus.config.factory.ts */
   customNavbarItems?: NavbarItem[];
   
-  /** Navigation customization options */
-  navigation?: IFLANavigationOptions;
+  /** Navigation customization options - DEPRECATED: Use docusaurus.config.factory.ts */
+  navigation?: Record<string, any>;
   
-  /** Footer customization options */
-  footer?: IFLAFooterOptions;
+  /** Footer customization options - DEPRECATED: Use docusaurus.config.factory.ts */
+  footer?: Record<string, any>;
   
   /** GitHub edit URL base */
   editUrl?: string;
