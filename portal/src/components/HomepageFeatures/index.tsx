@@ -2,9 +2,10 @@ import {JSX, ReactNode} from 'react';
 import clsx from 'clsx';
 import Heading from '@theme/Heading';
 import Link from '@docusaurus/Link';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './styles.module.css';
 import { getSiteUrl, type SiteKey } from '@ifla/theme/config/siteConfig';
-import { getCurrentEnv } from '@ifla/theme/config/siteConfig.server';
+import { DocsEnv } from '@ifla/theme/config/siteConfigCore';
 
 type StandardItem = {
   title: string;
@@ -15,10 +16,8 @@ type StandardItem = {
   href: string; // Pre-computed URL
 };
 
-// Get current environment at build time
-const currentEnv = getCurrentEnv();
-
-const StandardsList: StandardItem[] = [
+// Define the standards list data without hrefs (to be computed at render time)
+const StandardsListData = [
   {
     title: 'ISBD for Manifestation (ISBDM)',
     code: 'ISBDM',
@@ -29,8 +28,7 @@ const StandardsList: StandardItem[] = [
       </>
     ),
     siteKey: 'ISBDM' as SiteKey,
-    status: 'published',
-    href: getSiteUrl('ISBDM' as SiteKey, '', currentEnv),
+    status: 'published' as const,
   },
   {
     title: 'Library Reference Model (LRM)',
@@ -42,8 +40,7 @@ const StandardsList: StandardItem[] = [
       </>
     ),
     siteKey: 'LRM' as SiteKey,
-    status: 'published',
-    href: getSiteUrl('LRM' as SiteKey, '', currentEnv),
+    status: 'published' as const,
   },
   {
     title: 'International Standard Bibliographic Description (ISBD)',
@@ -55,8 +52,7 @@ const StandardsList: StandardItem[] = [
       </>
     ),
     siteKey: 'isbd' as SiteKey,
-    status: 'development',
-    href: getSiteUrl('isbd' as SiteKey, '', currentEnv),
+    status: 'development' as const,
   },
   {
     title: 'Functional Requirements (FR)',
@@ -68,8 +64,7 @@ const StandardsList: StandardItem[] = [
       </>
     ),
     siteKey: 'FRBR' as SiteKey,
-    status: 'development',
-    href: getSiteUrl('FRBR' as SiteKey, '', currentEnv),
+    status: 'development' as const,
   },
   {
     title: 'Multilingual Dictionary of Cataloguing Terms (MulDiCat)',
@@ -81,8 +76,7 @@ const StandardsList: StandardItem[] = [
       </>
     ),
     siteKey: 'muldicat' as SiteKey,
-    status: 'development',
-    href: getSiteUrl('muldicat' as SiteKey, '', currentEnv),
+    status: 'development' as const,
   },
   {
     title: 'UNIMARC',
@@ -94,8 +88,7 @@ const StandardsList: StandardItem[] = [
       </>
     ),
     siteKey: 'unimarc' as SiteKey,
-    status: 'development',
-    href: getSiteUrl('unimarc' as SiteKey, '', currentEnv),
+    status: 'development' as const,
   },
 ];
 
@@ -130,6 +123,17 @@ function StandardCard({title, code, description, href, status}: StandardItem) {
 }
 
 export default function HomepageFeatures(): JSX.Element {
+  const { siteConfig: { customFields } } = useDocusaurusContext();
+  
+  // Get current environment from Docusaurus customFields
+  const currentEnv = (customFields?.docsEnv as DocsEnv) || DocsEnv.Production;
+  
+  // Generate standards list with URLs computed at render time
+  const StandardsList: StandardItem[] = StandardsListData.map(item => ({
+    ...item,
+    href: getSiteUrl(item.siteKey, '', currentEnv),
+  }));
+
   return (
     <section className={styles.features} id="standards">
       <div className="container">

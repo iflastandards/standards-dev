@@ -100,18 +100,18 @@ const config: Config = {
       items: [
         ...navbarItems,
         standardsDropdown(currentEnv),
-        { to: '/blog', label: 'Blog', position: 'right' },
+        { to: '/blog', label: 'Blog', position: 'right' as const },
         {
           type: 'docsVersionDropdown',
-          position: 'right',
+          position: 'right' as const,
         },
         {
           type: 'localeDropdown',
-          position: 'right',
+          position: 'right' as const,
         },
         {
           type: 'search',
-          position: 'right',
+          position: 'right' as const,
         },
       ],
     },
@@ -150,7 +150,7 @@ const config: Config = {
       copyright: `
         Copyright © ${new Date().getFullYear()} International Federation of Library Associations and Institutions (IFLA)<br />
         <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">
-          <img src="/img/cc0_by.png" alt="CC BY 4.0" style="vertical-align:middle; height:24px;" />
+          <img src="img/cc0_by.png" alt="CC BY 4.0" style="vertical-align:middle; height:24px;" />
         </a>
         Gordon Dunsire and Mirna Willer (Main design and content editors).
       `,
