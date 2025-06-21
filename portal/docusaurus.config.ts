@@ -100,7 +100,6 @@ const config: Config = {
       items: [
         ...navbarItems,
         standardsDropdown(currentEnv),
-        { to: '/blog', label: 'Blog', position: 'right' as const },
         {
           type: 'docsVersionDropdown',
           position: 'right' as const,
