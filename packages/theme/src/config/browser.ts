@@ -111,7 +111,7 @@ export const sharedThemes = [
 export const commonDefaults = {
   onBrokenLinks: 'throw' as const,
   onBrokenMarkdownLinks: 'warn' as const,
-  favicon: 'img/favicon.ico',
+  favicon: '/img/favicon.ico',
   organizationName: 'ifla',
   projectName: 'standards-dev',
   trailingSlash: false,

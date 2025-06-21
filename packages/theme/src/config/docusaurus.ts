@@ -113,7 +113,7 @@ export const sharedThemeConfig = {
     copyright: `
         Copyright © ${new Date().getFullYear()} International Federation of Library Associations and Institutions (IFLA)<br />
         <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">
-          <img src="img/cc0_by.png" alt="My Logo Alt Text" style="vertical-align:middle; height:24px;" />
+          <img src="/img/cc0_by.png" alt="My Logo Alt Text" style="vertical-align:middle; height:24px;" />
         </a>
         Gordon Dunsire and Mirna Willer (Main design and content editors).
       `,
@@ -155,7 +155,7 @@ export const staticBaseSettings: Partial<Config> = {
     experimental_faster: false,
     v4: true,
   },
-  favicon: 'img/favicon.ico',
+  favicon: '/img/favicon.ico',
   // url: 'https://iflastandards.github.io', // Site-specific, so remove from base
   organizationName: 'iflastandards', // Common organization name
   trailingSlash: false, // Default, can be overridden by sites or env

@@ -42,7 +42,7 @@ export function createIFLAConfig(
   return {
     title,
     tagline,
-    favicon: 'img/favicon.ico',
+    favicon: '/img/favicon.ico',
 
     // Future flags for performance
     future: {

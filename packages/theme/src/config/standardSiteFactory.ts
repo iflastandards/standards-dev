@@ -393,7 +393,7 @@ function createConfigurationFactory() {
         experimental_faster: false,
         v4: true,
       },
-      favicon: 'img/favicon.ico',
+      favicon: '/img/favicon.ico',
       organizationName: 'iflastandards',
       trailingSlash: false,
       onBrokenLinks: 'warn',
