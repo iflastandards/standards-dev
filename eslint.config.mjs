@@ -28,8 +28,12 @@ export default [
       ecmaVersion: 2020,
       sourceType: "module",
       globals: {
-        ...globals.browser,
+        ...Object.fromEntries(
+          Object.entries(globals.browser).filter(([key]) => !key.includes(' '))
+        ),
         ...globals.node,
+        // Add back the corrected AudioWorkletGlobalScope without whitespace
+        AudioWorkletGlobalScope: globals.browser['AudioWorkletGlobalScope '],
       },
       parser: tseslint.parser,
       parserOptions: {
