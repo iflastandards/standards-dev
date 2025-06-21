@@ -9,7 +9,7 @@ export default [
   {
     to: '/blog', 
     label: 'Blog', 
-    position: 'left' as const,
+    position: 'right' as const,
   },
   {
     to: '/manage',
