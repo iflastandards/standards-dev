@@ -53,7 +53,7 @@ jobs:
           fi
           
           # Check if packages changed (theme/preset) - triggers rebuild of everything
-          if git diff --name-only HEAD^ HEAD | grep -qE '^(packages/|pnpm-lock.yaml|package.json)'; then
+          if git diff --name-only HEAD^ HEAD | grep -qE '^(packages/|pnpm-lock.yaml|package.json|\.github/workflows/)'; then
             echo "packages=true" >> $GITHUB_OUTPUT
           else
             echo "packages=false" >> $GITHUB_OUTPUT
@@ -270,7 +270,18 @@ jobs:
           path: deployment/unimarc
         continue-on-error: true
         
+      - name: Check if deployment has content
+        id: check-content
+        run: |
+          if [ -d "deployment" ] && [ "$(ls -A deployment 2>/dev/null)" ]; then
+            echo "has-content=true" >> $GITHUB_OUTPUT
+          else
+            echo "has-content=false" >> $GITHUB_OUTPUT
+            echo "WARNING: No content to deploy - skipping deployment to prevent wiping existing site"
+          fi
+        
       - name: Create standards index
+        if: steps.check-content.outputs.has-content == 'true'
         run: |
           cat > deployment/standards.html << 'INDEXEOF'
           <!DOCTYPE html>
@@ -391,13 +402,16 @@ jobs:
           INDEXEOF
         
       - name: Setup Pages
+        if: steps.check-content.outputs.has-content == 'true'
         uses: actions/configure-pages@v5
         
       - name: Upload artifact
+        if: steps.check-content.outputs.has-content == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: deployment
           
       - name: Deploy to GitHub Pages
+        if: steps.check-content.outputs.has-content == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
