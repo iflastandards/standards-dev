@@ -264,11 +264,14 @@ jobs:
           </html>
           INDEXEOF
         
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          repository-name: jonphipps/standards-dev
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages
-          folder: deployment
-          clean: true
+          path: deployment
+          
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
