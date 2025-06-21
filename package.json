@@ -112,6 +112,8 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@ifla/preset-ifla": "workspace:*",
+    "@ifla/theme": "workspace:*",
     "@anthropic-ai/sdk": "^0.52.0",
     "@docusaurus/core": "3.8.1",
     "@docusaurus/faster": "^3.8.1",
@@ -225,7 +227,9 @@
     "concurrently": "^9.1.2",
     "dotenv": "^16.5.0",
     "esbuild": "^0.19.4",
-    "esbuild-sass-plugin": "^2.0.0",
+    "esbuild-sass-plugin": "^3.2.0",
+    "postcss": "^8.5.5",
+    "postcss-modules": "^6.0.1",
     "eslint": "^9.29.0",
     "eslint-plugin-mdx": "^3.4.2",
     "eslint-plugin-react": "^7.37.5",
@@ -266,7 +270,7 @@
   "engines": {
     "node": ">=18.0"
   },
-  "packageManager": "pnpm@10.12.1",
+  "packageManager": "pnpm@10.12.1+sha512.f0dda8580f0ee9481c5c79a1d927b9164f2c478e90992ad268bbb2465a736984391d6333d2c327913578b2804af33474ca554ba29c04a8b13060a717675ae3ac",
   "browserslist": {
     "development": [
       "last 3 chrome version",
@@ -283,7 +287,16 @@
     "overrides": {
       "@types/react": "^19.1.6",
       "@types/react-dom": "^19.1.6"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "@swc/core",
+      "core-js",
+      "core-js-pure",
+      "esbuild",
+      "puppeteer",
+      "sharp"
+    ]
   },
   "volta": {
     "node": "22.16.0"
