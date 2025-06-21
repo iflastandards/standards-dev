@@ -12,7 +12,7 @@ import { getSiteUrl } from './siteConfig';
 export const standardsDropdown = (currentEnv: DocsEnv): NavbarItem => ({
   type: 'dropdown',
   label: 'Standards',
-  position: 'left',
+  position: 'right',
   items: [
     { label: 'Portal Home', href: getSiteUrl('portal', '/', currentEnv) }, 
     {
@@ -113,7 +113,7 @@ export const sharedThemeConfig = {
     copyright: `
         Copyright © ${new Date().getFullYear()} International Federation of Library Associations and Institutions (IFLA)<br />
         <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">
-          <img src="/img/cc0_by.png" alt="My Logo Alt Text" style="vertical-align:middle; height:24px;" />
+          <img src="img/cc0_by.png" alt="My Logo Alt Text" style="vertical-align:middle; height:24px;" />
         </a>
         Gordon Dunsire and Mirna Willer (Main design and content editors).
       `,
@@ -170,7 +170,7 @@ export const staticBaseSettings: Partial<Config> = {
 };
 
 // Function to generate the base Docusaurus configuration dynamically
-export const baseDocusaurusConfig = (currentEnv: DocsEnv): Partial<Config> => {
+export const baseDocusaurusConfig = (_currentEnv: DocsEnv): Partial<Config> => {
   return {
     ...staticBaseSettings, // Spread the static base settings
     staticDirectories: ['static', '../../packages/theme/static'], // Standards sites path

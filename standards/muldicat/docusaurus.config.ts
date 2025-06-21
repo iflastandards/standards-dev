@@ -98,12 +98,6 @@ const config: Config = {
         src: 'img/logo-ifla_black.png',
       },
       items: [
-        {
-          type: 'doc',
-          position: 'left',
-          docId: 'intro',
-          label: 'Introduction',
-        },
         ...navbarItems,
         standardsDropdown(currentEnv),
         { to: '/blog', label: 'Blog', position: 'right' },
