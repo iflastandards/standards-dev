@@ -56,6 +56,9 @@ jobs:
       - name: Build theme package
         run: pnpm build:theme
 
+      - name: Build preset package
+        run: pnpm build:preset
+
       - name: Build portal
         run: pnpm exec docusaurus build portal
         env:
@@ -106,6 +109,9 @@ jobs:
 
       - name: Build theme package
         run: pnpm build:theme
+
+      - name: Build preset package
+        run: pnpm build:preset
 
       - name: Build ${{ matrix.standard }}
         run: pnpm exec docusaurus build standards/${{ matrix.standard }}
