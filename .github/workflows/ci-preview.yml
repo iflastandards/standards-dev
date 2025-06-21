@@ -1,7 +1,9 @@
 name: build-preview
 on: 
   push:
+    branches: [main]
   pull_request:
+    branches: [main]
   workflow_dispatch:
     inputs:
       force_build_all:
