@@ -32,7 +32,7 @@
     "ci:build-all": "pnpm docs:build && pnpm vocab:release --dry-run",
     "ci:test": "pnpm lint && pnpm run test",
     "clear": "docusaurus clear",
-    "clear:all": "rimraf ./standards/*/.docusaurus ./standards/*/build ./portal/.docusaurus ./portal/build ./packages/theme/.docusaurus ./packages/theme/dist ./packages/preset-ifla/dist",
+    "clear:all": "rimraf ./standards/*/.docusaurus ./standards/*/build ./portal/.docusaurus ./portal/build ./packages/theme/.docusaurus ./packages/theme/dist ./packages/preset-ifla/dist ./node_modules/.cache/webpack",
     "clear:packages": "pnpm run clear:theme && pnpm run clear:preset",
     "clear:preset": "rimraf ./packages/preset-ifla/dist",
     "clear:sites": "rimraf ./standards/*/.docusaurus ./standards/*/build ./portal/.docusaurus ./portal/build",
