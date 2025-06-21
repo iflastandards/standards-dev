@@ -135,6 +135,24 @@ export const sharedPlugins = [
       disableInDev: false,
     },
   ],
+  // Blog plugin with safe defaults
+  [
+    '@docusaurus/plugin-content-blog',
+    {
+      showReadingTime: true,
+      feedOptions: {
+        type: 'all',
+        copyright: `Copyright © ${new Date().getFullYear()} IFLA.`,
+        createFeedItems: async (params: any) => {
+          const { blogPosts, defaultCreateFeedItems, ...rest } = params;
+          return defaultCreateFeedItems({
+            blogPosts: blogPosts.filter((item: any, index: number) => index < 10),
+            ...rest,
+          });
+        },
+      },
+    },
+  ],
 ];
 
 // Shared themes - only search which all sites use
