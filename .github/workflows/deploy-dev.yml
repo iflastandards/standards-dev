@@ -22,8 +22,61 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      portal: ${{ steps.changes.outputs.portal }}
+      standards: ${{ steps.changes.outputs.standards }}
+      standards-list: ${{ steps.list-standards.outputs.standards }}
+      packages: ${{ steps.changes.outputs.packages }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          
+      - name: Check for changes
+        id: changes
+        run: |
+          # Check if portal files changed
+          if git diff --name-only HEAD^ HEAD | grep -qE '^(portal/)'; then
+            echo "portal=true" >> $GITHUB_OUTPUT
+          else
+            echo "portal=false" >> $GITHUB_OUTPUT
+          fi
+          
+          # Check if standards files changed
+          if git diff --name-only HEAD^ HEAD | grep -qE '^(standards/)'; then
+            echo "standards=true" >> $GITHUB_OUTPUT
+          else
+            echo "standards=false" >> $GITHUB_OUTPUT
+          fi
+          
+          # Check if packages changed (theme/preset) - triggers rebuild of everything
+          if git diff --name-only HEAD^ HEAD | grep -qE '^(packages/|pnpm-lock.yaml|package.json)'; then
+            echo "packages=true" >> $GITHUB_OUTPUT
+          else
+            echo "packages=false" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: List standards to build
+        id: list-standards
+        run: |
+          if [ "${{ steps.changes.outputs.packages }}" = "true" ]; then
+            # If packages changed, build all standards
+            echo "standards=ISBDM LRM FRBR isbd muldicat unimarc" >> $GITHUB_OUTPUT
+          elif [ "${{ steps.changes.outputs.standards }}" = "true" ]; then
+            # Get list of changed standards
+            changed=$(git diff --name-only HEAD^ HEAD | grep '^standards/' | cut -d'/' -f2 | sort -u | tr '\n' ' ')
+            echo "standards=$changed" >> $GITHUB_OUTPUT
+          else
+            echo "standards=" >> $GITHUB_OUTPUT
+          fi
+
   build-portal:
     runs-on: ubuntu-latest
+    needs: detect-changes
+    if: needs.detect-changes.outputs.portal == 'true' || needs.detect-changes.outputs.packages == 'true'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -75,28 +128,49 @@ jobs:
 
   build-standards:
     runs-on: ubuntu-latest
+    needs: detect-changes
+    if: needs.detect-changes.outputs.standards == 'true' || needs.detect-changes.outputs.packages == 'true'
     strategy:
       matrix:
         standard: [ISBDM, LRM, FRBR, isbd, muldicat, unimarc]
     steps:
+      - name: Check if should build
+        id: should-build
+        run: |
+          standards_list="${{ needs.detect-changes.outputs.standards-list }}"
+          
+          # If packages changed, build all
+          if [ "${{ needs.detect-changes.outputs.packages }}" = "true" ]; then
+            echo "build=true" >> $GITHUB_OUTPUT
+          # If this standard is in the changed list
+          elif [[ " $standards_list " =~ " ${{ matrix.standard }} " ]]; then
+            echo "build=true" >> $GITHUB_OUTPUT
+          else
+            echo "build=false" >> $GITHUB_OUTPUT
+          fi
       - name: Checkout
+        if: steps.should-build.outputs.build == 'true'
         uses: actions/checkout@v4
         
       - name: Setup pnpm
+        if: steps.should-build.outputs.build == 'true'
         uses: pnpm/action-setup@v4
           
       - name: Setup Node.js
+        if: steps.should-build.outputs.build == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'pnpm'
           
       - name: Get pnpm store directory
+        if: steps.should-build.outputs.build == 'true'
         shell: bash
         run: |
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
       - name: Setup pnpm cache
+        if: steps.should-build.outputs.build == 'true'
         uses: actions/cache@v4
         with:
           path: ${{ env.STORE_PATH }}
@@ -105,15 +179,19 @@ jobs:
             ${{ runner.os }}-pnpm-store-
           
       - name: Install dependencies
+        if: steps.should-build.outputs.build == 'true'
         run: pnpm install --frozen-lockfile
 
       - name: Build theme package
+        if: steps.should-build.outputs.build == 'true'
         run: pnpm build:theme
 
       - name: Build preset package
+        if: steps.should-build.outputs.build == 'true'
         run: pnpm build:preset
 
       - name: Build ${{ matrix.standard }}
+        if: steps.should-build.outputs.build == 'true'
         run: pnpm exec docusaurus build standards/${{ matrix.standard }}
         env:
           BASE_URL: /standards-dev/${{ matrix.standard }}/
@@ -121,6 +199,7 @@ jobs:
           DOCS_ENV: dev
           
       - name: Upload ${{ matrix.standard }} artifact
+        if: steps.should-build.outputs.build == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.standard }}-build
@@ -129,52 +208,67 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [build-portal, build-standards]
+    needs: [detect-changes, build-portal, build-standards]
+    if: always() && (needs.build-portal.result == 'success' || needs.build-standards.result == 'success' || needs.build-portal.result == 'skipped' || needs.build-standards.result == 'skipped')
     steps:
       - name: Create deployment directory
         run: mkdir -p deployment
         
       - name: Download portal build
+        if: needs.build-portal.result == 'success'
         uses: actions/download-artifact@v4
         with:
           name: portal-build
           path: deployment/
+        continue-on-error: true
         
       - name: Download ISBDM build
+        if: needs.build-standards.result == 'success'
         uses: actions/download-artifact@v4
         with:
           name: ISBDM-build
           path: deployment/ISBDM
+        continue-on-error: true
         
       - name: Download LRM build
+        if: needs.build-standards.result == 'success'
         uses: actions/download-artifact@v4
         with:
           name: LRM-build
           path: deployment/LRM
+        continue-on-error: true
         
       - name: Download FRBR build
+        if: needs.build-standards.result == 'success'
         uses: actions/download-artifact@v4
         with:
           name: FRBR-build
           path: deployment/FRBR
+        continue-on-error: true
         
       - name: Download isbd build
+        if: needs.build-standards.result == 'success'
         uses: actions/download-artifact@v4
         with:
           name: isbd-build
           path: deployment/isbd
+        continue-on-error: true
         
       - name: Download muldicat build
+        if: needs.build-standards.result == 'success'
         uses: actions/download-artifact@v4
         with:
           name: muldicat-build
           path: deployment/muldicat
+        continue-on-error: true
         
       - name: Download unimarc build
+        if: needs.build-standards.result == 'success'
         uses: actions/download-artifact@v4
         with:
           name: unimarc-build
           path: deployment/unimarc
+        continue-on-error: true
         
       - name: Create standards index
         run: |
