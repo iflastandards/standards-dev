@@ -176,8 +176,17 @@ function buildSite(siteKey) {
   }
   
   // Run the build
-  const buildCommand = 'pnpm build';
-  const buildResult = execCommand(buildCommand, buildPath);
+  let buildCommand;
+  if (siteKey === 'portal') {
+    buildCommand = 'pnpm build:portal';
+  } else {
+    // For standards sites, use the specific build command
+    const siteKeyLower = siteKey.toLowerCase();
+    buildCommand = `pnpm build:${siteKeyLower}`;
+  }
+  
+  // All builds run from root directory
+  const buildResult = execCommand(buildCommand, process.cwd());
   
   if (!buildResult.success) {
     return { 
