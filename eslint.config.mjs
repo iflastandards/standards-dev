@@ -32,8 +32,8 @@ export default [
           Object.entries(globals.browser).filter(([key]) => !key.includes(' '))
         ),
         ...globals.node,
-        // Add back the corrected AudioWorkletGlobalScope without whitespace
-        AudioWorkletGlobalScope: globals.browser['AudioWorkletGlobalScope '],
+        // Add back the corrected AudioWorkletGlobalScope
+        AudioWorkletGlobalScope: "readonly",
       },
       parser: tseslint.parser,
       parserOptions: {
