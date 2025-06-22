@@ -30,5 +30,11 @@ export default defineConfig({
         setupFiles: ['./packages/theme/src/tests/setup.ts'],
         include: ['**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
         exclude: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/e2e/**'],
+        // CI stability improvements
+        testTimeout: 30000, // 30 second timeout for CI environments
+        maxConcurrency: process.env.CI ? 1 : 5, // Reduce concurrency in CI
+        pool: 'forks', // Use process forks for better isolation
+        retry: process.env.CI ? 2 : 0, // Retry flaky tests in CI
+        logHeapUsage: !!process.env.CI, // Monitor memory usage in CI
     },
 });
