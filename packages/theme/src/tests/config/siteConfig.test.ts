@@ -19,7 +19,7 @@ const createEnvConfig = (siteKey: string, environment: string): EnvConfig => {
         SITE_TAGLINE: 'Portal for IFLA Standards'
       },
       production: {
-        SITE_URL: 'https://iflastandards.info',
+        SITE_URL: 'https://www.iflastandards.info',
         SITE_BASE_URL: '/',
         SITE_TITLE: 'IFLA Standards Portal',
         SITE_TAGLINE: 'Portal for IFLA Standards'
@@ -39,7 +39,7 @@ const createEnvConfig = (siteKey: string, environment: string): EnvConfig => {
         SITE_TAGLINE: 'IFLA Library Reference Model'
       },
       production: {
-        SITE_URL: 'https://iflastandards.info',
+        SITE_URL: 'https://www.iflastandards.info',
         SITE_BASE_URL: '/LRM/',
         SITE_TITLE: 'IFLA LRM',
         SITE_TAGLINE: 'IFLA Library Reference Model'
@@ -59,7 +59,7 @@ const createEnvConfig = (siteKey: string, environment: string): EnvConfig => {
         SITE_TAGLINE: 'International Standard Bibliographic Description'
       },
       production: {
-        SITE_URL: 'https://iflastandards.info',
+        SITE_URL: 'https://www.iflastandards.info',
         SITE_BASE_URL: '/ISBDM/',
         SITE_TITLE: 'ISBDM',
         SITE_TAGLINE: 'International Standard Bibliographic Description'
@@ -79,7 +79,7 @@ const createEnvConfig = (siteKey: string, environment: string): EnvConfig => {
         SITE_TAGLINE: 'International Standard Bibliographic Description'
       },
       production: {
-        SITE_URL: 'https://iflastandards.info',
+        SITE_URL: 'https://www.iflastandards.info',
         SITE_BASE_URL: '/isbd/',
         SITE_TITLE: 'ISBD',
         SITE_TAGLINE: 'International Standard Bibliographic Description'
@@ -99,7 +99,7 @@ const createEnvConfig = (siteKey: string, environment: string): EnvConfig => {
         SITE_TAGLINE: 'UNIMARC Format'
       },
       production: {
-        SITE_URL: 'https://iflastandards.info',
+        SITE_URL: 'https://www.iflastandards.info',
         SITE_BASE_URL: '/unimarc/',
         SITE_TITLE: 'UNIMARC',
         SITE_TAGLINE: 'UNIMARC Format'
@@ -175,7 +175,7 @@ describe('buildSiteUrl', () => {
     it('should generate correct URL for production environment', () => {
       const config = createEnvConfig('LRM', 'production');
       const url = buildSiteUrl(config, '/docs/intro');
-      expect(url).toBe('https://iflastandards.info/LRM/docs/intro');
+      expect(url).toBe('https://www.iflastandards.info/LRM/docs/intro');
     });
   });
 
@@ -223,8 +223,8 @@ describe('getSiteUrl helper', () => {
     });
 
     it('should handle production URLs', () => {
-      const url = getSiteUrl('https://iflastandards.info', '/LRM/', '/docs/intro');
-      expect(url).toBe('https://iflastandards.info/LRM/docs/intro');
+      const url = getSiteUrl('https://www.iflastandards.info', '/LRM/', '/docs/intro');
+      expect(url).toBe('https://www.iflastandards.info/LRM/docs/intro');
     });
 
     it('should handle preview URLs', () => {

@@ -25,6 +25,14 @@ env:
   NX_RUN_GROUP: ${{ github.run_id }}
   HUSKY: 0
   NODE_OPTIONS: --max-old-space-size=4096
+  # Set DOCS_ENV for proper environment detection (main branch = production)
+  DOCS_ENV: ${{ 
+    github.event_name == 'pull_request' && 'preview' || 
+    'production' 
+  }}
+  # Fallback environment variables for sites that need them
+  SITE_TITLE: IFLA Standards Portal
+  SITE_TAGLINE: International Federation of Library Associations and Institutions
 
 permissions:
   contents: read

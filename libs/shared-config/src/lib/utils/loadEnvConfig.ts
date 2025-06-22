@@ -20,17 +20,32 @@ export function validateEnvConfig(envVars: Record<string, string | undefined>, s
 }
 
 /**
- * Get the environment name based on NODE_ENV
- * Maps NODE_ENV values to our environment file names
+ * Get the environment name for loading environment files
+ * Checks DOCS_ENV first (for compatibility), then falls back to NODE_ENV
+ * Maps environment values to our environment file names
  */
 export function getEnvironmentName(): string {
-  const envMap: Record<string, string> = {
+  // First check DOCS_ENV (for compatibility with legacy system)
+  const docsEnv = process.env['DOCS_ENV'];
+  if (docsEnv) {
+    const docsEnvMap: Record<string, string> = {
+      'localhost': 'local',
+      'preview': 'preview', 
+      'dev': 'development',
+      'production': 'production',
+    };
+    if (docsEnvMap[docsEnv]) {
+      return docsEnvMap[docsEnv];
+    }
+  }
+  
+  // Fallback to NODE_ENV mapping
+  const nodeEnvMap: Record<string, string> = {
     'development': 'development',
     'production': 'production',
     'test': 'local',
   };
   
-  // Default to production if NODE_ENV is not set
   const nodeEnv = process.env['NODE_ENV'] || 'production';
-  return envMap[nodeEnv] || 'production';
+  return nodeEnvMap[nodeEnv] || 'production';
 }

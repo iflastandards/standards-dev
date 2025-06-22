@@ -130,7 +130,7 @@ jobs:
         env:
           BASE_URL: /standards-dev/
           NODE_ENV: production
-          DOCS_ENV: preview
+          DOCS_ENV: production
           
       - name: Upload portal artifact
         uses: actions/upload-artifact@v4

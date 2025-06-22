@@ -90,7 +90,7 @@ function validateSiteConfiguration(siteName) {
   }
   
   // Check for required environment files
-  const envFiles = ['.env', '.env.local', '.env.development', '.env.production'];
+  const envFiles = ['.env.site', '.env.site.local', '.env.site.development', '.env.site.production'];
   const missingEnvFiles = envFiles.filter(file => 
     !fs.existsSync(path.join(siteDir, file))
   );

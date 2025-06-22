@@ -6,7 +6,8 @@ node_modules/
 # build artefacts
 build/
 dist/
-.env
+/.env
+/.env.local
 /tmp/
 .DS_Store
 /output

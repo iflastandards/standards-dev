@@ -24,12 +24,12 @@ const currentEnv = getCurrentEnv(); // Legacy function call for validation compl
 const legacyConfig = getSiteDocusaurusConfig('portal', currentEnv); // Legacy function call for validation compliance
 
 // Load environment variables in priority order
-// Priority: .env.local > .env.[environment] > .env
+// Priority: .env.site.local > .env.site.[environment] > .env.site
 const envFiles = [
-  '.env',
-  `.env.${environment}`,
-  '.env.local',
-  environment !== 'local' ? `.env.${environment}.local` : null,
+  '.env.site',
+  `.env.site.${environment}`,
+  '.env.site.local',
+  environment !== 'local' ? `.env.site.${environment}.local` : null,
 ].filter(Boolean);
 
 // Load each env file, later files override earlier ones
