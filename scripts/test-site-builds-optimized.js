@@ -257,6 +257,14 @@ function main() {
   if (success) {
     console.log(colors.green('✅ All optimized tests passed!'));
     console.log(colors.cyan('📈 Performance gains from Nx caching and affected detection'));
+    
+    // Mark tests as run for pre-push tracking
+    try {
+      require('./mark-tests-run.js').markTestsRun();
+    } catch (error) {
+      // Ignore errors in test marking
+    }
+    
     process.exit(0);
   } else {
     console.log(colors.red('❌ Some tests failed'));

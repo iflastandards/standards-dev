@@ -1,0 +1,119 @@
+#!/usr/bin/env sh
+# Smart Pre-push hook for IFLA Standards project
+# Prompts for testing only when needed, tracks test status
+
+BRANCH=$(git branch --show-current)
+LAST_TEST_FILE=".git/.last-regression-test"
+CURRENT_COMMIT=$(git rev-parse HEAD)
+
+echo "🚀 Pre-push check for branch: $BRANCH"
+
+# Function to check if regression tests have been run since last push
+check_test_status() {
+  if [ -f "$LAST_TEST_FILE" ]; then
+    LAST_TEST_COMMIT=$(cat "$LAST_TEST_FILE")
+    # Check if current commit is descendant of last tested commit
+    if git merge-base --is-ancestor "$LAST_TEST_COMMIT" "$CURRENT_COMMIT" 2>/dev/null; then
+      return 0  # Tests are up to date
+    fi
+  fi
+  return 1  # Tests need to be run
+}
+
+# Function to update test status
+update_test_status() {
+  echo "$CURRENT_COMMIT" > "$LAST_TEST_FILE"
+}
+
+# Function to prompt user for testing
+prompt_for_tests() {
+  local test_type="$1"
+  local test_command="$2"
+  
+  echo ""
+  echo "⚠️  Regression tests haven't been run since your last changes."
+  echo "📋 Recommended: Run $test_type tests before pushing"
+  echo "🔧 Command: $test_command"
+  echo ""
+  
+  # Check if we're in a CI environment or non-interactive shell
+  if [ -n "$CI" ] || [ ! -t 0 ]; then
+    echo "🤖 CI/non-interactive environment detected - skipping test prompt"
+    return 0
+  fi
+  
+  echo "Choose an option:"
+  echo "  1) Run tests now (recommended)"
+  echo "  2) Skip tests and push anyway"
+  echo "  3) Cancel push"
+  echo ""
+  printf "Choice [1]: "
+  
+  read -r choice
+  choice=${choice:-1}  # Default to 1 if empty
+  
+  case $choice in
+    1)
+      echo "🧪 Running $test_type tests..."
+      if eval "$test_command"; then
+        echo "✅ Tests passed!"
+        update_test_status
+        return 0
+      else
+        echo "❌ Tests failed. Push cancelled."
+        return 1
+      fi
+      ;;
+    2)
+      echo "⚠️  Skipping tests and proceeding with push..."
+      echo "💡 Remember to run tests later: $test_command"
+      return 0
+      ;;
+    3|*)
+      echo "🛑 Push cancelled"
+      return 1
+      ;;
+  esac
+}
+
+# Check if tests are needed
+if check_test_status; then
+  echo "✅ Regression tests are up to date - proceeding with push"
+  exit 0
+fi
+
+# Determine test strategy based on branch and changes
+if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "dev" ]; then
+  echo "🔒 Protected branch detected ($BRANCH)"
+  
+  # For protected branches, suggest comprehensive testing
+  TEST_COMMAND="pnpm test:regression:optimized"
+  prompt_for_tests "comprehensive regression" "$TEST_COMMAND"
+  
+else
+  echo "📝 Feature branch detected"
+  
+  # Check what files changed to suggest appropriate tests
+  CHANGED_FILES=$(git diff --name-only @{u}..HEAD 2>/dev/null || git diff --name-only HEAD~1..HEAD)
+  
+  # Determine test strategy based on changes
+  if echo "$CHANGED_FILES" | grep -qE '^(packages/|libs/)'; then
+    # Package changes - suggest comprehensive testing
+    TEST_COMMAND="pnpm test:regression:optimized"
+    prompt_for_tests "comprehensive regression (package changes detected)" "$TEST_COMMAND"
+  elif echo "$CHANGED_FILES" | grep -qE '^(portal/|standards/)'; then
+    # Site content changes - suggest fast testing
+    TEST_COMMAND="pnpm test:regression:fast"
+    prompt_for_tests "fast regression" "$TEST_COMMAND"
+  elif echo "$CHANGED_FILES" | grep -qE '^(scripts/|\.github/)'; then
+    # Infrastructure changes - suggest affected testing
+    TEST_COMMAND="pnpm test:regression:affected"
+    prompt_for_tests "affected project" "$TEST_COMMAND"
+  else
+    # Other changes - minimal testing
+    TEST_COMMAND="pnpm test:regression:fast"
+    prompt_for_tests "configuration" "$TEST_COMMAND"
+  fi
+fi
+
+exit $?
