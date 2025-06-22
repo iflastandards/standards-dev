@@ -13,12 +13,7 @@ env:
   NX_RUN_GROUP: ${{ github.run_id }}
   HUSKY: 0
   # Set DOCS_ENV based on branch/event type for proper environment detection
-  DOCS_ENV: ${{ 
-    github.event_name == 'pull_request' && 'preview' || 
-    github.ref_name == 'main' && 'production' || 
-    github.ref_name == 'dev' && 'dev' || 
-    'dev' 
-  }}
+  DOCS_ENV: ${{ github.event_name == 'pull_request' && 'preview' || github.ref_name == 'main' && 'production' || github.ref_name == 'dev' && 'dev' || 'dev' }}
   # Fallback environment variables for sites that need them
   SITE_TITLE: IFLA Standards Portal
   SITE_TAGLINE: International Federation of Library Associations and Institutions
