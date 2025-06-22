@@ -2,7 +2,7 @@
 export default [
   {
     type: 'doc',
-    docId: 'index',
+    docId: 'ISBD for Manifestation',
     label: 'Introduction',
     position: 'left' as const,
   },
