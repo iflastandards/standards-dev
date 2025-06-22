@@ -6,21 +6,22 @@ import unusedImports from "eslint-plugin-unused-imports";
 
 export default [
   {
-    ignores: [
-      "dist/",
-      "node_modules/",
-      "*.d.ts",
-      "node_modules/",
-      "**/build/**/",
-      "packages/theme/dist/",
-      "tmp/",
-      "*.min.js",
-      "coverage/",
-      "**/.docusaurus/",
-      "**/dist/",
-      "**/build/",
-      "**/node_modules/",
-    ]
+      "ignores": [
+        "dist/",
+        "node_modules/",
+        "*.d.ts",
+        "**/build/**/",
+        "packages/theme/dist/",
+        "tmp/",
+        "*.min.js",
+        "coverage/",
+        "**/.docusaurus/",
+        "**/dist/",
+        "**/build/",
+        "**/node_modules/",
+        "**/vite.config.*.timestamp*",
+        "**/vitest.config.*.timestamp*"
+      ]
   },
   {
     files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
