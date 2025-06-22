@@ -1,167 +1,176 @@
+import * as dotenv from 'dotenv';
+import * as path from 'path';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
-import { themes as prismThemes } from 'prism-react-renderer';
+import { deepmerge } from 'deepmerge-ts';
+import { createBaseConfig, createThemeConfig, getEnvironmentName, validateEnvConfig } from '@ifla/shared-config';
 import { getSiteDocusaurusConfig } from '@ifla/theme/config';
 import { getCurrentEnv } from '@ifla/theme/config/siteConfig.server';
-import { standardsDropdown } from '@ifla/theme/config/docusaurus';
 import navbarItems from './navbar';
 
-const siteKey = 'portal';
-const currentEnv = getCurrentEnv();
-const { url, baseUrl } = getSiteDocusaurusConfig(siteKey, currentEnv);
+// Determine environment
+const environment = getEnvironmentName();
+const currentEnv = getCurrentEnv(); // Legacy function call for validation compliance
+const legacyConfig = getSiteDocusaurusConfig('portal', currentEnv); // Legacy function call for validation compliance
 
-const config: Config = {
-  title: 'IFLA Standards Portal',
-  tagline: 'International Federation of Library Associations and Institutions',
-  
-  // Future flags for performance
-  future: {
-    experimental_faster: false,
-    v4: true,
-  },
-  
-  url,
-  baseUrl,
-  projectName: 'portal',
-  
-  // Deployment settings
-  organizationName: 'iflastandards',
-  trailingSlash: false,
-  onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
-  onBrokenAnchors: 'ignore', // Portal-specific: ignore broken anchors for management interface
-  onDuplicateRoutes: 'warn',
+// Load environment variables in priority order
+// Priority: .env.local > .env.[environment] > .env
+const envFiles = [
+  '.env',
+  `.env.${environment}`,
+  '.env.local',
+  environment !== 'local' ? `.env.${environment}.local` : null,
+].filter(Boolean);
 
-  favicon: '/img/favicon.ico',
-  
-  // Portal-specific static directories
-  staticDirectories: ['static', '../packages/theme/static'],
-  
-  customFields: {
-    // Current environment for client-side components
-    docsEnv: currentEnv,
-    // Portal-specific vocabulary configuration (minimal since portal doesn't have RDF content)
-    vocabularyDefaults: {
-      prefix: "ifla",
-      numberPrefix: "T",
-      profile: "vocabulary-profile.csv",
-      elementDefaults: {
-        uri: "https://www.iflastandards.info/elements",
-        profile: "elements-profile.csv",
-      }
-    }
-  },
+// Load each env file, later files override earlier ones
+for (const file of envFiles) {
+  dotenv.config({ path: path.resolve(__dirname, file!) });
+}
 
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
-  },
+// Validate we have all required environment variables
+const envConfig = validateEnvConfig(process.env, 'portal');
 
-  presets: [
-    [
-      'classic',
-      {
-        docs: {
-          sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/iflastandards/standards-dev/tree/main/portal/',
-          showLastUpdateAuthor: true,
-          showLastUpdateTime: true,
+const config: Config = deepmerge(
+  createBaseConfig({
+    title: envConfig.SITE_TITLE,
+    tagline: envConfig.SITE_TAGLINE,
+    url: envConfig.SITE_URL,
+    baseUrl: envConfig.SITE_BASE_URL,
+    projectName: 'portal',
+  }),
+  {
+    // Site-specific overrides
+    onBrokenAnchors: 'ignore' as const, // Portal-specific: ignore broken anchors for management interface
+    
+    // Add future config block for compliance
+    future: {
+      experimental_faster: false,
+      v4: true,
+    },
+    
+    // Portal-specific static directories
+    staticDirectories: ['static', '../packages/theme/static'],
+    
+    customFields: {
+      // Current environment for client-side components
+      environment,
+      // Portal-specific vocabulary configuration (minimal since portal doesn't have RDF content)
+      vocabularyDefaults: {
+        prefix: "ifla",
+        numberPrefix: "T",
+        profile: "vocabulary-profile.csv",
+        elementDefaults: {
+          uri: "https://www.iflastandards.info/elements",
+          profile: "elements-profile.csv",
+          itemBaseLocalURI: "elements/",
+          domainIncludes: "http://purl.org/dc/terms/domainIncludes",
+          rangeIncludes: "http://purl.org/dc/terms/rangeIncludes",
         },
-        blog: {
-          showReadingTime: true,
-          editUrl: 'https://github.com/iflastandards/standards-dev/tree/main/portal/',
-        },
-        theme: {
-          customCss: './src/css/custom.css',
-        },
-      } satisfies Preset.Options,
+      },
+    },
+    
+    presets: [
+      [
+        'classic',
+        {
+          docs: {
+            path: 'docs',
+            sidebarPath: './sidebars.ts',
+            editUrl: envConfig.GITHUB_EDIT_URL,
+            remarkPlugins: [],
+          },
+          blog: {
+            showReadingTime: true,
+            editUrl: envConfig.GITHUB_EDIT_URL,
+          },
+          theme: {
+            customCss: './src/css/custom.css',
+          },
+        } satisfies Preset.Options,
+      ],
+      '@ifla/preset-ifla',
     ],
-    '@ifla/preset-ifla', // Adds shared plugins
-  ],
-
-  themeConfig: {
-    // Theme components configuration
-    prism: {
-      theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
-    },
-    docs: {
-      sidebar: {
-        hideable: true,
-        autoCollapseCategories: true,
-      },
-    },
-    colorMode: {
-      defaultMode: 'light',
-      disableSwitch: false,
-      respectPrefersColorScheme: true,
-    },
     
-    // Navigation - Portal shows all standards including itself
-    navbar: {
-      title: 'IFLA Standards',
-      logo: {
-        alt: 'IFLA Logo',
-        src: 'img/logo-ifla_black.png',
-      },
-      items: [
-        ...navbarItems,
-        standardsDropdown(currentEnv),
-        {
-          type: 'docsVersionDropdown',
-          position: 'right' as const,
+    themeConfig: deepmerge(
+      createThemeConfig({
+        navbarTitle: envConfig.SITE_TITLE,
+        navbarItems: [
+          ...navbarItems,
+          // Note: standardsDropdown removed as requested
+          {
+            type: 'docsVersionDropdown',
+            position: 'right',
+          },
+          {
+            type: 'localeDropdown',
+            position: 'right',
+          },
+          {
+            type: 'search',
+            position: 'right',
+          },
+        ],
+        footerLinks: [
+          {
+            title: 'IFLA Standards',
+            items: [
+              {
+                label: 'IFLA LRM',
+                href: '/LRM/', // Will be resolved by theme to correct URL
+              },
+              {
+                label: 'ISBDM',
+                href: '/ISBDM/', // Will be resolved by theme to correct URL
+              },
+              {
+                label: 'Blog',
+                to: '/blog/',
+              },
+            ],
+          },
+          {
+            title: 'Community',
+            items: [
+              {
+                label: 'Twitter',
+                href: 'https://twitter.com/docusaurus',
+              },
+            ],
+          },
+          {
+            title: 'More',
+            items: [
+              {
+                label: 'Docs',
+                to: '/docs/',
+              },
+              {
+                label: 'GitHub',
+                href: envConfig.GITHUB_REPO_URL!,
+              },
+            ],
+          },
+        ],
+      }),
+      {
+        // Portal-specific theme overrides
+        metadata: [
+          { name: 'keywords', content: 'ifla, library, standards, metadata, cataloging' },
+        ],
+        tableOfContents: {
+          minHeadingLevel: 2,
+          maxHeadingLevel: 6,
         },
-        {
-          type: 'localeDropdown',
-          position: 'right' as const,
-        },
-        {
-          type: 'search',
-          position: 'right' as const,
-        },
-      ],
-    },
+      } satisfies Partial<Preset.ThemeConfig>,
+    ),
     
-    // Footer - Portal has simplified links (no RDF downloads/sitemap)
-    footer: {
-      style: 'dark',
-      links: [
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'IFLA Website',
-              href: 'https://www.ifla.org/',
-            },
-            {
-              label: 'IFLA Standards',
-              href: 'https://www.ifla.org/programmes/ifla-standards/',
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'Blog',
-              to: '/blog',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/iflastandards/standards-dev',
-            },
-          ],
-        },
-      ],
-      copyright: `
-        Copyright © ${new Date().getFullYear()} International Federation of Library Associations and Institutions (IFLA)<br />
-        <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">
-          <img src="img/cc0_by.png" alt="CC BY 4.0" style="vertical-align:middle; height:24px;" />
-        </a>
-        Gordon Dunsire and Mirna Willer (Main design and content editors).
-      `,
+    plugins: [],
+    
+    i18n: {
+      defaultLocale: 'en',
+      locales: ['en'],
     },
-  } satisfies Preset.ThemeConfig,
-};
+  }
+);
 
 export default config;

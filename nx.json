@@ -14,46 +14,42 @@
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/jest.config.[jt]s",
       "!{projectRoot}/.eslintrc.json",
-      "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)"
+      "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+      "!{projectRoot}/src/test-setup.[jt]s"
     ],
     "docusaurus": [
       "{projectRoot}/**/*.{md,mdx}",
       "{projectRoot}/docusaurus.config.js",
+      "{projectRoot}/docusaurus.config.ts",
       "{projectRoot}/sidebars.js",
+      "{projectRoot}/sidebars.ts",
       "{projectRoot}/src/**/*",
       "{projectRoot}/static/**/*",
       "{workspaceRoot}/packages/theme/**/*",
-      "{workspaceRoot}/packages/preset-ifla/**/*"
+      "{workspaceRoot}/packages/preset-ifla/**/*",
+      "{workspaceRoot}/libs/shared-config/**/*"
     ],
     "docusaurus-no-theme": [
       "{projectRoot}/**/*.{md,mdx}",
       "{projectRoot}/docusaurus.config.js",
+      "{projectRoot}/docusaurus.config.ts",
       "{projectRoot}/sidebars.js",
+      "{projectRoot}/sidebars.ts",
       "{projectRoot}/src/**/*",
       "{projectRoot}/static/**/*",
-      "{workspaceRoot}/packages/preset-ifla/**/*"
+      "{workspaceRoot}/packages/preset-ifla/**/*",
+      "{workspaceRoot}/libs/shared-config/**/*"
     ]
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        "{projectRoot}/build",
-        "{projectRoot}/dist"
-      ],
+      "dependsOn": ["^build"],
+      "outputs": ["{projectRoot}/build", "{projectRoot}/dist"],
       "cache": true,
-      "inputs": [
-        "production",
-        "^production",
-        "docusaurus"
-      ]
+      "inputs": ["production", "^production", "docusaurus"]
     },
     "test": {
-      "dependsOn": [
-        "^test"
-      ],
+      "dependsOn": ["^test"],
       "cache": true,
       "inputs": [
         "default",
@@ -84,6 +80,11 @@
     },
     "start": {
       "cache": false
+    },
+    "@nx/js:tsc": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
   "plugins": [

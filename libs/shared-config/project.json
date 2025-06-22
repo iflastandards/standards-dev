@@ -1,0 +1,29 @@
+{
+  "name": "shared-config",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared-config/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "libs/shared-config/dist",
+        "main": "libs/shared-config/src/index.ts",
+        "tsConfig": "libs/shared-config/tsconfig.lib.json",
+        "project": "libs/shared-config/package.json",
+        "compiler": "tsc",
+        "format": ["cjs", "esm"],
+        "generateExportsField": false,
+        "assets": [
+          {
+            "input": "libs/shared-config/src/lib",
+            "glob": "defaults.json",
+            "output": "lib"
+          }
+        ]
+      }
+    }
+  }
+}

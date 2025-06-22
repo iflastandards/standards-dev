@@ -1,0 +1,20 @@
+{
+  "organizationName": "iflastandards",
+  "favicon": "/img/favicon.ico",
+  "trailingSlash": false,
+  "onBrokenLinks": "warn",
+  "onBrokenMarkdownLinks": "warn",
+  "onBrokenAnchors": "warn",
+  "onDuplicateRoutes": "warn",
+  "i18n": {
+    "defaultLocale": "en",
+    "locales": ["en"]
+  },
+  "future": {
+    "experimental_faster": false,
+    "v4": true
+  },
+  "prism": {
+    "additionalLanguages": ["turtle", "sparql"]
+  }
+}

@@ -2,23 +2,13 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "ESNext",
-    "moduleResolution": "node", // Changed from nodenext
-    "lib": [
-      "ES2022",
-      "DOM",
-      "DOM.Iterable"
-    ],
-    // --- JSX ---
-    "jsx": "react-jsx", // For React 17+ (including React 19) new JSX transform
-    "jsxImportSource": "react", // Often default but good to be explicit
-
-    // --- Emit ---
-    "noEmit": true, // Docusaurus (via Webpack/Babel) handles the build output
-
-    // --- Interoperability ---
-    "esModuleInterop": true, // Allows default imports from commonjs modules
-    "allowSyntheticDefaultImports": true, // Works with esModuleInterop
-
+    "moduleResolution": "node",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "noEmit": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
@@ -36,38 +26,35 @@
       "@docusaurus/types",
       "vitest/globals"
     ],
-    //paths and aliases
     "baseUrl": ".",
-
     "paths": {
-      "@site/plugins/*": ["./plugins/*"],
-      "@site/*": ["./*"], // Allows @site/src/... to resolve from the project root
-      // "@docusaurus/*": ["./node_modules/@docusaurus/core/lib/client/exports/*"], // Commented out
-      "@theme/*": [
-        "./src/theme/*", // For your user-swizzled components in src/theme
-        "./.docusaurus/theme-fallback/*" // For default theme components or unswizzled components
-      ],
       "@ifla/theme": ["./packages/theme/src/index.ts"],
       "@ifla/theme/*": ["./packages/theme/src/*"],
       "@ifla/theme/components": ["./packages/theme/src/components/index.ts"],
       "@ifla/theme/components/*": ["./packages/theme/src/components/*"],
       "@ifla/theme/config": ["./packages/theme/src/config/index.ts"],
       "@ifla/theme/config/*": ["./packages/theme/src/config/*"],
+      "@ifla/theme/styles": ["./packages/theme/src/styles/index.css"],
       "@ifla/theme/utils": ["./packages/theme/src/utils/index.ts"],
       "@ifla/theme/utils/*": ["./packages/theme/src/utils/*"],
-      "@ifla/theme/styles": ["./packages/theme/src/styles/index.css"]
+      "@ifla/shared-config": ["./libs/shared-config/src/index.ts"],
+      "@ifla/shared-config/*": ["./libs/shared-config/src/*"],
+      "@site/*": ["./*"],
+      "@site/plugins/*": ["./plugins/*"],
+      "@theme/*": ["./src/theme/*", "./.docusaurus/theme-fallback/*"],
+      "shared-config": ["libs/shared-config/src/index.ts"]
     }
   },
   "include": [
-    "src", // Your main source code (components, pages, MDX, etc.)
-    ".docusaurus", // Docusaurus generated files, including type declarations
-    "packages", // Include theme package
+    "src",
+    ".docusaurus",
+    "packages",
     "portal/src",
     "standards/*/src",
     "**/*.ts",
     "**/*.tsx",
-    "*.d.ts", // Global type declaration files (like the one for global MDX components)
-    "plugins" // If you have custom local plugins with TypeScript
+    "*.d.ts",
+    "plugins"
   ],
   "exclude": [
     "node_modules",
