@@ -13,6 +13,13 @@ const { url, baseUrl } = getSiteDocusaurusConfig(siteKey, currentEnv);
 const config: Config = {
   title: 'MulDiCat',
   tagline: 'Multilingual Dictionary of Cataloguing Terms and Concepts',
+  
+  // Future flags for performance
+  future: {
+    experimental_faster: false,
+    v4: true,
+  },
+  
   url,
   baseUrl,
   projectName: 'muldicat',

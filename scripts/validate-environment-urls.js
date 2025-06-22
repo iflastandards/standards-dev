@@ -249,7 +249,7 @@ function savePageContentCache(siteKey, cache) {
 }
 
 // Cache sitemap data with checksum
-function getCachedSitemapData(siteKey) {
+async function getCachedSitemapData(siteKey) {
   const path = require('path');
   const fs = require('fs');
   const crypto = require('crypto');

@@ -1,6 +1,12 @@
 // ISBDM navbar configuration
 export default [
   {
+    type: 'doc',
+    docId: 'index',
+    label: 'Introduction',
+    position: 'left' as const,
+  },
+  {
     type: 'dropdown',
     label: 'Instructions',
     position: 'left' as const,

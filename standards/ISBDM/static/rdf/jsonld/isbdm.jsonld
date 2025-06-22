@@ -1,0 +1,10 @@
+{
+  "@context": {
+    "@vocab": "http://ifla.org/isbdm/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#"
+  },
+  "@id": "http://ifla.org/isbdm/placeholder",
+  "rdfs:label": "ISBDM JSON-LD data coming soon...",
+  "rdfs:comment": "This file will contain the complete RDF representation of ISBDM in JSON-LD format when available. For more information, visit: https://www.ifla.org/"
+}

@@ -1,0 +1,14 @@
+# ISBD for Manifestation - Turtle/RDF Format
+# Coming soon...
+#
+# This file will contain the complete RDF representation of ISBDM
+# in Turtle format when available.
+#
+# For more information, visit: https://www.ifla.org/
+
+@prefix isbdm: <http://ifla.org/isbdm/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Placeholder - Coming soon...
+isbdm:placeholder rdfs:label "ISBDM RDF data coming soon..." .

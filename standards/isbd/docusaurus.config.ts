@@ -13,6 +13,13 @@ const { url, baseUrl } = getSiteDocusaurusConfig(siteKey, currentEnv);
 const config: Config = {
   title: 'ISBD: International Standard Bibliographic Description',
   tagline: 'Consolidated Edition',
+  
+  // Future flags for performance
+  future: {
+    experimental_faster: false,
+    v4: true,
+  },
+  
   url,
   baseUrl,
   projectName: 'isbd',

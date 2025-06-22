@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ISBD for Manifestation - RDF/XML Format -->
+<!-- Coming soon... -->
+<!-- 
+This file will contain the complete RDF representation of ISBDM
+in RDF/XML format when available.
+
+For more information, visit: https://www.ifla.org/
+-->
+<rdf:RDF 
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:isbdm="http://ifla.org/isbdm/">
+  
+  <rdf:Description rdf:about="http://ifla.org/isbdm/placeholder">
+    <rdfs:label>ISBDM RDF/XML data coming soon...</rdfs:label>
+    <rdfs:comment>This is a placeholder. Complete RDF data will be available soon.</rdfs:comment>
+  </rdf:Description>
+  
+</rdf:RDF>

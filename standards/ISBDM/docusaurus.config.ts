@@ -51,6 +51,13 @@ const isbdmSidebarGenerator = async (generatorArgs: SidebarItemsGeneratorArgs) =
 const config: Config = {
   title: 'ISBD for Manifestation',
   tagline: 'International Standard Bibliographic Description for Manifestation',
+  
+  // Future flags for performance
+  future: {
+    experimental_faster: false,
+    v4: true,
+  },
+  
   url,
   baseUrl,
   projectName: 'ISBDM',

@@ -13,6 +13,13 @@ const { url, baseUrl } = getSiteDocusaurusConfig(siteKey, currentEnv);
 const config: Config = {
   title: 'IFLA Standards Portal',
   tagline: 'International Federation of Library Associations and Institutions',
+  
+  // Future flags for performance
+  future: {
+    experimental_faster: false,
+    v4: true,
+  },
+  
   url,
   baseUrl,
   projectName: 'portal',
