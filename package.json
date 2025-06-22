@@ -146,7 +146,7 @@
     "test:e2e:affected": "nx affected --target=e2e",
     "test:e2e:all": "nx run-many --target=e2e --all",
     "test:pre-push:fast": "./scripts/nx-pre-push-fast.sh",
-    "test:pre-push:smart": "./scripts/nx-pre-push.sh",
+    "test:pre-push:nx:smart": "./scripts/nx-pre-push.sh",
     "test:portal:e2e": "./scripts/test-portal-builds.sh",
     "vocab:release": "node scripts/release-vocab.js",
     "vocabulary:create": "tsx scripts/create-vocabulary-sheet.ts",
