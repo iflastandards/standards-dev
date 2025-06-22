@@ -1,4 +1,5 @@
 name: Nx Optimized CI
+# Optimized CI pipeline for Nx workspace
 
 on:
   push:
