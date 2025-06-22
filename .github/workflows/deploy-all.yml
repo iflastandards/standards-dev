@@ -119,6 +119,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
+      - name: Build shared-config package
+        run: npx nx build shared-config
+
       - name: Build theme package
         run: pnpm build:theme
 
@@ -202,6 +205,10 @@ jobs:
       - name: Install dependencies
         if: steps.should-build.outputs.build == 'true'
         run: pnpm install --no-frozen-lockfile
+
+      - name: Build shared-config package
+        if: steps.should-build.outputs.build == 'true'
+        run: npx nx build shared-config
 
       - name: Build theme package
         if: steps.should-build.outputs.build == 'true'

@@ -53,6 +53,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
+      - name: Build shared-config package
+        run: npx nx build shared-config
+
       - name: Build theme package
         run: pnpm --filter @ifla/theme build
 
@@ -63,7 +66,7 @@ jobs:
         run: pnpm lint --quiet
 
       - name: Unit and integration tests
-        run: pnpm test --run
+        run: pnpm test
 
       - name: Upload test results
         if: failure()
@@ -94,6 +97,9 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
+
+      - name: Build shared-config package
+        run: npx nx build shared-config
 
       - name: Build theme package
         run: pnpm --filter @ifla/theme build
@@ -130,6 +136,9 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
+
+      - name: Build shared-config package
+        run: npx nx build shared-config
 
       - name: Build theme package
         run: pnpm --filter @ifla/theme build
@@ -173,6 +182,9 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
+
+      - name: Build shared-config package
+        run: npx nx build shared-config
 
       - name: Build theme package
         run: pnpm --filter @ifla/theme build

@@ -25,6 +25,9 @@ jobs:
           cache: 'pnpm'
       - run: pnpm install --no-frozen-lockfile
 
+      - name: Build shared-config package
+        run: npx nx build shared-config
+
       - name: Build theme package
         run: pnpm run build:theme
 

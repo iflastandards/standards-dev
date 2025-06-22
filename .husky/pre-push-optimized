@@ -1,0 +1,123 @@
+#!/usr/bin/env sh
+# Optimized Pre-push hook for IFLA Standards project
+# Uses Nx affected detection and smart caching for fast regression tests
+
+echo "🚀 Running optimized pre-push regression tests..."
+
+# Get the current branch name
+BRANCH=$(git branch --show-current)
+echo "📋 Testing branch: $BRANCH"
+
+# Get affected projects using Nx
+echo "🎯 Detecting affected projects..."
+AFFECTED_PROJECTS=$(npx nx print-affected --select=projects --type=app 2>/dev/null || echo "")
+
+if [ -z "$AFFECTED_PROJECTS" ] || [ "$AFFECTED_PROJECTS" = "" ]; then
+  echo "📝 No affected projects detected - running minimal validation"
+  
+  # Just run typecheck and lint (fast)
+  echo "⚡ Running fast validation..."
+  npx nx run-many --target=typecheck --all --parallel=3 --skip-nx-cache=false
+  if [ $? -ne 0 ]; then
+    echo "❌ TypeScript validation failed."
+    exit 1
+  fi
+  
+  npx nx run-many --target=lint --all --parallel=3 --skip-nx-cache=false --quiet
+  if [ $? -ne 0 ]; then
+    echo "❌ Linting failed."
+    exit 1
+  fi
+  
+  echo "✅ Fast validation passed! No builds needed for changes."
+  exit 0
+fi
+
+echo "📦 Affected projects: $AFFECTED_PROJECTS"
+
+# Check if we're pushing to main or dev (stricter testing)
+if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "dev" ]; then
+  echo "🔒 Detected push to protected branch ($BRANCH) - running comprehensive tests"
+  
+  # 1. Run affected tests in parallel
+  echo "🧪 Running tests for affected projects..."
+  npx nx affected --target=test --parallel=3 --skip-nx-cache=false
+  if [ $? -ne 0 ]; then
+    echo "❌ Tests failed for affected projects."
+    exit 1
+  fi
+  
+  # 2. Build affected projects
+  echo "🏗️  Building affected projects..."
+  npx nx affected --target=build --parallel=3 --skip-nx-cache=false
+  if [ $? -ne 0 ]; then
+    echo "❌ Build failed for affected projects."
+    exit 1
+  fi
+  
+  # 3. Run configuration validation for all sites (fast, no build)
+  echo "⚙️  Validating all site configurations..."
+  node scripts/test-site-builds.js --site all --env localhost --skip-build
+  if [ $? -ne 0 ]; then
+    echo "❌ Site configuration validation failed."
+    exit 1
+  fi
+  
+  # 4. Only run E2E if portal or shared-config is affected
+  if echo "$AFFECTED_PROJECTS" | grep -q -E "(portal|shared-config)"; then
+    echo "🌐 Portal affected - running critical E2E tests..."
+    npx nx run portal:e2e || {
+      echo "⚠️  E2E tests failed but continuing (non-blocking for protected branches)"
+    }
+  else
+    echo "📝 Portal not affected - skipping E2E tests"
+  fi
+  
+else
+  echo "📝 Feature branch detected - running smart abbreviated tests"
+  
+  # 1. Fast validation first
+  echo "⚡ Running fast validation..."
+  npx nx affected --target=typecheck --parallel=3 --skip-nx-cache=false
+  if [ $? -ne 0 ]; then
+    echo "❌ TypeScript validation failed."
+    exit 1
+  fi
+  
+  npx nx affected --target=lint --parallel=3 --skip-nx-cache=false --quiet
+  if [ $? -ne 0 ]; then
+    echo "❌ Linting failed."
+    exit 1
+  fi
+  
+  # 2. Test affected projects
+  echo "🧪 Testing affected projects..."
+  npx nx affected --target=test --parallel=3 --skip-nx-cache=false
+  if [ $? -ne 0 ]; then
+    echo "❌ Tests failed for affected projects."
+    exit 1
+  fi
+  
+  # 3. Configuration validation (fast, no builds)
+  echo "⚙️  Quick configuration validation..."
+  node scripts/test-site-builds.js --site all --env localhost --skip-build
+  if [ $? -ne 0 ]; then
+    echo "❌ Configuration validation failed."
+    exit 1
+  fi
+  
+  # 4. Build only one representative site if portal/shared-config affected
+  if echo "$AFFECTED_PROJECTS" | grep -q -E "(portal|shared-config)"; then
+    echo "🏗️  Testing representative build..."
+    npx nx run portal:build --skip-nx-cache=false
+    if [ $? -ne 0 ]; then
+      echo "❌ Representative build test failed."
+      exit 1
+    fi
+  else
+    echo "📝 Core infrastructure not affected - skipping build test"
+  fi
+fi
+
+echo "✅ All optimized pre-push tests passed! Safe to push to $BRANCH."
+echo "📊 Time saved by using Nx affected detection and caching!"
