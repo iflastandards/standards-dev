@@ -1,0 +1,57 @@
+#!/usr/bin/env sh
+# Pre-push hook for IFLA Standards project
+# Runs comprehensive build regression tests before pushing
+
+echo "🚀 Running pre-push regression tests..."
+
+# Get the current branch name
+BRANCH=$(git branch --show-current)
+echo "📋 Testing branch: $BRANCH"
+
+# Check if we're pushing to main or dev (stricter testing)
+if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "dev" ]; then
+  echo "🔒 Detected push to protected branch ($BRANCH) - running full test suite"
+  
+  # 1. Full build regression test for critical sites
+  echo "🏗️  Testing critical site builds..."
+  node scripts/test-site-builds.js --site portal --env production
+  if [ $? -ne 0 ]; then
+    echo "❌ Portal build test failed."
+    exit 1
+  fi
+  
+  node scripts/test-site-builds.js --site ISBDM --env production  
+  if [ $? -ne 0 ]; then
+    echo "❌ ISBDM build test failed."
+    exit 1
+  fi
+  
+  # 2. Portal end-to-end validation
+  echo "🌐 Running portal E2E tests..."
+  ./scripts/test-portal-builds.sh
+  if [ $? -ne 0 ]; then
+    echo "❌ Portal E2E tests failed."
+    exit 1
+  fi
+  
+else
+  echo "📝 Feature branch detected - running abbreviated tests"
+  
+  # 1. Quick build test for all configurations
+  echo "⚙️  Testing all site configurations..."
+  node scripts/test-site-builds.js --site all --env localhost --skip-build
+  if [ $? -ne 0 ]; then
+    echo "❌ Site configuration tests failed."
+    exit 1
+  fi
+  
+  # 2. Test one representative site build
+  echo "🏗️  Testing representative site build..."
+  node scripts/test-site-builds.js --site portal --env localhost
+  if [ $? -ne 0 ]; then
+    echo "❌ Representative build test failed."
+    exit 1
+  fi
+fi
+
+echo "✅ All pre-push tests passed! Safe to push to $BRANCH."

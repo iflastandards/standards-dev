@@ -1,20 +1,89 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "namedInputs": {
+    "default": [
+      "{projectRoot}/**/*",
+      "!{projectRoot}/.docusaurus/**/*",
+      "!{projectRoot}/build/**/*",
+      "!{projectRoot}/dist/**/*",
+      "!{projectRoot}/node_modules/**/*"
+    ],
+    "production": [
+      "default",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)"
+    ],
+    "docusaurus": [
+      "{projectRoot}/**/*.{md,mdx}",
+      "{projectRoot}/docusaurus.config.js",
+      "{projectRoot}/sidebars.js",
+      "{projectRoot}/src/**/*",
+      "{projectRoot}/static/**/*",
+      "{workspaceRoot}/packages/theme/**/*",
+      "{workspaceRoot}/packages/preset-ifla/**/*"
+    ],
+    "docusaurus-no-theme": [
+      "{projectRoot}/**/*.{md,mdx}",
+      "{projectRoot}/docusaurus.config.js",
+      "{projectRoot}/sidebars.js",
+      "{projectRoot}/src/**/*",
+      "{projectRoot}/static/**/*",
+      "{workspaceRoot}/packages/preset-ifla/**/*"
+    ]
+  },
   "targetDefaults": {
     "build": {
       "dependsOn": [
         "^build"
       ],
       "outputs": [
-        "{projectRoot}/build"
+        "{projectRoot}/build",
+        "{projectRoot}/dist"
       ],
-      "cache": true
+      "cache": true,
+      "inputs": [
+        "production",
+        "^production",
+        "docusaurus"
+      ]
     },
     "test": {
       "dependsOn": [
         "^test"
       ],
-      "cache": true
+      "cache": true,
+      "inputs": [
+        "default",
+        "{projectRoot}/test/**/*",
+        "{projectRoot}/**/*.test.{js,ts,jsx,tsx}",
+        "{projectRoot}/**/*.spec.{js,ts,jsx,tsx}"
+      ]
+    },
+    "lint": {
+      "cache": true,
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.eslintrc.json",
+        "{workspaceRoot}/eslint.config.js",
+        "{workspaceRoot}/eslint.config.mjs"
+      ]
+    },
+    "typecheck": {
+      "cache": true,
+      "inputs": [
+        "default",
+        "{projectRoot}/tsconfig.json",
+        "{workspaceRoot}/tsconfig.json"
+      ]
+    },
+    "serve": {
+      "cache": false
+    },
+    "start": {
+      "cache": false
     }
   },
   "plugins": [

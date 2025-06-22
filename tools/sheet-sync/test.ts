@@ -6,7 +6,7 @@
  */
 
 const { execSync } = require('child_process');
-const { existsSync } = require('fs');
+const fs = require('fs');
 
 function runTest(name: string, testFn: () => void) {
   try {
@@ -59,7 +59,7 @@ function testConfigurationFiles() {
   ];
   
   for (const configPath of expectedConfigs) {
-    if (!existsSync(`../../${configPath}`)) {
+    if (!fs.existsSync(`../../${configPath}`)) {
       throw new Error(`Configuration file missing: ${configPath}`);
     }
   }

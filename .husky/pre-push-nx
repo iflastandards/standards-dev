@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+# Nx-optimized pre-push hook for IFLA Standards project
+# Only tests and builds what's actually affected by changes
+
+echo "⚡ Running Nx-optimized pre-push tests..."
+echo "💡 This will only test affected projects (much faster!)"
+
+# Run the ultra-fast Nx pre-push script
+exec ./scripts/nx-pre-push-fast.sh

@@ -1,0 +1,106 @@
+name: Nx Optimized CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+  workflow_dispatch:
+
+env:
+  NX_CLOUD_DISTRIBUTED_EXECUTION: true
+  NX_CLOUD_DISTRIBUTED_EXECUTION_AGENT_COUNT: 3
+  NX_BRANCH: ${{ github.event.number || github.ref_name }}
+  NX_RUN_GROUP: ${{ github.run_id }}
+  HUSKY: 0
+
+jobs:
+  main:
+    name: Nx Cloud - Main Job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout [Pull Request]
+        uses: actions/checkout@v4
+        if: ${{ github.event_name == 'pull_request' }}
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Checkout [Default Branch]
+        uses: actions/checkout@v4
+        if: ${{ github.event_name != 'pull_request' }}
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Start CI run
+        run: 'npx nx-cloud start-ci-run --stop-agents-after="build" --agent-count=3'
+
+      - name: Run commands in parallel
+        run: |
+          pids=()
+          
+          # Type checking
+          npx nx affected --target=typecheck --parallel=3 --ci --verbose & pids+=($!)
+          
+          # Linting
+          npx nx affected --target=lint --parallel=3 --ci --verbose & pids+=($!)
+          
+          # Unit tests
+          npx nx affected --target=test --parallel=3 --ci --verbose & pids+=($!)
+          
+          # Build affected projects
+          npx nx affected --target=build --parallel=3 --ci --verbose & pids+=($!)
+          
+          # Wait for all jobs to complete
+          for pid in "${pids[@]}"; do
+            wait $pid
+          done
+
+      - name: Stop all running agents for this CI run
+        if: ${{ always() }}
+        run: npx nx-cloud stop-all-agents
+
+  agents:
+    name: Nx Cloud - Agents
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      matrix:
+        agent: [1, 2, 3]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Start Nx Agent ${{ matrix.agent }}
+        run: npx nx-cloud start-agent
+        env:
+          NX_AGENT_NAME: ${{ matrix.agent }}

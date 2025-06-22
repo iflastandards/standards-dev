@@ -1,0 +1,40 @@
+{
+  "name": "isbd",
+  "root": "standards/isbd",
+  "sourceRoot": "standards/isbd",
+  "projectType": "application",
+  "tags": ["docusaurus", "site", "standard", "isbd"],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docusaurus build standards/isbd"
+      },
+      "outputs": ["{projectRoot}/build"],
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production", "docusaurus-no-theme"]
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docusaurus start standards/isbd --port 3004"
+      },
+      "cache": false
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docusaurus serve standards/isbd --port 3004"
+      },
+      "cache": false
+    },
+    "clear": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docusaurus clear standards/isbd"
+      },
+      "cache": false
+    }
+  }
+}

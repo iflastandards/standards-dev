@@ -1,0 +1,40 @@
+{
+  "name": "portal",
+  "root": "portal",
+  "sourceRoot": "portal",
+  "projectType": "application",
+  "tags": ["docusaurus", "site", "portal"],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docusaurus build portal"
+      },
+      "outputs": ["{projectRoot}/build"],
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production", "docusaurus-no-theme"]
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docusaurus start portal"
+      },
+      "cache": false
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docusaurus serve portal"
+      },
+      "cache": false
+    },
+    "clear": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docusaurus clear portal"
+      },
+      "cache": false
+    }
+  }
+}

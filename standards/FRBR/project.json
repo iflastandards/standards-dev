@@ -1,0 +1,40 @@
+{
+  "name": "frbr",
+  "root": "standards/FRBR",
+  "sourceRoot": "standards/FRBR",
+  "projectType": "application",
+  "tags": ["docusaurus", "site", "standard", "frbr"],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docusaurus build standards/FRBR"
+      },
+      "outputs": ["{projectRoot}/build"],
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production", "docusaurus-no-theme"]
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docusaurus start standards/FRBR --port 3003"
+      },
+      "cache": false
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docusaurus serve standards/FRBR --port 3003"
+      },
+      "cache": false
+    },
+    "clear": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docusaurus clear standards/FRBR"
+      },
+      "cache": false
+    }
+  }
+}
