@@ -85,6 +85,15 @@
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
+    },
+    "e2e": {
+      "cache": true,
+      "dependsOn": ["build"],
+      "inputs": [
+        "default",
+        "{projectRoot}/e2e/**/*",
+        "{projectRoot}/**/*.e2e.{js,ts,jsx,tsx}"
+      ]
     }
   },
   "plugins": [
@@ -109,5 +118,14 @@
       }
     }
   ],
-  "nxCloudId": "6857fccbb755d4191ce6fbe4"
+  "nxCloudId": "6857fccbb755d4191ce6fbe4",
+  "defaultBase": "main",
+  "affected": {
+    "defaultBase": "main"
+  },
+  "cli": {
+    "analytics": false
+  },
+  "parallel": 3,
+  "cacheDirectory": ".nx/cache"
 }

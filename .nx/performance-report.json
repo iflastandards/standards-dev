@@ -1,0 +1,9 @@
+{
+  "timestamp": "2025-06-22T18:39:58.505Z",
+  "nxVersion": "Nx Version:\n- Local: v21.2.1\n- Global: Not found",
+  "nodeVersion": "v22.16.0",
+  "cacheStatus": "enabled",
+  "projectCount": 9,
+  "e2eTestsConfigured": true,
+  "nxCloudConfigured": true
+}

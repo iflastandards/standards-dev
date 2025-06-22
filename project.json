@@ -1,0 +1,146 @@
+{
+  "name": "standards-dev",
+  "root": ".",
+  "sourceRoot": ".",
+  "projectType": "application",
+  "tags": ["workspace-root"],
+  "targets": {
+    "test": {
+      "executor": "@nx/vite:test",
+      "options": {
+        "config": "./vite.config.ts"
+      },
+      "outputs": ["{projectRoot}/coverage"],
+      "cache": true
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": [
+          "**/*.{js,jsx,ts,tsx}",
+          "!node_modules/**/*",
+          "!dist/**/*",
+          "!build/**/*",
+          "!.nx/**/*"
+        ]
+      },
+      "cache": true
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit"
+      },
+      "cache": true,
+      "inputs": [
+        "default",
+        "{workspaceRoot}/tsconfig.json",
+        "{workspaceRoot}/tsconfig.*.json"
+      ]
+    },
+    "e2e": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "playwright test"
+      },
+      "dependsOn": ["build-all"],
+      "cache": true,
+      "inputs": [
+        "default",
+        "{projectRoot}/e2e/**/*",
+        "{projectRoot}/playwright.config.ts"
+      ],
+      "outputs": [
+        "{projectRoot}/test-results",
+        "{projectRoot}/playwright-report"
+      ]
+    },
+    "e2e:ui": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "playwright test --ui"
+      },
+      "dependsOn": ["build-all"],
+      "cache": false
+    },
+    "build-all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run-many --target=build --projects=portal,isbdm,lrm,frbr,isbd,muldicat,unimarc --parallel=3"
+        ]
+      },
+      "dependsOn": ["^build"],
+      "outputs": [
+        "{projectRoot}/portal/build",
+        "{projectRoot}/standards/*/build"
+      ]
+    },
+    "build-affected": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx affected --target=build --parallel=3"
+      },
+      "dependsOn": ["^build"],
+      "cache": true
+    },
+    "start-all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm start:all"
+      },
+      "cache": false
+    },
+    "serve-all": {
+      "executor": "nx:run-commands", 
+      "options": {
+        "command": "pnpm serve:all"
+      },
+      "cache": false
+    },
+    "validate:builds": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/test-site-builds.js --skip-build"
+      },
+      "dependsOn": ["build-all"],
+      "cache": true
+    },
+    "validate:builds:production": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/test-site-builds.js --env production --skip-build"
+      },
+      "dependsOn": ["build-all"],
+      "cache": true
+    },
+    "regression:full": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run standards-dev:typecheck",
+          "nx run standards-dev:lint",
+          "nx run standards-dev:test",
+          "nx run standards-dev:build-all",
+          "nx run standards-dev:validate:builds",
+          "nx run standards-dev:e2e"
+        ],
+        "parallel": false
+      },
+      "cache": false
+    },
+    "regression:fast": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx affected --target=typecheck --parallel=3",
+          "nx affected --target=lint --parallel=3", 
+          "nx affected --target=test --parallel=3",
+          "nx affected --target=build --parallel=3"
+        ],
+        "parallel": false
+      },
+      "cache": true
+    }
+  }
+}

@@ -41,6 +41,24 @@
         "command": "docusaurus clear standards/unimarc"
       },
       "cache": false
+    },
+    "e2e": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "playwright test e2e/standards-smoke.spec.ts e2e/vocabulary-functionality.spec.ts"
+      },
+      "dependsOn": ["build"],
+      "cache": true,
+      "inputs": [
+        "default",
+        "{workspaceRoot}/e2e/standards-smoke.spec.ts",
+        "{workspaceRoot}/e2e/vocabulary-functionality.spec.ts",
+        "{workspaceRoot}/playwright.config.ts"
+      ],
+      "outputs": [
+        "{workspaceRoot}/test-results",
+        "{workspaceRoot}/playwright-report"
+      ]
     }
   }
 }

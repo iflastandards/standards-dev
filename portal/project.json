@@ -42,6 +42,23 @@
         "command": "docusaurus clear portal"
       },
       "cache": false
+    },
+    "e2e": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "playwright test e2e/portal-smoke.spec.ts"
+      },
+      "dependsOn": ["build"],
+      "cache": true,
+      "inputs": [
+        "default",
+        "{workspaceRoot}/e2e/portal-smoke.spec.ts",
+        "{workspaceRoot}/playwright.config.ts"
+      ],
+      "outputs": [
+        "{workspaceRoot}/test-results",
+        "{workspaceRoot}/playwright-report"
+      ]
     }
   }
 }
