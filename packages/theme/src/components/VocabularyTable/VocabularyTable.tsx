@@ -23,14 +23,14 @@ export function VocabularyTable({
   vocabularyId,
   title,
   prefix,
-  uri,
+  uri: _uri,
   description,
   scopeNote,
   RDF,
   concepts,
   csvData,
   csvFile,
-  csvUrl,
+  csvUrl: _csvUrl,
   startCounter,
   uriStyle,
   caseStyle,
@@ -105,8 +105,8 @@ export function VocabularyTable({
 
   // Use multilingual text hook
   const {
-    localizedConcepts,
-    detectedLanguages,
+    localizedConcepts: _localizedConcepts,
+    detectedLanguages: _detectedLanguages,
     resolvedAvailableLanguages,
     getLanguageDisplayName
   } = useMultilingualText({
@@ -205,6 +205,7 @@ export function VocabularyTable({
   };
 
   // Check if a concept has additional details
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const hasAdditionalDetails = (concept: any): boolean => {
     return !!(concept.notation || concept.example || concept.changeNote || 
               concept.historyNote || concept.editorialNote || 

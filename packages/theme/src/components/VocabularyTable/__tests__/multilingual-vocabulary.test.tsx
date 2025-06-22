@@ -3,12 +3,18 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { VocabularyTable } from '../index';
 import { expect, describe, it, vi, beforeEach } from 'vitest';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { VocabularyDefaults } from '../types';
 
 // Augment the Window interface for testing purposes
 declare global {
   interface Window {
     __DOCUSAURUS__?: {
-      siteConfig?: any;
+      siteConfig: {
+        customFields?: {
+          vocabularyDefaults?: VocabularyDefaults;
+          [key: string]: any;
+        };
+      };
     };
   }
 }
@@ -26,8 +32,8 @@ const mockSiteConfig = {
     vocabularyDefaults: {
       prefix: 'isbdm',
       startCounter: 1000,
-      uriStyle: 'numeric',
-      caseStyle: 'kebab-case',
+      uriStyle: 'numeric' as const,
+      caseStyle: 'kebab-case' as const,
       showFilter: true,
       filterPlaceholder: 'Filter values...',
       showTitle: false,
@@ -42,7 +48,7 @@ const mockSiteConfig = {
 // Mock the useDocusaurusContext hook
 vi.mock('@docusaurus/useDocusaurusContext', () => ({
   default: () => ({
-    siteConfig: mockSiteConfig,
+    siteConfig: mockSiteConfig as any,
     i18n: {
       currentLocale: 'en',
       locales: ['en', 'fr', 'es'],
@@ -407,7 +413,7 @@ describe('Multilingual VocabularyTable', () => {
     it.skip('uses current Docusaurus locale as default language', () => {
       // Mock French locale
       const mockContextWithFrench = {
-        siteConfig: mockSiteConfig,
+        siteConfig: mockSiteConfig as any,
         i18n: {
           currentLocale: 'fr',
           locales: ['en', 'fr', 'es']
@@ -416,7 +422,12 @@ describe('Multilingual VocabularyTable', () => {
       
       // Temporarily mock for this test  
       const original = vi.mocked(useDocusaurusContext);
-      vi.mocked(useDocusaurusContext).mockImplementationOnce(() => mockContextWithFrench);
+      vi.mocked(useDocusaurusContext).mockImplementationOnce(() => ({
+        ...mockContextWithFrench,
+        siteMetadata: {},
+        globalData: {},
+        codeTranslations: {},
+      } as any));
       
       render(<VocabularyTable {...multilingualFrontMatter} />);
       
@@ -428,14 +439,19 @@ describe('Multilingual VocabularyTable', () => {
     it.skip('falls back to English when current locale is not available in data', () => {
       // Mock German locale (not available in test data)
       const mockContextWithGerman = {
-        siteConfig: mockSiteConfig,
+        siteConfig: mockSiteConfig as any,
         i18n: {
           currentLocale: 'de',
           locales: ['en', 'fr', 'es', 'de']
         }
       };
       
-      vi.mocked(useDocusaurusContext).mockImplementationOnce(() => mockContextWithGerman);
+      vi.mocked(useDocusaurusContext).mockImplementationOnce(() => ({
+        ...mockContextWithGerman,
+        siteMetadata: {},
+        globalData: {},
+        codeTranslations: {},
+      } as any));
       
       render(<VocabularyTable {...multilingualFrontMatter} />);
       
@@ -584,7 +600,7 @@ test:T1001,http://www.w3.org/2004/02/skos/core#Concept,simple,"Simple definition
         description: "Testing error handling",
         concepts: [
           {
-            value: null, // Invalid value
+            value: "" as any, // Invalid value
             definition: {
               en: "Valid definition"
             }
@@ -593,7 +609,7 @@ test:T1001,http://www.w3.org/2004/02/skos/core#Concept,simple,"Simple definition
             value: {
               en: "Valid term"
             },
-            definition: undefined // Invalid definition
+            definition: "" as any // Invalid definition
           }
         ]
       };

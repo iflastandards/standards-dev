@@ -119,6 +119,7 @@ declare global {
       siteConfig: {
         customFields?: {
           vocabularyDefaults?: VocabularyDefaults;
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           [key: string]: any;
         };
       };

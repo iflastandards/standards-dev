@@ -51,10 +51,12 @@ interface RDFData {
 }
 
 interface ElementReferenceProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   frontMatter: any; // Accept any frontmatter structure
 }
 
 // Adapter function to convert from new frontmatter structure to component-expected structure
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function adaptFrontMatter(frontMatter: any, elementDefaults: any): { RDF: RDFData } {
   
   // Check if frontMatter already has the expected structure with RDF containing required properties
@@ -161,8 +163,8 @@ export default function ElementReference({
   const adaptedFrontMatter = adaptFrontMatter(frontMatter, elementDefaults);
   
   const {
-    language = "en",
-    label,
+    language: _language = "en",
+    label: _label,
     definition,
     scopeNote = "",
     domain = "",
@@ -172,8 +174,8 @@ export default function ElementReference({
     uri = "",
     type = "",
     status = "",
-    isDefinedBy = "",
-    subPropertyOf = [],
+    isDefinedBy: _isDefinedBy = "",
+    subPropertyOf: _subPropertyOf = [],
     equivalentProperty = [],
     inverseOf = [],
     deprecated = false,
@@ -182,7 +184,7 @@ export default function ElementReference({
   } = adaptedFrontMatter.RDF;
 
   const { colorMode } = useColorMode();
-  const isDarkTheme = colorMode === 'dark';
+  const _isDarkTheme = colorMode === 'dark';
 
   // Pre-process URLs for element sub-types and super-types to avoid calling hooks in callbacks
   const processedElementSubTypes = React.useMemo(() => {
@@ -357,7 +359,7 @@ function generateJsonLD(rdfData: RDFData): string {
     deprecated,
     deprecatedInVersion,
     willBeRemovedInVersion,
-    elementSuperType = []
+    elementSuperType: _elementSuperType = []
   } = rdfData;
 
   const jsonObj = {

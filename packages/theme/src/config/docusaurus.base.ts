@@ -11,6 +11,7 @@ import { IFLAThemeConfig } from '../types';
 interface IFLADocusaurusConfig extends Omit<Config, 'customFields'> {
   customFields?: {
     vocabularyDefaults?: IFLAThemeConfig['vocabularyDefaults'];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;
   };
 }
@@ -177,8 +178,10 @@ export function createIFLAConfig(
             async sidebarItemsGenerator({defaultSidebarItemsGenerator, ...args}) {
               const sidebarItems = await defaultSidebarItemsGenerator(args);
 
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               function filterIndexMdx(items: any[]): any[] {
                 return items
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     .filter((item: any) => {
                       if (item.type === 'doc') {
                         const docId = item.id || item.docId || '';
@@ -190,6 +193,7 @@ export function createIFLAConfig(
                       }
                       return true;
                     })
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     .map((item: any) => {
                       if (item.type === 'category' && item.items) {
                         return {...item, items: filterIndexMdx(item.items)};

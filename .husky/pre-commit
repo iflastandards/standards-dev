@@ -1,1 +1,39 @@
-pnpm exec lint-staged
+#!/usr/bin/env sh
+# Pre-commit hook for IFLA Standards project
+# Runs essential checks before allowing commits
+
+echo "🔍 Running pre-commit checks..."
+
+# 1. Run TypeScript type checking (fast, catches major issues)
+echo "📝 Checking TypeScript..."
+pnpm typecheck
+if [ $? -ne 0 ]; then
+  echo "❌ TypeScript errors found. Please fix before committing."
+  exit 1
+fi
+
+# 2. Run ESLint (code quality)
+echo "🔧 Running ESLint..."
+pnpm lint --quiet
+if [ $? -ne 0 ]; then
+  echo "❌ ESLint errors found. Please fix before committing."
+  exit 1
+fi
+
+# 3. Run unit tests (fast feedback on component changes)
+echo "🧪 Running unit tests..."
+pnpm test --run
+if [ $? -ne 0 ]; then
+  echo "❌ Unit tests failed. Please fix before committing."
+  exit 1
+fi
+
+# 4. Quick configuration validation (for config changes)
+echo "⚙️  Validating site configurations..."
+node scripts/test-site-builds.js --site all --env localhost --skip-build
+if [ $? -ne 0 ]; then
+  echo "❌ Site configuration validation failed."
+  exit 1
+fi
+
+echo "✅ All pre-commit checks passed!"

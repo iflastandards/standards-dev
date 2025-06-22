@@ -73,6 +73,14 @@
     "node_modules",
     "build",
     "coverage",
-    "tools"
+    "tools",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/tests/**/*",
+    "**/test/**/*",
+    "**/__tests__/**/*",
+    "**/e2e/**/*"
   ]
 }

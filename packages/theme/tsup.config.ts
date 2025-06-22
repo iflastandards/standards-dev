@@ -35,5 +35,8 @@ export default defineConfig({
     'clsx',
     'prism-react-renderer',
   ],
-  esbuildPlugins: [sassPlugin({ transform: postcssModules({}) })],
+  esbuildPlugins: [
+    // Type assertion to work around version mismatch between tsup and esbuild
+    sassPlugin({ transform: postcssModules({}) }) as any,
+  ],
 });

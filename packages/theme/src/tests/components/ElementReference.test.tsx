@@ -63,8 +63,8 @@ describe('ElementReference component', () => {
       ...baseFrontMatter,
       ...overrides,
       RDF: {
-        ...baseFrontMatter.RDF,
-        ...(overrides.RDF || {}),
+        ...(baseFrontMatter as any).RDF,
+        ...((overrides as any).RDF || {}),
       }
     };
 
@@ -72,7 +72,7 @@ describe('ElementReference component', () => {
   };
 
   // Test variables
-  let templatedFrontMatter;
+  let templatedFrontMatter: any;  
 
   beforeEach(() => {
     // Reset for each test
@@ -190,7 +190,7 @@ describe('ElementReference component', () => {
     it('uses config values from docusaurus.config.ts for URI generation', () => {
       const frontMatter = createTemplatedFrontMatter({
         id: 4000,
-        RDF: {}
+        RDF: {} as any
       });
       
       render(<ElementReference frontMatter={frontMatter} />);

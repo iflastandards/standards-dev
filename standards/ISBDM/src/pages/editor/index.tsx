@@ -1,10 +1,11 @@
 import React from 'react';
+import type { ReactElement } from 'react';
 import Layout from '@theme/Layout';
 import styles from './styles.module.scss';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 
-export default function Editor(): JSX.Element {
+export default function Editor(): ReactElement {
 
   return (
     <Layout title="IFLA Standards Editor" description="Dashboard for managing IFLA standards documentation">

@@ -428,7 +428,9 @@ async function parseJsonLdToNQuads(filePath: string): Promise<string> {
         };
       }
       
-      return jsonld.documentLoaders.node()(url);
+      // Use default document loader for Node.js
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return (jsonld as any).documentLoaders.node()(url);
     };
     
     // Convert to N-Quads

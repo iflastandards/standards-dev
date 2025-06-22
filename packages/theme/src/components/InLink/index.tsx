@@ -44,6 +44,7 @@ const processChildrenForSmartWrap = (children: React.ReactNode): React.ReactNode
       return processTextForSmartWrap(child);
     }
     if (React.isValidElement(child)) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const childWithProps = child as React.ReactElement<any>;
       if (childWithProps.props.children) {
         return React.cloneElement(childWithProps, {

@@ -1,257 +1,138 @@
-# IFLA Standards Regression Testing
+# Testing Strategy - Quick Reference
 
-This document describes the automated regression testing system for IFLA standards sites.
+This document provides a quick overview of the automated testing strategy for the IFLA Standards project.
 
-## Overview
+## 🚀 Automated Testing (Zero Configuration Required)
 
-The regression testing system validates that all sites build correctly and have proper URL configuration across different environments. It consists of:
+### Pre-commit (Runs automatically on `git commit`)
+```bash
+# These run automatically when you commit:
+✅ TypeScript type checking
+✅ ESLint code quality  
+✅ Unit/integration tests (446 tests)
+✅ Site configuration validation
 
-1. **Configuration Testing** - Validates docusaurus.config.ts files
-2. **Build Testing** - Ensures sites build without errors
-3. **URL Validation** - Checks sitemap generation and URL consistency
-4. **Automated CI/CD** - GitHub Actions workflow for continuous testing
+# Duration: ~30-60 seconds
+# Purpose: Fast feedback, prevent broken commits
+```
 
-## Test Script Usage
+### Pre-push (Runs automatically on `git push`)
+```bash
+# Branch-aware testing:
 
-### Basic Commands
+🔒 Protected branches (main/dev):
+✅ Full portal production build
+✅ ISBDM production build  
+✅ Portal E2E testing
+✅ Complete regression suite
+Duration: ~5-10 minutes
+
+📝 Feature branches:
+✅ Configuration validation
+✅ Representative build test
+✅ Abbreviated regression testing  
+Duration: ~2-3 minutes
+```
+
+### GitHub Actions (Runs automatically on push/PR)
+```bash
+✅ Unit Tests & Type Safety (new!)
+✅ Site Configuration Testing
+✅ Matrix Build Testing (7 sites in parallel)
+✅ URL Validation & Link Checking
+✅ Comprehensive Result Reporting
+```
+
+## 🛠️ Manual Testing Commands
 
 ```bash
-# Test all sites for production environment
-pnpm test:builds:all
+# Development workflow
+pnpm test                    # Unit tests only
+pnpm test:full              # Unit + config validation
+pnpm test:regression        # Full regression suite
 
-# Test specific site
-pnpm test:builds:portal
-node scripts/test-site-builds.js --site ISBDM
+# Specific testing
+pnpm test:builds:config     # Fast config validation
+pnpm test:builds:critical   # Portal + ISBDM builds
+pnpm test:portal:e2e        # Portal end-to-end testing
 
-# Test configuration only (skip builds)
-pnpm test:builds:config
-
-# Test with different environment
-node scripts/test-site-builds.js --site all --env localhost
-
-# Verbose output
-node scripts/test-site-builds.js --site ISBDM --verbose
+# Individual components
+pnpm typecheck              # TypeScript validation
+pnpm lint --quiet           # Code quality check
 ```
 
-### Available Options
+## 📊 Test Coverage
 
-- `--site <site>` - Test specific site, "portal", or "all" (default: prompted)
-- `--env <env>` - Environment: localhost, preview, production (default: localhost)
-- `--skip-build` - Only test configuration, skip building
-- `--verbose` - Show detailed command output
+| Test Type | Count | Duration | Automation |
+|-----------|-------|----------|------------|
+| **Unit/Integration** | 446 tests | ~5-10s | ✅ Pre-commit |
+| **TypeScript** | All files | ~10-15s | ✅ Pre-commit |
+| **ESLint** | All files | ~5-10s | ✅ Pre-commit |
+| **Site Configs** | 7 sites | ~30s | ✅ Pre-commit |
+| **Build Tests** | 7 sites | ~2-5min | ✅ Pre-push |
+| **E2E Tests** | Portal | ~2-3min | ✅ Pre-push (main/dev) |
 
-### Valid Sites
+## 🎯 When Tests Run
 
-- `portal` - IFLA Standards Portal
-- `ISBDM` - ISBD for Manifestation
-- `LRM` - Library Reference Model
-- `FRBR` - FR Family of Models
-- `isbd` - International Standard Bibliographic Description
-- `muldicat` - Multilingual Dictionary of Cataloguing Terms
-- `unimarc` - Universal MARC Format
+### Developer Workflow
+1. **Make changes** → Normal development
+2. **`git add .`** → Stage changes  
+3. **`git commit`** → 🔍 **Pre-commit tests run automatically**
+4. **`git push`** → 🚀 **Pre-push tests run automatically**
+5. **Create PR** → 🤖 **GitHub Actions run automatically**
 
-## What Gets Tested
+### What Gets Tested When
+- **Every commit:** Type safety, code quality, unit tests, config validation
+- **Every push:** + Build regression tests (branch-dependent scope)
+- **Every PR:** + Full CI/CD pipeline with matrix testing
+- **Manual:** Full regression suite available on-demand
 
-### Configuration Tests
+## 🚨 What Happens When Tests Fail
 
-For each site's `docusaurus.config.ts`:
-
-- ✅ **Future flags** - Checks for required `future` configuration block
-- ✅ **Environment integration** - Validates use of `getSiteDocusaurusConfig` and `getCurrentEnv`
-- ✅ **Site registration** - Confirms site exists in `siteConfigCore`
-- ✅ **URL configuration** - Validates URL and baseUrl settings
-- ✅ **Environment consistency** - Ensures no localhost URLs in production configs
-
-### Build Tests
-
-For each site build:
-
-- ✅ **Clean build** - Removes previous build artifacts
-- ✅ **Successful compilation** - Site builds without errors
-- ✅ **Output verification** - Build directory and sitemap.xml are created
-- ✅ **URL consistency** - Sitemap URLs match expected environment configuration
-- ✅ **Environment isolation** - No cross-environment URL contamination
-
-### URL Validation Tests
-
-- ✅ **Sitemap generation** - XML sitemap is properly created
-- ✅ **URL structure** - All URLs follow expected patterns
-- ✅ **Environment matching** - URLs match the target environment
-- ✅ **No hardcoded localhost** - Production builds don't contain localhost URLs
-
-## Continuous Integration
-
-### GitHub Actions Workflow
-
-The workflow (`.github/workflows/test-site-builds.yml`) runs automatically on:
-
-- Push to `main` or `dev` branches
-- Pull requests to `main` or `dev`
-- Manual trigger with custom parameters
-
-### Workflow Jobs
-
-1. **test-configurations** - Fast configuration validation
-2. **test-site-builds** - Matrix build testing for all sites
-3. **test-url-validation** - URL and sitemap validation
-4. **summary** - Aggregated results and status
-
-### Workflow Inputs
-
-When manually triggered:
-
-- **site** - Which site(s) to test (default: all)
-- **environment** - Target environment (default: production)
-
-### Artifacts
-
-On test failures, the workflow uploads:
-
-- Failed build directories
-- Build logs
-- Validation reports
-
-## Future Configuration Requirements
-
-All sites must include this configuration block:
-
-```typescript
-// Future flags for performance
-future: {
-  experimental_faster: false,
-  v4: true,
-},
-```
-
-This ensures consistent Docusaurus behavior and performance optimizations.
-
-## Environment Configuration
-
-Sites must use the shared configuration system:
-
-```typescript
-import { getSiteDocusaurusConfig } from '@ifla/theme/config';
-import { getCurrentEnv } from '@ifla/theme/config/siteConfig.server';
-
-const siteKey = 'ISBDM'; // or appropriate site key
-const currentEnv = getCurrentEnv();
-const { url, baseUrl } = getSiteDocusaurusConfig(siteKey, currentEnv);
-```
-
-This ensures proper URL generation for different deployment environments.
-
-## Common Issues and Solutions
-
-### Configuration Issues
-
-**Missing future flags:**
+### Pre-commit Failure
 ```bash
-# Error: Missing "future" configuration block
-# Solution: Add the future configuration block to docusaurus.config.ts
+❌ TypeScript errors found. Please fix before committing.
+# Commit is blocked until issues are resolved
 ```
 
-**Environment configuration:**
+### Pre-push Failure  
 ```bash
-# Error: Not using getSiteDocusaurusConfig for URL configuration
-# Solution: Import and use the shared configuration functions
+❌ Portal build test failed.
+# Push is blocked until issues are resolved
 ```
 
-### Build Issues
+### CI/CD Failure
+- GitHub Actions provide detailed logs
+- Failed build artifacts are automatically preserved
+- PR status checks prevent merging until fixed
 
-**Memory issues:**
-```bash
-# Use higher memory limit
-NODE_OPTIONS=--max-old-space-size=8192 pnpm test:builds
-```
-
-**Cache issues:**
-```bash
-# Clear all caches before testing
-pnpm clear:all && pnpm test:builds:all
-```
-
-### URL Issues
-
-**Localhost URLs in production:**
-```bash
-# Error: Sitemap contains localhost URLs in non-localhost build
-# Solution: Check for hardcoded localhost URLs in source files
-```
-
-## Performance Considerations
-
-- **Parallel testing** - Sites are tested in parallel in CI
-- **Build caching** - Node modules and build artifacts are cached
-- **Selective testing** - Can test individual sites to save time
-- **Memory optimization** - Increased memory limits for large sites
-
-## Extending the Tests
-
-### Adding New Validation Rules
-
-Edit `scripts/test-site-builds.js` in the `testSiteConfig()` function:
-
-```javascript
-// Add new configuration checks
-if (!configContent.includes('newRequiredConfig')) {
-  errors.push('Missing required configuration');
-}
-```
-
-### Adding Site-Specific Tests
-
-```javascript
-// Add site-specific validation
-if (siteKey === 'ISBDM' && !configContent.includes('vocabularyDefaults')) {
-  errors.push('ISBDM missing vocabulary configuration');
-}
-```
-
-### Adding New Test Commands
-
-Add to `package.json`:
-
-```json
-{
-  "scripts": {
-    "test:builds:my-test": "node scripts/test-site-builds.js --my-option"
-  }
-}
-```
-
-## Integration with Link Validation
-
-The regression tests work alongside the existing link validation system:
-
-- **Build tests** ensure sites compile and have correct URLs
-- **Link validation** (`validate-environment-urls.js`) checks that links work
-- **Combined coverage** provides comprehensive site health monitoring
-
-## Troubleshooting
-
-### Local Testing
+## 🔧 Bypassing Tests (Use Sparingly)
 
 ```bash
-# Test just configuration (fast)
-pnpm test:builds:config
+# Skip pre-commit (NOT recommended)
+git commit --no-verify
 
-# Test single site build
-node scripts/test-site-builds.js --site portal --verbose
+# Skip pre-push (NOT recommended)  
+git push --no-verify
 
-# Test with specific environment
-DOCS_ENV=localhost node scripts/test-site-builds.js --site ISBDM
+# Run manual tests instead
+pnpm test:pre-commit        # Equivalent to pre-commit hook
+pnpm test:pre-push          # Equivalent to pre-push hook
 ```
 
-### CI/CD Debugging
+## 📚 Documentation
 
-1. Check workflow logs in GitHub Actions
-2. Download build artifacts for failed tests
-3. Review configuration validation errors
-4. Verify environment variables are set correctly
+- **Full Guide:** `developer_notes/build-regression-testing.md`
+- **Component Testing:** `developer_notes/testing-vocabulary-pages.md`
+- **Configuration:** `developer_notes/configuration-architecture.md`
 
-### Common Fix Patterns
+## 🎉 Benefits
 
-1. **Add future config** to missing sites
-2. **Update imports** to use shared configuration
-3. **Fix hardcoded URLs** in source files
-4. **Clear caches** when builds are inconsistent
+✅ **Automatic Quality Assurance** - No manual test execution required  
+✅ **Fast Feedback** - Issues caught before they reach remote  
+✅ **Branch Protection** - Stricter testing for main/dev branches  
+✅ **Comprehensive Coverage** - Unit, integration, build, and E2E testing  
+✅ **CI/CD Integration** - Seamless GitHub Actions automation  
+✅ **Zero Configuration** - Works immediately for all developers  
+
+**The testing strategy ensures high code quality and prevents regressions without requiring manual intervention!** 🚀

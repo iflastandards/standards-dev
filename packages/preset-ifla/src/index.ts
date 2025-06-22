@@ -19,8 +19,9 @@ import type { LoadContext, Preset } from '@docusaurus/types';
  * @returns Docusaurus preset configuration
  */
 export default function preset(
-  context: LoadContext,
-  options: any
+  _context: LoadContext,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  _options: any
 ): Preset {
   return {
     themes: [],

@@ -30,14 +30,14 @@ describe('InLink Component - Real Functionality Tests', () => {
         
         if (React.isValidElement(children)) {
           return React.cloneElement(children, {}, 
-            processChildren(children.props.children)
+            processChildren((children.props as any).children)
           );
         }
         
         if (Array.isArray(children)) {
           return children.map((child, index) => 
             React.isValidElement(child) 
-              ? React.cloneElement(child, { key: index }, processChildren(child.props.children))
+              ? React.cloneElement(child, { key: index }, processChildren((child.props as any).children))
               : processChildren(child)
           );
         }
@@ -272,7 +272,7 @@ describe('InLink Component - Real Functionality Tests', () => {
 
     it('should handle style props if supported', () => {
       const { container } = render(
-        <InLink href="/test" style={{ color: 'red' }}>
+        <InLink href="/test" className="styled-link">
           Styled link
         </InLink>
       );

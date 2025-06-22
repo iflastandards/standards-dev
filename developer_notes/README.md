@@ -20,8 +20,9 @@ This directory contains detailed documentation for developers working on the IFL
   - `language-checking-scripts.md` - Language validation tools
 
 ### Testing and Validation
-- **`vocabulary-comparison-testing.md`** - Testing vocabulary server responses
+- **`build-regression-testing.md`** - Comprehensive build regression testing strategy
 - **`testing-vocabulary-pages.md`** - Testing vocabulary page functionality
+- **`vocabulary-comparison-testing.md`** - Testing vocabulary server responses
 - **`url-validation-guide.md`** - URL validation and link checking
 - **`link-validation-organization.md`** - Link validation system organization
 

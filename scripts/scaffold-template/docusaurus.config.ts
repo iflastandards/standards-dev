@@ -1,43 +1,43 @@
 import type { Config } from '@docusaurus/types';
-import preset, { getSiteConfig } from '../../packages/preset-ifla/dist/index.js';
+import preset from '../../packages/preset-ifla/dist/index.js';
+import { createStandardSiteConfig } from '@ifla/theme/config';
 import navbarItems from './navbar';
 
-// Get site URLs based on environment
-const { url, baseUrl, env } = getSiteConfig('__CODE__');
+const config: Config = createStandardSiteConfig({
+  siteKey: '__CODE__' as any, // Template placeholder will be replaced during scaffolding
+  title: '__TITLE__',
+  tagline: '__TAGLINE__',
 
-const config: Config = {
-  ...preset({}, {
-    siteKey: '__CODE__',
-    title: '__TITLE__',
-    tagline: '__TAGLINE__',
-    url,
-    baseUrl,
-    env,
+  // __CODE__-specific vocabulary configuration
+  vocabularyDefaults: {
+    prefix: "__PREFIX__",
+    numberPrefix: "__NUMBER_PREFIX__",
+    profile: "__PROFILE__",
+    elementDefaults: {
+      uri: "__ELEMENTS_URI__",
+      profile: "__ELEMENTS_PROFILE__",
+    }
+  },
 
-    // __CODE__-specific vocabulary configuration
-    vocabularyDefaults: {
-      prefix: "__PREFIX__",
-      numberPrefix: "__NUMBER_PREFIX__",
-      profile: "__PROFILE__",
-      elementDefaults: {
-        uri: "__ELEMENTS_URI__",
-        profile: "__ELEMENTS_PROFILE__",
-      }
-    },
+  // Custom navbar items
+  navbar: {
+    items: navbarItems,
+  },
 
-    // Custom navbar items
-    customNavbarItems: navbarItems,
+  // Navigation customization
+  navigation: {
+    hideCurrentSiteFromStandardsDropdown: true,
+    standardsDropdownPosition: 'right',
+    includeResourcesDropdown: false,
+  },
 
-    // Navigation customization
-    navigation: {
-      hideCurrentSiteFromStandardsDropdown: true,
-      standardsDropdownPosition: 'right',
-      includeResourcesDropdown: false,
-    },
+  // GitHub configuration
+  editUrl: '__EDIT_URL__',
 
-    // GitHub configuration
-    editUrl: '__EDIT_URL__',
-  })
-};
+  // Additional plugins - include the preset
+  additionalPlugins: [
+    ...preset({} as any, {} as any).plugins || [],
+  ],
+});
 
 export default config;

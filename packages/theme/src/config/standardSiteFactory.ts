@@ -270,10 +270,14 @@ function createConfigurationFactory() {
       }
     );
 
-    // Create fresh plugins array
+    // Create fresh plugins array with deep cloning to prevent cross-contamination
     const plugins = [
-      ...sharedPlugins.map(plugin => Array.isArray(plugin) ? [...plugin] : plugin),
-      ...additionalPlugins.map(plugin => Array.isArray(plugin) ? [...plugin] : plugin),
+      ...sharedPlugins.map(plugin => Array.isArray(plugin) 
+        ? [plugin[0], plugin[1] ? JSON.parse(JSON.stringify(plugin[1])) : plugin[1], ...plugin.slice(2)]
+        : plugin),
+      ...additionalPlugins.map(plugin => Array.isArray(plugin) 
+        ? [plugin[0], plugin[1] ? JSON.parse(JSON.stringify(plugin[1])) : plugin[1], ...plugin.slice(2)]
+        : plugin),
     ];
 
     if (redirects) {
@@ -473,8 +477,10 @@ function createConfigurationFactory() {
         ],
       ],
 
-      // Shared themes
-      themes: sharedThemes.map(theme => Array.isArray(theme) ? [...theme] : theme),
+      // Shared themes with deep cloning to prevent cross-contamination
+      themes: sharedThemes.map(theme => Array.isArray(theme) 
+        ? [theme[0], theme[1] ? JSON.parse(JSON.stringify(theme[1])) : theme[1], ...theme.slice(2)]
+        : theme),
 
       themeConfig,
     };

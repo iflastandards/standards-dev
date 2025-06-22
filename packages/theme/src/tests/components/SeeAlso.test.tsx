@@ -15,7 +15,7 @@ describe('SeeAlso Component', () => {
     );
     
     const seeAlsoText = screen.getAllByText((content, element) => {
-      return element?.textContent?.startsWith('See also:');
+      return element?.textContent?.startsWith('See also:') ?? false;
     })[0];
     expect(seeAlsoText).toBeInTheDocument();
     
@@ -57,7 +57,7 @@ describe('SeeAlso Component', () => {
     );
     
     const container = screen.getAllByText((content, element) => {
-      return element?.textContent?.startsWith('See also:');
+      return element?.textContent?.startsWith('See also:') ?? false;
     })[0];
     expect(container).not.toBeNull();
     const seeAlsoDiv = document.querySelector('.seeAlso.custom-class');

@@ -30,7 +30,7 @@ describe('ISBD Sheets Setup', () => {
   it('should have all CSV files exist', async () => {
     for (const vocab of ISBD_VOCABULARIES) {
       const exists = await checkCSVExists(vocab.csvPath);
-      expect(exists).toBe(true, `CSV should exist: ${vocab.csvPath}`);
+      expect(exists, `CSV should exist: ${vocab.csvPath}`).toBe(true);
     }
   });
   
@@ -91,10 +91,6 @@ describe('ISBD Sheets Setup', () => {
 
 // Run the tests
 if (require.main === module) {
-  import('vitest/node').then(({ runTests }) => {
-    runTests({
-      include: [__filename],
-      reporter: 'verbose'
-    });
-  });
+  // Note: To run this test file, use: pnpm vitest scripts/test-isbd-sheets.ts
+  console.log('To run this test file, use: pnpm vitest scripts/test-isbd-sheets.ts');
 }

@@ -4,6 +4,23 @@
 import { useMemo } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
+// Extend window type to include Docusaurus globals
+declare global {
+  interface Window {
+    __DOCUSAURUS_ROUTING__?: {
+      renderReactComponent?: any;
+      routeState?: {
+        doc?: {
+          frontMatter?: Record<string, any>;
+        };
+      };
+    };
+    __DOCUSAURUS_CONTEXT__?: {
+      frontMatter?: Record<string, any>;
+    };
+  }
+}
+
 export default function useDocInfo() {
   // Access global Docusaurus context
   const { siteConfig } = useDocusaurusContext();
@@ -16,8 +33,8 @@ export default function useDocInfo() {
     // Try to get frontmatter from various potential sources
     if (isBrowser) {
       // Try Docusaurus v3 context format
-      if (window.__DOCUSAURUS__?.renderReactComponent) {
-        const currentDoc = window.__DOCUSAURUS__.routeState?.doc;
+      if (window.__DOCUSAURUS_ROUTING__?.renderReactComponent) {
+        const currentDoc = window.__DOCUSAURUS_ROUTING__.routeState?.doc;
         if (currentDoc) {
           return currentDoc.frontMatter || {};
         }

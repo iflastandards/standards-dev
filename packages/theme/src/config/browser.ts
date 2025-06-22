@@ -89,9 +89,11 @@ export const sharedPlugins = [
     feedOptions: {
       type: 'all',
       copyright: `Copyright © ${new Date().getFullYear()} IFLA.`,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       createFeedItems: async (params: any) => {
         const { blogPosts, defaultCreateFeedItems, ...rest } = params;
         return defaultCreateFeedItems({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           blogPosts: blogPosts.filter((item: any, index: number) => index < 10),
           ...rest,
         });

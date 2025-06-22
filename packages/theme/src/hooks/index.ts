@@ -87,7 +87,7 @@ export function useMultilingualText(
 
   const removeLanguage = useCallback((language: string) => {
     setText(prev => {
-      const { [language]: removed, ...rest } = prev;
+      const { [language]: _removed, ...rest } = prev;
       return rest;
     });
   }, []);
