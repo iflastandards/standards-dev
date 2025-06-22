@@ -3,7 +3,7 @@ import * as path from 'path';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import { deepmerge } from 'deepmerge-ts';
-import { createBaseConfig, createThemeConfig, getEnvironmentName, validateEnvConfig } from '@ifla/shared-config';
+import { createBaseConfig, createThemeConfig, createIFLAPlugins, getEnvironmentName, validateEnvConfig } from '@ifla/shared-config';
 import { getSiteDocusaurusConfig } from '@ifla/theme/config';
 import { getCurrentEnv } from '@ifla/theme/config/siteConfig.server';
 import navbarItems from './navbar';
@@ -88,7 +88,23 @@ const config: Config = deepmerge(
           },
         } satisfies Preset.Options,
       ],
-      '@ifla/preset-ifla',
+    ],
+    
+    plugins: [
+      ...createIFLAPlugins({
+        // Environment-specific configuration
+        enableIdealImage: environment === 'production',
+        enableLocalSearch: true,
+        searchConfig: {
+          indexBlog: true, // Portal has a blog
+          language: ['en'],
+        },
+        imageConfig: {
+          quality: environment === 'production' ? 80 : 70,
+          max: 1200,
+          steps: environment === 'production' ? 3 : 2,
+        },
+      }),
     ],
     
     themeConfig: deepmerge(
@@ -163,8 +179,6 @@ const config: Config = deepmerge(
         },
       } satisfies Partial<Preset.ThemeConfig>,
     ),
-    
-    plugins: [],
     
     i18n: {
       defaultLocale: 'en',
