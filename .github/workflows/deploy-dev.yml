@@ -104,7 +104,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
           
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build theme package
         run: pnpm build:theme
@@ -180,7 +180,7 @@ jobs:
           
       - name: Install dependencies
         if: steps.should-build.outputs.build == 'true'
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build theme package
         if: steps.should-build.outputs.build == 'true'
