@@ -26,10 +26,10 @@ async function checkLinks(targetUrl, currentEnv) {
     
     { text: 'Navbar ISBDM', type: 'navExternal', toSite: 'ISBDM' },
     { text: 'Navbar LRM', type: 'navExternal', toSite: 'LRM' },
-    { text: 'Navbar FRBR', type: 'navExternal', toSite: 'FRBR' },
+    { text: 'Navbar FR', type: 'navExternal', toSite: 'FRBR' },
     { text: 'Navbar ISBD', type: 'navExternal', toSite: 'isbd' },
-    { text: 'Navbar Muldicat', type: 'navExternal', toSite: 'muldicat' },
-    { text: 'Navbar Unimarc', type: 'navExternal', toSite: 'unimarc' },
+    { text: 'Navbar MULDICAT', type: 'navExternal', toSite: 'muldicat' },
+    { text: 'Navbar UNIMARC', type: 'navExternal', toSite: 'unimarc' },
 
     { text: 'Footer ISBDM', type: 'footer', toSite: 'ISBDM' },
     { text: 'Footer LRM', type: 'footer', toSite: 'LRM' },
