@@ -66,7 +66,7 @@ for ENV_NAME in "${ENVIRONMENTS[@]}"; do
   echo "----------------------------------------------------"
 
   echo "Building portal (DOCS_ENV=$ENV_NAME)..."
-  (cd "$PROJECT_ROOT" && DOCS_ENV=$ENV_NAME pnpm run build portal)
+  (cd "$PROJECT_ROOT" && DOCS_ENV=$ENV_NAME pnpm run build:portal)
   if [ $? -ne 0 ]; then
     echo "❌ Build failed for DOCS_ENV=$ENV_NAME"
     OVERALL_SUCCESS=false
