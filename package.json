@@ -294,20 +294,6 @@
       "not op_mini all"
     ]
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "@swc/core",
-      "core-js",
-      "core-js-pure",
-      "esbuild",
-      "puppeteer",
-      "sharp"
-    ]
-  },
-  "volta": {
-    "node": "22.16.0"
-  },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
       "eslint --quiet --fix"
