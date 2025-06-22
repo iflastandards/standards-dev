@@ -1,5 +1,5 @@
 import type { Config } from '@docusaurus/types';
-import preset from '../../packages/preset-ifla/dist/index.js';
+import preset from '../../packages/preset-ifla/src/index';
 import { createStandardSiteConfig } from '@ifla/theme/config';
 import navbarItems from './navbar';
 
