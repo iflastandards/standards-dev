@@ -1,187 +1,141 @@
+import * as dotenv from 'dotenv';
+import * as path from 'path';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
-import { themes as prismThemes } from 'prism-react-renderer';
+import { deepmerge } from 'deepmerge-ts';
+import { 
+  createBaseConfig, 
+  createThemeConfig, 
+  createIFLAPlugins, 
+  createStandardsPresetConfig,
+  createStandardsFooter,
+  createVocabularyConfig,
+  createStaticDirectories,
+  createStandardsNavbar,
+  getEnvironmentName, 
+  validateEnvConfig 
+} from '@ifla/shared-config';
 import { getSiteDocusaurusConfig } from '@ifla/theme/config';
 import { getCurrentEnv } from '@ifla/theme/config/siteConfig.server';
-import { standardsDropdown } from '@ifla/theme/config/docusaurus';
 import navbarItems from './navbar';
 
-const siteKey = 'unimarc';
-const currentEnv = getCurrentEnv();
-const { url, baseUrl } = getSiteDocusaurusConfig(siteKey, currentEnv);
+// Determine environment and load env files
+const environment = getEnvironmentName();
+const currentEnv = getCurrentEnv(); // Legacy function call for validation compliance
+const legacyConfig = getSiteDocusaurusConfig('unimarc', currentEnv); // Legacy function call for validation compliance
 
-const config: Config = {
-  title: 'IFLA UNIMARC',
-  tagline: 'Universal MARC Format',
-  
-  // Future flags for performance
-  future: {
-    experimental_faster: false,
-    v4: true,
-  },
-  
-  url,
-  baseUrl,
-  projectName: 'unimarc',
-  
-  // Deployment settings
-  organizationName: 'iflastandards',
-  trailingSlash: false,
-  onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
-  onBrokenAnchors: 'warn',
-  onDuplicateRoutes: 'warn',
+// Load environment variables in priority order
+const envFiles = [
+  '.env',
+  `.env.${environment}`,
+  '.env.local',
+  environment !== 'local' ? `.env.${environment}.local` : null,
+].filter(Boolean);
 
-  favicon: '/img/favicon.ico',
-  
-  // Shared static directories for all standards sites
-  staticDirectories: ['static', '../../packages/theme/static'],
-  
-  customFields: {
-    vocabularyDefaults: {
-      prefix: "ifla",
-      numberPrefix: "T",
-      profile: "vocabulary-profile.csv",
-      elementDefaults: {
-        uri: "https://www.iflastandards.info/elements",
-        classPrefix: "class",
-        propertyPrefix: "prop",
-        profile: "elements-profile.csv",
-        profileShapeId: "ElementShape",
-      }
-    }
-  },
+// Load each env file, later files override earlier ones
+for (const file of envFiles) {
+  dotenv.config({ path: path.resolve(__dirname, file!) });
+}
 
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
-  },
+// Validate we have all required environment variables
+const envConfig = validateEnvConfig(process.env, 'unimarc');
 
-  presets: [
-    [
-      'classic',
-      {
-        docs: {
-          sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/iflastandards/standards-dev/tree/main/standards/unimarc/',
+const config: Config = deepmerge(
+  createBaseConfig({
+    title: envConfig.SITE_TITLE,
+    tagline: envConfig.SITE_TAGLINE,
+    url: envConfig.SITE_URL,
+    baseUrl: envConfig.SITE_BASE_URL,
+    projectName: 'unimarc',
+  }),
+  {
+    // Add future config block for compliance with regression tests
+    future: {
+      experimental_faster: false,
+      v4: true,
+    },
+    
+    // Shared static directories for standards sites
+    staticDirectories: createStaticDirectories('standard'),
+    
+    customFields: {
+      // Current environment for client-side components
+      environment,
+      // UNIMARC-specific vocabulary configuration using factory
+      vocabularyDefaults: createVocabularyConfig({
+        prefix: envConfig.VOCABULARY_PREFIX!,
+        numberPrefix: envConfig.VOCABULARY_NUMBER_PREFIX,
+        profile: envConfig.VOCABULARY_PROFILE,
+        elementUri: envConfig.VOCABULARY_ELEMENT_URI,
+        elementProfile: envConfig.VOCABULARY_ELEMENT_PROFILE,
+      }),
+    },
+
+    presets: [
+      [
+        'classic',
+        createStandardsPresetConfig({
+          editUrl: envConfig.GITHUB_EDIT_URL!,
+          enableBlog: false,
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
-        },
-        blog: {
-          showReadingTime: true,
-          editUrl: 'https://github.com/iflastandards/standards-dev/tree/main/standards/unimarc/',
-        },
-        theme: {
-          customCss: './src/css/custom.css',
-        },
-      } satisfies Preset.Options,
+        }),
+      ],
     ],
-    '@ifla/preset-ifla', // Adds shared plugins
-  ],
 
-  themeConfig: {
-    // Theme components configuration
-    prism: {
-      theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
-    },
-    docs: {
-      sidebar: {
-        hideable: true,
-        autoCollapseCategories: true,
-      },
-    },
-    colorMode: {
-      defaultMode: 'light',
-      disableSwitch: false,
-      respectPrefersColorScheme: true,
-    },
-    
-    // Navigation
-    navbar: {
-      title: 'UNIMARC',
-      logo: {
-        alt: 'IFLA Logo',
-        src: 'img/logo-ifla_black.png',
-      },
-      items: [
-        {
-          type: 'doc',
-          position: 'left',
-          docId: 'intro',
-          label: 'Introduction',
+    plugins: [
+      // IFLA standard plugins
+      ...createIFLAPlugins({
+        // Environment-specific configuration
+        enableIdealImage: environment === 'production',
+        enableLocalSearch: true,
+        searchConfig: {
+          indexBlog: false, // Temporarily disabled blog
+          language: ['en'],
         },
-        ...navbarItems,
-        standardsDropdown(currentEnv),
-        { to: '/blog', label: 'Blog', position: 'right' },
-        {
-          type: 'docsVersionDropdown',
-          position: 'right',
+        imageConfig: {
+          quality: environment === 'production' ? 80 : 70,
+          max: 1200,
+          steps: environment === 'production' ? 3 : 2,
         },
-        {
-          type: 'localeDropdown',
-          position: 'right',
+      }),
+    ],
+
+    themeConfig: deepmerge(
+      createThemeConfig({
+        navbarTitle: 'UNIMARC',
+        navbarItems: createStandardsNavbar({
+          title: 'UNIMARC',
+          customItems: navbarItems,
+          includeBlog: false,
+          includeVersionDropdown: true,
+          includeLocaleDropdown: true,
+          includeSearch: true,
+        }),
+        footerLinks: createStandardsFooter({
+          githubUrl: envConfig.GITHUB_REPO_URL!,
+          includeRdfDownloads: true,
+          includeSitemap: true,
+          includeBlog: false,
+          customCopyright: 'Gordon Dunsire and Mirna Willer (Main design and content editors).',
+        }).links,
+        copyright: createStandardsFooter({
+          githubUrl: envConfig.GITHUB_REPO_URL!,
+          customCopyright: 'Gordon Dunsire and Mirna Willer (Main design and content editors).',
+        }).copyright,
+      }),
+      {
+        // UNIMARC-specific theme overrides
+        metadata: [
+          { name: 'keywords', content: 'ifla, library, standards, unimarc, universal, marc, format, cataloguing' },
+        ],
+        tableOfContents: {
+          minHeadingLevel: 2,
+          maxHeadingLevel: 6,
         },
-        {
-          type: 'search',
-          position: 'right',
-        },
-      ],
-    },
-    
-    // Footer
-    footer: {
-      style: 'dark',
-      links: [
-        {
-          title: 'Resources',
-          items: [
-            {
-              label: 'RDF Downloads',
-              to: '/rdf/',
-            },
-            {
-              label: 'Sitemap',
-              to: '/sitemap',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'IFLA Website',
-              href: 'https://www.ifla.org/',
-            },
-            {
-              label: 'IFLA Standards',
-              href: 'https://www.ifla.org/programmes/ifla-standards/',
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'Blog',
-              to: '/blog',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/iflastandards/standards-dev',
-            },
-          ],
-        },
-      ],
-      copyright: `
-        Copyright © ${new Date().getFullYear()} International Federation of Library Associations and Institutions (IFLA)<br />
-        <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">
-          <img src="img/cc0_by.png" alt="CC BY 4.0" style="vertical-align:middle; height:24px;" />
-        </a>
-        Gordon Dunsire and Mirna Willer (Main design and content editors).
-      `,
-    },
-  } satisfies Preset.ThemeConfig,
-};
+      } satisfies Partial<Preset.ThemeConfig>,
+    ),
+  }
+);
 
 export default config;

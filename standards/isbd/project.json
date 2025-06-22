@@ -12,20 +12,20 @@
       },
       "outputs": ["{projectRoot}/build"],
       "cache": true,
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "shared-config:build"],
       "inputs": ["production", "^production", "docusaurus-no-theme"]
     },
     "start": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "docusaurus start standards/isbd --port 3004"
+        "command": "docusaurus start standards/isbd --port 3006"
       },
       "cache": false
     },
     "serve": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "docusaurus serve standards/isbd --port 3004"
+        "command": "docusaurus serve standards/isbd --port 3006"
       },
       "cache": false
     },

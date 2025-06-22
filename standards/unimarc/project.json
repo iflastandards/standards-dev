@@ -11,21 +11,27 @@
         "command": "docusaurus build standards/unimarc"
       },
       "outputs": ["{projectRoot}/build"],
-      "cache": false,
-      "dependsOn": ["^build"],
+      "cache": true,
+      "dependsOn": [
+        "^build",
+        {
+          "target": "build",
+          "projects": ["shared-config"]
+        }
+      ],
       "inputs": ["production", "^production", "docusaurus-no-theme"]
     },
     "start": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "docusaurus start standards/unimarc --port 3006"
+        "command": "docusaurus start standards/unimarc --port 3008"
       },
       "cache": false
     },
     "serve": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "docusaurus serve standards/unimarc --port 3006"
+        "command": "docusaurus serve standards/unimarc --port 3008"
       },
       "cache": false
     },

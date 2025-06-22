@@ -3,7 +3,17 @@ import * as path from 'path';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import { deepmerge } from 'deepmerge-ts';
-import { createBaseConfig, createThemeConfig, createIFLAPlugins, getEnvironmentName, validateEnvConfig } from '@ifla/shared-config';
+import { 
+  createBaseConfig, 
+  createThemeConfig, 
+  createIFLAPlugins, 
+  createStandardsPresetConfig,
+  createStandardsFooter,
+  createStaticDirectories,
+  createStandardsNavbar,
+  getEnvironmentName, 
+  validateEnvConfig 
+} from '@ifla/shared-config';
 import { getSiteDocusaurusConfig } from '@ifla/theme/config';
 import { getCurrentEnv } from '@ifla/theme/config/siteConfig.server';
 import navbarItems from './navbar';
@@ -48,8 +58,8 @@ const config: Config = deepmerge(
       v4: true,
     },
     
-    // Portal-specific static directories
-    staticDirectories: ['static', '../packages/theme/static'],
+    // Shared static directories for portal site
+    staticDirectories: createStaticDirectories('portal'),
     
     customFields: {
       // Current environment for client-side components
@@ -72,21 +82,13 @@ const config: Config = deepmerge(
     presets: [
       [
         'classic',
-        {
-          docs: {
-            path: 'docs',
-            sidebarPath: './sidebars.ts',
-            editUrl: envConfig.GITHUB_EDIT_URL,
-            remarkPlugins: [],
-          },
-          blog: {
-            showReadingTime: true,
-            editUrl: envConfig.GITHUB_EDIT_URL,
-          },
-          theme: {
-            customCss: './src/css/custom.css',
-          },
-        } satisfies Preset.Options,
+        createStandardsPresetConfig({
+          editUrl: envConfig.GITHUB_EDIT_URL!,
+          enableBlog: true,
+          docsPath: 'docs',
+          showLastUpdateAuthor: false,
+          showLastUpdateTime: false,
+        }),
       ],
     ],
     
@@ -110,63 +112,25 @@ const config: Config = deepmerge(
     themeConfig: deepmerge(
       createThemeConfig({
         navbarTitle: envConfig.SITE_TITLE,
-        navbarItems: [
-          ...navbarItems,
-          // Note: standardsDropdown removed as requested
-          {
-            type: 'docsVersionDropdown',
-            position: 'right',
-          },
-          {
-            type: 'localeDropdown',
-            position: 'right',
-          },
-          {
-            type: 'search',
-            position: 'right',
-          },
-        ],
-        footerLinks: [
-          {
-            title: 'IFLA Standards',
-            items: [
-              {
-                label: 'IFLA LRM',
-                href: '/LRM/', // Will be resolved by theme to correct URL
-              },
-              {
-                label: 'ISBDM',
-                href: '/ISBDM/', // Will be resolved by theme to correct URL
-              },
-              {
-                label: 'Blog',
-                to: '/blog/',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Docs',
-                to: '/docs/',
-              },
-              {
-                label: 'GitHub',
-                href: envConfig.GITHUB_REPO_URL!,
-              },
-            ],
-          },
-        ],
+        navbarItems: createStandardsNavbar({
+          title: 'Portal',
+          customItems: navbarItems,
+          includeBlog: false,
+          includeVersionDropdown: true,
+          includeLocaleDropdown: true,
+          includeSearch: true,
+        }),
+        footerLinks: createStandardsFooter({
+          githubUrl: envConfig.GITHUB_REPO_URL!,
+          includeRdfDownloads: false,
+          includeSitemap: false,
+          includeBlog: false,
+          customCopyright: 'Copyright © ${new Date().getFullYear()} International Federation of Library Associations and Institutions (IFLA)',
+        }).links,
+        copyright: createStandardsFooter({
+          githubUrl: envConfig.GITHUB_REPO_URL!,
+          customCopyright: 'Copyright © ${new Date().getFullYear()} International Federation of Library Associations and Institutions (IFLA)',
+        }).copyright,
       }),
       {
         // Portal-specific theme overrides

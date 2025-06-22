@@ -3,7 +3,18 @@ import * as path from 'path';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import { deepmerge } from 'deepmerge-ts';
-import { createBaseConfig, createThemeConfig, createIFLAPlugins, getEnvironmentName, validateEnvConfig } from '@ifla/shared-config';
+import { 
+  createBaseConfig, 
+  createThemeConfig, 
+  createIFLAPlugins, 
+  createStandardsPresetConfig,
+  createStandardsFooter,
+  createVocabularyConfig,
+  createStaticDirectories,
+  createStandardsNavbar,
+  getEnvironmentName, 
+  validateEnvConfig 
+} from '@ifla/shared-config';
 import { getSiteDocusaurusConfig } from '@ifla/theme/config';
 import { getCurrentEnv } from '@ifla/theme/config/siteConfig.server';
 import navbarItems from './navbar';
@@ -48,46 +59,35 @@ const config: Config = deepmerge(
     },
     
     // Shared static directories for all standards sites
-    staticDirectories: ['static', '../../packages/theme/static'],
+    staticDirectories: createStaticDirectories('standard'),
     
     customFields: {
       // Current environment for client-side components
       environment,
       // LRM-specific vocabulary configuration
-      vocabularyDefaults: {
-        prefix: envConfig.VOCABULARY_PREFIX,
+      vocabularyDefaults: createVocabularyConfig({
+        prefix: envConfig.VOCABULARY_PREFIX!,
         numberPrefix: envConfig.VOCABULARY_NUMBER_PREFIX,
         uriStyle: envConfig.VOCABULARY_URI_STYLE,
         profile: envConfig.VOCABULARY_PROFILE,
-        RDF: {
-          label: {
-            en: envConfig.VOCABULARY_RDF_LABEL_EN?.split(',') || [],
-          },
-          comment: {
-            en: envConfig.VOCABULARY_RDF_COMMENT_EN?.split(',') || [],
-          },
+        rdfLabelMappings: {
+          en: envConfig.VOCABULARY_RDF_LABEL_EN?.split(',') || [],
         },
-      },
+        rdfCommentMappings: {
+          en: envConfig.VOCABULARY_RDF_COMMENT_EN?.split(',') || [],
+        },
+      }),
     },
 
     presets: [
       [
         'classic',
-        {
-          docs: {
-            sidebarPath: './sidebars.ts',
-            editUrl: envConfig.GITHUB_EDIT_URL,
-            showLastUpdateAuthor: true,
-            showLastUpdateTime: true,
-          },
-          blog: {
-            showReadingTime: true,
-            editUrl: envConfig.GITHUB_EDIT_URL,
-          },
-          theme: {
-            customCss: './src/css/custom.css',
-          },
-        } satisfies Preset.Options,
+        createStandardsPresetConfig({
+          editUrl: envConfig.GITHUB_EDIT_URL!,
+          enableBlog: true,
+          showLastUpdateAuthor: true,
+          showLastUpdateTime: true,
+        }),
       ],
     ],
     
@@ -112,71 +112,23 @@ const config: Config = deepmerge(
     themeConfig: deepmerge(
       createThemeConfig({
         navbarTitle: 'LRM',
-        navbarItems: [
-          ...navbarItems,
-          // Note: standardsDropdown removed as requested
-          { to: '/blog', label: 'Blog', position: 'right' },
-          {
-            type: 'docsVersionDropdown',
-            position: 'right',
-          },
-          {
-            type: 'localeDropdown',
-            position: 'right',
-          },
-          {
-            type: 'search',
-            position: 'right',
-          },
-        ],
-        footerLinks: [
-          {
-            title: 'Resources',
-            items: [
-              {
-                label: 'RDF Downloads',
-                to: '/rdf/',
-              },
-              {
-                label: 'Sitemap',
-                to: '/sitemap',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'IFLA Website',
-                href: 'https://www.ifla.org/',
-              },
-              {
-                label: 'IFLA Standards',
-                href: 'https://www.ifla.org/programmes/ifla-standards/',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: envConfig.GITHUB_REPO_URL!,
-              },
-            ],
-          },
-        ],
-        copyright: `
-          Copyright © ${new Date().getFullYear()} International Federation of Library Associations and Institutions (IFLA)<br />
-          <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">
-            <img src="img/cc0_by.png" alt="CC BY 4.0" style="vertical-align:middle; height:24px;" />
-          </a>
-          Gordon Dunsire and Mirna Willer (Main design and content editors).
-        `,
+        navbarItems: createStandardsNavbar({
+          title: 'LRM',
+          customItems: navbarItems,
+          includeBlog: true,
+          includeVersionDropdown: true,
+          includeLocaleDropdown: true,
+          includeSearch: true,
+        }),
+        footerLinks: createStandardsFooter({
+          githubUrl: envConfig.GITHUB_REPO_URL!,
+          includeRdfDownloads: true,
+          includeSitemap: true,
+          includeBlog: true,
+        }).links,
+        copyright: createStandardsFooter({
+          githubUrl: envConfig.GITHUB_REPO_URL!,
+        }).copyright,
       }),
       {
         // LRM-specific theme overrides

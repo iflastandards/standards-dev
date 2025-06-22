@@ -9,6 +9,11 @@ export {
   createProductionPlugins,
   type IFLAPluginOptions 
 } from './lib/createPresetConfig';
+export * from './lib/createPresetConfigClassic';
+export * from './lib/createStandardsFooter';
+export * from './lib/createVocabularyConfig';
+export * from './lib/createStaticDirectories';
+export * from './lib/createStandardsNavbar';
 export * from './lib/utils/loadEnvConfig';
 export * from './lib/utils/getSiteUrl';
 export * from './lib/types';

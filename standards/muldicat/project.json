@@ -12,20 +12,26 @@
       },
       "outputs": ["{projectRoot}/build"],
       "cache": true,
-      "dependsOn": ["^build"],
+      "dependsOn": [
+        "^build",
+        {
+          "target": "build",
+          "projects": ["shared-config"]
+        }
+      ],
       "inputs": ["production", "^production", "docusaurus-no-theme"]
     },
     "start": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "docusaurus start standards/muldicat --port 3005"
+        "command": "docusaurus start standards/muldicat --port 3007"
       },
       "cache": false
     },
     "serve": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "docusaurus serve standards/muldicat --port 3005"
+        "command": "docusaurus serve standards/muldicat --port 3007"
       },
       "cache": false
     },

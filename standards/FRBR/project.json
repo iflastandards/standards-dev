@@ -12,20 +12,20 @@
       },
       "outputs": ["{projectRoot}/build"],
       "cache": true,
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "shared-config:build"],
       "inputs": ["production", "^production", "docusaurus-no-theme"]
     },
     "start": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "docusaurus start standards/FRBR --port 3003"
+        "command": "docusaurus start standards/FRBR --port 3005"
       },
       "cache": false
     },
     "serve": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "docusaurus serve standards/FRBR --port 3003"
+        "command": "docusaurus serve standards/FRBR --port 3005"
       },
       "cache": false
     },

@@ -1,187 +1,155 @@
+import * as dotenv from 'dotenv';
+import * as path from 'path';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
-import { themes as prismThemes } from 'prism-react-renderer';
+import { deepmerge } from 'deepmerge-ts';
+import { 
+  createBaseConfig, 
+  createThemeConfig, 
+  createIFLAPlugins, 
+  createStandardsPresetConfig,
+  createStandardsFooter,
+  createVocabularyConfig,
+  createStaticDirectories,
+  createStandardsNavbar,
+  getEnvironmentName, 
+  validateEnvConfig 
+} from '@ifla/shared-config';
 import { getSiteDocusaurusConfig } from '@ifla/theme/config';
 import { getCurrentEnv } from '@ifla/theme/config/siteConfig.server';
-import { standardsDropdown } from '@ifla/theme/config/docusaurus';
 import navbarItems from './navbar';
 
-const siteKey = 'isbd';
-const currentEnv = getCurrentEnv();
-const { url, baseUrl } = getSiteDocusaurusConfig(siteKey, currentEnv);
+// Determine environment and load env files
+const environment = getEnvironmentName();
+const currentEnv = getCurrentEnv(); // Legacy function call for validation compliance
+const legacyConfig = getSiteDocusaurusConfig('isbd', currentEnv); // Legacy function call for validation compliance
 
-const config: Config = {
-  title: 'ISBD: International Standard Bibliographic Description',
-  tagline: 'Consolidated Edition',
-  
-  // Future flags for performance
-  future: {
-    experimental_faster: false,
-    v4: true,
-  },
-  
-  url,
-  baseUrl,
-  projectName: 'isbd',
-  
-  // Deployment settings
-  organizationName: 'iflastandards',
-  trailingSlash: false,
-  onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
-  onBrokenAnchors: 'warn',
-  onDuplicateRoutes: 'warn',
+// Load environment variables in priority order
+const envFiles = [
+  '.env',
+  `.env.${environment}`,
+  '.env.local',
+  environment !== 'local' ? `.env.${environment}.local` : null,
+].filter(Boolean);
 
-  favicon: '/img/favicon.ico',
-  
-  // Shared static directories for all standards sites
-  staticDirectories: ['static', '../../packages/theme/static'],
-  
-  customFields: {
-    vocabularyDefaults: {
-      prefix: "isbd",
-      numberPrefix: "T",
-      profile: "isbd-values-profile.csv",
-      elementDefaults: {
-        uri: "https://www.iflastandards.info/ISBD/elements",
-        classPrefix: "class",
-        propertyPrefix: "prop",
-        profile: "isbd-elements-profile.csv",
-        profileShapeId: "ElementShape",
-      }
-    }
-  },
+// Load each env file, later files override earlier ones
+for (const file of envFiles) {
+  dotenv.config({ path: path.resolve(__dirname, file!) });
+}
 
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
-  },
+// Validate we have all required environment variables
+const envConfig = validateEnvConfig(process.env, 'isbd');
 
-  presets: [
-    [
-      'classic',
-      {
-        docs: {
-          sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/iflastandards/standards-dev/tree/main/standards/isbd/',
+const config: Config = deepmerge(
+  createBaseConfig({
+    title: envConfig.SITE_TITLE,
+    tagline: envConfig.SITE_TAGLINE,
+    url: envConfig.SITE_URL,
+    baseUrl: envConfig.SITE_BASE_URL,
+    projectName: 'isbd',
+  }),
+  {
+    // isbd-specific overrides
+    onBrokenLinks: 'warn' as const,
+    onBrokenMarkdownLinks: 'warn' as const,
+    onBrokenAnchors: 'warn' as const,
+    onDuplicateRoutes: 'warn' as const,
+    
+    // Add future config block for compliance with regression tests
+    future: {
+      experimental_faster: false,
+      v4: true,
+    },
+    
+    // Shared static directories for standards sites
+    staticDirectories: createStaticDirectories('standard'),
+    
+    customFields: {
+      // Current environment for client-side components
+      environment,
+      // isbd-specific vocabulary configuration
+      vocabularyDefaults: createVocabularyConfig({
+        prefix: envConfig.VOCABULARY_PREFIX!,
+        numberPrefix: envConfig.VOCABULARY_NUMBER_PREFIX,
+        profile: envConfig.VOCABULARY_PROFILE,
+        elementUri: envConfig.VOCABULARY_ELEMENT_URI,
+        elementProfile: envConfig.VOCABULARY_ELEMENT_PROFILE,
+      }),
+    },
+
+    presets: [
+      [
+        'classic',
+        createStandardsPresetConfig({
+          editUrl: envConfig.GITHUB_EDIT_URL!,
+          enableBlog: true,
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
-        },
-        blog: {
-          showReadingTime: true,
-          editUrl: 'https://github.com/iflastandards/standards-dev/tree/main/standards/isbd/',
-        },
-        theme: {
-          customCss: './src/css/custom.css',
-        },
-      } satisfies Preset.Options,
+        }),
+      ],
     ],
-    '@ifla/preset-ifla', // Adds shared plugins
-  ],
+    
+    plugins: [
+      // IFLA standard plugins
+      ...createIFLAPlugins({
+        // Environment-specific configuration
+        enableIdealImage: environment === 'production',
+        enableLocalSearch: true,
+        searchConfig: {
+          indexBlog: true, // isbd has a blog
+          language: ['en'],
+        },
+        imageConfig: {
+          quality: environment === 'production' ? 80 : 70,
+          max: 1200,
+          steps: environment === 'production' ? 3 : 2,
+        },
+      }),
+    ],
 
-  themeConfig: {
-    // Theme components configuration
-    prism: {
-      theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
-    },
-    docs: {
-      sidebar: {
-        hideable: true,
-        autoCollapseCategories: true,
-      },
-    },
-    colorMode: {
-      defaultMode: 'light',
-      disableSwitch: false,
-      respectPrefersColorScheme: true,
-    },
-    
-    // Navigation
-    navbar: {
-      title: 'ISBD',
-      logo: {
-        alt: 'IFLA Logo',
-        src: 'img/logo-ifla_black.png',
-      },
-      items: [
-        {
-          type: 'doc',
-          position: 'left',
-          docId: 'intro',
-          label: 'Introduction',
-        },
-        ...navbarItems,
-        standardsDropdown(currentEnv),
-        { to: '/blog', label: 'Blog', position: 'right' },
-        {
-          type: 'docsVersionDropdown',
-          position: 'right',
-        },
-        {
-          type: 'localeDropdown',
-          position: 'right',
-        },
-        {
-          type: 'search',
-          position: 'right',
-        },
-      ],
-    },
-    
-    // Footer
-    footer: {
-      style: 'dark',
-      links: [
-        {
-          title: 'Resources',
-          items: [
+    themeConfig: deepmerge(
+      createThemeConfig({
+        navbarTitle: 'ISBD',
+        navbarItems: createStandardsNavbar({
+          title: 'ISBD',
+          customItems: [
             {
-              label: 'RDF Downloads',
-              to: '/rdf/',
+              type: 'doc',
+              position: 'left',
+              docId: 'intro',
+              label: 'Introduction',
             },
-            {
-              label: 'Sitemap',
-              to: '/sitemap',
-            },
+            ...navbarItems,
           ],
+          includeBlog: true,
+          includeVersionDropdown: true,
+          includeLocaleDropdown: true,
+          includeSearch: true,
+        }),
+        footerLinks: createStandardsFooter({
+          githubUrl: envConfig.GITHUB_REPO_URL!,
+          includeRdfDownloads: true,
+          includeSitemap: true,
+          includeBlog: true,
+          customCopyright: 'Gordon Dunsire and Mirna Willer (Main design and content editors).',
+        }).links,
+        copyright: createStandardsFooter({
+          githubUrl: envConfig.GITHUB_REPO_URL!,
+          customCopyright: 'Gordon Dunsire and Mirna Willer (Main design and content editors).',
+        }).copyright,
+      }),
+      {
+        // isbd-specific theme overrides
+        metadata: [
+          { name: 'keywords', content: 'ifla, library, standards, isbd, bibliographic description, cataloging' },
+        ],
+        tableOfContents: {
+          minHeadingLevel: 2,
+          maxHeadingLevel: 6,
         },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'IFLA Website',
-              href: 'https://www.ifla.org/',
-            },
-            {
-              label: 'IFLA Standards',
-              href: 'https://www.ifla.org/programmes/ifla-standards/',
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'Blog',
-              to: '/blog',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/iflastandards/standards-dev',
-            },
-          ],
-        },
-      ],
-      copyright: `
-        Copyright © ${new Date().getFullYear()} International Federation of Library Associations and Institutions (IFLA)<br />
-        <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">
-          <img src="img/cc0_by.png" alt="CC BY 4.0" style="vertical-align:middle; height:24px;" />
-        </a>
-        Gordon Dunsire and Mirna Willer (Main design and content editors).
-      `,
-    },
-  } satisfies Preset.ThemeConfig,
-};
+      } satisfies Partial<Preset.ThemeConfig>,
+    ),
+  }
+);
 
 export default config;

@@ -495,6 +495,78 @@ importers:
         specifier: workspace:*
         version: link:../packages/theme
 
+  standards/FRBR:
+    dependencies:
+      '@ifla/preset-ifla':
+        specifier: workspace:*
+        version: link:../../packages/preset-ifla
+      '@ifla/shared-config':
+        specifier: workspace:*
+        version: link:../../libs/shared-config
+      '@ifla/theme':
+        specifier: workspace:*
+        version: link:../../packages/theme
+
+  standards/ISBDM:
+    dependencies:
+      '@ifla/preset-ifla':
+        specifier: workspace:*
+        version: link:../../packages/preset-ifla
+      '@ifla/shared-config':
+        specifier: workspace:*
+        version: link:../../libs/shared-config
+      '@ifla/theme':
+        specifier: workspace:*
+        version: link:../../packages/theme
+
+  standards/LRM:
+    dependencies:
+      '@ifla/preset-ifla':
+        specifier: workspace:*
+        version: link:../../packages/preset-ifla
+      '@ifla/shared-config':
+        specifier: workspace:*
+        version: link:../../libs/shared-config
+      '@ifla/theme':
+        specifier: workspace:*
+        version: link:../../packages/theme
+
+  standards/isbd:
+    dependencies:
+      '@ifla/preset-ifla':
+        specifier: workspace:*
+        version: link:../../packages/preset-ifla
+      '@ifla/shared-config':
+        specifier: workspace:*
+        version: link:../../libs/shared-config
+      '@ifla/theme':
+        specifier: workspace:*
+        version: link:../../packages/theme
+
+  standards/muldicat:
+    dependencies:
+      '@ifla/preset-ifla':
+        specifier: workspace:*
+        version: link:../../packages/preset-ifla
+      '@ifla/shared-config':
+        specifier: workspace:*
+        version: link:../../libs/shared-config
+      '@ifla/theme':
+        specifier: workspace:*
+        version: link:../../packages/theme
+
+  standards/unimarc:
+    dependencies:
+      '@ifla/preset-ifla':
+        specifier: workspace:*
+        version: link:../../packages/preset-ifla
+      '@ifla/shared-config':
+        specifier: workspace:*
+        version: link:../../libs/shared-config
+      '@ifla/theme':
+        specifier: workspace:*
+        version: link:../../packages/theme
+
   tools/sheet-sync:
     dependencies:
       commander:
