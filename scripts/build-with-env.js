@@ -4,8 +4,37 @@ const { execSync } = require('child_process');
 const { program } = require('commander');
 const inquirer = require('inquirer').default;
 
-const validEnvironments = ['localhost', 'preview', 'production'];
-const validSites = ['all', 'portal', 'isbdm', 'lrm', 'frbr', 'isbd', 'muldicat', 'unimarc'];
+// Environment options aligned with the new env-based system
+const validEnvironments = ['local', 'development', 'preview', 'production'];
+
+// Discover sites dynamically by looking for docusaurus.config.ts files
+const fs = require('fs');
+const path = require('path');
+
+function discoverSites() {
+  const sites = ['all']; // Keep 'all' option
+  
+  // Check portal directory
+  if (fs.existsSync(path.join(__dirname, '../portal/docusaurus.config.ts'))) {
+    sites.push('portal');
+  }
+  
+  // Check standards directory
+  const standardsDir = path.join(__dirname, '../standards');
+  if (fs.existsSync(standardsDir)) {
+    const standardDirs = fs.readdirSync(standardsDir);
+    for (const dir of standardDirs) {
+      const configPath = path.join(standardsDir, dir, 'docusaurus.config.ts');
+      if (fs.existsSync(configPath)) {
+        sites.push(dir.toLowerCase());
+      }
+    }
+  }
+  
+  return sites;
+}
+
+const validSites = discoverSites();
 
 program
   .option('--env <environment>', 'Environment to build for')
@@ -27,7 +56,7 @@ async function main() {
         name: 'environment',
         message: 'Select build environment:',
         choices: validEnvironments,
-        default: 'localhost'
+        default: 'local'
       }
     ]);
     env = envAnswer.environment;
@@ -145,12 +174,21 @@ async function main() {
   console.log(`\nBuilding ${site} for ${env} environment...`);
 
   try {
-    // Set the environment variable and run the build
+    // Map environment to NODE_ENV for the new env-based system
+    const envMapping = {
+      'local': 'local',
+      'development': 'development',
+      'preview': 'preview', 
+      'production': 'production'
+    };
+    
+    // Set both NODE_ENV (new system) and DOCS_ENV (legacy compatibility)
     execSync(`pnpm run ${buildScript}`, {
       stdio: 'inherit',
       env: {
         ...process.env,
-        DOCS_ENV: env
+        NODE_ENV: envMapping[env] || env,
+        DOCS_ENV: env // Keep for backward compatibility during transition
       }
     });
     console.log(`\nSuccessfully built ${site} for ${env} environment.`);
