@@ -57,16 +57,16 @@ jobs:
           pids=()
           
           # Type checking
-          npx nx affected --target=typecheck --parallel=3 --ci --verbose & pids+=($!)
+          npx nx affected --target=typecheck --parallel=3 --verbose & pids+=($!)
           
           # Linting
-          npx nx affected --target=lint --parallel=3 --ci --verbose & pids+=($!)
+          npx nx affected --target=lint --parallel=3 --verbose & pids+=($!)
           
           # Unit tests
-          npx nx affected --target=test --parallel=3 --ci --verbose & pids+=($!)
+          npx nx affected --target=test --parallel=3 --verbose & pids+=($!)
           
           # Build affected projects
-          npx nx affected --target=build --parallel=3 --ci --verbose & pids+=($!)
+          npx nx affected --target=build --parallel=3 --verbose & pids+=($!)
           
           # Wait for all jobs to complete
           for pid in "${pids[@]}"; do

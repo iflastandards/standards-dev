@@ -141,6 +141,13 @@
         "parallel": false
       },
       "cache": true
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo 'Workspace root - no build needed'"
+      },
+      "cache": true
     }
   }
 }
