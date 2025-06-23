@@ -21,34 +21,40 @@ export function validateEnvConfig(envVars: Record<string, string | undefined>, s
 
 /**
  * Get the environment name for loading environment files
- * Checks DOCS_ENV first (for compatibility), then falls back to NODE_ENV
- * Maps environment values to our environment file names
+ * Requires DOCS_ENV to be set to one of the valid values
+ * Throws fatal error if DOCS_ENV is missing or invalid - nx should catch this and load from root .env
  */
 export function getEnvironmentName(): string {
-  // First check DOCS_ENV (for compatibility with legacy system)
   const docsEnv = process.env['DOCS_ENV'];
-  if (docsEnv) {
-    const docsEnvMap: Record<string, string> = {
-      'local': 'local',      // DOCS_ENV=local maps to 'local' environment files
-      'localhost': 'local',  // DocsEnv.Localhost also maps to 'local' environment files
-      'preview': 'preview', 
-      'dev': 'development',
-      'production': 'production',
-    };
-    if (docsEnvMap[docsEnv]) {
-      return docsEnvMap[docsEnv];
-    }
-    // Throw error for invalid DOCS_ENV values
-    throw new Error(`Invalid DOCS_ENV value: '${docsEnv}'. Expected one of: ${Object.keys(docsEnvMap).join(', ')}`);
+  
+  // DOCS_ENV is required - throw fatal error if missing
+  if (!docsEnv) {
+    throw new Error(
+      `❌ FATAL: DOCS_ENV environment variable is required but not set.\n` +
+      `✅ Valid values: local, localhost, preview, dev, production\n` +
+      `💡 NX builds should load DOCS_ENV from root .env file automatically.\n` +
+      `💡 CI/production workflows must set DOCS_ENV explicitly.`
+    );
   }
   
-  // Fallback to NODE_ENV mapping
-  const nodeEnvMap: Record<string, string> = {
-    'development': 'development',
+  // Validate DOCS_ENV value
+  const docsEnvMap: Record<string, string> = {
+    'local': 'local',      // DOCS_ENV=local maps to 'local' environment files
+    'localhost': 'local',  // DocsEnv.Localhost also maps to 'local' environment files
+    'preview': 'preview', 
+    'dev': 'development',
     'production': 'production',
-    'test': 'local',
   };
   
-  const nodeEnv = process.env['NODE_ENV'] || 'production';
-  return nodeEnvMap[nodeEnv] || 'production';
+  if (!docsEnvMap[docsEnv]) {
+    const validValues = Object.keys(docsEnvMap).join(', ');
+    throw new Error(
+      `❌ FATAL: Invalid DOCS_ENV value: '${docsEnv}'\n` +
+      `✅ Expected one of: ${validValues}\n` +
+      `💡 NX builds should load valid DOCS_ENV from root .env file.\n` +
+      `💡 CI/production workflows must set DOCS_ENV correctly.`
+    );
+  }
+  
+  return docsEnvMap[docsEnv];
 }

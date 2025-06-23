@@ -1,8 +1,18 @@
 import { test, expect } from '@playwright/test';
-import { DocsEnv, sites } from '../packages/theme/src/config/siteConfigCore';
+import { DocsEnv, sites } from './utils/siteConfig';
 
 // Determine the current environment from env variable or default to localhost
-const currentEnv = (process.env.DOCS_ENV as DocsEnv) || DocsEnv.Localhost;
+// Map environment variable values to our enum
+const envMapping: Record<string, DocsEnv> = {
+  'local': DocsEnv.Localhost,
+  'localhost': DocsEnv.Localhost,
+  'preview': DocsEnv.Preview,
+  'dev': DocsEnv.Dev,
+  'development': DocsEnv.Dev,
+  'production': DocsEnv.Production,
+};
+
+const currentEnv = envMapping[process.env.DOCS_ENV?.toLowerCase() || 'local'] || DocsEnv.Localhost;
 
 // Define expected URL patterns for each environment
 const URL_PATTERNS: Record<DocsEnv, RegExp> = {
@@ -179,7 +189,18 @@ test.describe('Site Validation Tests', () => {
               });
               
               if (response.status() >= 400) {
-                brokenLinks.push({ href, status: response.status() });
+                // For internal links, try GET request as some servers don't support HEAD
+                if (url.hostname === new URL(siteConfig.url).hostname) {
+                  const getResponse = await page.request.get(href, {
+                    failOnStatusCode: false,
+                    timeout: 5000
+                  });
+                  if (getResponse.status() >= 400) {
+                    brokenLinks.push({ href, status: getResponse.status() });
+                  }
+                } else {
+                  brokenLinks.push({ href, status: response.status() });
+                }
               }
             } catch {
               // Skip link checking for external links that might block automated requests

@@ -4,20 +4,72 @@ import Heading from '@theme/Heading';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './styles.module.css';
-import { getSiteUrl, type SiteKey } from '@ifla/theme/config/siteConfig';
-import { DocsEnv } from '@ifla/theme/config/siteConfigCore';
+// Define types locally since they're not exported from shared-config
+type SiteKey = 'portal' | 'ISBDM' | 'LRM' | 'FRBR' | 'isbd' | 'muldicat' | 'unimarc';
+
+enum DocsEnv {
+  Localhost = 'localhost',
+  Preview = 'preview', 
+  Dev = 'dev',
+  Production = 'production',
+}
+
+// Site URL configuration for each environment (excluding portal since it doesn't link to itself)
+const SITE_CONFIGS: Record<DocsEnv, Record<Exclude<SiteKey, 'portal'>, string>> = {
+  [DocsEnv.Localhost]: {
+    ISBDM: 'http://localhost:3001/ISBDM/',
+    LRM: 'http://localhost:3002/LRM/',
+    FRBR: 'http://localhost:3003/FRBR/',
+    isbd: 'http://localhost:3004/isbd/',
+    muldicat: 'http://localhost:3005/muldicat/',
+    unimarc: 'http://localhost:3006/unimarc/',
+  },
+  [DocsEnv.Preview]: {
+    ISBDM: 'https://iflastandards.github.io/standards-dev/ISBDM/',
+    LRM: 'https://iflastandards.github.io/standards-dev/LRM/',
+    FRBR: 'https://iflastandards.github.io/standards-dev/FRBR/',
+    isbd: 'https://iflastandards.github.io/standards-dev/isbd/',
+    muldicat: 'https://iflastandards.github.io/standards-dev/muldicat/',
+    unimarc: 'https://iflastandards.github.io/standards-dev/unimarc/',
+  },
+  [DocsEnv.Dev]: {
+    ISBDM: 'https://jonphipps.github.io/standards-dev/ISBDM/',
+    LRM: 'https://jonphipps.github.io/standards-dev/LRM/',
+    FRBR: 'https://jonphipps.github.io/standards-dev/FRBR/',
+    isbd: 'https://jonphipps.github.io/standards-dev/isbd/',
+    muldicat: 'https://jonphipps.github.io/standards-dev/muldicat/',
+    unimarc: 'https://jonphipps.github.io/standards-dev/unimarc/',
+  },
+  [DocsEnv.Production]: {
+    ISBDM: 'https://www.iflastandards.info/ISBDM/',
+    LRM: 'https://www.iflastandards.info/LRM/',
+    FRBR: 'https://www.iflastandards.info/FRBR/',
+    isbd: 'https://www.iflastandards.info/isbd/',
+    muldicat: 'https://www.iflastandards.info/muldicat/',
+    unimarc: 'https://www.iflastandards.info/unimarc/',
+  },
+};
+
+function getSiteUrl(siteKey: Exclude<SiteKey, 'portal'>, path: string, env: DocsEnv): string {
+  const config = SITE_CONFIGS[env];
+  if (!config || !config[siteKey]) {
+    console.warn(`No URL configuration found for site ${siteKey} in environment ${env}`);
+    return '#';
+  }
+  return config[siteKey] + (path.startsWith('/') ? path.slice(1) : path);
+}
 
 type StandardItem = {
   title: string;
   code: string;
   description: ReactNode;
-  siteKey: SiteKey;
+  siteKey: Exclude<SiteKey, 'portal'>;
   status: 'published' | 'draft' | 'development';
   href: string; // Pre-computed URL
 };
 
 // Define the standards list data without hrefs (to be computed at render time)
-const StandardsListData = [
+const StandardsListData: Omit<StandardItem, 'href'>[] = [
   {
     title: 'ISBD for Manifestation (ISBDM)',
     code: 'ISBDM',
@@ -27,7 +79,7 @@ const StandardsListData = [
         consistent bibliographic descriptions of library materials in their physical or digital form.
       </>
     ),
-    siteKey: 'ISBDM' as SiteKey,
+    siteKey: 'ISBDM' as const,
     status: 'published' as const,
   },
   {
@@ -39,7 +91,7 @@ const StandardsListData = [
         and the relationships between bibliographic entities.
       </>
     ),
-    siteKey: 'LRM' as SiteKey,
+    siteKey: 'LRM' as const,
     status: 'published' as const,
   },
   {
@@ -51,7 +103,7 @@ const StandardsListData = [
         and comprehensive bibliographic records across all types of library materials.
       </>
     ),
-    siteKey: 'isbd' as SiteKey,
+    siteKey: 'isbd' as const,
     status: 'development' as const,
   },
   {
@@ -63,7 +115,7 @@ const StandardsListData = [
         and access to bibliographic resources.
       </>
     ),
-    siteKey: 'FRBR' as SiteKey,
+    siteKey: 'FRBR' as const,
     status: 'development' as const,
   },
   {
@@ -75,7 +127,7 @@ const StandardsListData = [
         to support international library cooperation.
       </>
     ),
-    siteKey: 'muldicat' as SiteKey,
+    siteKey: 'muldicat' as const,
     status: 'development' as const,
   },
   {
@@ -87,7 +139,7 @@ const StandardsListData = [
         and support library automation.
       </>
     ),
-    siteKey: 'unimarc' as SiteKey,
+    siteKey: 'unimarc' as const,
     status: 'development' as const,
   },
 ];

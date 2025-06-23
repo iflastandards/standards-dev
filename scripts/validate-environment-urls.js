@@ -5,7 +5,8 @@ const inquirer = require('inquirer').default;
 const puppeteer = require('puppeteer');
 const path = require('path');
 const fs = require('fs');
-const { sites, DocsEnv } = require('../packages/theme/dist/config/siteConfigCore');
+const { createSiteConfigFromEnv } = require('./utils/site-config-utils.js');
+const { sites, DocsEnv } = createSiteConfigFromEnv();
 
 const validSites = Object.keys(sites).filter(site => site !== 'github');
 const validEnvironments = Object.values(DocsEnv);

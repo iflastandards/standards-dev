@@ -8,7 +8,8 @@ const path = require('path');
 const fs = require('fs');
 
 // Get valid sites from the theme configuration
-const { sites, DocsEnv } = require('../packages/theme/dist/config/siteConfigCore');
+const { createSiteConfigFromEnv } = require('./utils/site-config-utils.js');
+const { sites, DocsEnv } = createSiteConfigFromEnv();
 const validSites = Object.keys(sites).filter(site => site !== 'github');
 
 program

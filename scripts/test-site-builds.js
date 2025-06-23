@@ -15,7 +15,9 @@ const { program } = require('commander');
 const { execSync } = require('child_process');
 const path = require('path');
 const fs = require('fs');
-const { sites, DocsEnv } = require('../packages/theme/dist/config/siteConfigCore');
+// Import site configuration from the new location
+const { createSiteConfigFromEnv } = require('./utils/site-config-utils.js');
+const { sites, DocsEnv } = createSiteConfigFromEnv();
 
 // Valid sites excluding github
 const validSites = Object.keys(sites).filter(site => site !== 'github');
@@ -113,14 +115,19 @@ function testSiteConfig(siteKey) {
       errors.push('Missing or incorrect "v4: true" in future config');
     }
     
-    // Check for environment configuration usage
-    if (!configContent.includes('getSiteDocusaurusConfig')) {
-      errors.push('Not using getSiteDocusaurusConfig for URL configuration');
+    // Check for new shared-config usage
+    if (!configContent.includes('@ifla/shared-config')) {
+      errors.push('Not using @ifla/shared-config for configuration');
     }
     
-    // Check for getCurrentEnv usage
-    if (!configContent.includes('getCurrentEnv')) {
-      errors.push('Not using getCurrentEnv for environment detection');
+    // Check for environment detection
+    if (!configContent.includes('getEnvironmentName')) {
+      errors.push('Not using getEnvironmentName for environment detection');
+    }
+    
+    // Check for environment variable validation
+    if (!configContent.includes('validateEnvConfig')) {
+      errors.push('Not using validateEnvConfig for environment validation');
     }
     
     // Validate site is properly registered

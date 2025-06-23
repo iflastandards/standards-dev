@@ -1,18 +1,19 @@
 import type {ReactNode} from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 
 import styles from './index.module.css';
-import React from 'react';
 
 function HomepageHeader() {
+  const {siteConfig} = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
         <Heading as="h1" className="hero__title">
-          MulDiCat: Multilingual Dictionary of Cataloguing Terms
+          {siteConfig.title}
         </Heading>
         <p className="hero__subtitle">
           The authoritative multilingual dictionary for library cataloguing and metadata terminology
@@ -183,9 +184,10 @@ function CallToAction() {
 }
 
 export default function Home(): ReactNode {
+  const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title="MulDiCat: Multilingual Dictionary of Cataloguing Terms"
+      title={`Hello from ${siteConfig.title}`}
       description="The authoritative multilingual dictionary for library cataloguing and metadata terminology, supporting global standards and interoperability">
       <HomepageHeader />
       <main>

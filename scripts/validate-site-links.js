@@ -5,8 +5,8 @@ const { program } = require('commander');
 const inquirer = require('inquirer').default;
 const puppeteer = require('puppeteer');
 const { getCurrentEnv } = require('../packages/theme/dist/config/siteConfig.server');
-const { getSiteDocusaurusConfig } = require('../packages/theme/dist/config/siteConfig');
-const { sites } = require('../packages/theme/dist/config/siteConfigCore');
+const { createSiteConfigFromEnv } = require('./utils/site-config-utils.js');
+const { sites } = createSiteConfigFromEnv();
 
 // Get valid sites from central configuration (excluding github)
 const validSites = Object.keys(sites).filter(site => site !== 'github').map(site => site.toLowerCase());

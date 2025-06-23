@@ -15,14 +15,10 @@ import {
   getEnvironmentName, 
   validateEnvConfig 
 } from '@ifla/shared-config';
-import { getSiteDocusaurusConfig } from '@ifla/theme/config';
-import { getCurrentEnv } from '@ifla/theme/config/siteConfig.server';
 import navbarItems from './navbar';
 
 // Determine environment and load env files
 const environment = getEnvironmentName();
-const currentEnv = getCurrentEnv(); // Legacy function call for validation compliance
-const legacyConfig = getSiteDocusaurusConfig('muldicat', currentEnv); // Legacy function call for validation compliance
 
 // Load environment variables in priority order
 const envFiles = [

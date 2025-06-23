@@ -10,6 +10,23 @@
       "options": {
         "command": "docusaurus build standards/muldicat"
       },
+      "configurations": {
+        "development": {
+          "env": {
+            "DOCS_ENV": "dev"
+          }
+        },
+        "production": {
+          "env": {
+            "DOCS_ENV": "production"
+          }
+        },
+        "preview": {
+          "env": {
+            "DOCS_ENV": "preview"
+          }
+        }
+      },
       "outputs": ["{projectRoot}/build"],
       "cache": true,
       "dependsOn": [

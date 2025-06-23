@@ -14,14 +14,10 @@ import {
   getEnvironmentName, 
   validateEnvConfig 
 } from '@ifla/shared-config';
-import { getSiteDocusaurusConfig } from '@ifla/theme/config';
-import { getCurrentEnv } from '@ifla/theme/config/siteConfig.server';
 import navbarItems from './navbar';
 
 // Determine environment
 const environment = getEnvironmentName();
-const currentEnv = getCurrentEnv(); // Legacy function call for validation compliance
-const legacyConfig = getSiteDocusaurusConfig('portal', currentEnv); // Legacy function call for validation compliance
 
 // Load environment variables in priority order
 // Priority: .env.site.local > .env.site.[environment] > .env.site
@@ -65,7 +61,7 @@ const config: Config = deepmerge(
       // Current environment for client-side components
       environment,
       // Environment for site URL generation
-      docsEnv: currentEnv,
+      docsEnv: environment,
       // Portal-specific vocabulary configuration (minimal since portal doesn't have RDF content)
       vocabularyDefaults: {
         prefix: "ifla",

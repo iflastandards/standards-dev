@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
 const { getCurrentEnv } = require('../packages/theme/dist/config/siteConfig.server');
-const { getSiteUrl } = require('../packages/theme/dist/config/siteConfig');
-const { standardsDropdown } = require('../packages/theme/dist/config/docusaurus');
-const { sites, DocsEnv } = require('../packages/theme/dist/config/siteConfigCore');
+const { createSiteConfigFromEnv } = require('./utils/site-config-utils.js');
+const { sites, DocsEnv } = createSiteConfigFromEnv();
 
 /**
  * Validates that navigation URLs are correctly configured for the current environment.
