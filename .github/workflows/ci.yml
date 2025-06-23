@@ -48,6 +48,7 @@ jobs:
         run: pnpm exec playwright install --with-deps
       
       # Run e2e tests on affected projects
+      # These tests validate URLs, links, images, and navigation for each site
       - name: Run Playwright e2e tests
         run: |
           pnpm exec nx affected:e2e --base=main~1 --head=main

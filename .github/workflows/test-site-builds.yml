@@ -167,129 +167,11 @@ jobs:
             ${{ matrix.site == 'portal' && 'portal' || format('standards/{0}', matrix.site) }}/build/
             ${{ matrix.site == 'portal' && 'portal' || format('standards/{0}', matrix.site) }}/logs/
 
-  test-url-validation:
-    name: Test URL Validation
-    runs-on: ubuntu-latest
-    needs: test-site-builds
-    if: success()
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
-
-      - name: Build shared-config package
-        run: npx nx build shared-config
-
-      - name: Build theme package
-        run: pnpm --filter @ifla/theme build
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          pattern: build-*
-          path: artifacts
-
-      - name: Restore build artifacts to proper locations
-        run: |
-          echo "=== Restoring artifacts to proper directory structure ==="
-          # Create base directories
-          mkdir -p portal standards
-          
-          # Debug: Show what artifacts we have
-          echo "=== Available artifacts ==="
-          ls -la artifacts/ 2>/dev/null || echo "No artifacts directory found"
-          
-          # Restore portal build - check multiple possible paths
-          if [ -d "artifacts/build-portal" ]; then
-            echo "Found portal artifact directory"
-            # Try different possible structures
-            if [ -d "artifacts/build-portal/portal" ]; then
-              echo "Moving portal build from artifacts/build-portal/portal..."
-              cp -r artifacts/build-portal/portal/* portal/
-            elif [ -d "artifacts/build-portal/build" ]; then
-              echo "Moving portal build from artifacts/build-portal/build..."
-              cp -r artifacts/build-portal/build/* portal/build/
-              mkdir -p portal/build
-            else
-              echo "Portal artifact structure:"
-              find artifacts/build-portal -type f | head -10
-              # Try to copy everything from the artifact
-              cp -r artifacts/build-portal/* portal/
-            fi
-          fi
-          
-          # Restore standards builds - check multiple possible paths
-          for site in ISBDM LRM FRBR isbd muldicat unimarc; do
-            if [ -d "artifacts/build-$site" ]; then
-              echo "Found $site artifact directory"
-              mkdir -p "standards/$site"
-              
-              # Try different possible structures
-              if [ -d "artifacts/build-$site/standards/$site" ]; then
-                echo "Moving $site build from artifacts/build-$site/standards/$site..."
-                cp -r "artifacts/build-$site/standards/$site"/* "standards/$site/"
-              elif [ -d "artifacts/build-$site/build" ]; then
-                echo "Moving $site build from artifacts/build-$site/build..."
-                mkdir -p "standards/$site/build"
-                cp -r "artifacts/build-$site/build"/* "standards/$site/build/"
-              else
-                echo "$site artifact structure:"
-                find "artifacts/build-$site" -type f | head -10
-                # Try to copy everything from the artifact
-                cp -r "artifacts/build-$site"/* "standards/$site/"
-              fi
-            fi
-          done
-
-      - name: Debug - Check restored structure
-        run: |
-          echo "=== Current directory structure after restore ==="
-          ls -la
-          echo "=== Portal structure ==="
-          ls -la portal/ 2>/dev/null || echo "No portal directory found"
-          echo "=== Standards structure ==="
-          ls -la standards/ 2>/dev/null || echo "No standards directory found"
-          if [ -d "standards" ]; then
-            for site in standards/*/; do
-              echo "=== $site structure ==="
-              ls -la "$site" 2>/dev/null || echo "No $site directory found"
-            done
-          fi
-          echo "=== Searching for sitemap.xml files ==="
-          find . -name "sitemap.xml" -type f | head -10
-
-      - name: Run URL validation tests
-        run: |
-          SITE=${{ github.event.inputs.site || 'all' }}
-          ENV=${{ github.event.inputs.environment || (github.ref_name == 'main' && 'production' || github.ref_name == 'dev' && 'dev' || 'production') }}
-          # Test sitemap generation
-          node scripts/validate-environment-urls.js --site $SITE --env $ENV --type sitemap
-
-      - name: Upload validation reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: validation-reports
-          path: output/link-validation/
 
   summary:
     name: Test Summary
     runs-on: ubuntu-latest
-    needs: [test-unit-and-types, test-configurations, test-site-builds, test-url-validation]
+    needs: [test-unit-and-types, test-configurations, test-site-builds]
     if: always()
     
     steps:
@@ -317,20 +199,9 @@ jobs:
           else
             echo "❌ Some site builds failed"
           fi
-          echo ""
-          echo "### URL Validation"
-          if [ "${{ needs.test-url-validation.result }}" == "success" ]; then
-            echo "✅ URL validation passed"
-          elif [ "${{ needs.test-url-validation.result }}" == "skipped" ]; then
-            echo "⏭️ URL validation skipped"
-          else
-            echo "❌ URL validation failed"
-          fi
-
       - name: Set job status
         if: |
           needs.test-unit-and-types.result != 'success' ||
           needs.test-configurations.result != 'success' ||
-          needs.test-site-builds.result != 'success' ||
-          (needs.test-url-validation.result != 'success' && needs.test-url-validation.result != 'skipped')
+          needs.test-site-builds.result != 'success'
         run: exit 1
