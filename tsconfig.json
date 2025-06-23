@@ -28,6 +28,8 @@
     ],
     "baseUrl": ".",
     "paths": {
+      "@ifla/shared-config": ["./libs/shared-config/src/index.ts"],
+      "@ifla/shared-config/*": ["./libs/shared-config/src/*"],
       "@ifla/theme": ["./packages/theme/src/index.ts"],
       "@ifla/theme/*": ["./packages/theme/src/*"],
       "@ifla/theme/components": ["./packages/theme/src/components/index.ts"],
@@ -37,8 +39,6 @@
       "@ifla/theme/styles": ["./packages/theme/src/styles/index.css"],
       "@ifla/theme/utils": ["./packages/theme/src/utils/index.ts"],
       "@ifla/theme/utils/*": ["./packages/theme/src/utils/*"],
-      "@ifla/shared-config": ["./libs/shared-config/src/index.ts"],
-      "@ifla/shared-config/*": ["./libs/shared-config/src/*"],
       "@site/*": ["./*"],
       "@site/plugins/*": ["./plugins/*"],
       "@theme/*": ["./src/theme/*", "./.docusaurus/theme-fallback/*"],

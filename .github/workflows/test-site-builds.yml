@@ -201,18 +201,43 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: build-*
-          path: .
+          path: artifacts
 
-      - name: Debug - Check artifact structure
+      - name: Restore build artifacts to proper locations
         run: |
-          echo "=== Current directory structure ==="
+          echo "=== Restoring artifacts to proper directory structure ==="
+          # Create directories if they don't exist
+          mkdir -p portal standards
+          
+          # Move portal build if it exists
+          if [ -d "artifacts/build-portal/portal" ]; then
+            echo "Moving portal build..."
+            cp -r artifacts/build-portal/portal/* portal/
+          fi
+          
+          # Move standards builds if they exist
+          for site in ISBDM LRM FRBR isbd muldicat unimarc; do
+            if [ -d "artifacts/build-$site/standards/$site" ]; then
+              echo "Moving $site build..."
+              mkdir -p "standards/$site"
+              cp -r "artifacts/build-$site/standards/$site"/* "standards/$site/"
+            fi
+          done
+
+      - name: Debug - Check restored structure
+        run: |
+          echo "=== Current directory structure after restore ==="
           ls -la
-          echo "=== Looking for portal directory ==="
+          echo "=== Portal structure ==="
           ls -la portal/ 2>/dev/null || echo "No portal directory found"
-          echo "=== Looking for standards directory ==="
+          echo "=== Standards structure ==="
           ls -la standards/ 2>/dev/null || echo "No standards directory found"
-          echo "=== Looking for build-* directories ==="
-          ls -la build-*/ 2>/dev/null || echo "No build-* directories found"
+          if [ -d "standards" ]; then
+            for site in standards/*/; do
+              echo "=== $site structure ==="
+              ls -la "$site" 2>/dev/null || echo "No $site directory found"
+            done
+          fi
           echo "=== Searching for sitemap.xml files ==="
           find . -name "sitemap.xml" -type f | head -10
 

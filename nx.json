@@ -6,7 +6,8 @@
       "!{projectRoot}/.docusaurus/**/*",
       "!{projectRoot}/build/**/*",
       "!{projectRoot}/dist/**/*",
-      "!{projectRoot}/node_modules/**/*"
+      "!{projectRoot}/node_modules/**/*",
+      "sharedGlobals"
     ],
     "production": [
       "default",
@@ -39,12 +40,13 @@
       "{projectRoot}/static/**/*",
       "{workspaceRoot}/packages/preset-ifla/**/*",
       "{workspaceRoot}/libs/shared-config/**/*"
-    ]
+    ],
+    "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
   },
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["{projectRoot}/build", "{projectRoot}/dist"],
+      "outputs": ["{projectRoot}/build", "{projectRoot}/dist", "{projectRoot}/.docusaurus"],
       "cache": true,
       "inputs": ["production", "^production", "docusaurus"]
     },
@@ -126,6 +128,6 @@
   "cli": {
     "analytics": false
   },
-  "parallel": 3,
+  "parallel": 6,
   "cacheDirectory": ".nx/cache"
 }
