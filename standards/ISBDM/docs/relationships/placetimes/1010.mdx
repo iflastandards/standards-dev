@@ -54,7 +54,7 @@ The values of this element may be indexed for uncontrolled or controlled keyword
 
 <div className="guid">
 For a time-span that is a calendar date or a range of calendar dates, record an authorized access point that conforms to a standard date and time format. Use the following order of preference:
-  - <InLink href="https://www.iso.org/iso-8601-date-and-time-format">ISO 8601</InLink>
+  - <OutLink href="https://www.iso.org/iso-8601-date-and-time-format">ISO 8601</OutLink>
   - A date and time format that is chosen by the cataloguing agency
 </div>
 
@@ -86,17 +86,17 @@ Record a time-span that is estimated as an approximate time-span as:
   - A time-span at a broader level of granularity than the estimated time-span.
 <details>
   <summary>Examples</summary>
-  
+
     | Property | Value |
     |:---------|:------|
     | has time-span associated with manifestation | "1711-1715" |
-    
+
     *[[Known to be after 1711 and before 1715.]*
-    
+
     | Property | Value |
     |:---------|:------|
     | has time-span associated with manifestation | "16" |
-    
+
     *[Estimated to be a time-span within the 17th century in ISO 8601 format.]*
 </details>
 </div>
@@ -105,7 +105,7 @@ Record a time-span that is estimated as an approximate time-span as:
 Record a <InLink href="/docs/notes/1272">has note on time-span associated with manifestation</InLink> element that gives information that the time-span is estimated with an explanation of the recorded range, if it is considered to be useful for users of the metadata.
 <details>
   <summary>Examples</summary>
-  
+
     | Property | Value |
     |:---------|:------|
     | has note on time-span associated with manifestation | "Date of publication is known to be after 1711 and before 1715." |
@@ -116,13 +116,13 @@ Record a <InLink href="/docs/notes/1272">has note on time-span associated with m
 
 <div className="stip">
   <Mandatory />
-  
+
   If one or more time-spans are associated with the manifestation, record at least one occurrence of the element. Use the following order of preference to select the value:
-  
+
   1. Date of creation of manifestation<ol class="al"> <li>Date of publication of manifestation</li> <li>Date of production of manifestation</li> <li>Date of manufacture of manifestation</li> </ol>
   2. Date of copyright
   3. Date of distribution of manifestation
-  
+
   <div className="stip">
   Record additional occurrences of the element, if it is considered to be useful for users of the metadata.
   </div>
@@ -134,40 +134,40 @@ Record a <InLink href="/docs/notes/1272">has note on time-span associated with m
 
 <div className="stip">
   Use an appropriate element sub-type to record a more specific relationship.
-  
+
   <details>
   <summary>Examples</summary>
-  
+
   | Property | Value |
   |:---------|:------|
   | has date of copyright of manifestation | "2004" |
-  
+
   *[Full example: <InLink href="/docs/fullex/fx081">Homazh për De Radën (2004; Università della Calabria; videodisk)</InLink>.]*
   </details>
 </div>
 
 <div className="stip">
   Apply the stipulations for the element super-types unless indicated otherwise.
-  
+
   <details>
   <summary>Examples</summary>
-  
+
   | Property | Value |
   |:---------|:------|
   | has time-span associated with manifestation | "1979" |
-  
+
   *[Authorized access point of entity.]*
-  
+
   | Property | Value |
   |:---------|:------|
   | has time-span associated with manifestation | "Q2484" |
-  
+
   *[Identifier of entity.]*
-  
+
   | Property | Value |
   |:---------|:------|
   | has time-span associated with manifestation | https://www.wikidata.org/wiki/Q2484 |
-  
+
   *[IRI of entity.]*
   </details>
 </div>
@@ -186,7 +186,7 @@ Record a <InLink href="/docs/notes/1272">has note on time-span associated with m
 
 <div className="stip">
   If more than one time-span is named with the same association in a manifestation statement, record one or more occurrences of the element, if it is considered to be useful for users of the metadata. Use the following order of preference to select the values:
-  
+
   - The time-spans that are named most prominently in the typography and layout of the statement.
   - The time-span that is named first in the statement.
   - The time-spans that are named in a language and script that is preferred by the cataloguing agency.
@@ -199,16 +199,16 @@ Record a <InLink href="/docs/notes/1272">has note on time-span associated with m
 
 <div className="stip">
   For a manifestation that embodies the expression of a diachronic work, and if the diachronic work has not terminated, record a time-span that is an open calendar date range. An open calendar date range is an incomplete time-span that lacks a calendar date that is the end of the time-span.
-  
+
   <details>
   <summary>Examples</summary>
-  
+
   | Property | Value |
   |:---------|:------|
   | has time-span associated with manifestation | "1951-" |
-  
+
   <hr />
-  
+
   | Property | Value |
   |:---------|:------|
   | has time-span associated with manifestation | "1 Jan 2000-" |
@@ -217,16 +217,16 @@ Record a <InLink href="/docs/notes/1272">has note on time-span associated with m
 
 <div className="stip">
   For a manifestation that embodies the expression of a diachronic work, and if the diachronic work has terminated, record a time-span that is a closed calendar date range. A closed calendar date range is a calendar date that is the start of the time-span followed by connecting punctuation and a calendar date that is the end of the time-span.
-  
+
   <details>
   <summary>Examples</summary>
-  
+
   | Property | Value |
   |:---------|:------|
   | has time-span associated with manifestation | "1951-2001" |
-  
+
   <hr />
-  
+
   | Property | Value |
   |:---------|:------|
   | has time-span associated with manifestation | "1 Jan 2000-15 Nov 2001" |
