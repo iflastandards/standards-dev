@@ -34,7 +34,6 @@ function main() {
   // Build theme first, then each site individually to avoid Node.js module caching contamination
   const projects = [
     '@ifla/theme',
-    '@ifla/preset-ifla', 
     'standards-cli',
     'portal',
     'frbr',

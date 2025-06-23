@@ -49,11 +49,11 @@ echo "🏗️  Analyzing affected builds..."
 # Get affected projects that are sites
 affected_sites=$(nx affected:projects --plain 2>/dev/null | grep -E "(portal|isbdm|lrm|frbr|isbd|muldicat|unimarc)" || echo "")
 
-# Check if theme or preset is affected (affects all sites)
-theme_affected=$(nx affected:projects --plain 2>/dev/null | grep -E "(@ifla/theme|@ifla/preset-ifla)" || echo "")
+# Check if theme is affected (affects all sites)
+theme_affected=$(nx affected:projects --plain 2>/dev/null | grep -E "@ifla/theme" || echo "")
 
 if [ -n "$theme_affected" ]; then
-  echo "🎨 Theme/preset affected - testing critical sites only"
+  echo "🎨 Theme affected - testing critical sites only"
   affected_sites="portal isbdm"  # Test most important sites
 elif [ -z "$affected_sites" ]; then
   echo "✅ No site builds affected. Skipping build tests."
@@ -66,7 +66,7 @@ echo "📋 Sites to test: $affected_sites"
 # Step 3: Branch-specific build strategy
 if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "dev" ]; then
   echo "🔒 Protected branch - testing builds with Nx (cached)"
-  
+
   # Use Nx to build affected projects (with caching)
   if echo "$affected_sites" | grep -q "portal"; then
     echo "🏗️  Building portal..."
@@ -75,7 +75,7 @@ if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "dev" ]; then
       exit 1
     }
   fi
-  
+
   if echo "$affected_sites" | grep -q "isbdm"; then
     echo "🏗️  Building ISBDM..."
     nx build isbdm || {
@@ -83,7 +83,7 @@ if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "dev" ]; then
       exit 1
     }
   fi
-  
+
   # Quick config validation for other affected sites
   other_sites=$(echo "$affected_sites" | grep -vE "(portal|isbdm)" || echo "")
   if [ -n "$other_sites" ]; then
@@ -95,17 +95,17 @@ if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "dev" ]; then
         "lrm") script_site="LRM";;
         "frbr") script_site="FRBR";;
       esac
-      
+
       node scripts/test-site-builds.js --site "$script_site" --env localhost --skip-build || {
         echo "❌ $script_site config validation failed"
         exit 1
       }
     done
   fi
-  
+
 else
   echo "📝 Feature branch - configuration validation only"
-  
+
   # For feature branches, just validate configs (no builds)
   for site in $affected_sites; do
     # Map Nx project name to script name  
@@ -115,7 +115,7 @@ else
       "lrm") script_site="LRM";;
       "frbr") script_site="FRBR";;
     esac
-    
+
     echo "⚙️  Validating $script_site configuration..."
     node scripts/test-site-builds.js --site "$script_site" --env localhost --skip-build || {
       echo "❌ $script_site configuration validation failed"

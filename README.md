@@ -54,8 +54,9 @@ standards-dev/
 │   ├── muldicat/             # Multilingual Dictionary of Cataloguing Terms
 │   └── unimarc/              # UNIMARC formats
 ├── packages/                  # Shared packages
-│   ├── theme/                # Custom Docusaurus theme
-│   └── preset-ifla/          # IFLA-specific Docusaurus preset
+│   └── theme/                # Custom Docusaurus theme
+├── libs/                     # Shared libraries
+│   └── shared-config/        # Configuration utilities for sites
 └── scripts/                  # Build and utility scripts
 ```
 
@@ -145,7 +146,7 @@ pnpm validate:env-urls
 3. **Make Changes:**
    - Edit content in `standards/*/docs/` or `portal/docs/`
    - Modify theme in `packages/theme/src/`
-   - Update shared configs in `packages/preset-ifla/`
+   - Update shared configs in `libs/shared-config/`
 
 4. **Test Changes:**
    ```bash

@@ -49,7 +49,6 @@ pnpm build:unimarc          # Build UNIMARC site
 
 ### Build Packages
 ```bash
-pnpm build:preset           # Build the preset-ifla package
 pnpm build:theme            # Build the theme package
 ```
 
@@ -136,14 +135,13 @@ pnpm validate:isbdm-links        # Validate ISBDM-specific links
 
 ### Clear Everything
 ```bash
-pnpm clear:all              # Clear all builds, caches, and dist directories (includes preset)
+pnpm clear:all              # Clear all builds, caches, and dist directories
 ```
 
 ### Clear Specific Areas
 ```bash
 pnpm clear                  # Clear Docusaurus cache
-pnpm clear:packages         # Clear both theme and preset-ifla dist directories
-pnpm clear:preset           # Clear preset-ifla dist directory only
+pnpm clear:packages         # Clear theme dist directory
 pnpm clear:sites            # Clear all site builds and .docusaurus directories
 pnpm clear:theme            # Clear theme dist and .docusaurus directories
 pnpm clear:webpack          # Clear webpack cache
@@ -234,9 +232,9 @@ pnpm typecheck              # Check TypeScript
 pnpm test                   # Run tests
 ```
 
-### Building After Preset Changes
+### Building After Theme Changes
 ```bash
-pnpm build:preset           # Build the preset package
+pnpm build:theme            # Build the theme package
 pnpm build:lrm              # Test with one site first
 ```
 
@@ -258,11 +256,11 @@ pnpm start:lrm              # Start dev server
 
 ### Cleaning Up Problems
 ```bash
-pnpm clear:all              # Clear all caches, builds, and dist (includes preset)
-pnpm clear:packages         # Clear just theme and preset dist
+pnpm clear:all              # Clear all caches, builds, and dist directories
+pnpm clear:packages         # Clear just theme dist
 pnpm clear:sites            # Clear just site builds
 pnpm clear:webpack          # Just clear webpack cache
-pnpm build:all:safe         # Clean rebuild everything (includes preset)
+pnpm build:all:safe         # Clean rebuild everything
 ```
 
 ## 📝 Notes
@@ -294,7 +292,7 @@ To add a new site:
 3. Add start command: `"start:newsite": "docusaurus start standards/newsite --port 30XX"`
 4. Add serve command: `"serve:newsite": "docusaurus serve standards/newsite --port 30XX"`
 5. Update build:all commands to include the new site
-6. Add to SITES array in preset configuration
+6. Add to SITES array in shared-config configuration
 
 To add a new validation:
 1. Create script in `scripts/` directory

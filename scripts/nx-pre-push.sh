@@ -20,10 +20,10 @@ has_changes() {
 get_affected_sites() {
   # Get affected Nx projects
   local affected_projects=$(nx affected:projects --plain 2>/dev/null || echo "")
-  
+
   # Map Nx project names to site names for our build scripts
   local sites=""
-  
+
   if echo "$affected_projects" | grep -q "portal"; then
     sites="$sites portal"
   fi
@@ -45,12 +45,12 @@ get_affected_sites() {
   if echo "$affected_projects" | grep -q "unimarc"; then
     sites="$sites unimarc"
   fi
-  
-  # If theme or preset changed, all sites are affected
-  if echo "$affected_projects" | grep -qE "(@ifla/theme|@ifla/preset-ifla)"; then
+
+  # If theme changed, all sites are affected
+  if echo "$affected_projects" | grep -qE "@ifla/theme"; then
     sites="portal ISBDM LRM FRBR isbd muldicat unimarc"
   fi
-  
+
   echo "$sites"
 }
 
@@ -88,7 +88,7 @@ echo "📋 Affected sites: $affected_sites"
 # Step 4: Determine build testing strategy based on branch and changes
 if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "dev" ]; then
   echo "🔒 Detected push to protected branch ($BRANCH) - running production build tests"
-  
+
   # For protected branches, test affected sites in production
   for site in $affected_sites; do
     echo "🏗️  Testing $site build (production)..."
@@ -97,7 +97,7 @@ if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "dev" ]; then
       exit 1
     }
   done
-  
+
   # If portal is affected, run E2E tests
   if echo "$affected_sites" | grep -q "portal"; then
     echo "🌐 Portal affected - running E2E tests..."
@@ -106,10 +106,10 @@ if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "dev" ]; then
       exit 1
     }
   fi
-  
+
 else
   echo "📝 Feature branch detected - running lightweight affected tests"
-  
+
   # For feature branches, test affected sites with localhost (faster)
   for site in $affected_sites; do
     echo "⚙️  Testing $site configuration..."
@@ -118,7 +118,7 @@ else
       exit 1
     }
   done
-  
+
   # Only build one representative affected site to save time
   first_site=$(echo "$affected_sites" | cut -d' ' -f1)
   echo "🏗️  Testing representative build ($first_site)..."

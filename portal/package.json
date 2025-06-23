@@ -13,8 +13,7 @@
   },
   "dependencies": {
     "@ifla/shared-config": "workspace:*",
-    "@ifla/theme": "workspace:*",
-    "@ifla/preset-ifla": "workspace:*"
+    "@ifla/theme": "workspace:*"
   },
   "devDependencies": {},
   "browserslist": {

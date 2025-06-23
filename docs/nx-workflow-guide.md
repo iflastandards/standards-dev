@@ -118,9 +118,8 @@ We've configured these input patterns:
 # Install dependencies
 pnpm install
 
-# Build theme and preset packages
+# Build theme package
 nx build @ifla/theme
-nx build @ifla/preset-ifla
 
 # Or build all at once
 pnpm build:all

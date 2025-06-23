@@ -145,7 +145,7 @@ const config: Config = deepmerge(
   {
     // Site-specific overrides
     onBrokenAnchors: 'ignore', // Portal-specific
-    
+
     presets: [
       [
         'classic',
@@ -163,9 +163,15 @@ const config: Config = deepmerge(
           },
         },
       ],
-      '@ifla/preset-ifla',
     ],
-    
+
+    plugins: [
+      ...createIFLAPlugins({
+        enableIdealImage: process.env.NODE_ENV === 'production',
+        enableLocalSearch: true,
+      }),
+    ],
+
     themeConfig: createThemeConfig({
       navbarTitle: process.env.SITE_TITLE!,
       navbarItems: [

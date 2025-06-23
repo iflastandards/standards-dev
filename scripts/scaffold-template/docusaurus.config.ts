@@ -1,5 +1,5 @@
 import type { Config } from '@docusaurus/types';
-import preset from '../../packages/preset-ifla/src/index';
+import { createIFLAPlugins } from '@ifla/shared-config';
 import { createStandardSiteConfig } from '@ifla/theme/config';
 import navbarItems from './navbar';
 
@@ -34,9 +34,12 @@ const config: Config = createStandardSiteConfig({
   // GitHub configuration
   editUrl: '__EDIT_URL__',
 
-  // Additional plugins - include the preset
+  // Additional plugins - include standard IFLA plugins
   additionalPlugins: [
-    ...preset({} as any, {} as any).plugins || [],
+    ...createIFLAPlugins({
+      enableIdealImage: true,
+      enableLocalSearch: true,
+    }),
   ],
 });
 
