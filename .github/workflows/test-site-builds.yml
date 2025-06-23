@@ -203,6 +203,19 @@ jobs:
           pattern: build-*
           path: .
 
+      - name: Debug - Check artifact structure
+        run: |
+          echo "=== Current directory structure ==="
+          ls -la
+          echo "=== Looking for portal directory ==="
+          ls -la portal/ 2>/dev/null || echo "No portal directory found"
+          echo "=== Looking for standards directory ==="
+          ls -la standards/ 2>/dev/null || echo "No standards directory found"
+          echo "=== Looking for build-* directories ==="
+          ls -la build-*/ 2>/dev/null || echo "No build-* directories found"
+          echo "=== Searching for sitemap.xml files ==="
+          find . -name "sitemap.xml" -type f | head -10
+
       - name: Run URL validation tests
         run: |
           SITE=${{ github.event.inputs.site || 'all' }}
