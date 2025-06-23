@@ -29,7 +29,8 @@ export function getEnvironmentName(): string {
   const docsEnv = process.env['DOCS_ENV'];
   if (docsEnv) {
     const docsEnvMap: Record<string, string> = {
-      'localhost': 'local',
+      'local': 'local',      // DOCS_ENV=local maps to 'local' environment files
+      'localhost': 'local',  // DocsEnv.Localhost also maps to 'local' environment files
       'preview': 'preview', 
       'dev': 'development',
       'production': 'production',
@@ -37,6 +38,8 @@ export function getEnvironmentName(): string {
     if (docsEnvMap[docsEnv]) {
       return docsEnvMap[docsEnv];
     }
+    // Throw error for invalid DOCS_ENV values
+    throw new Error(`Invalid DOCS_ENV value: '${docsEnv}'. Expected one of: ${Object.keys(docsEnvMap).join(', ')}`);
   }
   
   // Fallback to NODE_ENV mapping

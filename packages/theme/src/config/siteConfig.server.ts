@@ -9,19 +9,29 @@ import { DocsEnv, type SiteKey, sites } from './siteConfigCore';
 export function getCurrentEnv(): DocsEnv {
   const docsEnv = process.env.DOCS_ENV;
 
-  if (docsEnv && DocsEnv && Object.values(DocsEnv).includes(docsEnv as DocsEnv)) {
-    return docsEnv as DocsEnv;
+  // Map DOCS_ENV values to DocsEnv enum values
+  if (docsEnv) {
+    const docsEnvMap: Record<string, DocsEnv> = {
+      'local': DocsEnv.Localhost,
+      'localhost': DocsEnv.Localhost,
+      'preview': DocsEnv.Preview,
+      'dev': DocsEnv.Dev,
+      'production': DocsEnv.Production,
+    };
+    
+    if (docsEnvMap[docsEnv]) {
+      return docsEnvMap[docsEnv];
+    }
   }
 
   // Fallback to NODE_ENV if DOCS_ENV is not set or invalid
   const nodeEnv = process.env.NODE_ENV;
 
-
   if (nodeEnv === 'development') {
-    return DocsEnv?.Localhost as DocsEnv; // Added optional chaining and cast for safety
+    return DocsEnv.Localhost;
   }
 
-  return DocsEnv?.Production as DocsEnv; // Added optional chaining and cast for safety
+  return DocsEnv.Production;
 }
 
 /**

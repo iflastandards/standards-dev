@@ -125,11 +125,9 @@ const config: Config = deepmerge(
           includeRdfDownloads: false,
           includeSitemap: false,
           includeBlog: false,
-          customCopyright: 'Copyright © ${new Date().getFullYear()} International Federation of Library Associations and Institutions (IFLA)',
         }).links,
         copyright: createStandardsFooter({
           githubUrl: envConfig.GITHUB_REPO_URL!,
-          customCopyright: 'Copyright © ${new Date().getFullYear()} International Federation of Library Associations and Institutions (IFLA)',
         }).copyright,
       }),
       {

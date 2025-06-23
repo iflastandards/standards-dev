@@ -131,11 +131,9 @@ const config: Config = deepmerge(
           includeRdfDownloads: true,
           includeSitemap: true,
           includeBlog: true,
-          customCopyright: 'Gordon Dunsire and Mirna Willer (Main design and content editors).',
         }).links,
         copyright: createStandardsFooter({
           githubUrl: envConfig.GITHUB_REPO_URL!,
-          customCopyright: 'Gordon Dunsire and Mirna Willer (Main design and content editors).',
         }).copyright,
       }),
       {
