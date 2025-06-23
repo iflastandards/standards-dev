@@ -250,6 +250,7 @@
     "@nx/rollup": "^21.2.1",
     "@nx/vite": "21.2.1",
     "@nx/web": "21.2.1",
+    "@playwright/mcp": "^0.0.29",
     "@playwright/test": "^1.53.1",
     "@swc-node/register": "~1.9.1",
     "@swc/core": "~1.5.7",
