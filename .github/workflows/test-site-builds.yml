@@ -150,6 +150,14 @@ jobs:
         env:
           NODE_OPTIONS: --max-old-space-size=8192
 
+      - name: Upload build artifacts on success
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ matrix.site }}
+          path: |
+            ${{ matrix.site == 'portal' && 'portal' || format('standards/{0}', matrix.site) }}/build/
+
       - name: Upload build artifacts on failure
         if: failure()
         uses: actions/upload-artifact@v4
@@ -188,6 +196,12 @@ jobs:
 
       - name: Build theme package
         run: pnpm --filter @ifla/theme build
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: build-*
+          merge-multiple: true
 
       - name: Run URL validation tests
         run: |
