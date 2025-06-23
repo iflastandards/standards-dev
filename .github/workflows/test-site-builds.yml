@@ -201,7 +201,15 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: build-*
-          merge-multiple: true
+          path: .
+
+      - name: Debug - List downloaded artifacts
+        run: |
+          echo "=== Checking downloaded artifacts ==="
+          find . -name "build" -type d | head -10
+          find . -name "sitemap.xml" | head -10
+          ls -la portal/ 2>/dev/null || echo "No portal directory"
+          ls -la standards/*/build/ 2>/dev/null || echo "No standards build directories"
 
       - name: Run URL validation tests
         run: |
