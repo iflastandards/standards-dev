@@ -206,21 +206,52 @@ jobs:
       - name: Restore build artifacts to proper locations
         run: |
           echo "=== Restoring artifacts to proper directory structure ==="
-          # Create directories if they don't exist
+          # Create base directories
           mkdir -p portal standards
           
-          # Move portal build if it exists
-          if [ -d "artifacts/build-portal/portal" ]; then
-            echo "Moving portal build..."
-            cp -r artifacts/build-portal/portal/* portal/
+          # Debug: Show what artifacts we have
+          echo "=== Available artifacts ==="
+          ls -la artifacts/ 2>/dev/null || echo "No artifacts directory found"
+          
+          # Restore portal build - check multiple possible paths
+          if [ -d "artifacts/build-portal" ]; then
+            echo "Found portal artifact directory"
+            # Try different possible structures
+            if [ -d "artifacts/build-portal/portal" ]; then
+              echo "Moving portal build from artifacts/build-portal/portal..."
+              cp -r artifacts/build-portal/portal/* portal/
+            elif [ -d "artifacts/build-portal/build" ]; then
+              echo "Moving portal build from artifacts/build-portal/build..."
+              cp -r artifacts/build-portal/build/* portal/build/
+              mkdir -p portal/build
+            else
+              echo "Portal artifact structure:"
+              find artifacts/build-portal -type f | head -10
+              # Try to copy everything from the artifact
+              cp -r artifacts/build-portal/* portal/
+            fi
           fi
           
-          # Move standards builds if they exist
+          # Restore standards builds - check multiple possible paths
           for site in ISBDM LRM FRBR isbd muldicat unimarc; do
-            if [ -d "artifacts/build-$site/standards/$site" ]; then
-              echo "Moving $site build..."
+            if [ -d "artifacts/build-$site" ]; then
+              echo "Found $site artifact directory"
               mkdir -p "standards/$site"
-              cp -r "artifacts/build-$site/standards/$site"/* "standards/$site/"
+              
+              # Try different possible structures
+              if [ -d "artifacts/build-$site/standards/$site" ]; then
+                echo "Moving $site build from artifacts/build-$site/standards/$site..."
+                cp -r "artifacts/build-$site/standards/$site"/* "standards/$site/"
+              elif [ -d "artifacts/build-$site/build" ]; then
+                echo "Moving $site build from artifacts/build-$site/build..."
+                mkdir -p "standards/$site/build"
+                cp -r "artifacts/build-$site/build"/* "standards/$site/build/"
+              else
+                echo "$site artifact structure:"
+                find "artifacts/build-$site" -type f | head -10
+                # Try to copy everything from the artifact
+                cp -r "artifacts/build-$site"/* "standards/$site/"
+              fi
             fi
           done
 
