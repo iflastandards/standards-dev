@@ -64,6 +64,8 @@ const config: Config = deepmerge(
     customFields: {
       // Current environment for client-side components
       environment,
+      // Environment for site URL generation
+      docsEnv: currentEnv,
       // Portal-specific vocabulary configuration (minimal since portal doesn't have RDF content)
       vocabularyDefaults: {
         prefix: "ifla",
