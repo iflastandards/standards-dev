@@ -1,0 +1,103 @@
+name: Site Validation
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to test'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - localhost
+          - dev
+          - preview
+          - production
+  workflow_call:
+    inputs:
+      environment:
+        description: 'Environment to test'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  validate-sites:
+    runs-on: ubuntu-latest
+    name: Validate all sites in ${{ inputs.environment }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build all sites
+        if: inputs.environment == 'localhost'
+        run: pnpm exec nx run standards-dev:build-all
+
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps
+
+      - name: Run site validation tests for ${{ inputs.environment }}
+        run: |
+          DOCS_ENV=${{ inputs.environment }} pnpm exec nx run standards-dev:e2e:site-validation
+        env:
+          DOCS_ENV: ${{ inputs.environment }}
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ inputs.environment }}
+          path: playwright-report/
+          retention-days: 30
+
+      - name: Upload test videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-videos-${{ inputs.environment }}
+          path: test-results/
+          retention-days: 7
+
+  # Job to run after deployment to production
+  validate-production:
+    if: inputs.environment == 'production'
+    needs: validate-sites
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check production site health
+        run: |
+          # Simple health checks for each site
+          sites=("https://www.iflastandards.info" 
+                 "https://www.iflastandards.info/ISBDM/"
+                 "https://www.iflastandards.info/LRM/"
+                 "https://www.iflastandards.info/FRBR/"
+                 "https://www.iflastandards.info/isbd/"
+                 "https://www.iflastandards.info/muldicat/"
+                 "https://www.iflastandards.info/unimarc/")
+          
+          for site in "${sites[@]}"; do
+            echo "Checking $site..."
+            response=$(curl -s -o /dev/null -w "%{http_code}" "$site")
+            if [ "$response" != "200" ]; then
+              echo "ERROR: $site returned HTTP $response"
+              exit 1
+            fi
+            echo "✓ $site is healthy (HTTP 200)"
+          done

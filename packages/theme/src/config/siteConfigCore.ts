@@ -17,7 +17,7 @@ export interface SiteConfig {
 // Ensure this is kept up-to-date with any new sites or environment changes.
 export const sites: Record<SiteKey, Record<DocsEnv, SiteConfig>> = {
   portal: {
-    [DocsEnv.Localhost]: { url: 'http://localhost:3000', baseUrl: '/portal/', port: 3000 },
+    [DocsEnv.Localhost]: { url: 'http://localhost:3000', baseUrl: '/', port: 3000 },
     [DocsEnv.Preview]: { url: 'https://iflastandards.github.io', baseUrl: '/standards-dev/' },
     [DocsEnv.Dev]: { url: 'https://jonphipps.github.io', baseUrl: '/standards-dev/' },
     [DocsEnv.Production]: { url: 'https://www.iflastandards.info', baseUrl: '/' },

@@ -422,3 +422,9 @@ jobs:
         if: steps.check-content.outputs.has-content == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
+
+  validate-deployment:
+    needs: deploy
+    uses: ./.github/workflows/site-validation.yml
+    with:
+      environment: 'dev'

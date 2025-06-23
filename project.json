@@ -63,6 +63,48 @@
       "dependsOn": ["build-all"],
       "cache": false
     },
+    "e2e:site-validation": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "playwright test e2e/site-validation.spec.ts"
+      },
+      "dependsOn": ["build-all"],
+      "cache": true,
+      "inputs": [
+        "default",
+        "{projectRoot}/e2e/site-validation.spec.ts",
+        "{projectRoot}/playwright.config.ts",
+        "{projectRoot}/packages/theme/src/config/siteConfigCore.ts"
+      ],
+      "outputs": [
+        "{projectRoot}/test-results",
+        "{projectRoot}/playwright-report"
+      ]
+    },
+    "e2e:site-validation:dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "DOCS_ENV=dev playwright test e2e/site-validation.spec.ts"
+      },
+      "dependsOn": ["build-all"],
+      "cache": true
+    },
+    "e2e:site-validation:preview": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "DOCS_ENV=preview playwright test e2e/site-validation.spec.ts"
+      },
+      "dependsOn": ["build-all"],
+      "cache": true
+    },
+    "e2e:site-validation:production": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "DOCS_ENV=production playwright test e2e/site-validation.spec.ts"
+      },
+      "dependsOn": ["build-all"],
+      "cache": true
+    },
     "build-all": {
       "executor": "nx:run-commands",
       "options": {
