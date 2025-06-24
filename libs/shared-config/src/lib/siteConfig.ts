@@ -60,6 +60,9 @@ export const SITE_CONFIG: Record<SiteKey, Record<Environment, SiteConfigEntry>> 
 
 /**
  * Get the configuration for a specific site and environment.
+ * This function creates a new object to avoid shared references when
+ * multiple builds are running concurrently.
+ * 
  * @param siteKey - The site identifier
  * @param env - The environment
  * @returns The site configuration
@@ -70,25 +73,29 @@ export function getSiteConfig(siteKey: SiteKey, env: Environment): SiteConfigEnt
   if (!config) {
     throw new Error(`Configuration missing for ${siteKey} in ${env}`);
   }
-  return config;
+  // Return a new object to avoid shared references when multiple builds run concurrently
+  return { ...config };
 }
 
 /**
  * Get all site configurations for a specific environment as a mapping object.
  * This is SSG-compatible as it returns a serializable object instead of a function.
+ * This function creates new objects to avoid shared references when
+ * multiple builds are running concurrently.
+ * 
  * @param env - The environment (used only at build time)
  * @returns A mapping object of all site configurations for the environment
  */
 export function getSiteConfigMap(env: Environment): Record<SiteKey, SiteConfigEntry> {
   const result: Record<SiteKey, SiteConfigEntry> = {} as Record<SiteKey, SiteConfigEntry>;
-  
+
   (Object.keys(SITE_CONFIG) as SiteKey[]).forEach(siteKey => {
     const config = SITE_CONFIG[siteKey]?.[env];
     if (config) {
-      result[siteKey] = config;
+      // Create a new object to avoid shared references when multiple builds run concurrently
+      result[siteKey] = { ...config };
     }
   });
-  
+
   return result;
 }
-
