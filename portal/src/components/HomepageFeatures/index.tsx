@@ -50,8 +50,10 @@ const SITE_CONFIGS: Record<DocsEnv, Record<Exclude<SiteKey, 'portal'>, string>> 
   },
 };
 
-function getSiteUrl(siteKey: Exclude<SiteKey, 'portal'>, path: string, env: DocsEnv): string {
-  const config = SITE_CONFIGS[env];
+function getSiteUrl(siteKey: Exclude<SiteKey, 'portal'>, path: string, env: DocsEnv | string): string {
+  // Map 'local' to 'localhost' for environment compatibility
+  const mappedEnv = env === 'local' ? DocsEnv.Localhost : env as DocsEnv;
+  const config = SITE_CONFIGS[mappedEnv];
   if (!config || !config[siteKey]) {
     console.warn(`No URL configuration found for site ${siteKey} in environment ${env}`);
     return '#';
@@ -147,7 +149,7 @@ const StandardsListData: Omit<StandardItem, 'href'>[] = [
 function StandardCard({title, code, description, href, status}: StandardItem) {
   const statusClass = status === 'published' ? styles.statusPublished : 
                      status === 'draft' ? styles.statusDraft : styles.statusDevelopment;
-  
+
   return (
     <div className={clsx('col col--6', styles.standardCard)}>
       <div className={styles.card}>
@@ -176,10 +178,10 @@ function StandardCard({title, code, description, href, status}: StandardItem) {
 
 export default function HomepageFeatures(): JSX.Element {
   const { siteConfig: { customFields } } = useDocusaurusContext();
-  
+
   // Get current environment from Docusaurus customFields
   const currentEnv = (customFields?.docsEnv as DocsEnv) || DocsEnv.Production;
-  
+
   // Generate standards list with URLs computed at render time
   const StandardsList: StandardItem[] = StandardsListData.map(item => ({
     ...item,

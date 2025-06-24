@@ -19,7 +19,7 @@ export type { SiteKey } from './siteConfigCore';
 export function getSiteUrl(
   toSiteKey: SiteKey,
   path = '',
-  targetEnv: DocsEnv, // targetEnv is required
+  targetEnv: DocsEnv | string, // targetEnv is required, but can be a string
 ): string {
   let resolvedEnv = targetEnv;
 
@@ -28,13 +28,17 @@ export function getSiteUrl(
     resolvedEnv = fallbackEnv;
   }
 
+  // Map 'local' to 'localhost' for environment compatibility
+  if (resolvedEnv === 'local') {
+    resolvedEnv = DocsEnv.Localhost;
+  }
 
   // Validate resolvedEnv (could be original targetEnv or fallbackEnv)
-  if (!resolvedEnv || !Object.values(DocsEnv).includes(resolvedEnv)) {
+  if (!resolvedEnv || !Object.values(DocsEnv).includes(resolvedEnv as DocsEnv)) {
     return `#ERROR_INVALID_RESOLVED_ENV_FOR_${toSiteKey}`;
   }
 
-  const siteConfig = sites[toSiteKey]?.[resolvedEnv];
+  const siteConfig = sites[toSiteKey]?.[resolvedEnv as DocsEnv];
 
   if (!siteConfig) {
     return '#ERROR_SITE_CONFIG_NOT_FOUND';
@@ -51,8 +55,11 @@ export function getSiteUrl(
  * @param siteKey The key of the site for which to get the Docusaurus config.
  * @returns An object containing the `url` and `baseUrl` for the site in the current environment.
  */
-export const getSiteDocusaurusConfig = (siteKey: SiteKey, currentEnv: DocsEnv): { url: string; baseUrl: string } => {
-  const site = sites[siteKey]?.[currentEnv];
+export const getSiteDocusaurusConfig = (siteKey: SiteKey, currentEnv: DocsEnv | string): { url: string; baseUrl: string } => {
+  // Map 'local' to 'localhost' for environment compatibility
+  const resolvedEnv = currentEnv === 'local' ? DocsEnv.Localhost : currentEnv as DocsEnv;
+
+  const site = sites[siteKey]?.[resolvedEnv as DocsEnv];
   if (!site) {
     throw new Error(`Configuration for site '${siteKey}' in environment '${currentEnv}' not found.`);
   }

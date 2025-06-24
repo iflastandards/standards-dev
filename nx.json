@@ -27,7 +27,6 @@
       "{projectRoot}/src/**/*",
       "{projectRoot}/static/**/*",
       "{workspaceRoot}/packages/theme/**/*",
-      "{workspaceRoot}/packages/preset-ifla/**/*",
       "{workspaceRoot}/libs/shared-config/**/*"
     ],
     "docusaurus-no-theme": [
@@ -38,7 +37,6 @@
       "{projectRoot}/sidebars.ts",
       "{projectRoot}/src/**/*",
       "{projectRoot}/static/**/*",
-      "{workspaceRoot}/packages/preset-ifla/**/*",
       "{workspaceRoot}/libs/shared-config/**/*"
     ],
     "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
