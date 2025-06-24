@@ -12,11 +12,11 @@ const validSites = Object.keys(sites).filter(site => site !== 'github');
 const validEnvironments = Object.values(DocsEnv);
 
 program
-  .option('--env <env>', 'Environment to validate (localhost, preview, production)')
+  .option('--env <env>', 'Environment to validate (local, preview, production)')
   .option('--site <site>', 'Site to validate (specific site or "all")')
   .option('--type <type>', 'Type of validation: "static" (nav/footer), "generated" (all links), "sitemap", "comprehensive", or "both"', 'both')
   .option('--depth <number>', 'Crawl depth: 0=homepage only, 1=homepage+direct links, 2=2 levels deep, etc.', '0')
-  .option('--sample-size <number>', 'Number of generated links to test (for non-localhost)', '10')
+  .option('--sample-size <number>', 'Number of generated links to test (for non-local)', '10')
   .option('--timeout <ms>', 'Timeout per link in milliseconds', '15000')
   .parse();
 
@@ -1336,26 +1336,26 @@ async function validateEnvironmentUrls(siteKey, environment, options = {}) {
     return linkResults.failed === 0;
   }
   
-  // For non-localhost environments, we need to check if the site is accessible
-  const isLocalhost = environment === 'localhost';
+  // For non-local environments, we need to check if the site is accessible
+  const isLocalhost = environment === 'local';
   let testUrl = baseUrl;
   
   if (!isLocalhost) {
     console.log(`📡 Testing remote environment: ${baseUrl}`);
   } else {
-    // For localhost, check if build directory exists
+    // For local, check if build directory exists
     const siteDir = siteKey.toLowerCase() === 'portal' ? 'portal' : `standards/${siteKey}`;
     const buildPath = path.join(process.cwd(), siteDir, 'build');
     
     if (!fs.existsSync(buildPath)) {
       console.error(`❌ Build directory not found: ${buildPath}`);
-      console.error(`💡 Run: pnpm build-env --env localhost --site ${siteKey.toLowerCase()}`);
+      console.error(`💡 Run: pnpm build-env --env local --site ${siteKey.toLowerCase()}`);
       return false;
     }
     
-    // For localhost testing, use the full baseUrl
+    // For local testing, use the full baseUrl
     testUrl = baseUrl;
-    console.log(`🏠 Testing localhost build served at: ${testUrl}`);
+    console.log(`🏠 Testing local build served at: ${testUrl}`);
   }
   
   const browser = await puppeteer.launch({ 
@@ -1373,7 +1373,7 @@ async function validateEnvironmentUrls(siteKey, environment, options = {}) {
     page.on('request', request => {
       const url = request.url();
       
-      // Check for hardcoded localhost URLs in non-localhost environments
+      // Check for hardcoded localhost URLs in non-local environments
       if (!isLocalhost && LOCALHOST_PATTERNS.some(pattern => pattern.test(url))) {
         hardcodedLocalhostUrls.add(url);
       }
@@ -1538,13 +1538,13 @@ async function validateEnvironmentUrls(siteKey, environment, options = {}) {
       }
     }
     
-    // Test generated content links (sample for non-localhost, all for localhost)
+    // Test generated content links (sample for non-local, all for local)
     if (type === 'generated' || type === 'both') {
       console.log('\n📄 Testing generated content links...');
       
       let linksToTest = contentLinks;
       
-      // For non-localhost, just sample a few links to spot-check URL patterns
+      // For non-local, just sample a few links to spot-check URL patterns
       if (!isLocalhost && contentLinks.length > sampleSize) {
         linksToTest = contentLinks.slice(0, sampleSize);
         console.log(`   📊 Sampling ${sampleSize} links for spot check`);
@@ -1558,7 +1558,7 @@ async function validateEnvironmentUrls(siteKey, environment, options = {}) {
           results.failed++;
           results.issues.push({
             type: 'HARDCODED_LOCALHOST',
-            priority: environment === 'localhost' ? 'LOW' : 'CRITICAL',
+            priority: environment === 'local' ? 'LOW' : 'CRITICAL',
             link: link.href,
             text: link.text,
             actual: link.fullUrl,
@@ -1708,11 +1708,11 @@ async function main() {
         name: 'environment',
         message: 'Select environment to test:',
         choices: [
-          { name: 'localhost - Test local builds (comprehensive)', value: 'localhost' },
+          { name: 'local - Test local builds (comprehensive)', value: 'local' },
           { name: 'preview - GitHub Pages staging', value: 'preview' },
           { name: 'production - Live site', value: 'production' }
         ],
-        default: 'localhost'
+        default: 'local'
       }
     ]);
     env = envAnswer.environment;
@@ -1751,19 +1751,19 @@ async function main() {
         name: 'type',
         message: 'Select test type:',
         choices: typeChoices,
-        default: env === 'localhost' ? 'comprehensive' : 'static'
+        default: env === 'local' ? 'comprehensive' : 'static'
       }
     ]);
     type = typeAnswer.type;
   }
 
-  // For non-localhost environments with generated testing, ask about sample size
-  if (!sampleSize && env !== 'localhost' && (type === 'generated' || type === 'both')) {
+  // For non-local environments with generated testing, ask about sample size
+  if (!sampleSize && env !== 'local' && (type === 'generated' || type === 'both')) {
     const sampleAnswer = await inquirer.prompt([
       {
         type: 'number',
         name: 'sampleSize',
-        message: 'How many generated links to sample test? (non-localhost environments)',
+        message: 'How many generated links to sample test? (non-local environments)',
         default: 10,
         validate: (input) => input > 0 || 'Must be greater than 0'
       }
@@ -1804,9 +1804,9 @@ async function main() {
   }
 
   console.log(`\n🎯 Validating ${sitesToTest.length} site(s) for ${env} environment`);
-  if (env === 'localhost') {
-    console.log('💡 For localhost testing, make sure sites are built and served first:');
-    console.log(`   pnpm build-env --env localhost --site ${site === 'all' ? 'all' : site}`);
+  if (env === 'local') {
+    console.log('💡 For local testing, make sure sites are built and served first:');
+    console.log(`   pnpm build-env --env local --site ${site === 'all' ? 'all' : site}`);
     sitesToTest.forEach((s, i) => {
       const siteConfig = sites[s]?.[env];
       if (siteConfig?.port) {

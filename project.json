@@ -84,7 +84,7 @@
     "e2e:site-validation:dev": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "DOCS_ENV=dev playwright test e2e/site-validation.spec.ts"
+        "command": "DOCS_ENV=development playwright test e2e/site-validation.spec.ts"
       },
       "dependsOn": ["build-all"],
       "cache": true

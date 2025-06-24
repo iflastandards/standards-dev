@@ -96,7 +96,7 @@ if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "dev" ]; then
         "frbr") script_site="FRBR";;
       esac
 
-      node scripts/test-site-builds.js --site "$script_site" --env localhost --skip-build || {
+      node scripts/test-site-builds.js --site "$script_site" --env local --skip-build || {
         echo "❌ $script_site config validation failed"
         exit 1
       }
@@ -117,7 +117,7 @@ else
     esac
 
     echo "⚙️  Validating $script_site configuration..."
-    node scripts/test-site-builds.js --site "$script_site" --env localhost --skip-build || {
+    node scripts/test-site-builds.js --site "$script_site" --env local --skip-build || {
       echo "❌ $script_site configuration validation failed"
       exit 1
     }

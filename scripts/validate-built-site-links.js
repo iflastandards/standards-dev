@@ -56,10 +56,10 @@ async function validateBuiltSiteLinks(siteKey, options = {}) {
     includeGenerated = false
   } = options;
   
-  // Get site configuration for localhost environment
-  const siteConfig = sites[siteKey]?.[DocsEnv.Localhost];
+  // Get site configuration for local environment
+  const siteConfig = sites[siteKey]?.[DocsEnv.Local];
   if (!siteConfig) {
-    console.error(`❌ No configuration found for site '${siteKey}' in localhost environment`);
+    console.error(`❌ No configuration found for site '${siteKey}' in local environment`);
     process.exit(1);
   }
   

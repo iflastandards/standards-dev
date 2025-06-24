@@ -30,7 +30,7 @@ fi
 
 # 4. Quick configuration validation (for config changes)
 echo "⚙️  Validating site configurations..."
-node scripts/test-site-builds.js --site all --env localhost --skip-build
+node scripts/test-site-builds.js --site all --env local --skip-build
 if [ $? -ne 0 ]; then
   echo "❌ Site configuration validation failed."
   exit 1

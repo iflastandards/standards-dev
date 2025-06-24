@@ -110,10 +110,10 @@ if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "dev" ]; then
 else
   echo "📝 Feature branch detected - running lightweight affected tests"
 
-  # For feature branches, test affected sites with localhost (faster)
+  # For feature branches, test affected sites with local (faster)
   for site in $affected_sites; do
     echo "⚙️  Testing $site configuration..."
-    node scripts/test-site-builds.js --site "$site" --env localhost --skip-build || {
+    node scripts/test-site-builds.js --site "$site" --env local --skip-build || {
       echo "❌ $site configuration test failed."
       exit 1
     }
@@ -122,7 +122,7 @@ else
   # Only build one representative affected site to save time
   first_site=$(echo "$affected_sites" | cut -d' ' -f1)
   echo "🏗️  Testing representative build ($first_site)..."
-  node scripts/test-site-builds.js --site "$first_site" --env localhost || {
+  node scripts/test-site-builds.js --site "$first_site" --env local || {
     echo "❌ Representative build test failed."
     exit 1
   }
