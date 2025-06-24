@@ -59,21 +59,17 @@ const config: Config = deepmerge(
     onBrokenMarkdownLinks: 'warn' as const,
     onBrokenAnchors: 'warn' as const,
     onDuplicateRoutes: 'warn' as const,
-    
+
     // Add future config block for compliance with regression tests
     future: {
       experimental_faster: false,
       v4: true,
     },
-    
+
     // Shared static directories for standards sites
     staticDirectories: createStaticDirectories('standard'),
-    
+
     customFields: {
-      // Current environment for client-side components
-      environment: currentEnv,
-      // Environment for site URL generation
-      docsEnv: currentEnv,
       // Function to get site config for any site in current environment
       siteConfig: (toSiteKey: SiteKey) => getSiteConfig(toSiteKey, currentEnv),
       // isbd-specific vocabulary configuration
@@ -97,7 +93,7 @@ const config: Config = deepmerge(
         }),
       ],
     ],
-    
+
     plugins: [
       // IFLA standard plugins
       ...createIFLAPlugins({

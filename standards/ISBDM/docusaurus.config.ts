@@ -96,21 +96,17 @@ const config: Config = deepmerge(
     // ISBDM-specific overrides
     onBrokenLinks: 'ignore' as const, // ISBDM-specific: ignore generated element links
     onBrokenAnchors: 'ignore' as const, // ISBDM-specific: ignore generated anchor links
-    
+
     // Add future config block for compliance with regression tests
     future: {
       experimental_faster: false,
       v4: true,
     },
-    
+
     // Shared static directories for standards sites
     staticDirectories: createStaticDirectories('standard'),
-    
+
     customFields: {
-      // Current environment for client-side components
-      environment: currentEnv,
-      // Environment for site URL generation
-      docsEnv: currentEnv,
       // Function to get site config for any site in current environment
       siteConfig: (toSiteKey: SiteKey) => getSiteConfig(toSiteKey, currentEnv),
       // ISBDM-specific vocabulary configuration using factory
@@ -147,7 +143,7 @@ const config: Config = deepmerge(
         },
         // imageConfig defaults are now environment-aware in the factory
       }),
-      
+
       // ISBDM-specific plugins
       [
         '@docusaurus/plugin-client-redirects',

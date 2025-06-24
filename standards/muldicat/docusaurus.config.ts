@@ -59,15 +59,11 @@ const config: Config = deepmerge(
       experimental_faster: false,
       v4: true,
     },
-    
+
     // Shared static directories for standards sites
     staticDirectories: createStaticDirectories('standard'),
-    
+
     customFields: {
-      // Current environment for client-side components
-      environment: currentEnv,
-      // Environment for site URL generation
-      docsEnv: currentEnv,
       // Function to get site config for any site in current environment
       siteConfig: (toSiteKey: SiteKey) => getSiteConfig(toSiteKey, currentEnv),
       // MulDiCat-specific vocabulary configuration using factory

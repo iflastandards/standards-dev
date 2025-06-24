@@ -179,14 +179,21 @@ function StandardCard({title, code, description, href, status}: StandardItem) {
 export default function HomepageFeatures(): JSX.Element {
   const { siteConfig: { customFields } } = useDocusaurusContext();
 
-  // Get current environment from Docusaurus customFields
-  const currentEnv = (customFields?.docsEnv as DocsEnv) || DocsEnv.Production;
+  // Get siteConfig function from customFields
+  const getSiteConfigFn = customFields?.siteConfig as ((key: SiteKey) => { url: string; baseUrl: string }) | undefined;
 
-  // Generate standards list with URLs computed at render time
-  const StandardsList: StandardItem[] = StandardsListData.map(item => ({
-    ...item,
-    href: getSiteUrl(item.siteKey, '', currentEnv),
-  }));
+  if (!getSiteConfigFn) {
+    throw new Error('siteConfig function not found in customFields');
+  }
+
+  // Generate standards list with URLs computed at render time using siteConfig function
+  const StandardsList: StandardItem[] = StandardsListData.map(item => {
+    const config = getSiteConfigFn(item.siteKey);
+    return {
+      ...item,
+      href: config.url + config.baseUrl,
+    };
+  });
 
   return (
     <section className={styles.features} id="standards">

@@ -27,7 +27,7 @@ export function createThemeConfig(options: ThemeConfigOptions) {
       title: options.navbarTitle,
       logo: {
         alt: 'IFLA Logo',
-        src: 'img/logo-ifla_black.png',
+        src: '/img/logo-ifla_black.png',
       },
       items: options.navbarItems || [],
     },

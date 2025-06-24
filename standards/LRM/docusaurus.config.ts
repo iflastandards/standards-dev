@@ -57,21 +57,17 @@ const config: Config = deepmerge(
   {
     // LRM-specific overrides
     onBrokenLinks: 'warn' as const, // LRM uses default warn setting
-    
+
     // Add future config block for compliance with regression tests
     future: {
       experimental_faster: false,
       v4: true,
     },
-    
+
     // Shared static directories for all standards sites
     staticDirectories: createStaticDirectories('standard'),
-    
+
     customFields: {
-      // Current environment for client-side components
-      environment: currentEnv,
-      // Environment for site URL generation
-      docsEnv: currentEnv,
       // Function to get site config for any site in current environment
       siteConfig: (toSiteKey: SiteKey) => getSiteConfig(toSiteKey, currentEnv),
       // LRM-specific vocabulary configuration
@@ -100,7 +96,7 @@ const config: Config = deepmerge(
         }),
       ],
     ],
-    
+
     plugins: [
       // IFLA standard plugins
       ...createIFLAPlugins({

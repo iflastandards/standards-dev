@@ -4,18 +4,20 @@ import Heading from '@theme/Heading';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import clsx from 'clsx';
+import { type SiteKey } from '@ifla/shared-config';
 import styles from './styles.module.css';
-import { getSiteConfig, type SiteKey, type Environment } from '@ifla/shared-config';
-
 // This will eventually check GitHub org membership
 // For now, we'll create the UI structure
 function ManagementDashboard(): React.ReactNode {
   const { siteConfig } = useDocusaurusContext();
-  const currentEnv = siteConfig.customFields?.environment as Environment;
-  
+  const getSiteConfigFn = siteConfig.customFields?.siteConfig as ((key: SiteKey) => { url: string; baseUrl: string }) | undefined;
+
   // Helper function to build site URLs
   const buildSiteUrl = (siteKey: SiteKey, path: string = '/') => {
-    const config = getSiteConfig(siteKey, currentEnv);
+    if (!getSiteConfigFn) {
+      throw new Error('siteConfig function not found in customFields');
+    }
+    const config = getSiteConfigFn(siteKey);
     return config.url + config.baseUrl + path.replace(/^\//, '');
   };
 
@@ -35,7 +37,7 @@ function ManagementDashboard(): React.ReactNode {
             <div className={styles.managementCard}>
               <Heading as="h2">Site-wide Management</Heading>
               <p>Organization-level tools and oversight</p>
-              
+
               <div className={styles.cardActions}>
                 <h3>GitHub Projects & Issues</h3>
                 <div className={styles.actionGroup}>
@@ -87,7 +89,7 @@ function ManagementDashboard(): React.ReactNode {
             <div className={styles.managementCard}>
               <Heading as="h2">Standards Overview</Heading>
               <p>Quick access to per-standard management</p>
-              
+
               <div className={styles.standardsList}>
                 {[
                   { code: 'ISBDM', name: 'ISBD for Manifestation', href: buildSiteUrl('ISBDM', '/manage'), status: 'published' },
@@ -126,7 +128,7 @@ function ManagementDashboard(): React.ReactNode {
             <div className={styles.quickActionsCard}>
               <Heading as="h2">Priority Tools</Heading>
               <p>Most-needed functionality for immediate use</p>
-              
+
               <div className="row">
                 <div className="col col--4">
                   <div className={styles.toolCard}>
@@ -137,7 +139,7 @@ function ManagementDashboard(): React.ReactNode {
                     </Link> */}
                   </div>
                 </div>
-                
+
                 <div className="col col--4">
                   <div className={styles.toolCard}>
                     <h3>Google Sheets</h3>
@@ -147,7 +149,7 @@ function ManagementDashboard(): React.ReactNode {
                     </Link> */}
                   </div>
                 </div>
-                
+
                 <div className="col col--4">
                   <div className={styles.toolCard}>
                     <h3>Scaffold Pages</h3>
@@ -169,7 +171,7 @@ function ManagementDashboard(): React.ReactNode {
 export default function ManagePage(): React.ReactNode {
   // TODO: Add GitHub org membership check here
   // For now, show the management dashboard
-  
+
   return (
     <Layout
       title="Site Management"
