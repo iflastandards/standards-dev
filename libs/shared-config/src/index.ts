@@ -21,6 +21,7 @@ export { default as defaults } from './lib/defaults.json';
 // Site configuration exports
 export { 
   getSiteConfig,
+  getSiteConfigMap,
   type Environment,
   type SiteKey,
   type SiteConfigEntry,

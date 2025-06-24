@@ -3,7 +3,7 @@
 // packages/theme/src/components/SiteLink.tsx
 import React, { JSX } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { type SiteKey } from '@ifla/shared-config';
+import { type SiteKey, type SiteConfigEntry } from '@ifla/shared-config';
 
 /**
  * A component for creating robust, environment-aware links between different IFLA Docusaurus sites.
@@ -33,13 +33,12 @@ interface SiteLinkProps {
 
 const SiteLink = ({ siteKey, path, children, className }: SiteLinkProps): JSX.Element => {
   const { siteConfig } = useDocusaurusContext();
-  const getSiteConfigForKey = siteConfig.customFields?.siteConfig as ((key: SiteKey) => { url: string; baseUrl: string }) | undefined;
+  const siteConfigs = siteConfig.customFields?.siteConfigs as Record<SiteKey, SiteConfigEntry>;
   
-  if (!getSiteConfigForKey) {
-    throw new Error('siteConfig function not found in customFields');
+  const targetConfig = siteConfigs[siteKey];
+  if (!targetConfig) {
+    throw new Error(`Site configuration not found for ${siteKey}`);
   }
-  
-  const targetConfig = getSiteConfigForKey(siteKey);
   
   // Ensure proper path concatenation
   const normalizedPath = path.startsWith('/') ? path.slice(1) : path;

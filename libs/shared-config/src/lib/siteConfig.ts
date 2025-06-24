@@ -73,3 +73,22 @@ export function getSiteConfig(siteKey: SiteKey, env: Environment): SiteConfigEnt
   return config;
 }
 
+/**
+ * Get all site configurations for a specific environment as a mapping object.
+ * This is SSG-compatible as it returns a serializable object instead of a function.
+ * @param env - The environment (used only at build time)
+ * @returns A mapping object of all site configurations for the environment
+ */
+export function getSiteConfigMap(env: Environment): Record<SiteKey, SiteConfigEntry> {
+  const result: Record<SiteKey, SiteConfigEntry> = {} as Record<SiteKey, SiteConfigEntry>;
+  
+  (Object.keys(SITE_CONFIG) as SiteKey[]).forEach(siteKey => {
+    const config = SITE_CONFIG[siteKey]?.[env];
+    if (config) {
+      result[siteKey] = config;
+    }
+  });
+  
+  return result;
+}
+

@@ -10,6 +10,7 @@ import {
   createStaticDirectories,
   createStandardsNavbar,
   getSiteConfig,
+  getSiteConfigMap,
   type SiteKey,
   type Environment
 } from '@ifla/shared-config';
@@ -59,12 +60,8 @@ const config: Config = deepmerge(
     staticDirectories: createStaticDirectories('portal'),
     
     customFields: {
-      // Current environment for client-side components
-      environment: currentEnv,
-      // Environment for site URL generation
-      docsEnv: currentEnv,
-      // Function to get site config for any site in current environment
-      siteConfig: (toSiteKey: SiteKey) => getSiteConfig(toSiteKey, currentEnv),
+      // Site configurations for all sites in current environment (SSG-compatible)
+      siteConfigs: getSiteConfigMap(currentEnv),
       // Portal-specific vocabulary configuration (minimal since portal doesn't have RDF content)
       vocabularyDefaults: {
         prefix: "ifla",

@@ -4,20 +4,20 @@ import Heading from '@theme/Heading';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import clsx from 'clsx';
-import { type SiteKey } from '@ifla/shared-config';
+import { type SiteKey, type SiteConfigEntry } from '@ifla/shared-config';
 import styles from './styles.module.css';
 // This will eventually check GitHub org membership
 // For now, we'll create the UI structure
 function ManagementDashboard(): React.ReactNode {
   const { siteConfig } = useDocusaurusContext();
-  const getSiteConfigFn = siteConfig.customFields?.siteConfig as ((key: SiteKey) => { url: string; baseUrl: string }) | undefined;
+  const siteConfigs = siteConfig.customFields?.siteConfigs as Record<SiteKey, SiteConfigEntry>;
 
   // Helper function to build site URLs
   const buildSiteUrl = (siteKey: SiteKey, path: string = '/') => {
-    if (!getSiteConfigFn) {
-      throw new Error('siteConfig function not found in customFields');
+    const config = siteConfigs[siteKey];
+    if (!config) {
+      throw new Error(`Site configuration not found for ${siteKey}`);
     }
-    const config = getSiteConfigFn(siteKey);
     return config.url + config.baseUrl + path.replace(/^\//, '');
   };
 
