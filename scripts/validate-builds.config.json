@@ -1,0 +1,147 @@
+{
+  "description": "Configuration for build validation - defines which broken links should cause failures vs warnings",
+  "notes": "Cross-site navbar links are a common source of configuration issues and should generally be treated as failures unless explicitly allowed",
+  "sites": {
+    "portal": {
+      "allowedBrokenLinks": [
+        "/portal/docs/standards/*",
+        "/portal/rdf/*"
+      ],
+      "crossSiteNavigation": ["ISBDM", "FRBR", "LRM", "isbd", "muldicat", "unimarc"],
+      "failOnBrokenLinks": [
+        "/unknown-site/*"
+      ]
+    },
+    "ISBDM": {
+      "allowedBrokenLinks": [
+        "/ISBDM/intro",
+        "/ISBDM/elements", 
+        "/ISBDM/examples",
+        "/ISBDM/rdf/ttl/*",
+        "/ISBDM/rdf/jsonld/*",
+        "/ISBDM/rdf/xml/*"
+      ],
+      "crossSiteNavigation": [],
+      "failOnBrokenLinks": [
+        "/FRBR/*",
+        "/LRM/*", 
+        "/isbd/*",
+        "/muldicat/*",
+        "/unimarc/*",
+        "/unknown-site/*"
+      ]
+    },
+    "FRBR": {
+      "allowedBrokenLinks": [
+        "/FRBR/intro",
+        "/FRBR/elements", 
+        "/FRBR/examples",
+        "/FRBR/rdf/ttl/*",
+        "/FRBR/rdf/jsonld/*",
+        "/FRBR/rdf/xml/*"
+      ],
+      "crossSiteNavigation": [],
+      "failOnBrokenLinks": [
+        "/ISBDM/*",
+        "/LRM/*",
+        "/isbd/*", 
+        "/muldicat/*",
+        "/unimarc/*",
+        "/unknown-site/*"
+      ]
+    },
+    "LRM": {
+      "allowedBrokenLinks": [
+        "/LRM/intro",
+        "/LRM/elements",
+        "/LRM/examples", 
+        "/LRM/rdf/ttl/*",
+        "/LRM/rdf/jsonld/*",
+        "/LRM/rdf/xml/*"
+      ],
+      "crossSiteNavigation": [],
+      "failOnBrokenLinks": [
+        "/unknown-site/*",
+        "/FRBR/*",
+        "/ISBDM/*",
+        "/isbd/*",
+        "/muldicat/*",
+        "/unimarc/*"
+      ]
+    },
+    "isbd": {
+      "allowedBrokenLinks": [
+        "/isbd/intro",
+        "/isbd/elements",
+        "/isbd/examples",
+        "/isbd/rdf/ttl/*", 
+        "/isbd/rdf/jsonld/*",
+        "/isbd/rdf/xml/*"
+      ],
+      "crossSiteNavigation": [],
+      "failOnBrokenLinks": [
+        "/FRBR/*",
+        "/ISBDM/*", 
+        "/LRM/*",
+        "/muldicat/*",
+        "/unimarc/*",
+        "/unknown-site/*"
+      ]
+    },
+    "muldicat": {
+      "allowedBrokenLinks": [
+        "/muldicat/intro",
+        "/muldicat/elements",
+        "/muldicat/examples",
+        "/muldicat/rdf/ttl/*",
+        "/muldicat/rdf/jsonld/*", 
+        "/muldicat/rdf/xml/*"
+      ],
+      "crossSiteNavigation": [],
+      "failOnBrokenLinks": [
+        "/FRBR/*",
+        "/ISBDM/*",
+        "/LRM/*",
+        "/isbd/*", 
+        "/unimarc/*",
+        "/unknown-site/*"
+      ]
+    },
+    "unimarc": {
+      "allowedBrokenLinks": [
+        "/unimarc/intro",
+        "/unimarc/elements",
+        "/unimarc/examples",
+        "/unimarc/rdf/ttl/*",
+        "/unimarc/rdf/jsonld/*",
+        "/unimarc/rdf/xml/*"
+      ],
+      "crossSiteNavigation": [],
+      "failOnBrokenLinks": [
+        "/FRBR/*",
+        "/ISBDM/*",
+        "/LRM/*", 
+        "/isbd/*",
+        "/muldicat/*",
+        "/unknown-site/*"
+      ]
+    }
+  },
+  "globalRules": {
+    "description": "Rules that apply to all sites",
+    "allowedPatterns": [
+      "Cross-site navigation links are expected and allowed"
+    ],
+    "failPatterns": [
+      {
+        "pattern": "/unknown-site/*",
+        "reason": "Links to non-existent sites indicate configuration errors"
+      },
+      {
+        "pattern": "Unexpected cross-site links",
+        "reason": "Cross-site links that appear due to misconfiguration should fail builds",
+        "details": "When environment isn't handled correctly, sites may include links to other sites that shouldn't appear"
+      }
+    ]
+  }
+}

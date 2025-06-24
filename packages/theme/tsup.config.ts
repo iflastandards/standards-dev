@@ -7,8 +7,6 @@ export default defineConfig({
     config: 'src/config/index.ts',
     'config/siteConfigCore': 'src/config/siteConfigCore.ts',
     'config/siteConfig': 'src/config/siteConfig.ts',
-    'config/siteConfig.server': 'src/config/siteConfig.server.ts',
-    'config/docusaurus': 'src/config/docusaurus.ts',
     'components/SiteLink': 'src/components/SiteLink.tsx',
     'components/ElementReference': 'src/components/ElementReference/index.tsx',
     'hooks/useDocsEnv': 'src/hooks/useDocsEnv.ts',

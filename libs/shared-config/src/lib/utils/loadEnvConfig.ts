@@ -20,9 +20,10 @@ export function validateEnvConfig(envVars: Record<string, string | undefined>, s
 }
 
 /**
- * Get the environment name for loading environment files
- * Requires DOCS_ENV to be set to one of the valid values
- * Throws fatal error if DOCS_ENV is missing or invalid - nx should catch this and load from root .env
+ * Get the environment name for loading environment files from DOCS_ENV
+ * PURE VERSION: Does not access process.env directly
+ * Requires DOCS_ENV to be passed as parameter
+ * Throws fatal error if DOCS_ENV is missing or invalid
  */
 export function getEnvironmentName(): string {
   const docsEnv = process.env['DOCS_ENV'];
@@ -37,6 +38,16 @@ export function getEnvironmentName(): string {
     );
   }
   
+  return normalizeEnvironmentName(docsEnv);
+}
+
+/**
+ * Pure function to normalize environment names
+ * Maps DOCS_ENV values to environment file names
+ * @param docsEnv - The DOCS_ENV value
+ * @returns The normalized environment name for file loading
+ */
+export function normalizeEnvironmentName(docsEnv: string): string {
   // Validate DOCS_ENV value
   const docsEnvMap: Record<string, string> = {
     'local': 'local',      // DOCS_ENV=local maps to 'local' environment files

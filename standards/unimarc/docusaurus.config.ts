@@ -12,13 +12,22 @@ import {
   createVocabularyConfig,
   createStaticDirectories,
   createStandardsNavbar,
-  getEnvironmentName, 
+  normalizeEnvironmentName, 
   validateEnvConfig 
 } from '@ifla/shared-config';
 import navbarItems from './navbar';
 
-// Determine environment and load env files
-const environment = getEnvironmentName();
+// Determine environment and load env files - PURE APPROACH
+const docsEnv = process.env['DOCS_ENV'];
+if (!docsEnv) {
+  throw new Error(
+    `❌ FATAL: DOCS_ENV environment variable is required but not set.\n` +
+    `✅ Valid values: local, localhost, preview, dev, production\n` +
+    `💡 NX builds should load DOCS_ENV from root .env file automatically.\n` +
+    `💡 CI/production workflows must set DOCS_ENV explicitly.`
+  );
+}
+const environment = normalizeEnvironmentName(docsEnv);
 
 // Load environment variables in priority order
 const envFiles = [
@@ -82,18 +91,13 @@ const config: Config = deepmerge(
     plugins: [
       // IFLA standard plugins
       ...createIFLAPlugins({
-        // Environment-specific configuration
-        enableIdealImage: environment === 'production',
+        environment, // Pass environment for pure function
         enableLocalSearch: true,
         searchConfig: {
           indexBlog: false, // Temporarily disabled blog
           language: ['en'],
         },
-        imageConfig: {
-          quality: environment === 'production' ? 80 : 70,
-          max: 1200,
-          steps: environment === 'production' ? 3 : 2,
-        },
+        // imageConfig defaults are now environment-aware in the factory
       }),
     ],
 

@@ -156,6 +156,14 @@
       "dependsOn": ["build-all"],
       "cache": true
     },
+    "validate:build-warnings": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/validate-build-warnings.js --validate-all"
+      },
+      "dependsOn": ["build-all"],
+      "cache": true
+    },
     "regression:full": {
       "executor": "nx:run-commands",
       "options": {
@@ -165,6 +173,7 @@
           "nx run standards-dev:test",
           "nx run standards-dev:build-all",
           "nx run standards-dev:validate:builds",
+          "nx run standards-dev:validate:build-warnings",
           "nx run standards-dev:e2e"
         ],
         "parallel": false
