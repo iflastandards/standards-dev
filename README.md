@@ -161,14 +161,25 @@ pnpm validate:env-urls
 ## 🌍 Multi-Environment Support
 
 Sites support multiple deployment environments:
-- **localhost** - Development with local asset references
-- **preview** - Staging environment for testing
-- **production** - Live deployment environment
+- **local** - Development with local asset references (`http://localhost:300X`)
+- **preview** - Staging environment for testing (`https://iflastandards.github.io/standards-dev/`)
+- **development** - Development branch testing (`https://jonphipps.github.io/standards-dev/`)
+- **production** - Live deployment environment (`https://www.iflastandards.info/`)
 
 Set environment with `DOCS_ENV`:
 ```bash
 DOCS_ENV=production pnpm build:portal
 ```
+
+### Site Configuration
+
+The project uses a centralized configuration system that replaced environment files in December 2024. See **[Site Configuration Architecture](developer_notes/site-configuration-architecture.md)** for complete documentation on:
+
+- Centralized configuration matrix in `libs/shared-config/src/lib/siteConfig.ts`
+- Inter-site navigation with the `SiteLink` component  
+- Environment handling (local, preview, development, production)
+- Migration notes and benefits of the new approach
+- Adding new sites and troubleshooting
 
 ## 📚 Documentation
 

@@ -1,5 +1,3 @@
-import * as dotenv from 'dotenv';
-import * as path from 'path';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import { deepmerge } from 'deepmerge-ts';
@@ -12,12 +10,13 @@ import {
   createVocabularyConfig,
   createStaticDirectories,
   createStandardsNavbar,
-  normalizeEnvironmentName, 
-  validateEnvConfig 
+  getSiteConfig,
+  mapDocsEnvToEnvironment,
+  type SiteKey
 } from '@ifla/shared-config';
 import navbarItems from './navbar';
 
-// Determine environment and load env files - PURE APPROACH
+// Determine environment from DOCS_ENV
 const docsEnv = process.env['DOCS_ENV'];
 if (!docsEnv) {
   throw new Error(
@@ -27,30 +26,33 @@ if (!docsEnv) {
     `💡 CI/production workflows must set DOCS_ENV explicitly.`
   );
 }
-const environment = normalizeEnvironmentName(docsEnv);
 
-// Load environment variables in priority order
-const envFiles = [
-  '.env.site',
-  `.env.site.${environment}`,
-  '.env.site.local',
-  environment !== 'local' ? `.env.site.${environment}.local` : null,
-].filter(Boolean);
+// Map DOCS_ENV to our Environment type
+const currentEnv = mapDocsEnvToEnvironment(docsEnv);
 
-// Load each env file, later files override earlier ones
-for (const file of envFiles) {
-  dotenv.config({ path: path.resolve(__dirname, file!) });
-}
+// Get configuration for this site
+const siteKey: SiteKey = 'FRBR';
+const siteConfig = getSiteConfig(siteKey, currentEnv);
 
-// Validate we have all required environment variables
-const envConfig = validateEnvConfig(process.env, 'FRBR');
+// Site metadata that was previously in .env files
+const SITE_TITLE = 'IFLA FR Family of Models';
+const SITE_TAGLINE = 'Conceptual Models for Bibliographic Information';
+const GITHUB_REPO_URL = 'https://github.com/iflastandards/standards-dev';
+const GITHUB_EDIT_URL = 'https://github.com/iflastandards/standards-dev/tree/main/standards/FRBR/';
+
+// Vocabulary configuration
+const VOCABULARY_PREFIX = 'ifla';
+const VOCABULARY_NUMBER_PREFIX = 'T';
+const VOCABULARY_PROFILE = 'vocabulary-profile.csv';
+const VOCABULARY_ELEMENT_URI = 'https://www.iflastandards.info/elements';
+const VOCABULARY_ELEMENT_PROFILE = 'elements-profile.csv';
 
 const config: Config = deepmerge(
   createBaseConfig({
-    title: envConfig.SITE_TITLE,
-    tagline: envConfig.SITE_TAGLINE,
-    url: envConfig.SITE_URL,
-    baseUrl: envConfig.SITE_BASE_URL,
+    title: SITE_TITLE,
+    tagline: SITE_TAGLINE,
+    url: siteConfig.url,
+    baseUrl: siteConfig.baseUrl,
     projectName: 'FRBR',
   }),
   {
@@ -71,14 +73,18 @@ const config: Config = deepmerge(
     
     customFields: {
       // Current environment for client-side components
-      environment,
+      environment: currentEnv,
+      // Environment for site URL generation
+      docsEnv: currentEnv,
+      // Function to get site config for any site in current environment
+      siteConfig: (toSiteKey: SiteKey) => getSiteConfig(toSiteKey, currentEnv),
       // FRBR-specific vocabulary configuration
       vocabularyDefaults: createVocabularyConfig({
-        prefix: envConfig.VOCABULARY_PREFIX!,
-        numberPrefix: envConfig.VOCABULARY_NUMBER_PREFIX,
-        profile: envConfig.VOCABULARY_PROFILE,
-        elementUri: envConfig.VOCABULARY_ELEMENT_URI,
-        elementProfile: envConfig.VOCABULARY_ELEMENT_PROFILE,
+        prefix: VOCABULARY_PREFIX,
+        numberPrefix: VOCABULARY_NUMBER_PREFIX,
+        profile: VOCABULARY_PROFILE,
+        elementUri: VOCABULARY_ELEMENT_URI,
+        elementProfile: VOCABULARY_ELEMENT_PROFILE,
       }),
     },
 
@@ -86,7 +92,7 @@ const config: Config = deepmerge(
       [
         'classic',
         createStandardsPresetConfig({
-          editUrl: envConfig.GITHUB_EDIT_URL!,
+          editUrl: GITHUB_EDIT_URL,
           enableBlog: true,
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
@@ -97,7 +103,7 @@ const config: Config = deepmerge(
     plugins: [
       // IFLA standard plugins
       ...createIFLAPlugins({
-        environment, // Pass environment for pure function
+        environment: currentEnv, // Pass environment for pure function
         enableLocalSearch: true,
         searchConfig: {
           indexBlog: true, // FRBR has a blog
@@ -119,13 +125,13 @@ const config: Config = deepmerge(
           includeSearch: true,
         }),
         footerLinks: createStandardsFooter({
-          githubUrl: envConfig.GITHUB_REPO_URL!,
+          githubUrl: GITHUB_REPO_URL,
           includeRdfDownloads: false,
           includeSitemap: false,
           includeBlog: true,
         }).links,
         copyright: createStandardsFooter({
-          githubUrl: envConfig.GITHUB_REPO_URL!,
+          githubUrl: GITHUB_REPO_URL,
         }).copyright,
       }),
       {

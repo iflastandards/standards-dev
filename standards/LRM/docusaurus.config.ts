@@ -1,5 +1,3 @@
-import * as dotenv from 'dotenv';
-import * as path from 'path';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import { deepmerge } from 'deepmerge-ts';
@@ -12,12 +10,13 @@ import {
   createVocabularyConfig,
   createStaticDirectories,
   createStandardsNavbar,
-  normalizeEnvironmentName, 
-  validateEnvConfig 
+  getSiteConfig,
+  mapDocsEnvToEnvironment,
+  type SiteKey
 } from '@ifla/shared-config';
 import navbarItems from './navbar';
 
-// Determine environment and load env files - PURE APPROACH
+// Determine environment from DOCS_ENV
 const docsEnv = process.env['DOCS_ENV'];
 if (!docsEnv) {
   throw new Error(
@@ -27,30 +26,34 @@ if (!docsEnv) {
     `💡 CI/production workflows must set DOCS_ENV explicitly.`
   );
 }
-const environment = normalizeEnvironmentName(docsEnv);
 
-// Load environment variables in priority order
-const envFiles = [
-  '.env.site',
-  `.env.site.${environment}`,
-  '.env.site.local',
-  environment !== 'local' ? `.env.site.${environment}.local` : null,
-].filter(Boolean);
+// Map DOCS_ENV to our Environment type
+const currentEnv = mapDocsEnvToEnvironment(docsEnv);
 
-// Load each env file, later files override earlier ones
-for (const file of envFiles) {
-  dotenv.config({ path: path.resolve(__dirname, file!) });
-}
+// Get configuration for this site
+const siteKey: SiteKey = 'LRM';
+const siteConfig = getSiteConfig(siteKey, currentEnv);
 
-// Validate we have all required environment variables
-const envConfig = validateEnvConfig(process.env, 'LRM');
+// Site metadata that was previously in .env files
+const SITE_TITLE = 'IFLA LRM';
+const SITE_TAGLINE = 'Library Reference Model';
+const GITHUB_REPO_URL = 'https://github.com/iflastandards/standards-dev';
+const GITHUB_EDIT_URL = 'https://github.com/iflastandards/LRM/tree/main/';
+
+// Vocabulary configuration
+const VOCABULARY_PREFIX = 'lrm';
+const VOCABULARY_NUMBER_PREFIX = 'E';
+const VOCABULARY_URI_STYLE = 'numeric';
+const VOCABULARY_PROFILE = 'lrm-profile-revised.csv';
+const VOCABULARY_RDF_LABEL_EN = ['http://www.w3.org/2000/01/rdf-schema#label', 'http://www.w3.org/2004/02/skos/core#prefLabel'];
+const VOCABULARY_RDF_COMMENT_EN = ['http://www.w3.org/2000/01/rdf-schema#comment'];
 
 const config: Config = deepmerge(
   createBaseConfig({
-    title: envConfig.SITE_TITLE,
-    tagline: envConfig.SITE_TAGLINE,
-    url: envConfig.SITE_URL,
-    baseUrl: envConfig.SITE_BASE_URL,
+    title: SITE_TITLE,
+    tagline: SITE_TAGLINE,
+    url: siteConfig.url,
+    baseUrl: siteConfig.baseUrl,
     projectName: 'LRM',
   }),
   {
@@ -68,18 +71,22 @@ const config: Config = deepmerge(
     
     customFields: {
       // Current environment for client-side components
-      environment,
+      environment: currentEnv,
+      // Environment for site URL generation
+      docsEnv: currentEnv,
+      // Function to get site config for any site in current environment
+      siteConfig: (toSiteKey: SiteKey) => getSiteConfig(toSiteKey, currentEnv),
       // LRM-specific vocabulary configuration
       vocabularyDefaults: createVocabularyConfig({
-        prefix: envConfig.VOCABULARY_PREFIX!,
-        numberPrefix: envConfig.VOCABULARY_NUMBER_PREFIX,
-        uriStyle: envConfig.VOCABULARY_URI_STYLE,
-        profile: envConfig.VOCABULARY_PROFILE,
+        prefix: VOCABULARY_PREFIX,
+        numberPrefix: VOCABULARY_NUMBER_PREFIX,
+        uriStyle: VOCABULARY_URI_STYLE,
+        profile: VOCABULARY_PROFILE,
         rdfLabelMappings: {
-          en: envConfig.VOCABULARY_RDF_LABEL_EN?.split(',') || [],
+          en: VOCABULARY_RDF_LABEL_EN,
         },
         rdfCommentMappings: {
-          en: envConfig.VOCABULARY_RDF_COMMENT_EN?.split(',') || [],
+          en: VOCABULARY_RDF_COMMENT_EN,
         },
       }),
     },
@@ -88,7 +95,7 @@ const config: Config = deepmerge(
       [
         'classic',
         createStandardsPresetConfig({
-          editUrl: envConfig.GITHUB_EDIT_URL!,
+          editUrl: GITHUB_EDIT_URL,
           enableBlog: true,
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
@@ -99,7 +106,7 @@ const config: Config = deepmerge(
     plugins: [
       // IFLA standard plugins
       ...createIFLAPlugins({
-        environment, // Pass environment for pure function
+        environment: currentEnv, // Pass environment for pure function
         enableLocalSearch: true,
         searchConfig: {
           indexBlog: true, // LRM has a blog
@@ -121,13 +128,13 @@ const config: Config = deepmerge(
           includeSearch: true,
         }),
         footerLinks: createStandardsFooter({
-          githubUrl: envConfig.GITHUB_REPO_URL!,
+          githubUrl: GITHUB_REPO_URL,
           includeRdfDownloads: true,
           includeSitemap: true,
           includeBlog: true,
         }).links,
         copyright: createStandardsFooter({
-          githubUrl: envConfig.GITHUB_REPO_URL!,
+          githubUrl: GITHUB_REPO_URL,
         }).copyright,
       }),
       {

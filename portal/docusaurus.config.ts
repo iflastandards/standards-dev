@@ -1,5 +1,3 @@
-import * as dotenv from 'dotenv';
-import * as path from 'path';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import { deepmerge } from 'deepmerge-ts';
@@ -11,12 +9,13 @@ import {
   createStandardsFooter,
   createStaticDirectories,
   createStandardsNavbar,
-  normalizeEnvironmentName, 
-  validateEnvConfig 
+  getSiteConfig,
+  mapDocsEnvToEnvironment,
+  type SiteKey
 } from '@ifla/shared-config';
 import navbarItems from './navbar';
 
-// Determine environment - PURE APPROACH
+// Determine environment from DOCS_ENV
 const docsEnv = process.env['DOCS_ENV'];
 if (!docsEnv) {
   throw new Error(
@@ -26,31 +25,26 @@ if (!docsEnv) {
     `💡 CI/production workflows must set DOCS_ENV explicitly.`
   );
 }
-const environment = normalizeEnvironmentName(docsEnv);
 
-// Load environment variables in priority order
-// Priority: .env.site.local > .env.site.[environment] > .env.site
-const envFiles = [
-  '.env.site',
-  `.env.site.${environment}`,
-  '.env.site.local',
-  environment !== 'local' ? `.env.site.${environment}.local` : null,
-].filter(Boolean);
+// Map DOCS_ENV to our Environment type
+const currentEnv = mapDocsEnvToEnvironment(docsEnv);
 
-// Load each env file, later files override earlier ones
-for (const file of envFiles) {
-  dotenv.config({ path: path.resolve(__dirname, file!) });
-}
+// Get configuration for this site
+const siteKey: SiteKey = 'portal';
+const siteConfig = getSiteConfig(siteKey, currentEnv);
 
-// Validate we have all required environment variables
-const envConfig = validateEnvConfig(process.env, 'portal');
+// Site metadata that was previously in .env files
+const SITE_TITLE = 'IFLA Standards Portal';
+const SITE_TAGLINE = 'International Federation of Library Associations and Institutions';
+const GITHUB_REPO_URL = 'https://github.com/iflastandards/standards-dev';
+const GITHUB_EDIT_URL = 'https://github.com/iflastandards/standards-dev/tree/main/portal/';
 
 const config: Config = deepmerge(
   createBaseConfig({
-    title: envConfig.SITE_TITLE,
-    tagline: envConfig.SITE_TAGLINE,
-    url: envConfig.SITE_URL,
-    baseUrl: envConfig.SITE_BASE_URL,
+    title: SITE_TITLE,
+    tagline: SITE_TAGLINE,
+    url: siteConfig.url,
+    baseUrl: siteConfig.baseUrl,
     projectName: 'portal',
   }),
   {
@@ -68,9 +62,11 @@ const config: Config = deepmerge(
     
     customFields: {
       // Current environment for client-side components
-      environment,
+      environment: currentEnv,
       // Environment for site URL generation
-      docsEnv: environment,
+      docsEnv: currentEnv,
+      // Function to get site config for any site in current environment
+      siteConfig: (toSiteKey: SiteKey) => getSiteConfig(toSiteKey, currentEnv),
       // Portal-specific vocabulary configuration (minimal since portal doesn't have RDF content)
       vocabularyDefaults: {
         prefix: "ifla",
@@ -90,7 +86,7 @@ const config: Config = deepmerge(
       [
         'classic',
         createStandardsPresetConfig({
-          editUrl: envConfig.GITHUB_EDIT_URL!,
+          editUrl: GITHUB_EDIT_URL,
           enableBlog: true,
           docsPath: 'docs',
           showLastUpdateAuthor: false,
@@ -101,7 +97,7 @@ const config: Config = deepmerge(
     
     plugins: [
       ...createIFLAPlugins({
-        environment, // Pass environment for pure function
+        environment: currentEnv, // Pass environment for pure function
         enableLocalSearch: true,
         searchConfig: {
           indexBlog: true, // Portal has a blog
@@ -113,7 +109,7 @@ const config: Config = deepmerge(
     
     themeConfig: deepmerge(
       createThemeConfig({
-        navbarTitle: envConfig.SITE_TITLE,
+        navbarTitle: SITE_TITLE,
         navbarItems: createStandardsNavbar({
           title: 'Portal',
           customItems: navbarItems,
@@ -123,13 +119,13 @@ const config: Config = deepmerge(
           includeSearch: true,
         }),
         footerLinks: createStandardsFooter({
-          githubUrl: envConfig.GITHUB_REPO_URL!,
+          githubUrl: GITHUB_REPO_URL,
           includeRdfDownloads: false,
           includeSitemap: false,
           includeBlog: false,
         }).links,
         copyright: createStandardsFooter({
-          githubUrl: envConfig.GITHUB_REPO_URL!,
+          githubUrl: GITHUB_REPO_URL,
         }).copyright,
       }),
       {

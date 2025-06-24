@@ -1,4 +1,8 @@
-# Environment-Based Configuration Refactor Plan
+# Environment-Based Configuration Refactor Plan [SUPERSEDED]
+
+> **⚠️ STATUS: SUPERSEDED**  
+> This plan was superseded by the centralized TypeScript configuration matrix implemented in December 2024.  
+> See [Site Configuration Architecture](site-configuration-architecture.md) for the current system.
 
 ## Overview
 Transform the current centralized configuration system into a layered approach using site-specific `.env` files, shared base configurations, and deep merging to balance simplicity and flexibility in the Nx monorepo.

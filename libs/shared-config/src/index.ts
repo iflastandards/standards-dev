@@ -15,6 +15,14 @@ export * from './lib/createVocabularyConfig';
 export * from './lib/createStaticDirectories';
 export * from './lib/createStandardsNavbar';
 export { validateEnvConfig, getEnvironmentName, normalizeEnvironmentName } from './lib/utils/loadEnvConfig';
-export * from './lib/utils/getSiteUrl';
 export * from './lib/types';
 export { default as defaults } from './lib/defaults.json';
+
+// Site configuration exports
+export { 
+  getSiteConfig,
+  type Environment,
+  type SiteKey,
+  type SiteConfigEntry,
+  SITE_CONFIG 
+} from './lib/siteConfig';

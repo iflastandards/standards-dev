@@ -4,20 +4,21 @@
 
 ### 1. Add Site to Core Configuration
 
-First, add your new site to the central configuration in `packages/theme/src/config/siteConfigCore.ts`:
+First, add your new site to the central configuration in `libs/shared-config/src/lib/siteConfig.ts`:
 
 ```typescript
-export const sites = {
+export const SITE_CONFIG: Record<SiteKey, Record<Environment, SiteConfigEntry>> = {
   // ... existing sites
   'your-site-key': {
-    localhost: { url: 'http://localhost:3000', baseUrl: '/your-site-key/' },
+    local: { url: 'http://localhost:3007', baseUrl: '/', port: 3007 },
     preview: { url: 'https://iflastandards.github.io', baseUrl: '/standards-dev/your-site-key/' },
-    production: { url: 'https://iflastandards.info', baseUrl: '/your-site-key/' }
-  }
+    development: { url: 'https://jonphipps.github.io', baseUrl: '/standards-dev/your-site-key/' },
+    production: { url: 'https://www.iflastandards.info', baseUrl: '/your-site-key/' },
+  },
 } as const;
 
-// Add to SiteKey type
-export type SiteKey = 'portal' | 'ISBDM' | 'LRM' | 'FRBR' | 'isbd' | 'muldicat' | 'unimarc' | 'your-site-key';
+// The SiteKey type is automatically derived from SITE_CONFIG
+export type SiteKey = keyof typeof SITE_CONFIG;
 ```
 
 ### 2. Create Site Directory Structure
@@ -76,62 +77,105 @@ Create `standards/your-site-key/package.json`:
 
 ### 4. Create Docusaurus Configuration
 
-Create `standards/your-site-key/docusaurus.config.ts` using the factory:
+Create `standards/your-site-key/docusaurus.config.ts` using the centralized configuration:
 
 ```typescript
-import { createStandardSiteConfig } from '@ifla/theme/config';
+import type { Config } from '@docusaurus/types';
+import type { Preset } from '@docusaurus/preset-classic';
+import { themes as prismThemes } from 'prism-react-renderer';
+import { getSiteConfig, mapDocsEnvToEnvironment, type SiteKey } from '@ifla/shared-config';
 
-const config = createStandardSiteConfig({
-  siteKey: 'your-site-key',
+const currentEnv = mapDocsEnvToEnvironment(process.env.DOCS_ENV);
+const siteConfig = getSiteConfig('your-site-key', currentEnv);
+
+const config: Config = {
   title: 'Your Site Title',
   tagline: 'Your site description',
-  projectName: 'your-site-key',
+  favicon: '/img/favicon.ico',
+  url: siteConfig.url,
+  baseUrl: siteConfig.baseUrl,
   
-  // Site-specific vocabulary configuration (optional)
-  vocabularyDefaults: {
-    prefix: "your-prefix",
-    numberPrefix: "T", // or "E", "C", etc.
-    profile: "your-values-profile.csv",
-    elementDefaults: {
-      uri: "https://www.iflastandards.info/YOUR-SITE/elements",
-      profile: "your-elements-profile.csv",
-    }
+  // Repository settings
+  organizationName: 'iflastandards',
+  projectName: 'standards-dev',
+  
+  // Build settings
+  onBrokenLinks: 'warn',
+  onBrokenMarkdownLinks: 'warn',
+  onBrokenAnchors: 'warn',
+  onDuplicateRoutes: 'warn',
+  trailingSlash: false,
+  
+  // Internationalization
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en'],
   },
-  
-  // GitHub configuration
-  editUrl: 'https://github.com/iflastandards/your-repo/tree/main/',
-  
-  // Custom navbar items (optional)
-  navbar: {
-    items: [
+
+  // Custom fields for client-side access
+  customFields: {
+    environment: currentEnv,
+    docsEnv: currentEnv,
+    siteConfig: (toSiteKey: SiteKey) => getSiteConfig(toSiteKey, currentEnv),
+  },
+
+  presets: [
+    [
+      'classic',
       {
-        type: 'doc',
-        docId: 'intro',
-        position: 'left',
-        label: 'Introduction',
-      },
+        docs: {
+          sidebarPath: './sidebars.ts',
+          editUrl: 'https://github.com/iflastandards/standards-dev/tree/main/standards/your-site-key/',
+        },
+        blog: {
+          showReadingTime: true,
+          editUrl: 'https://github.com/iflastandards/standards-dev/tree/main/standards/your-site-key/',
+        },
+        theme: {
+          customCss: './src/css/custom.css',
+        },
+      } satisfies Preset.Options,
     ],
-  },
-  
-  // Navigation customization (optional)
-  navigation: {
-    hideCurrentSiteFromStandardsDropdown: true, // Hide this site from standards dropdown
-    standardsDropdownPosition: 'right', // 'left' or 'right'
-    includeResourcesDropdown: false, // Remove resources dropdown from navbar
-  },
+  ],
 
-  // Footer customization (optional)
-  footer: {
-    useResourcesInsteadOfSites: true, // Replace "Sites" with "Resources" in footer
-    additionalResourceLinks: [], // Add more resource links later
-  },
-
-  // Enable redirects if needed
-  redirects: {
-    redirects: [],
-    createRedirects: (_existingPath: string) => undefined,
-  },
-});
+  // Theme configuration
+  themeConfig: {
+    // Navigation bar
+    navbar: {
+      title: 'Your Site Title',
+      logo: {
+        alt: 'IFLA Logo',
+        src: 'img/logo-ifla_black.png',
+      },
+      items: [
+        {
+          type: 'docSidebar',
+          sidebarId: 'tutorialSidebar',
+          position: 'left',
+          label: 'Documentation',
+        },
+        {
+          to: '/blog',
+          label: 'Blog',
+          position: 'left'
+        },
+        // Standard IFLA navigation items will be added here
+      ],
+    },
+    
+    // Footer
+    footer: {
+      style: 'dark',
+      copyright: `Copyright © ${new Date().getFullYear()} IFLA. Built with Docusaurus.`,
+    },
+    
+    // Code highlighting
+    prism: {
+      theme: prismThemes.github,
+      darkTheme: prismThemes.dracula,
+    },
+  } satisfies Preset.ThemeConfig,
+};
 
 export default config;
 ```
@@ -271,131 +315,99 @@ pnpm build:all
 
 ## Advanced Configuration Options
 
-### Custom Vocabulary Configuration
-
-For sites with specific vocabulary requirements:
-
-```typescript
-vocabularyDefaults: {
-  prefix: "your-prefix",
-  startCounter: 1000,
-  uriStyle: "numeric", // or "kebab-case"
-  numberPrefix: "T", // T, E, C, P, etc.
-  caseStyle: "kebab-case", // or "camelCase"
-  showFilter: true,
-  filterPlaceholder: "Filter vocabulary terms...",
-  showTitle: false,
-  showURIs: true,
-  showCSVErrors: false,
-  profile: "your-values-profile.csv",
-  profileShapeId: "Concept",
-  RDF: {
-    "rdf:type": ["skos:ConceptScheme"]
-  },
-  elementDefaults: {
-    uri: "https://www.iflastandards.info/YOUR-SITE/elements",
-    classPrefix: "C",
-    propertyPrefix: "P",
-    profile: "your-elements-profile.csv",
-    profileShapeId: "Element",
-  }
-}
-```
-
 ### Custom Navigation
 
-For complex navigation requirements:
+For complex navigation requirements, add items to the navbar:
 
 ```typescript
-navbar: {
+// In the themeConfig.navbar.items array
+{
+  type: 'dropdown',
+  label: 'Instructions',
+  position: 'left',
   items: [
     {
-      type: 'dropdown',
-      label: 'Instructions',
-      position: 'left',
-      items: [
-        {
-          type: 'doc',
-          docId: 'intro/index',
-          label: 'Introduction',
-        },
-        {
-          type: 'doc',
-          docId: 'guidelines/index',
-          label: 'Guidelines',
-        },
-      ],
+      type: 'doc',
+      docId: 'intro/index',
+      label: 'Introduction',
     },
     {
-      type: 'dropdown',
-      label: 'Elements',
-      position: 'left',
-      items: [
-        {
-          type: 'doc',
-          docId: 'elements/classes',
-          label: 'Classes',
-        },
-        {
-          type: 'doc',
-          docId: 'elements/properties',
-          label: 'Properties',
-        },
-      ],
+      type: 'doc',
+      docId: 'guidelines/index',
+      label: 'Guidelines',
     },
   ],
-}
+},
+{
+  type: 'dropdown',
+  label: 'Elements',
+  position: 'left',
+  items: [
+    {
+      type: 'doc',
+      docId: 'elements/classes',
+      label: 'Classes',
+    },
+    {
+      type: 'doc',
+      docId: 'elements/properties',
+      label: 'Properties',
+    },
+  ],
+},
 ```
 
-### Custom Redirects
+### Custom Plugins
 
-For sites that need URL redirects:
+Add site-specific plugins to the plugins array:
 
 ```typescript
-redirects: {
-  redirects: [
+// In the main config object
+plugins: [
+  [
+    '@docusaurus/plugin-client-redirects',
     {
-      from: '/old-path',
-      to: '/new-path',
+      redirects: [
+        {
+          from: '/old-path',
+          to: '/new-path',
+        },
+      ],
+      createRedirects: (existingPath: string) => {
+        // Dynamic redirect logic
+        if (existingPath.includes('/elements/')) {
+          return [existingPath.replace('/elements/', '/old-elements/')];
+        }
+        return undefined;
+      },
     },
   ],
-  createRedirects: (existingPath: string) => {
-    // Dynamic redirect logic
-    if (existingPath.includes('/elements/')) {
-      return [existingPath.replace('/elements/', '/old-elements/')];
-    }
-    return undefined;
-  },
-}
+],
 ```
 
-### Override Default Settings
+### Override Build Settings
 
 For sites that need different behavior:
 
 ```typescript
-overrides: {
-  onBrokenLinks: 'ignore', // 'ignore', 'warn', 'throw'
-  onBrokenAnchors: 'ignore',
-  trailingSlash: false,
-}
+// In the main config object
+onBrokenLinks: 'ignore', // 'ignore', 'warn', 'throw'
+onBrokenAnchors: 'ignore',
+trailingSlash: false,
 ```
 
-### Custom Sidebar Generation
+### Custom Vocabulary Configuration
 
-For sites with complex sidebar requirements (like ISBDM):
+For sites with vocabulary requirements, add to customFields:
 
 ```typescript
-// Set customSidebarGenerator: true in factory options
-customSidebarGenerator: true,
-
-// Then manually configure in the returned config
-if (config.presets && config.presets[0] && Array.isArray(config.presets[0]) && config.presets[0][1]) {
-  const presetOptions = config.presets[0][1] as any;
-  if (presetOptions.docs) {
-    presetOptions.docs.sidebarItemsGenerator = yourCustomSidebarGenerator;
-  }
-}
+// In the customFields object
+vocabularyDefaults: {
+  prefix: "your-prefix",
+  numberPrefix: "T", // T, E, C, P, etc.
+  profile: "your-values-profile.csv",
+  uri: "https://www.iflastandards.info/YOUR-SITE/elements",
+},
 ```
 
 ## Deployment Configuration
@@ -404,39 +416,41 @@ if (config.presets && config.presets[0] && Array.isArray(config.presets[0]) && c
 
 The site will automatically be included in GitHub Pages deployment if:
 
-1. It's added to `siteConfigCore.ts`
-2. It has a valid `docusaurus.config.ts`
+1. It's added to `SITE_CONFIG` in `libs/shared-config/src/lib/siteConfig.ts`
+2. It has a valid `docusaurus.config.ts` using the siteConfig utilities
 3. The build script is added to root `package.json`
 
 ### Environment-Specific URLs
 
-The factory automatically handles environment-specific URLs:
+The centralized configuration automatically handles environment-specific URLs:
 
-- **Localhost**: `http://localhost:3000/your-site-key/`
+- **Local**: `http://localhost:300X/` (port varies by site)
 - **Preview**: `https://iflastandards.github.io/standards-dev/your-site-key/`
-- **Production**: `https://iflastandards.info/your-site-key/`
+- **Development**: `https://jonphipps.github.io/standards-dev/your-site-key/`
+- **Production**: `https://www.iflastandards.info/your-site-key/`
 
 ## Troubleshooting
 
 ### Common Issues
 
-1. **Build Errors**: Ensure `pnpm build:theme` runs successfully first
-2. **Import Errors**: Check that `@ifla/theme` is properly installed
-3. **Navigation Issues**: Verify `siteKey` matches exactly in `siteConfigCore.ts`
-4. **Broken Links**: Use environment-aware URLs, not hardcoded paths
+1. **Build Errors**: Ensure `@ifla/shared-config` is properly installed
+2. **Import Errors**: Check that imports from `@ifla/shared-config` are correct
+3. **Navigation Issues**: Verify `siteKey` matches exactly in `SITE_CONFIG`
+4. **TypeScript Errors**: Ensure the site key is added to the configuration matrix
+5. **Broken Links**: Use `SiteLink` component for cross-site navigation
 
 ### Testing Checklist
 
 - [ ] Site builds successfully: `pnpm build:your-site-key`
 - [ ] Site starts locally: `pnpm start:your-site-key`
 - [ ] Navigation works correctly
-- [ ] Standards dropdown includes your site
-- [ ] Footer links work
-- [ ] Theme and styling applied correctly
+- [ ] Cross-site links work with SiteLink component
+- [ ] Environment URLs are correct for all environments
+- [ ] Site configuration is accessible via customFields
 
 ## Related Files
 
-- **Core Configuration**: `packages/theme/src/config/siteConfigCore.ts`
-- **Factory Function**: `packages/theme/src/config/standardSiteFactory.ts`
-- **Theme Package**: `packages/theme/`
-- **Example Sites**: `standards/lrm/`, `standards/isbdm/`
+- **Core Configuration**: `libs/shared-config/src/lib/siteConfig.ts`
+- **Configuration Tests**: `packages/theme/src/tests/config/siteConfig.test.ts`
+- **SiteLink Component**: `packages/theme/src/components/SiteLink.tsx`
+- **Example Sites**: `standards/LRM/`, `standards/ISBDM/`, `portal/`

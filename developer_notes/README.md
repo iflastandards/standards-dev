@@ -26,24 +26,28 @@ This directory contains detailed documentation for developers working on the IFL
 - **`url-validation-guide.md`** - URL validation and link checking
 - **`link-validation-organization.md`** - Link validation system organization
 
-## Recent Updates (2025-06-15)
+## Recent Updates
 
-### Configuration Factory System
-- **Created `standardSiteFactory.ts`** - Reduces site configuration from 125+ lines to ~43 lines (66% reduction)
-- **Centralized configuration** - All sites use `siteConfigCore.ts` as source of truth for paths and environments
-- **Environment-aware URLs** - Automatic URL generation for localhost, preview, and production
-- **Standardized navigation** - All sites get consistent navigation with site-specific customizations
+### December 2024: Centralized Configuration Migration
+- **✅ MAJOR REFACTOR COMPLETED** - Migrated from environment files to TypeScript configuration matrix
+- **Created centralized configuration** - `libs/shared-config/src/lib/siteConfig.ts` as single source of truth
+- **Removed 36+ .env files** - Replaced with type-safe configuration matrix
+- **Updated SiteLink component** - New props (`siteKey`, `path`) for environment-aware navigation
+- **All tests passing** - 445 unit tests updated and verified
+- **Documentation updated** - Comprehensive developer guides created
 
-### Site Configuration Improvements
-- **LRM site refactored** - Successfully migrated to use factory configuration
-- **Portal configuration optimized** - Already well-structured, no changes needed
-- **Vocabulary defaults centralized** - Leverages existing `VOCABULARY_DEFAULTS` infrastructure
-- **Consistent navigation** - All sites get `standardsDropdown` and proper cross-site links
+### Key Benefits of New System
+- **Single source of truth** - All site configuration in one TypeScript file
+- **Type safety** - Compile-time validation of site keys and environments
+- **Reduced complexity** - No environment file management required
+- **Better maintainability** - All URLs visible in one place
+- **Easier debugging** - Clear configuration matrix for troubleshooting
 
-### Documentation Added
-- **`new-site-setup.md`** - Complete guide for site administrators
-- **`configuration-architecture.md`** - Technical documentation for developers
-- **`quick-reference.md`** - Common commands and configuration snippets
+### Updated Documentation
+- **`site-configuration-architecture.md`** - **NEW** Complete current system documentation
+- **`configuration-architecture.md`** - Updated for new system
+- **`new-site-setup.md`** - Updated with current configuration patterns
+- **README.md** - Updated with centralized configuration links
 
 ### Previous Updates (2025-06-13)
 
@@ -84,17 +88,17 @@ When adding new features or modifying existing ones, please update or create cor
 
 When adding new sites to the project:
 
-1. **Add site to core configuration** in `packages/theme/src/config/siteConfigCore.ts`
+1. **Add site to configuration matrix** in `libs/shared-config/src/lib/siteConfig.ts`
 2. **Create site directory** with required files (`docusaurus.config.ts`, `package.json`, etc.)
-3. **Use the factory function** `createStandardSiteConfig()` for consistent configuration
+3. **Use centralized configuration utilities** (`getSiteConfig`, `mapDocsEnvToEnvironment`)
 4. **Add build scripts** to root `package.json`
 5. **Test locally** before deployment
 
-The factory system ensures:
-- **Automatic tooling integration** - Link validation, navigation, deployment workflows
-- **Consistent configuration** - All sites get same base features and navigation
-- **Environment-aware URLs** - Proper URL generation across localhost, preview, production
-- **Reduced maintenance** - 66% less configuration code per site
+The centralized system ensures:
+- **Type-safe configuration** - Compile-time validation of site keys and environments
+- **Environment-aware URLs** - Automatic URL generation across all environments
+- **Consistent navigation** - SiteLink component for cross-site navigation
+- **Reduced maintenance** - Single configuration file for all sites
 
 See `configuration-architecture.md` for technical details and `quick-reference.md` for common patterns.
 

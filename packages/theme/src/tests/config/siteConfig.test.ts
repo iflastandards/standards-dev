@@ -213,22 +213,22 @@ describe('buildSiteUrl', () => {
 describe('getSiteUrl helper', () => {
   describe('URL construction', () => {
     it('should construct URLs correctly from components', () => {
-      const url = getSiteUrl('http://localhost:3002', '/LRM/', '/docs/intro');
+      const url = getSiteUrl('LRM', 'docs/intro', 'local');
       expect(url).toBe('http://localhost:3002/LRM/docs/intro');
     });
 
     it('should handle empty path', () => {
-      const url = getSiteUrl('http://localhost:3002', '/LRM/', '');
-      expect(url).toBe('http://localhost:3002/LRM');
+      const url = getSiteUrl('LRM', '', 'local');
+      expect(url).toBe('http://localhost:3002/LRM/');
     });
 
     it('should handle production URLs', () => {
-      const url = getSiteUrl('https://www.iflastandards.info', '/LRM/', '/docs/intro');
+      const url = getSiteUrl('LRM', 'docs/intro', 'production');
       expect(url).toBe('https://www.iflastandards.info/LRM/docs/intro');
     });
 
     it('should handle preview URLs', () => {
-      const url = getSiteUrl('https://iflastandards.github.io', '/standards-dev/LRM/', '/docs/intro');
+      const url = getSiteUrl('LRM', 'docs/intro', 'preview');
       expect(url).toBe('https://iflastandards.github.io/standards-dev/LRM/docs/intro');
     });
   });

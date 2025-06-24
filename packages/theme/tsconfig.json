@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "../../",
+    "baseUrl": "../../",
+    "paths": {
+      "@ifla/shared-config": ["./libs/shared-config/src/index.ts"],
+      "@ifla/shared-config/*": ["./libs/shared-config/src/*"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "../../libs/shared-config/src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx"
+  ]
+}

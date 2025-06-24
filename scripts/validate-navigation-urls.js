@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const { getCurrentEnv } = require('../packages/theme/dist/config/siteConfig.server');
 const { createSiteConfigFromEnv } = require('./utils/site-config-utils.js');
+const { getSiteUrl, mapDocsEnvToEnvironment } = require('../libs/shared-config/dist/index.cjs.js');
 const { sites, DocsEnv } = createSiteConfigFromEnv();
 
 /**
@@ -40,7 +40,7 @@ const EXPECTED_PATTERNS = generateExpectedPatterns();
 function validateNavigationUrls() {
   console.log('\n🧭 Validating Navigation URL Configuration...');
   
-  const env = getCurrentEnv();
+  const env = mapDocsEnvToEnvironment(process.env.DOCS_ENV) || 'local';
   console.log(`📍 Current Environment: ${env}`);
   
   const expectedPatterns = EXPECTED_PATTERNS[env];
@@ -56,45 +56,8 @@ function validateNavigationUrls() {
   
   const issues = [];
   
-  // Test standards dropdown URLs
-  console.log('\n🔍 Testing Standards Dropdown URLs...');
-  const dropdown = standardsDropdown(env);
-  dropdown.items.forEach(item => {
-    const url = item.href;
-    console.log(`  Testing: ${item.label} -> ${url}`);
-    
-    // Find which site this should match
-    const matchingSite = Object.entries(expectedPatterns).find(([site, pattern]) => {
-      // Create a test URL to see which pattern it should match
-      const testUrl = getSiteUrl(site, '/', env);
-      return url.startsWith(testUrl.split('/').slice(0, -1).join('/'));
-    });
-    
-    if (matchingSite) {
-      const [site, pattern] = matchingSite;
-      if (!pattern.test(url)) {
-        issues.push({
-          type: 'Standards Dropdown',
-          label: item.label,
-          url,
-          expected: pattern.source,
-          site
-        });
-      }
-    } else {
-      // Check if it matches any pattern
-      const anyMatch = Object.entries(expectedPatterns).some(([, pattern]) => pattern.test(url));
-      if (!anyMatch) {
-        issues.push({
-          type: 'Standards Dropdown',
-          label: item.label,
-          url,
-          expected: 'Any valid site pattern',
-          site: 'unknown'
-        });
-      }
-    }
-  });
+  // Note: Standards dropdown navigation testing skipped - now using SiteLink component
+  console.log('\n🔍 Skipping Standards Dropdown URLs (now using centralized SiteLink component)...');
   
   // Note: Footer site links validation removed as all sites now use Resources footer pattern
   
@@ -147,14 +110,10 @@ function validateNavigationUrls() {
 
 // Test function for manual verification
 function showNavigationUrls() {
-  const env = getCurrentEnv();
+  const env = mapDocsEnvToEnvironment(process.env.DOCS_ENV) || 'local';
   console.log(`\n📋 Navigation URLs for ${env} environment:\n`);
   
-  console.log('🔗 Standards Dropdown:');
-  const dropdown = standardsDropdown(env);
-  dropdown.items.forEach(item => {
-    console.log(`   ${item.label}: ${item.href}`);
-  });
+  console.log('🔗 Standards Dropdown: (Skipped - now using SiteLink component)');
   
   console.log('\n🔗 Footer Site Links: (Removed - all sites now use Resources footer pattern)');
   

@@ -35,9 +35,6 @@ importers:
       '@easyops-cn/docusaurus-search-local':
         specifier: ^0.49.2
         version: 0.49.2(30a3ac477447900a81c122ea3e558f6c)
-      '@ifla/preset-ifla':
-        specifier: workspace:*
-        version: link:packages/preset-ifla
       '@ifla/theme':
         specifier: workspace:*
         version: link:packages/theme
@@ -460,8 +457,6 @@ importers:
         specifier: ^2.3.0
         version: 2.8.1
 
-  packages/preset-ifla: {}
-
   packages/standards-cli:
     dependencies:
       commander:
@@ -491,9 +486,6 @@ importers:
 
   portal:
     dependencies:
-      '@ifla/preset-ifla':
-        specifier: workspace:*
-        version: link:../packages/preset-ifla
       '@ifla/shared-config':
         specifier: workspace:*
         version: link:../libs/shared-config
@@ -503,9 +495,6 @@ importers:
 
   standards/FRBR:
     dependencies:
-      '@ifla/preset-ifla':
-        specifier: workspace:*
-        version: link:../../packages/preset-ifla
       '@ifla/shared-config':
         specifier: workspace:*
         version: link:../../libs/shared-config
@@ -515,9 +504,6 @@ importers:
 
   standards/ISBDM:
     dependencies:
-      '@ifla/preset-ifla':
-        specifier: workspace:*
-        version: link:../../packages/preset-ifla
       '@ifla/shared-config':
         specifier: workspace:*
         version: link:../../libs/shared-config
@@ -527,9 +513,6 @@ importers:
 
   standards/LRM:
     dependencies:
-      '@ifla/preset-ifla':
-        specifier: workspace:*
-        version: link:../../packages/preset-ifla
       '@ifla/shared-config':
         specifier: workspace:*
         version: link:../../libs/shared-config
@@ -539,9 +522,6 @@ importers:
 
   standards/isbd:
     dependencies:
-      '@ifla/preset-ifla':
-        specifier: workspace:*
-        version: link:../../packages/preset-ifla
       '@ifla/shared-config':
         specifier: workspace:*
         version: link:../../libs/shared-config
@@ -551,9 +531,6 @@ importers:
 
   standards/muldicat:
     dependencies:
-      '@ifla/preset-ifla':
-        specifier: workspace:*
-        version: link:../../packages/preset-ifla
       '@ifla/shared-config':
         specifier: workspace:*
         version: link:../../libs/shared-config
@@ -563,9 +540,6 @@ importers:
 
   standards/unimarc:
     dependencies:
-      '@ifla/preset-ifla':
-        specifier: workspace:*
-        version: link:../../packages/preset-ifla
       '@ifla/shared-config':
         specifier: workspace:*
         version: link:../../libs/shared-config

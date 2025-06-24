@@ -4,17 +4,13 @@ import { sassPlugin, postcssModules } from 'esbuild-sass-plugin';
 export default defineConfig({
   entry: {
     index: 'src/index.ts',
-    config: 'src/config/index.ts',
-    'config/siteConfigCore': 'src/config/siteConfigCore.ts',
-    'config/siteConfig': 'src/config/siteConfig.ts',
     'components/SiteLink': 'src/components/SiteLink.tsx',
     'components/ElementReference': 'src/components/ElementReference/index.tsx',
-    'hooks/useDocsEnv': 'src/hooks/useDocsEnv.ts',
     'hooks/usePrevious': 'src/hooks/usePrevious.ts',
     'utils/index': 'src/utils/index.ts',
   },
   format: ['esm', 'cjs'],
-  dts: true, // Generate .d.ts files
+  dts: true,
   splitting: true, // Code splitting for better tree-shaking
   sourcemap: true,
   clean: true, // Clean output directory before build
@@ -32,6 +28,7 @@ export default defineConfig({
     /^@theme\/.*/,
     'clsx',
     'prism-react-renderer',
+    '@ifla/shared-config',
   ],
   esbuildPlugins: [
     // Type assertion to work around version mismatch between tsup and esbuild

@@ -249,7 +249,8 @@ Pre-built utility classes for common styling needs:
 Pre-configured settings for different IFLA standards:
 
 ```typescript
-import { VOCABULARY_DEFAULTS } from '@ifla/theme/config';
+// Note: Configuration utilities have moved to @ifla/shared-config
+// import { getSiteConfig, getSiteUrl } from '@ifla/shared-config';
 
 // For ISBDM
 const config = createIFLAConfig({
@@ -285,7 +286,8 @@ const config = createIFLAConfig({
 Use the sidebar utilities for consistent navigation:
 
 ```typescript
-import { applySidebarLevels, generateElementItems } from '@ifla/theme/config';
+// Note: Configuration utilities have moved to @ifla/shared-config
+// These utilities are no longer available as they were site-specific
 
 const sidebars = {
   mainSidebar: applySidebarLevels([
@@ -370,7 +372,8 @@ export function MyComponent({ className, children }) {
 Extend the base configuration for site-specific needs:
 
 ```typescript
-import { createIFLAConfig } from '@ifla/theme/config';
+// Note: Configuration utilities have moved to @ifla/shared-config
+// import { getSiteConfig } from '@ifla/shared-config';
 
 const baseConfig = createIFLAConfig({
   title: 'My Standard',

@@ -2,51 +2,53 @@
 
 // packages/theme/src/components/SiteLink.tsx
 import React, { JSX } from 'react';
-import Link from '@docusaurus/Link';
-import { useDocsEnv } from '../hooks/useDocsEnv';
-import { getSiteUrl, type SiteKey, type DocsEnv } from '../config';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { type SiteKey } from '@ifla/shared-config';
 
 /**
  * A component for creating robust, environment-aware links between different IFLA Docusaurus sites.
- * It uses the centralized `siteConfig.ts` to generate correct absolute URLs based on the
- * `DOCS_ENV` environment variable (or an explicitly provided `targetEnv`).
+ * It uses the centralized siteConfig to generate correct absolute URLs based on the current environment.
  */
-interface SiteLinkProps extends Omit<React.ComponentProps<typeof Link>, 'href' | 'to'> {
+interface SiteLinkProps {
   /**
    * The key of the target site (e.g., 'LRM', 'portal'). Must be a valid SiteKey.
    */
-  toSite: SiteKey;
+  siteKey: SiteKey;
   /**
-   * Optional. The relative path within the target site (e.g., '/introduction', 'docs/main', or '').
+   * The relative path within the target site (e.g., '/introduction', 'docs/main', or '').
    * If it starts with '/', it's treated as absolute from the site's baseUrl root.
    * If empty, links to the site's base (url + baseUrl).
    * Defaults to an empty string, linking to the base of the target site.
    */
-  to: string;
-  /**
-   * Optional. The target environment.
-   */
-  toEnv?: DocsEnv;
+  path: string;
   /**
    * The content of the link.
    */
-  children?: React.ReactNode;
+  children: React.ReactNode;
   /**
    * Optional. The CSS class name for the link element.
    */
   className?: string;
 }
 
-const SiteLink = ({ to, toSite, toEnv, children, className }: SiteLinkProps): JSX.Element => {
-  const currentSiteEnv = useDocsEnv();
-
-  const targetEnv = toEnv || currentSiteEnv;
-  const finalUrl = getSiteUrl(toSite, to, targetEnv);
+const SiteLink = ({ siteKey, path, children, className }: SiteLinkProps): JSX.Element => {
+  const { siteConfig } = useDocusaurusContext();
+  const getSiteConfigForKey = siteConfig.customFields?.siteConfig as ((key: SiteKey) => { url: string; baseUrl: string }) | undefined;
+  
+  if (!getSiteConfigForKey) {
+    throw new Error('siteConfig function not found in customFields');
+  }
+  
+  const targetConfig = getSiteConfigForKey(siteKey);
+  
+  // Ensure proper path concatenation
+  const normalizedPath = path.startsWith('/') ? path.slice(1) : path;
+  const fullUrl = `${targetConfig.url}${targetConfig.baseUrl}${normalizedPath}`;
   
   return (
-    <Link href={finalUrl} className={className}>
+    <a href={fullUrl} target="_blank" rel="noopener noreferrer" className={className}>
       {children}
-    </Link>
+    </a>
   );
 }
 

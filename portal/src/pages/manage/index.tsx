@@ -5,13 +5,13 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import clsx from 'clsx';
 import styles from './styles.module.css';
-import { getSiteUrl, type SiteKey } from '@ifla/theme/config';
+import { getSiteUrl, type SiteKey, type Environment } from '@ifla/shared-config';
 
 // This will eventually check GitHub org membership
 // For now, we'll create the UI structure
 function ManagementDashboard(): React.ReactNode {
   const { siteConfig } = useDocusaurusContext();
-  const currentEnv = siteConfig.customFields?.environment as string;
+  const currentEnv = siteConfig.customFields?.environment as Environment;
 
   return (
     <div className={styles.managementContainer}>

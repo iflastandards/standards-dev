@@ -1,6 +1,9 @@
 packages:
-  - "packages/*"
-  - "standards/*"
-  - "portal"
-  - "tools/*"
-  - "libs/*"
+  - packages/*
+  - standards/*
+  - portal
+  - tools/*
+  - libs/*
+
+onlyBuiltDependencies:
+  - '@swc/core'
