@@ -80,7 +80,6 @@ export function createStandardsFooter(options: StandardsFooterOptions) {
     copyright: customCopyright || `
       Copyright © ${new Date().getFullYear()} International Federation of Library Associations and Institutions (IFLA)<br />
       <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">
-        {/* Use relative path that will work with baseUrl */}
         <img src="/img/cc0_by.png" alt="CC BY 4.0" style="vertical-align:middle; height:24px;" />
       </a>
       Gordon Dunsire and Mirna Willer (Main design and content editors).
