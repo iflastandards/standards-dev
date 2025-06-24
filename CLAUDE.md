@@ -12,6 +12,7 @@
 - warn me when you start up if your environment isn't set to the project root
 - ALWAYS Use context7 and look for code examples at the beginning of a coding session
 - ALWAYS consult the docusaurus v3.8 documentation at https://docusaurus.io/docs during planning to identify best parctices and correct architecture
+- remember to always run tests with --skip-nx-cache
 
 ## Key Insights for Docusaurus Navigation and Configuration:
 
@@ -19,4 +20,4 @@
   2. Docusaurus validates config schema - unknown root fields cause build errors
   3. customFields data is globally accessible via Docusaurus context throughout the site
 
-[Rest of the existing file content remains unchanged]
+- The environment can only be set and used in docusaurus.config.ts to retrieve url and baeurl for the current environment and set the siteconfigmap in customfields
