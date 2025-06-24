@@ -11,6 +11,7 @@ import {
   createStaticDirectories,
   createStandardsNavbar,
   getSiteConfig,
+  getSiteConfigMap,
   type SiteKey,
   type Environment
 } from '@ifla/shared-config';
@@ -70,8 +71,8 @@ const config: Config = deepmerge(
     staticDirectories: createStaticDirectories('standard'),
 
     customFields: {
-      // Function to get site config for any site in current environment
-      siteConfig: (toSiteKey: SiteKey) => getSiteConfig(toSiteKey, currentEnv),
+      // Site configurations for all sites in current environment (SSG-compatible)
+      siteConfigs: getSiteConfigMap(currentEnv),
       // isbd-specific vocabulary configuration
       vocabularyDefaults: createVocabularyConfig({
         prefix: VOCABULARY_PREFIX,
