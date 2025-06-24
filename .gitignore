@@ -24,3 +24,6 @@ dist/
 .github/instructions/nx.instructions.md
 vite.config.*.timestamp*
 vitest.config.*.timestamp*test-results/
+/standards/isbd/build-clean
+/standards/muldicat/build-clean
+/standards/muldicat/standards
