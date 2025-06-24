@@ -12,8 +12,8 @@ import {
   createStaticDirectories,
   createStandardsNavbar,
   getSiteConfig,
-  mapDocsEnvToEnvironment,
-  type SiteKey
+  type SiteKey,
+  type Environment
 } from '@ifla/shared-config';
 import navbarItems from './navbar';
 
@@ -27,15 +27,14 @@ const docsEnv = process.env['DOCS_ENV'];
 if (!docsEnv) {
   throw new Error(
     `❌ FATAL: DOCS_ENV environment variable is required but not set.\n` +
-    `✅ Valid values: local, localhost, preview, dev, production\n` +
+    `✅ Valid values: local, preview, development, production\n` +
     `💡 NX builds should load DOCS_ENV from root .env file automatically.\n` +
     `💡 CI/production workflows must set DOCS_ENV explicitly.`
   );
 }
 
-// Map DOCS_ENV to our Environment type
-const currentEnv = mapDocsEnvToEnvironment(docsEnv);
-
+// Get configuration for this site
+const currentEnv = docsEnv as Environment;
 // Get configuration for this site
 const siteKey: SiteKey = 'ISBDM';
 const siteConfig = getSiteConfig(siteKey, currentEnv);

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const { createSiteConfigFromEnv } = require('./utils/site-config-utils.js');
-const { getSiteUrl, mapDocsEnvToEnvironment } = require('../libs/shared-config/dist/index.cjs.js');
+// Navigation validation script uses site config from utils
 const { sites, DocsEnv } = createSiteConfigFromEnv();
 
 /**
@@ -40,7 +40,7 @@ const EXPECTED_PATTERNS = generateExpectedPatterns();
 function validateNavigationUrls() {
   console.log('\n🧭 Validating Navigation URL Configuration...');
   
-  const env = mapDocsEnvToEnvironment(process.env.DOCS_ENV) || 'local';
+  const env = process.env.DOCS_ENV || 'local';
   console.log(`📍 Current Environment: ${env}`);
   
   const expectedPatterns = EXPECTED_PATTERNS[env];
@@ -110,7 +110,7 @@ function validateNavigationUrls() {
 
 // Test function for manual verification
 function showNavigationUrls() {
-  const env = mapDocsEnvToEnvironment(process.env.DOCS_ENV) || 'local';
+  const env = process.env.DOCS_ENV || 'local';
   console.log(`\n📋 Navigation URLs for ${env} environment:\n`);
   
   console.log('🔗 Standards Dropdown: (Skipped - now using SiteLink component)');

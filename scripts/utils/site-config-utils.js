@@ -1,30 +1,19 @@
 // Updated to use the new centralized configuration system
-const { getSiteConfig, mapDocsEnvToEnvironment, SITE_CONFIG } = require('../../libs/shared-config/dist/index.cjs.js');
+const { getSiteConfig, SITE_CONFIG } = require('../../libs/shared-config/dist/index.cjs.js');
 
-// Environment enum for compatibility
+// Environment enum matching siteConfig.ts exactly
 const DocsEnv = {
-  Localhost: 'local',
+  Local: 'local',
   Preview: 'preview',
-  Dev: 'development',
+  Development: 'development',
   Production: 'production',
 };
 
 // Get site keys from the centralized configuration
 const siteKeys = Object.keys(SITE_CONFIG);
 
-// Map script environment names to the internal environment system
-const ENV_MAP = {
-  'localhost': 'local',
-  'local': 'local',
-  'preview': 'preview', 
-  'dev': 'development',
-  'development': 'development',
-  'production': 'production',
-};
-
 function loadSiteConfig(siteKey, env) {
-  const mappedEnv = ENV_MAP[env.toLowerCase()] || 'local';
-  return getSiteConfig(siteKey, mappedEnv);
+  return getSiteConfig(siteKey, env);
 }
 
 // Create sites object for backward compatibility

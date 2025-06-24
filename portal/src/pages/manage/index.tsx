@@ -5,13 +5,19 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import clsx from 'clsx';
 import styles from './styles.module.css';
-import { getSiteUrl, type SiteKey, type Environment } from '@ifla/shared-config';
+import { getSiteConfig, type SiteKey, type Environment } from '@ifla/shared-config';
 
 // This will eventually check GitHub org membership
 // For now, we'll create the UI structure
 function ManagementDashboard(): React.ReactNode {
   const { siteConfig } = useDocusaurusContext();
   const currentEnv = siteConfig.customFields?.environment as Environment;
+  
+  // Helper function to build site URLs
+  const buildSiteUrl = (siteKey: SiteKey, path: string = '/') => {
+    const config = getSiteConfig(siteKey, currentEnv);
+    return config.url + config.baseUrl + path.replace(/^\//, '');
+  };
 
   return (
     <div className={styles.managementContainer}>
@@ -84,12 +90,12 @@ function ManagementDashboard(): React.ReactNode {
               
               <div className={styles.standardsList}>
                 {[
-                  { code: 'ISBDM', name: 'ISBD for Manifestation', href: getSiteUrl('ISBDM' as SiteKey, '/manage', currentEnv), status: 'published' },
-                  { code: 'LRM', name: 'Library Reference Model', href: getSiteUrl('LRM' as SiteKey, '/manage', currentEnv), status: 'published' },
-                  { code: 'ISBD', name: 'International Standard Bibliographic Description', href: getSiteUrl('isbd' as SiteKey, '/manage', currentEnv), status: 'development' },
-                  { code: 'FRBR', name: 'Functional Requirements', href: getSiteUrl('FRBR' as SiteKey, '/manage', currentEnv), status: 'development' },
-                  { code: 'MulDiCat', name: 'Multilingual Dictionary', href: getSiteUrl('muldicat' as SiteKey, '/manage', currentEnv), status: 'development' },
-                  { code: 'UNIMARC', name: 'UNIMARC', href: getSiteUrl('unimarc' as SiteKey, '/manage', currentEnv), status: 'development' },
+                  { code: 'ISBDM', name: 'ISBD for Manifestation', href: buildSiteUrl('ISBDM', '/manage'), status: 'published' },
+                  { code: 'LRM', name: 'Library Reference Model', href: buildSiteUrl('LRM', '/manage'), status: 'published' },
+                  { code: 'ISBD', name: 'International Standard Bibliographic Description', href: buildSiteUrl('isbd', '/manage'), status: 'development' },
+                  { code: 'FRBR', name: 'Functional Requirements', href: buildSiteUrl('FRBR', '/manage'), status: 'development' },
+                  { code: 'MulDiCat', name: 'Multilingual Dictionary', href: buildSiteUrl('muldicat', '/manage'), status: 'development' },
+                  { code: 'UNIMARC', name: 'UNIMARC', href: buildSiteUrl('unimarc', '/manage'), status: 'development' },
                 ].map((standard) => (
                   <div key={standard.code} className={styles.standardItem}>
                     <div className={styles.standardInfo}>

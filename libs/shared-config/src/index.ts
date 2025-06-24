@@ -14,7 +14,7 @@ export * from './lib/createStandardsFooter';
 export * from './lib/createVocabularyConfig';
 export * from './lib/createStaticDirectories';
 export * from './lib/createStandardsNavbar';
-export { validateEnvConfig, getEnvironmentName, normalizeEnvironmentName } from './lib/utils/loadEnvConfig';
+// Environment configuration utilities removed - sites now use direct DOCS_ENV access
 export * from './lib/types';
 export { default as defaults } from './lib/defaults.json';
 

@@ -3,7 +3,7 @@
  * This is the single source of truth for site URLs and base paths.
  */
 
-export type Environment = 'local' | 'localhost' | 'preview' | 'dev' | 'production';
+export type Environment = 'local'  | 'preview' | 'development' | 'production';
 export type SiteKey = 'portal' | 'ISBDM' | 'LRM' | 'FRBR' | 'isbd' | 'muldicat' | 'unimarc';
 
 export interface SiteConfigEntry {

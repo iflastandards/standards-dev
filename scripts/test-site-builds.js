@@ -25,7 +25,7 @@ const validEnvironments = Object.values(DocsEnv);
 
 program
   .option('--site <site>', 'Site to test (specific site, "portal", or "all")')
-  .option('--env <env>', 'Environment to test against', 'localhost')
+  .option('--env <env>', 'Environment to test against', 'local')
   .option('--skip-build', 'Skip the build step (assumes already built)')
   .option('--verbose', 'Show detailed output')
   .parse();
@@ -120,14 +120,9 @@ function testSiteConfig(siteKey) {
       errors.push('Not using @ifla/shared-config for configuration');
     }
     
-    // Check for environment detection
-    if (!configContent.includes('getEnvironmentName')) {
-      errors.push('Not using getEnvironmentName for environment detection');
-    }
-    
-    // Check for environment variable validation
-    if (!configContent.includes('validateEnvConfig')) {
-      errors.push('Not using validateEnvConfig for environment validation');
+    // Check for DOCS_ENV usage
+    if (!configContent.includes('DOCS_ENV')) {
+      errors.push('Not using DOCS_ENV environment variable');
     }
     
     // Validate site is properly registered
@@ -150,8 +145,8 @@ function testSiteConfig(siteKey) {
         errors.push('Missing baseUrl in site configuration');
       }
       
-      // Check for localhost URLs in non-localhost environments
-      if (env !== 'localhost' && siteConfig.url?.includes('localhost')) {
+      // Check for localhost URLs in non-local environments
+      if (env !== 'local' && siteConfig.url?.includes('localhost')) {
         errors.push(`Localhost URL found in ${env} configuration: ${siteConfig.url}`);
       }
     }
