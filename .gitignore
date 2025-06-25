@@ -6,6 +6,8 @@ node_modules/
 # build artefacts
 build/
 dist/
+build-clean/
+build-test/
 /.env
 /.env.local
 /tmp/
@@ -16,14 +18,9 @@ dist/
 # generated output files
 /output/
 
-
-
 .nx/cache
 .nx/workspace-data
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
 vite.config.*.timestamp*
 vitest.config.*.timestamp*test-results/
-/standards/isbd/build-clean
-/standards/muldicat/build-clean
-/standards/muldicat/standards
