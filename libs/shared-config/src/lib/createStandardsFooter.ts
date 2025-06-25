@@ -74,15 +74,19 @@ export function createStandardsFooter(options: StandardsFooterOptions) {
     }
   );
 
-  return {
+  const footer = {
     style: 'dark' as const,
     links: footerLinks,
-    copyright: customCopyright || `
+    copyright:
+      customCopyright ??
+      `
       Copyright © ${new Date().getFullYear()} International Federation of Library Associations and Institutions (IFLA)<br />
       <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">
-        <img src="/img/cc0_by.png" alt="CC BY 4.0" style="vertical-align:middle; height:24px;" />
+        <img src="img/cc0_by.png" alt="CC BY 4.0" style="vertical-align:middle; height:24px;" />
       </a>
       Gordon Dunsire and Mirna Willer (Main design and content editors).
     `,
-  };
+  } as const;
+
+  return Object.freeze(footer);
 }

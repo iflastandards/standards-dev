@@ -44,10 +44,10 @@ function main() {
     'muldicat'
   ];
 
-  // Build each project individually in separate processes to prevent contamination
+  // Build each project individually with --skip-nx-cache to prevent contamination
   for (const project of projects) {
     runCommand(
-      `nx build ${project}`,
+      `nx build ${project} --skip-nx-cache`,
       `Building ${project}`
     );
   }

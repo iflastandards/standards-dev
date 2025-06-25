@@ -10,8 +10,8 @@ export interface BaseConfigOptions {
 
 export interface ThemeConfigOptions {
   navbarTitle: string;
-  navbarItems?: any[];
-  footerLinks?: any[];
+  navbarItems?: readonly any[];
+  footerLinks?: readonly any[];
   copyright?: string;
 }
 
