@@ -21,3 +21,25 @@
   3. customFields data is globally accessible via Docusaurus context throughout the site
 
 - The environment can only be set and used in docusaurus.config.ts to retrieve url and baeurl for the current environment and set the siteconfigmap in customfields
+
+## Broken Links Issue Pattern:
+
+**ACCEPTABLE broken links** (normal/expected):
+- Links within the correct baseURL that point to non-existent pages
+- Example from unimarc site: /unimarc/intro, /unimarc/elements, /unimarc/examples, /unimarc/rdf/ttl/unimarc.ttl etc.
+- These are placeholders for future content - baseURL is correct, just missing pages
+
+**PROBLEMATIC broken links** (misconfiguration):
+- Links pointing to WRONG baseURL/site 
+- Example from muldicat site: links pointing to /unimarc/ instead of /muldicat/
+- These indicate site configuration errors where one site is using another site's navigation/footer links
+- Pattern: muldicat site linking to /unimarc/ URLs instead of /muldicat/ URLs
+
+**Root cause**: CRITICAL - Static state contamination in shared modules, NOT concurrency-related.
+**Issue discovered**: Even with --parallel=1 (sequential builds), sites still get contaminated with each other's configurations.
+**Evidence**: 
+- Isolated builds work correctly (muldicat builds with correct config)
+- 2-site concurrent builds work correctly (unimarc/LRM both build correctly)  
+- Full 9-site builds (even sequential) cause contamination (unimarc links to /LRM/, portal links to /muldicat/)
+**CRITICAL UPDATE**: The contamination occurs regardless of concurrency level, indicating module-level static state contamination in shared-config or theme packages.
+**Fix needed**: Identify and eliminate static/global state in shared-config functions, likely in getSiteConfigMap() or theme factory functions.

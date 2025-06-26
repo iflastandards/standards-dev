@@ -4,7 +4,7 @@
   "sourceRoot": "portal",
   "projectType": "application",
   "tags": ["docusaurus", "site", "portal"],
-  "implicitDependencies": ["shared-config"],
+  "implicitDependencies": ["shared-config", "@ifla/theme"],
   "targets": {
     "build": {
       "executor": "nx:run-commands",
@@ -17,7 +17,7 @@
         "^build",
         {
           "target": "build",
-          "projects": ["shared-config"]
+          "projects": ["shared-config", "@ifla/theme"]
         }
       ],
       "inputs": ["production", "^production", "docusaurus-no-theme"]

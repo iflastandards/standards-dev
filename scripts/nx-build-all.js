@@ -30,27 +30,14 @@ function runCommand(command, description) {
 function main() {
   console.log(colors.bold(colors.cyan('IFLA Standards - Nx Optimized Build\n')));
 
-  // List of projects to build in order
-  // Build theme first, then each site individually to avoid Node.js module caching contamination
-  const projects = [
-    '@ifla/theme',
-    'standards-cli',
-    'portal',
-    'frbr',
-    'isbd', 
-    'lrm',
-    'isbdm',
-    'unimarc',
-    'muldicat'
-  ];
-
-  // Build each project individually with --skip-nx-cache to prevent contamination
-  for (const project of projects) {
-    runCommand(
-      `nx build ${project} --skip-nx-cache`,
-      `Building ${project}`
-    );
-  }
+  // Use nx run-many with proper dependencies instead of manual sequencing
+  // Nx will handle the build order based on the dependencies we configured
+  // REDUCED CONCURRENCY: Lowered from --parallel=3 to --parallel=1 to prevent race conditions
+  // that cause configuration contamination between concurrent site builds
+  runCommand(
+    'nx run-many --target=build --projects=@ifla/theme,shared-config,portal,frbr,isbd,lrm,isbdm,unimarc,muldicat --parallel=1',
+    'Building all projects with serialized builds to prevent configuration contamination'
+  );
 
   console.log(colors.bold(colors.green('\n🎉 All builds completed successfully with proper isolation!')));
 }

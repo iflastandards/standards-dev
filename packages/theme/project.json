@@ -1,0 +1,46 @@
+{
+  "name": "@ifla/theme",
+  "root": "packages/theme",
+  "sourceRoot": "packages/theme/src",
+  "projectType": "library",
+  "tags": ["library", "theme"],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm exec tsup",
+        "cwd": "packages/theme"
+      },
+      "outputs": ["{projectRoot}/dist"],
+      "cache": true,
+      "inputs": [
+        "production",
+        "{projectRoot}/src/**/*",
+        "{projectRoot}/tsup.config.ts",
+        "{projectRoot}/package.json"
+      ]
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "options": {
+        "config": "{workspaceRoot}/vite.config.ts",
+        "testPathPattern": "packages/theme/src/tests"
+      },
+      "outputs": ["{projectRoot}/coverage"],
+      "cache": true
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit",
+        "cwd": "packages/theme"
+      },
+      "cache": true,
+      "inputs": [
+        "default",
+        "{projectRoot}/tsconfig.json",
+        "{workspaceRoot}/tsconfig.json"
+      ]
+    }
+  }
+}

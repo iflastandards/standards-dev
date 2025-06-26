@@ -20,7 +20,10 @@ export default [
         "**/build/",
         "**/node_modules/",
         "**/vite.config.*.timestamp*",
-        "**/vitest.config.*.timestamp*"
+        "**/vitest.config.*.timestamp*",
+        "**/.nx/",
+        "**/static/runtime.js",
+        "**/.nx/**/*"
       ]
   },
   {

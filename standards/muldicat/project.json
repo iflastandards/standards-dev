@@ -4,6 +4,7 @@
   "sourceRoot": "standards/muldicat",
   "projectType": "application",
   "tags": ["docusaurus", "site", "standard", "muldicat"],
+  "implicitDependencies": ["shared-config", "@ifla/theme"],
   "targets": {
     "build": {
       "executor": "nx:run-commands",
@@ -33,7 +34,7 @@
         "^build",
         {
           "target": "build",
-          "projects": ["shared-config"]
+          "projects": ["shared-config", "@ifla/theme"]
         }
       ],
       "inputs": ["production", "^production", "docusaurus-no-theme"]

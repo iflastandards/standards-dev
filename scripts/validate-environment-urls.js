@@ -20,6 +20,26 @@ program
   .option('--timeout <ms>', 'Timeout per link in milliseconds', '15000')
   .parse();
 
+// Normalize and validate type option
+const validTypes = ['static', 'generated', 'sitemap', 'comprehensive', 'both'];
+const rawType = program.opts().type;
+let normalizedType = rawType;
+
+// Handle common typos
+if (rawType === 'comprehensivet') {
+  console.log(`⚠️  Detected typo in type 'comprehensivet', treating as 'comprehensive'`);
+  normalizedType = 'comprehensive';
+}
+
+if (!validTypes.includes(normalizedType)) {
+  console.error(`❌ Invalid validation type: ${rawType}`);
+  console.error(`Valid types: ${validTypes.join(', ')}`);
+  process.exit(1);
+}
+
+// Update program options
+program.opts().type = normalizedType;
+
 // Hardcoded localhost patterns to detect
 const LOCALHOST_PATTERNS = [
   /http:\/\/localhost:\d+/,
@@ -1698,7 +1718,8 @@ async function validateEnvironmentUrls(siteKey, environment, options = {}) {
 
 async function main() {
   const options = program.opts();
-  let { env, site, type, depth, sampleSize, timeout } = options;
+  let { env, site, depth, sampleSize, timeout } = options;
+  let { type } = options; // type has already been normalized above
 
   // Interactive prompts for missing options
   if (!env) {

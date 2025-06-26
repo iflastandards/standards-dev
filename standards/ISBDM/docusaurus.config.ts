@@ -11,10 +11,11 @@ import {
   createVocabularyConfig,
   createStaticDirectories,
   createStandardsNavbar,
-  getSiteConfig,
   getSiteConfigMap,
+  SITE_CONFIG,
   type SiteKey,
-  type Environment
+  type Environment,
+  type SiteConfigEntry
 } from '@ifla/shared-config';
 import navbarItems from './navbar';
 
@@ -36,9 +37,20 @@ if (!docsEnv) {
 
 // Get configuration for this site
 const currentEnv = docsEnv as Environment;
-// Get configuration for this site
 const siteKey: SiteKey = 'ISBDM';
-const siteConfig = getSiteConfig(siteKey, currentEnv);
+
+// Local function to retrieve site config directly from the complete array
+function getLocalSiteConfig(site: SiteKey, env: Environment): SiteConfigEntry {
+  const config = SITE_CONFIG[site]?.[env];
+  if (!config) {
+    throw new Error(`Configuration missing for ${site} in ${env}`);
+  }
+  // Return a new object to avoid shared references
+  return { ...config };
+}
+
+// Use the local function to get configuration
+const siteConfig = getLocalSiteConfig(siteKey, currentEnv);
 
 // Site metadata that was previously in .env files
 const SITE_TITLE = 'ISBD for Manifestation';
@@ -100,7 +112,6 @@ const config: Config = deepmerge(
 
     // Add future config block for compliance with regression tests
     future: {
-      experimental_faster: false,
       v4: true,
     },
 

@@ -62,7 +62,6 @@ const config: Config = deepmerge(
     
     // Add future config block for compliance with regression tests
     future: {
-      experimental_faster: false,
       v4: true,
     },
     
