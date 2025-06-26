@@ -19,8 +19,8 @@ import './styles/index.css';
 // Export all components
 export * from './components';
 
-// Note: Configuration utilities have been moved to @ifla/shared-config
-// Import directly: import { getSiteConfig, getSiteUrl } from '@ifla/shared-config';
+// Export configuration utilities (now in theme package)
+export * from './config';
 
 // Export utilities and hooks
 export * from './utils';

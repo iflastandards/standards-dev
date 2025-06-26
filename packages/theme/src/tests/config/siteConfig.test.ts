@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getSiteConfig, type SiteKey, type Environment } from '@ifla/shared-config';
+import { getSiteConfig, type SiteKey, type Environment } from '../../config/siteConfig';
 
 describe('getSiteConfig', () => {
   describe('basic functionality', () => {

@@ -13,7 +13,7 @@
  * 4. Stores snapshots for later comparison during migration
  */
 
-import { chromium, Browser, Page } from 'playwright';
+import { chromium, Browser } from 'playwright';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { execSync } from 'child_process';

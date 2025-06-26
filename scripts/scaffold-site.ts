@@ -11,7 +11,6 @@
  *   pnpm tsx scripts/scaffold-site.ts --preset=individual --siteKey=mysite --title="My Site" --tagline="My tagline"
  */
 
-import { execSync } from 'child_process';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { SITE_TEMPLATE, SITE_PRESETS, type SiteTemplateConfig } from './site-template';
@@ -127,7 +126,7 @@ async function updateSiteConfig(config: SiteTemplateConfig, dryRun: boolean = fa
     }
 
     // Add to SiteKey type
-    const currentTypes = typeDefMatch[1] || '';
+    const currentTypes = typeDefMatch?.[1] || '';
     const newTypes = currentTypes.replace(/'/g, '').replace(/ \| $/, '') + ` | '${config.siteKey}'`;
     let updatedContent = content.replace(
       /export type SiteKey = [^;]+;/,

@@ -11,7 +11,7 @@
  * 2. All sites running with: pnpm serve:all
  */
 
-import { chromium, Browser, Page } from 'playwright';
+import { chromium, Browser } from 'playwright';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { createHash } from 'crypto';
@@ -112,7 +112,7 @@ class SnapshotCapture {
 
       // Capture metadata and check for contamination
       const metadata = await page.evaluate(() => {
-        const getMetaContent = (name) => {
+        const getMetaContent = (name: string) => {
           const meta = document.querySelector(`meta[name="${name}"], meta[property="${name}"]`);
           return meta ? meta.getAttribute('content') || '' : '';
         };

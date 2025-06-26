@@ -21,6 +21,7 @@
   3. customFields data is globally accessible via Docusaurus context throughout the site
 
 - The environment can only be set and used in docusaurus.config.ts to retrieve url and baeurl for the current environment and set the siteconfigmap in customfields
+- we never use or get the environment setting outside of docusaurus.config.ts. In docusauru.config.ts we store the siteconfigmap in customfields for retieving the url and baseurl of sister sites if necessary
 
 ## Broken Links Issue Pattern:
 
