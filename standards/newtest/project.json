@@ -1,0 +1,65 @@
+{
+  "name": "newtest",
+  "root": "standards/newtest",
+  "sourceRoot": "standards/newtest",
+  "projectType": "application",
+  "tags": ["docusaurus", "site", "standard", "newtest"],
+  "implicitDependencies": ["@ifla/theme"],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docusaurus build standards/newtest"
+      },
+      "outputs": ["{projectRoot}/build"],
+      "cache": true,
+      "dependsOn": [
+        "^build",
+        {
+          "target": "build",
+          "projects": ["@ifla/theme"]
+        }
+      ],
+      "inputs": ["production", "^production", "docusaurus"]
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docusaurus start standards/newtest --port 3007"
+      },
+      "cache": false
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docusaurus serve standards/newtest --port 3007"
+      },
+      "cache": false
+    },
+    "clear": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docusaurus clear standards/newtest"
+      },
+      "cache": false
+    },
+    "e2e": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "playwright test e2e/standards-smoke.spec.ts e2e/vocabulary-functionality.spec.ts"
+      },
+      "dependsOn": ["build"],
+      "cache": true,
+      "inputs": [
+        "default",
+        "{workspaceRoot}/e2e/standards-smoke.spec.ts",
+        "{workspaceRoot}/e2e/vocabulary-functionality.spec.ts",
+        "{workspaceRoot}/playwright.config.ts"
+      ],
+      "outputs": [
+        "{workspaceRoot}/test-results",
+        "{workspaceRoot}/playwright-report"
+      ]
+    }
+  }
+}

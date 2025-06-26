@@ -1,0 +1,28 @@
+/**
+ * New Test Site Custom Styles
+ * Any CSS included here will be global.
+ */
+
+/* IFLA brand colors */
+:root {
+  --ifla-primary: #0066cc;
+  --ifla-primary-dark: #0052a3;
+  --ifla-primary-darker: #004d99;
+  --ifla-primary-darkest: #003d7a;
+  --ifla-primary-light: #1a75d1;
+  --ifla-primary-lighter: #3385d6;
+  --ifla-primary-lightest: #66a3e0;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode adjustments */
+[data-theme='dark'] {
+  --ifla-primary: #4da6ff;
+  --ifla-primary-dark: #1a8cff;
+  --ifla-primary-darker: #0080ff;
+  --ifla-primary-darkest: #0066cc;
+  --ifla-primary-light: #66b3ff;
+  --ifla-primary-lighter: #80c0ff;
+  --ifla-primary-lightest: #b3d9ff;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}

@@ -161,7 +161,15 @@
     "vocabulary:create-action": "tsx scripts/create-vocabulary-sheet-action.ts",
     "write-heading-ids": "docusaurus write-heading-ids",
     "write-translations": "docusaurus write-translations",
-    "prepare": "husky"
+    "prepare": "husky",
+    "build:testsite": "nx build testsite",
+    "start:testsite": "pnpm stop:testsite && DOCS_ENV=local docusaurus start standards/testsite --port 3007",
+    "serve:testsite": "pnpm stop:testsite && docusaurus serve standards/testsite --port 3007",
+    "stop:testsite": "lsof -ti:3007 | xargs kill -9 2>/dev/null || true",
+    "build:newtest": "nx build newtest",
+    "start:newtest": "pnpm stop:newtest && DOCS_ENV=local docusaurus start standards/newtest --port 3007",
+    "serve:newtest": "pnpm stop:newtest && docusaurus serve standards/newtest --port 3007",
+    "stop:newtest": "lsof -ti:3007 | xargs kill -9 2>/dev/null || true"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.52.0",

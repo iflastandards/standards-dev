@@ -1,0 +1,38 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/newtest/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Latest",
+          "isLast": true,
+          "path": "/newtest/docs",
+          "mainDocId": "intro",
+          "docs": [
+            {
+              "id": "getting-started/overview",
+              "path": "/newtest/docs/getting-started/overview",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "intro",
+              "path": "/newtest/docs/intro",
+              "sidebar": "tutorialSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "tutorialSidebar": {
+              "link": {
+                "path": "/newtest/docs/intro",
+                "label": "intro"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}
