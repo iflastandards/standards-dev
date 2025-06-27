@@ -101,7 +101,7 @@ jobs:
       - name: Test site configurations
         run: |
           SITE=${{ github.event.inputs.site || 'all' }}
-          ENV=${{ github.event.inputs.environment || (github.ref_name == 'main' && 'production' || github.ref_name == 'dev' && 'dev' || 'production') }}
+          ENV=${{ github.event.inputs.environment || (github.ref_name == 'main' && 'production' || github.ref_name == 'dev' && 'development' || 'production') }}
           node scripts/test-site-builds.js --site $SITE --env $ENV --skip-build
 
   test-site-builds:
@@ -136,7 +136,7 @@ jobs:
 
       - name: Test ${{ matrix.site }} build
         run: |
-          ENV=${{ github.event.inputs.environment || (github.ref_name == 'main' && 'production' || github.ref_name == 'dev' && 'dev' || 'production') }}
+          ENV=${{ github.event.inputs.environment || (github.ref_name == 'main' && 'production' || github.ref_name == 'dev' && 'development' || 'production') }}
           node scripts/test-site-builds.js --site ${{ matrix.site }} --env $ENV
         env:
           NODE_OPTIONS: --max-old-space-size=8192

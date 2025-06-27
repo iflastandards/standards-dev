@@ -108,7 +108,7 @@ jobs:
       - name: Test site configurations
         run: |
           SITE=${{ github.event.inputs.site || 'affected' }}
-          ENV=${{ github.event.inputs.environment || (github.ref_name == 'main' && 'production' || github.ref_name == 'dev' && 'dev' || 'production') }}
+          ENV=${{ github.event.inputs.environment || (github.ref_name == 'main' && 'production' || github.ref_name == 'dev' && 'development' || 'production') }}
           
           if [ "$SITE" = "affected" ]; then
             echo "Testing affected site configurations..."
@@ -147,7 +147,7 @@ jobs:
       - name: Build affected or specified sites
         run: |
           SITE=${{ github.event.inputs.site || 'affected' }}
-          ENV=${{ github.event.inputs.environment || (github.ref_name == 'main' && 'production' || github.ref_name == 'dev' && 'dev' || 'production') }}
+          ENV=${{ github.event.inputs.environment || (github.ref_name == 'main' && 'production' || github.ref_name == 'dev' && 'development' || 'production') }}
           
           export DOCS_ENV=$ENV
           export NODE_OPTIONS="--max-old-space-size=8192"
