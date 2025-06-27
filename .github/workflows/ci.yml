@@ -10,6 +10,13 @@ permissions:
   actions: read
   contents: read
 
+env:
+  CI: true
+  DEBUG: ''              # empty string disables *everything* that respects DEBUG
+  DOTENV_CONFIG_DEBUG: ''# dotenv specifically
+  GOOGLE_SHEETS_API_KEY: ${{ secrets.GOOGLE_SHEETS_API_KEY }}
+  GSHEETS_SA_KEY: ${{ secrets.GSHEETS_SA_KEY }}
+
 jobs:
   main:
     runs-on: ubuntu-latest
