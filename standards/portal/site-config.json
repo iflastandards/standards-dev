@@ -1,0 +1,33 @@
+{
+  "title": "IFLA Standards Portal",
+  "tagline": "International Federation of Library Associations and Institutions",
+  "organizationName": "iflastandards",
+  "projectName": "portal",
+  "editUrl": "https://github.com/iflastandards/standards-dev/tree/main/portal/",
+  "features": {
+    "enableBlog": true,
+    "enableSearch": true,
+    "enableRdfDownloads": false,
+    "enableRedirects": false,
+    "enableCustomSidebar": false,
+    "enableElementRedirects": false
+  },
+  "navbar": {
+    "includeBlog": true,
+    "includeVersionDropdown": false,
+    "includeLocaleDropdown": false,
+    "includeSearch": true
+  },
+  "vocabulary": {
+    "prefix": "ifla",
+    "numberPrefix": "T",
+    "profile": "vocabulary-profile.csv",
+    "elementUri": "https://www.iflastandards.info/elements",
+    "elementProfile": "elements-profile.csv"
+  },
+  "buildConfig": {
+    "onBrokenLinks": "warn",
+    "onBrokenMarkdownLinks": "warn",
+    "onBrokenAnchors": "ignore"
+  }
+}
