@@ -24,7 +24,7 @@ on:
         default: 'production'
         type: choice
         options:
-          - localhost
+          - local
           - preview
           - production
       browser_matrix:
@@ -45,19 +45,9 @@ jobs:
         id: set-matrix
         run: |
           if [ "${{ github.event.inputs.test_type }}" == "e2e" ] || [ "${{ github.event.inputs.test_type }}" == "all" ]; then
-            echo "matrix={\"include\":[
-              {\"test-type\":\"unit\",\"node-version\":\"18\",\"docs-env\":\"localhost\"},
-              {\"test-type\":\"unit\",\"node-version\":\"20\",\"docs-env\":\"production\"},
-              {\"test-type\":\"e2e\",\"browser\":\"chromium\",\"docs-env\":\"localhost\"},
-              {\"test-type\":\"e2e\",\"browser\":\"firefox\",\"docs-env\":\"preview\"},
-              {\"test-type\":\"e2e\",\"browser\":\"webkit\",\"docs-env\":\"production\"},
-              {\"test-type\":\"visual\",\"browser\":\"chromium\",\"docs-env\":\"production\"},
-              {\"test-type\":\"performance\",\"browser\":\"chromium\",\"docs-env\":\"production\"}
-            ]}" >> $GITHUB_OUTPUT
+            echo 'matrix={"include":[{"test-type":"unit","node-version":"18","docs-env":"local"},{"test-type":"unit","node-version":"20","docs-env":"production"},{"test-type":"e2e","browser":"chromium","docs-env":"local"},{"test-type":"e2e","browser":"firefox","docs-env":"preview"},{"test-type":"e2e","browser":"webkit","docs-env":"production"},{"test-type":"visual","browser":"chromium","docs-env":"production"},{"test-type":"performance","browser":"chromium","docs-env":"production"}]}' >> $GITHUB_OUTPUT
           else
-            echo "matrix={\"include\":[
-              {\"test-type\":\"unit\",\"node-version\":\"20\",\"docs-env\":\"production\"}
-            ]}" >> $GITHUB_OUTPUT
+            echo 'matrix={"include":[{"test-type":"unit","node-version":"20","docs-env":"production"}]}' >> $GITHUB_OUTPUT
           fi
 
   enhanced-test-matrix:
@@ -112,7 +102,7 @@ jobs:
           export SHARD_TOTAL=2
           npx playwright test --project=${{ matrix.browser }} --reporter=json --reporter=junit
         env:
-          BASE_URL: ${{ matrix.docs-env == 'localhost' && 'http://localhost:3000' || matrix.docs-env == 'preview' && 'https://ifla-standards-preview.netlify.app' || 'https://standards.ifla.org' }}
+          BASE_URL: ${{ matrix.docs-env == 'local' && 'http://localhost:3000' || matrix.docs-env == 'preview' && 'https://ifla-standards-preview.netlify.app' || 'https://standards.ifla.org' }}
 
       # Visual regression testing
       - name: Run visual regression tests
@@ -121,7 +111,7 @@ jobs:
           export DOCS_ENV=${{ matrix.docs-env }}
           npx playwright test e2e/visual-regression-enhanced.spec.ts --project=${{ matrix.browser }} --reporter=json
         env:
-          BASE_URL: ${{ matrix.docs-env == 'localhost' && 'http://localhost:3000' || matrix.docs-env == 'preview' && 'https://ifla-standards-preview.netlify.app' || 'https://standards.ifla.org' }}
+          BASE_URL: ${{ matrix.docs-env == 'local' && 'http://localhost:3000' || matrix.docs-env == 'preview' && 'https://ifla-standards-preview.netlify.app' || 'https://standards.ifla.org' }}
 
       # Performance testing
       - name: Run performance tests
@@ -130,7 +120,7 @@ jobs:
           export DOCS_ENV=${{ matrix.docs-env }}
           npx playwright test e2e/performance.spec.ts --project=${{ matrix.browser }} --reporter=json
         env:
-          BASE_URL: ${{ matrix.docs-env == 'localhost' && 'http://localhost:3000' || matrix.docs-env == 'preview' && 'https://ifla-standards-preview.netlify.app' || 'https://standards.ifla.org' }}
+          BASE_URL: ${{ matrix.docs-env == 'local' && 'http://localhost:3000' || matrix.docs-env == 'preview' && 'https://ifla-standards-preview.netlify.app' || 'https://standards.ifla.org' }}
 
       # Upload test results
       - name: Upload test results
