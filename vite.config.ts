@@ -56,7 +56,7 @@ export default defineConfig({
             forks: {
                 singleFork: true, // Always use single fork
                 isolate: true,
-                maxWorkers: 1
+                maxForks: 3
             }
         },
         retry: 0, // Disable retries to avoid hanging
