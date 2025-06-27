@@ -63,7 +63,7 @@ if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "dev" ]; then
   
   # 3. Run configuration validation for all sites (fast, no build)
   echo "⚙️  Validating all site configurations..."
-  node scripts/test-site-builds.js --site all --env localhost --skip-build
+  node scripts/test-site-builds.js --site all --env local --skip-build
   if [ $? -ne 0 ]; then
     echo "❌ Site configuration validation failed."
     exit 1
@@ -104,7 +104,7 @@ else
   
   # 3. Configuration validation for affected sites (fast, no builds)
   echo "⚙️  Quick configuration validation..."
-  node scripts/test-site-builds-affected.js --env localhost --skip-build
+  node scripts/test-site-builds-affected.js --env local --skip-build
   if [ $? -ne 0 ]; then
     echo "❌ Configuration validation failed."
     exit 1
