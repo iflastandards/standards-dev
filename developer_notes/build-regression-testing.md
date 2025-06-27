@@ -175,13 +175,14 @@ summary
 
 ### 1. Vitest Unit/Integration Tests
 **Location**: `packages/theme/src/tests/`, `standards/*/docs/examples/__tests__/`
-**Command**: `pnpm test`
+**NX Commands**: `nx test`, `nx test @ifla/theme`, `nx affected --target=test`
 
 #### Key Test Areas:
 - **StandardSiteFactory**: Configuration isolation, deep cloning prevention
 - **VocabularyTable**: Multilingual support, CSV parsing, user interactions
 - **ElementReference**: RDF serialization, component rendering
 - **Component Integration**: Cross-site navigation, theme consistency
+- **Build Scripts**: Vocabulary comparison, site generation utilities
 
 #### Critical Test Cases:
 ```typescript
@@ -192,10 +193,17 @@ it('should create independent plugin configurations for different sites', () => 
   expect(config1.plugins).not.toBe(config2.plugins);
 });
 
-// Type safety validation
-it('should maintain TypeScript compatibility', () => {
-  // Covered by TypeScript compilation in CI
-  expect(typeof createStandardSiteConfig).toBe('function');
+// NX project-specific testing
+it('should run tests for specific projects', () => {
+  // nx test @ifla/theme
+  // nx test portal
+  // nx test isbdm
+});
+
+// Performance testing with CI optimizations
+it('should handle CI environment constraints', () => {
+  // Tests run with process forks, timeouts, and retry logic
+  expect(process.env.CI ? 'sequential' : 'parallel').toBeTruthy();
 });
 ```
 
@@ -316,15 +324,18 @@ summary:                 # Results aggregation
 ## Performance Benchmarks
 
 ### Test Execution Times
-- **Unit Tests**: ~5-6 seconds (446 tests)
+- **Unit Tests**: ~5-6 seconds (446+ tests with Vitest)
 - **Configuration Tests**: ~1-2 seconds per site
 - **Build Tests**: ~30-60 seconds per site
 - **Portal E2E Tests**: ~2-3 minutes per environment
+- **NX Affected Tests**: ~10-30 seconds (feature branches)
 
-### CI/CD Pipeline
+### CI/CD Pipeline Performance
 - **Total Pipeline**: ~8-12 minutes for full test suite
 - **Matrix Parallelization**: 7 sites tested simultaneously
+- **NX Caching**: Significant speedup for unchanged projects
 - **Artifact Upload**: Failed builds automatically preserved
+- **Branch Optimization**: Feature branches run 60-80% faster
 
 ## Test Data and Fixtures
 

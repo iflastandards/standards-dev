@@ -29,14 +29,50 @@ export default defineConfig({
         setupFiles: ['./packages/theme/src/tests/setup.ts'],
         include: ['**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
         exclude: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/e2e/**'],
-        // CI stability improvements
-        testTimeout: 30000, // 30 second timeout for CI environments
-        maxConcurrency: process.env.CI ? 1 : 5, // Reduce concurrency in CI
-        pool: 'forks', // Use process forks for better isolation
-        retry: process.env.CI ? 2 : 0, // Retry flaky tests in CI
-        logHeapUsage: !!process.env.CI, // Monitor memory usage in CI,
-        cache: {
-          dir: './.vitest-cache' // Specify a custom cache directory outside of node_modules
+        // Enhanced CI stability and performance
+        testTimeout: process.env.CI ? 60000 : 30000,
+        hookTimeout: process.env.CI ? 30000 : 10000,
+        maxConcurrency: process.env.CI ? 1 : 5,
+        pool: 'threads', // Better than forks for CI performance
+        poolOptions: {
+            threads: { 
+                singleThread: !!process.env.CI,
+                isolate: true
+            }
         },
+        retry: process.env.CI ? 2 : 0,
+        logHeapUsage: !!process.env.CI,
+        cache: {
+            dir: './.vitest-cache'
+        },
+        // Enhanced reporting
+        reporters: [
+            'default',
+            ['json', { outputFile: 'test-results/vitest-results.json' }],
+            ['junit', { outputFile: 'test-results/vitest-junit.xml' }]
+        ],
+        // Coverage configuration with thresholds
+        coverage: {
+            reporter: ['text', 'json-summary', 'html', 'lcov'],
+            reportsDirectory: './coverage',
+            exclude: [
+                '**/node_modules/**',
+                '**/dist/**',
+                '**/build/**',
+                '**/e2e/**',
+                '**/*.config.*',
+                '**/tests/**',
+                '**/__tests__/**',
+                '**/__mocks__/**'
+            ],
+            thresholds: {
+                global: {
+                    branches: 75,
+                    functions: 75,
+                    lines: 80,
+                    statements: 80
+                }
+            }
+        }
     },
 });

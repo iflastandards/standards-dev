@@ -6,22 +6,26 @@ This guide covers comprehensive testing strategies for IFLA vocabulary pages usi
 
 ### Running Unit Tests
 ```bash
-# Run specific vocabulary page tests
-cd standards/ISBDM
-pnpm test sensory-vocabulary-integration.test.tsx
+# NX-based testing (recommended)
+nx test isbdm                                    # All ISBDM tests
+nx test @ifla/theme                              # Theme package tests
+nx affected --target=test                       # Only affected tests
 
-# Run all tests
-pnpm test
+# Legacy commands (still work)
+pnpm test                                        # All unit tests
+pnpm test packages/theme/src/tests/components/VocabularyTable/
 ```
 
 ### Running E2E Tests
 ```bash
-# Start dev server first
-pnpm dev
+# NX E2E commands
+nx run isbdm:e2e                                # ISBDM E2E tests
+nx run standards-dev:e2e                        # Full E2E suite
+nx run standards-dev:e2e:ui                     # Interactive mode
 
-# In another terminal, run E2E tests
-cd standards/ISBDM
-npx playwright test sensory-test-vocabulary.e2e.test.ts
+# Direct Playwright commands
+npx playwright test e2e/vocabulary-functionality.spec.ts
+npx playwright test --project=chromium --headed
 ```
 
 ## Test Architecture

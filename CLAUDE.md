@@ -12,6 +12,33 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Type checking**: `pnpm typecheck`
 - **Linting**: `pnpm lint`
 
+### Testing Commands
+
+#### NX Testing Commands
+- **All unit tests**: `nx test` or `nx run-many --target=test --all`
+- **Specific project tests**: `nx test @ifla/theme` or `nx test portal`
+- **Affected tests only**: `nx affected --target=test`
+- **Test with UI**: `nx test --ui` (opens Vitest UI)
+- **Watch mode**: `nx test --watch`
+
+#### E2E Testing Commands  
+- **All E2E tests**: `nx run standards-dev:e2e` or `pnpm test:e2e`
+- **Specific site E2E**: `nx run portal:e2e` or `nx run isbdm:e2e`
+- **E2E with UI**: `nx run standards-dev:e2e:ui`
+- **Site validation**: `nx run standards-dev:e2e:site-validation`
+- **Environment-specific**: `nx run standards-dev:e2e:site-validation:production`
+
+#### Build & Configuration Testing
+- **Config validation**: `node scripts/test-site-builds.js --site all --env localhost --skip-build`
+- **Full build tests**: `node scripts/test-site-builds.js --site all --env production`
+- **Affected builds**: `nx run standards-dev:build-affected`
+- **Build validation**: `nx run standards-dev:validate:builds`
+
+#### Comprehensive Test Suites
+- **Pre-commit**: `pnpm test:pre-commit` (typecheck + lint + test + config)
+- **Regression**: `nx run standards-dev:regression:full`
+- **Fast regression**: `nx run standards-dev:regression:fast`
+
 ### Build System Architecture
 - **Nx monorepo** with workspace-level coordination
 - **Docusaurus v3.8** for all site generation
@@ -134,3 +161,224 @@ Adding `experimental_faster: true` to Docusaurus `future` config completely fixe
 ### Evidence Pattern
 - **Acceptable broken links**: `/site/intro` (correct baseURL, missing page)
 - **Problematic broken links**: `/wrong-site/intro` (wrong baseURL, configuration contamination)
+
+## Testing Infrastructure
+
+### Test Framework Overview
+- **Unit/Integration**: Vitest with React Testing Library (446+ tests)
+- **E2E**: Playwright across multiple browsers and environments  
+- **Build Testing**: Custom Node.js scripts for configuration and build validation
+- **Visual Regression**: Playwright-based screenshot comparison
+
+### Unit Tests (Vitest + RTL)
+
+#### NX Commands
+```bash
+# All projects unit tests
+nx test
+nx run-many --target=test --all
+
+# Specific project testing
+nx test @ifla/theme              # Theme package tests
+nx test portal                   # Portal site tests  
+nx test isbdm                    # ISBDM standard tests
+
+# Development workflow
+nx test --watch                  # Watch mode
+nx test --ui                     # Open Vitest UI
+nx affected --target=test        # Only test affected projects
+```
+
+#### Configuration: `vite.config.ts`
+- **Environment**: jsdom with comprehensive Docusaurus mocks
+- **Setup**: `packages/theme/src/tests/setup.ts` with testing-library/jest-dom
+- **Aliases**: Complete Docusaurus module aliasing in `resolve.alias`
+- **CI Optimizations**: Process forks, timeout increases, retry logic
+
+#### Key Test Areas
+- **Component Testing**: VocabularyTable, ElementReference, SiteLink components
+- **Configuration Testing**: StandardSiteFactory isolation, environment handling
+- **Integration Testing**: Cross-component workflows, API integrations
+- **Script Testing**: Build scripts, vocabulary comparison tools
+
+### E2E Tests (Playwright)
+
+#### NX E2E Targets
+```bash
+# Workspace-level E2E
+nx run standards-dev:e2e              # Full E2E suite
+nx run standards-dev:e2e:ui           # Interactive mode
+nx run standards-dev:e2e:site-validation   # Site validation only
+
+# Project-specific E2E  
+nx run portal:e2e                     # Portal smoke tests
+nx run isbdm:e2e                      # ISBDM + vocabulary tests
+
+# Environment-specific validation
+nx run standards-dev:e2e:site-validation:production
+nx run standards-dev:e2e:site-validation:preview
+```
+
+#### Multi-Browser Testing
+```bash
+# Run across all browsers (Chromium, Firefox, WebKit, Mobile)
+npx playwright test
+
+# Specific browser projects
+npx playwright test --project=chromium
+npx playwright test --project="Mobile Chrome"
+
+# Debug and development
+npx playwright test --debug          # Step through tests
+npx playwright test --headed         # Watch execution
+npx playwright test --ui             # Interactive UI
+```
+
+#### Configuration: `playwright.config.ts`
+- **Auto-server**: Starts `pnpm start:all` for local development
+- **CI Optimization**: Sequential execution, retry logic
+- **Multi-device**: Desktop and mobile viewport testing
+- **Reporting**: HTML reports with failure artifacts
+
+### Build & Configuration Testing
+
+#### Site Build Validation
+```bash
+# NX build testing
+nx run standards-dev:build-all        # All sites parallel build
+nx run standards-dev:build-affected   # Only affected sites
+nx run standards-dev:validate:builds  # Post-build validation
+
+# Script-based testing
+node scripts/test-site-builds.js --site all --env production
+node scripts/test-site-builds.js --site portal --env localhost --skip-build
+```
+
+#### Comprehensive Test Suites
+```bash
+# Pre-commit suite (automatic)
+pnpm test:pre-commit
+# ✅ TypeScript checking
+# ✅ ESLint validation  
+# ✅ Unit tests
+# ✅ Configuration validation
+
+# Regression testing
+nx run standards-dev:regression:full
+# ✅ All checks above + builds + E2E
+
+nx run standards-dev:regression:fast  
+# ✅ Affected-only testing for feature branches
+```
+
+### Advanced Testing Features
+
+#### Performance & Memory Optimization
+- **CI Stability**: Reduced concurrency, process isolation
+- **Custom Cache**: Vitest cache in `./.vitest-cache`
+- **Memory Monitoring**: Heap usage tracking in CI
+- **Retry Logic**: Automatic retry for flaky tests
+
+#### Visual Regression Testing
+```bash
+# Screenshot comparison
+npx playwright test e2e/visual-regression.spec.ts
+
+# Update baselines when UI changes
+npx playwright test e2e/visual-regression.spec.ts --update-snapshots
+```
+
+#### Test File Organization
+```
+packages/theme/src/tests/
+├── components/                    # Component unit tests
+├── config/                        # Configuration tests  
+├── scripts/                       # Build script tests
+├── fixtures/                      # Test data and mocks
+├── __mocks__/                     # Docusaurus mocks
+└── setup.ts                       # Test environment setup
+
+e2e/
+├── site-validation.spec.ts        # Comprehensive site validation
+├── visual-regression.spec.ts      # UI screenshot tests
+└── portal-smoke.spec.ts           # Portal-specific tests
+```
+
+### Git Hooks and Automated Testing
+
+#### Pre-commit Hook (`.husky/pre-commit`)
+**Fast feedback** - runs automatically on every `git commit`:
+```bash
+# TypeScript type checking
+pnpm typecheck
+
+# ESLint code quality validation
+pnpm lint --quiet
+
+# Unit/integration tests
+pnpm test --run
+
+# Configuration validation (no builds)
+node scripts/test-site-builds.js --site all --env local --skip-build
+```
+
+#### Pre-push Hook (`.husky/pre-push-optimized`)
+**Branch-aware testing** - runs automatically on `git push`:
+
+**Protected branches (main/dev)**:
+- Complete regression testing with E2E
+- Full production build validation
+- Cross-site link verification
+
+**Feature branches**:
+- NX affected testing only
+- Fast configuration validation
+- Representative build testing
+
+#### NX Test Targets by Project
+Each project includes standardized targets:
+- **`test`**: Vitest unit/integration tests
+- **`typecheck`**: TypeScript compilation validation
+- **`build`**: Production build verification
+- **`e2e`**: Playwright end-to-end tests (where applicable)
+
+### Testing Best Practices
+
+#### Development Workflow
+```bash
+# Quick development validation (< 30 seconds)
+nx affected --target=test --parallel=3
+pnpm typecheck && pnpm lint --quiet
+
+# Pre-commit equivalent (manual)
+pnpm test:pre-commit
+
+# Comprehensive testing (2-5 minutes)
+nx run standards-dev:regression:full
+```
+
+#### CI/CD Integration
+- **Parallel execution**: Matrix builds across all sites
+- **Smart caching**: NX workspace cache optimization
+- **Artifact preservation**: Failed builds saved for debugging
+- **Environment testing**: Multi-environment validation
+
+#### Test File Standards
+```
+# Component tests
+packages/theme/src/tests/components/VocabularyTable/
+├── VocabularyTable.test.tsx
+├── LanguageSelector.test.tsx
+└── fixtures/
+
+# Integration tests  
+packages/theme/src/tests/config/
+├── standardSiteFactory.test.ts
+└── siteConfigCore.test.ts
+
+# E2E tests
+e2e/
+├── site-validation.spec.ts
+├── portal-smoke.spec.ts
+└── vocabulary-functionality.spec.ts
+```
