@@ -106,6 +106,7 @@
     "nx:performance": "node scripts/nx-performance-check.js",
     "nx:graph": "nx graph",
     "nx:affected": "nx affected --target=build --dry-run",
+    "test:visual-regression": "playwright test --config=playwright-snapshots.config.ts",
     "test:regression:optimized": "node scripts/test-site-builds-optimized.js --mode smart",
     "test:regression:fast": "node scripts/test-site-builds-optimized.js --mode fast --skip-build",
     "test:regression:affected": "node scripts/test-site-builds-optimized.js --affected-only",

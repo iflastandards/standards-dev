@@ -24,7 +24,7 @@
       "executor": "@nx/vite:test",
       "options": {
         "config": "{workspaceRoot}/vite.config.ts",
-        "testPathPattern": "packages/theme/src/tests"
+        "testPathPattern": ["packages/theme/src/tests", "packages/theme/src/components/**/__tests__"]
       },
       "outputs": ["{projectRoot}/coverage"],
       "cache": true

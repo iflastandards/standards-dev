@@ -1,63 +1,136 @@
-- remember that we're using pnpm in this project
-- this is the command to build a single standards: pnpm build standards/{name}
-- NEVER hard code navigation links. Always use links that can resolve regardless of base url
-- offer to add to git, create a commit message, and commit if I say yes/ok
-- always test and pass tests before offering to commit. We're not done until tests pass. If there's no formal re-runnable test, offer to make one
-- we're using vitest as a test runner
-- use puppeteer for interface testing when useful
-- when you're searching for missing code, recursively search /Users/jonphipps/Code/IFLA/standards-dev first, then search the git repo history and and branches, then recuresively search /Users/jonphipps/Code/IFLA/
-- when writing scripts that need to use the url of a site for navigation, validation, or any purpose that equates a site with a url, use the configuration from this file: /Users/jonphipps/Code/IFLA/standards-dev/packages/theme/src/config/siteConfigCore.ts
-- if you need to start a server or build ask me to do it and tell you when it's running so you don't waste time waiting for it to load and timeout
-- when planning a complex project, break down the plan into epics and tasks to create a clear roadmap and track progress systematically
-- warn me when you start up if your environment isn't set to the project root
-- ALWAYS Use context7 and look for code examples at the beginning of a coding session
-- ALWAYS consult the docusaurus v3.8 documentation at https://docusaurus.io/docs during planning to identify best parctices and correct architecture
-- remember to always run tests with --skip-nx-cache
-- for generating individual site configs, use the script: /Users/jonphipps/Code/IFLA/standards-dev/scripts/generate-individual-config.ts
+# CLAUDE.md
 
-## Key Insights for Docusaurus Navigation and Configuration:
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-  1. customFields is the ONLY safe place for arbitrary site-specific data
-  2. Docusaurus validates config schema - unknown root fields cause build errors
-  3. customFields data is globally accessible via Docusaurus context throughout the site
+## Core Development Workflows
 
-- The environment can only be set and used in docusaurus.config.ts to retrieve url and baeurl for the current environment and set the siteconfigmap in customfields
-- we never use or get the environment setting outside of docusaurus.config.ts. In docusauru.config.ts we store the siteconfigmap in customfields for retieving the url and baseurl of sister sites if necessary
+### Essential Commands
+- **Package manager**: Always use `pnpm` (never npm or yarn)
+- **Build single site**: `pnpm build standards/{name}` or `nx build {name}`
+- **Start dev server**: `pnpm start:{site}` (e.g., `pnpm start:portal`, `pnpm start:isbdm`)
+- **Test execution**: `pnpm test --skip-nx-cache` (always skip nx cache for tests)
+- **Type checking**: `pnpm typecheck`
+- **Linting**: `pnpm lint`
 
-## Broken Links Issue Pattern:
+### Build System Architecture
+- **Nx monorepo** with workspace-level coordination
+- **Docusaurus v3.8** for all site generation
+- **Build targets**: Each site is an independent Nx project with its own build target
+- **Theme package**: Custom `@ifla/theme` package provides shared components and configuration
 
-**ACCEPTABLE broken links** (normal/expected):
-- Links within the correct baseURL that point to non-existent pages
-- Example from unimarc site: /unimarc/intro, /unimarc/elements, /unimarc/examples, /unimarc/rdf/ttl/unimarc.ttl etc.
-- These are placeholders for future content - baseURL is correct, just missing pages
+### Site Configuration System
+The project recently migrated (December 2024) from shared-config to **self-contained configurations**:
 
-**PROBLEMATIC broken links** (misconfiguration):
-- Links pointing to WRONG baseURL/site 
-- Example from muldicat site: links pointing to /unimarc/ instead of /muldicat/
-- These indicate site configuration errors where one site is using another site's navigation/footer links
-- Pattern: muldicat site linking to /unimarc/ URLs instead of /muldicat/ URLs
+- **Configuration source**: `packages/theme/src/config/siteConfig.ts` (single source of truth)
+- **Environment handling**: Set via `DOCS_ENV` environment variable (local, preview, development, production)
+- **Inter-site navigation**: Use `SiteLink` component from theme, never hardcode URLs
+- **Site generation**: Use `scripts/generate-individual-config.ts` for creating new site configs
 
-**Root cause**: CRITICAL - Static state contamination in shared modules, NOT concurrency-related.
-**Issue discovered**: Even with --parallel=1 (sequential builds), sites still get contaminated with each other's configurations.
-**Evidence**: 
-- Isolated builds work correctly (muldicat builds with correct config)
-- 2-site concurrent builds work correctly (unimarc/LRM both build correctly)  
-- Full 9-site builds (even sequential) cause contamination (unimarc links to /LRM/, portal links to /muldicat/)
-**CRITICAL UPDATE**: The contamination occurs regardless of concurrency level, indicating module-level static state contamination in shared-config or theme packages.
-**SOLUTION FOUND**: Adding `experimental_faster: true` to the Docusaurus `future` config section completely fixes the static state contamination issue. This enables Docusaurus's experimental faster builds with better module isolation.
-
-## Static State Contamination Fix:
-
-**CRITICAL**: All site configs MUST include this in the future section to prevent cross-site contamination:
+### Critical Build Configuration
+**REQUIRED for all sites** - Include this in every `docusaurus.config.ts`:
 ```typescript
 future: {
   v4: true,
-  experimental_faster: true,  // REQUIRED: Fixes static state contamination
+  experimental_faster: true,  // CRITICAL: Fixes static state contamination
 },
 ```
 
-**What this fixes**:
-- Sites no longer inherit configuration from previously built sites
-- Each build is properly isolated with its own state
-- Broken links now point to correct baseURL (e.g., isbd links to /isbd/ not /LRM/)
-- Enables safe concurrent builds without cross-contamination
+This prevents cross-site contamination during builds where sites inherit each other's configurations.
+
+## Project Architecture
+
+### Monorepo Structure
+```
+standards-dev/
+├── portal/                    # Main IFLA portal site
+├── standards/{site}/          # Individual standard documentation sites
+├── packages/theme/            # Custom Docusaurus theme with shared components
+├── scripts/                   # Build automation and site generation scripts
+└── developer_notes/           # Architecture documentation
+```
+
+### Site Types and Patterns
+1. **Portal** (`portal/`): Main landing site with management interface
+2. **Standards** (`standards/{name}/`): Individual standard documentation (ISBDM, LRM, FRBR, isbd, muldicat, unimarc)
+3. **All sites** use the same theme package but have unique configurations
+
+### Key Configuration Patterns
+
+#### Site Config Generation
+- **Template system**: `scripts/site-template.ts` generates complete site configurations
+- **Individual configs**: Each site has a `site-config.json` defining its unique properties
+- **Feature flags**: Support for custom sidebars, element redirects, RDF downloads, etc.
+
+#### Environment and Navigation
+- **Docusaurus customFields**: Only safe place for site-specific data (validated by Docusaurus schema)
+- **Environment isolation**: DOCS_ENV only used in `docusaurus.config.ts`, stored in customFields for component access
+- **SiteConfigMap**: Available to all components via Docusaurus context for inter-site navigation
+
+## Development Guidelines
+
+### Testing Strategy
+- **Pre-commit**: TypeScript, ESLint, unit tests run automatically
+- **Pre-push**: Build regression tests (branch-aware) run automatically  
+- **Test runner**: Vitest for unit/integration tests
+- **E2E testing**: Puppeteer for interface testing when needed
+- **Always test before commits**: Tests must pass before offering to commit
+
+### Content and Navigation Rules
+- **Never hardcode URLs**: Always use SiteLink component or configuration-based URLs
+- **Broken links categorization**:
+  - *Acceptable*: Links within correct baseURL to non-existent pages (future content)
+  - *Problematic*: Links pointing to wrong baseURL/site (configuration errors)
+
+### Complex Project Management
+- **Planning approach**: Break complex projects into epics and tasks
+- **Progress tracking**: Use TodoWrite/TodoRead tools for systematic tracking
+- **Documentation**: Always consult Docusaurus v3.8 docs during planning
+
+### Search and Code Discovery
+- **Search priority**: Search `/Users/jonphipps/Code/IFLA/standards-dev` first, then git history/branches, then `/Users/jonphipps/Code/IFLA/`
+- **Site URL references**: Use `/Users/jonphipps/Code/IFLA/standards-dev/packages/theme/src/config/siteConfig.ts` for URL configuration
+- **Context7 integration**: Always use Context7 for code examples at session start
+
+### Deployment and Build Management
+- **Server coordination**: Ask user to start servers/builds rather than waiting for timeouts
+- **Environment awareness**: Warn when environment isn't set to project root
+- **Nx optimization**: Use `--skip-nx-cache` for reliable test runs
+
+## Vocabulary and Content Management
+
+### RDF and Vocabulary Systems
+- **Vocabulary generation**: `pnpm vocabulary:create` for creating vocabulary sheets
+- **RDF export**: `pnpm vocab:release` for RDF generation
+- **CSV validation**: Vocabulary tables support CSV profile validation
+
+### Content Validation
+- **Site links**: `pnpm validate:site-links`
+- **Navigation**: `pnpm validate:navigation` 
+- **Environment URLs**: `pnpm validate:env-urls`
+
+## Site-Specific Features
+
+### ISBDM (Complex Configuration)
+- **Custom sidebar generator**: Filters out index.mdx files automatically
+- **Element redirects**: Redirects `/docs/elements/{id}` from legacy paths
+- **Complex navbar**: Multi-level dropdown navigation structure
+
+### Portal (Management Interface)
+- **Site management**: Central dashboard for all IFLA sites
+- **GitHub integration**: Direct links to projects, issues, PRs
+- **Team management**: Organization-level tools
+
+## Static State Contamination (Critical Issue)
+
+### Problem
+Multi-site builds can cause sites to inherit configuration from previously built sites, resulting in incorrect navigation links.
+
+### Root Cause
+Module-level static state contamination in shared modules, occurring regardless of concurrency level.
+
+### Solution
+Adding `experimental_faster: true` to Docusaurus `future` config completely fixes the issue by enabling better module isolation.
+
+### Evidence Pattern
+- **Acceptable broken links**: `/site/intro` (correct baseURL, missing page)
+- **Problematic broken links**: `/wrong-site/intro` (wrong baseURL, configuration contamination)

@@ -34,6 +34,9 @@ export default defineConfig({
         maxConcurrency: process.env.CI ? 1 : 5, // Reduce concurrency in CI
         pool: 'forks', // Use process forks for better isolation
         retry: process.env.CI ? 2 : 0, // Retry flaky tests in CI
-        logHeapUsage: !!process.env.CI, // Monitor memory usage in CI
+        logHeapUsage: !!process.env.CI, // Monitor memory usage in CI,
+        cache: {
+          dir: './.vitest-cache' // Specify a custom cache directory outside of node_modules
+        },
     },
 });
