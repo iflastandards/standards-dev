@@ -18,7 +18,7 @@ test.describe('Environment Configuration Tests', () => {
     expect(docsEnvMatch, 'DOCS_ENV should be set in root .env').toBeTruthy();
     
     const docsEnvValue = docsEnvMatch![1].trim();
-    const validValues = ['local', 'localhost', 'preview', 'dev', 'production'];
+    const validValues = ['local', 'preview', 'development', 'production'];
     expect(validValues, `DOCS_ENV value '${docsEnvValue}' should be valid`).toContain(docsEnvValue);
   });
 

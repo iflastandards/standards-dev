@@ -6,11 +6,11 @@ on:
       environment:
         description: 'Environment to test'
         required: true
-        default: 'dev'
+        default: 'development'
         type: choice
         options:
-          - localhost
-          - dev
+          - local
+          - development
           - preview
           - production
       test_affected_only:
@@ -78,18 +78,18 @@ jobs:
             echo "has-sites=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Build sites for localhost testing
-        if: inputs.environment == 'localhost' && steps.sites.outputs.has-sites == 'true'
+      - name: Build sites for local testing
+        if: inputs.environment == 'local' && steps.sites.outputs.has-sites == 'true'
         run: |
           if [ "${{ inputs.test_affected_only }}" = "true" ]; then
             echo "Building affected sites only..."
-            nx affected --target=build --parallel=1 --configuration=localhost
+            nx affected --target=build --parallel=1 --configuration=local
           else
             echo "Building all sites..."
-            nx run-many --target=build --all --parallel=1 --configuration=localhost
+            nx run-many --target=build --all --parallel=1 --configuration=local
           fi
         env:
-          DOCS_ENV: localhost
+          DOCS_ENV: local
 
       - name: Install Playwright Browsers
         if: steps.sites.outputs.has-sites == 'true'

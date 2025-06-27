@@ -86,12 +86,12 @@ jobs:
         if: steps.affected.outputs.has-affected == 'true'
         run: |
           if [ "${{ inputs.force_build_all }}" = "true" ]; then
-            nx run-many --target=build --all --parallel=1 --configuration=dev
+            nx run-many --target=build --all --parallel=1 --configuration=development
           else
-            nx affected --target=build --parallel=1 --configuration=dev
+            nx affected --target=build --parallel=1 --configuration=development
           fi
         env:
-          DOCS_ENV: dev
+          DOCS_ENV: development
           NODE_ENV: production
           BASE_URL_PREFIX: /standards-dev/
 

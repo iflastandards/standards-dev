@@ -39,7 +39,7 @@ test.describe('DOCS_ENV Validation Tests', () => {
   });
 
   test('should accept valid DOCS_ENV values', async () => {
-    const validValues = ['local', 'localhost', 'preview', 'dev', 'production'];
+    const validValues = ['local', 'preview', 'development', 'production'];
     const originalDocsEnv = process.env.DOCS_ENV;
     
     for (const validValue of validValues) {
@@ -65,9 +65,8 @@ test.describe('DOCS_ENV Validation Tests', () => {
   test('should map DOCS_ENV values correctly', async () => {
     const mappings = {
       'local': 'local',
-      'localhost': 'local', 
       'preview': 'preview',
-      'dev': 'development',
+      'development': 'development',
       'production': 'production'
     };
     
