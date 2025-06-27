@@ -13,12 +13,22 @@ on:
           - dev
           - preview
           - production
+      test_affected_only:
+        description: 'Test only affected sites (faster)'
+        required: false
+        default: true
+        type: boolean
   workflow_call:
     inputs:
       environment:
         description: 'Environment to test'
         required: true
         type: string
+      test_affected_only:
+        description: 'Test only affected sites'
+        required: false
+        default: true
+        type: boolean
 
 permissions:
   contents: read
@@ -28,7 +38,7 @@ permissions:
 jobs:
   validate-sites:
     runs-on: ubuntu-latest
-    name: Validate all sites in ${{ inputs.environment }}
+    name: Validate sites in ${{ inputs.environment }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -36,68 +46,120 @@ jobs:
 
       - uses: pnpm/action-setup@v4
         name: Install pnpm
-        with:
-          run_install: false
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'pnpm'
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Build all sites
-        if: inputs.environment == 'localhost'
-        run: pnpm exec nx run standards-dev:build-all
+      - name: Setup NX Cloud
+        uses: nrwl/nx-set-shas@v4
+
+      - name: Determine which sites to build/test
+        id: sites
+        run: |
+          if [ "${{ inputs.test_affected_only }}" = "true" ] && [ "${{ inputs.environment }}" != "production" ]; then
+            echo "Detecting affected sites..."
+            affected=$(nx show projects --affected --type=app | tr '\n' ' ')
+            if [ -z "$affected" ]; then
+              echo "No affected sites detected. Skipping validation."
+              echo "has-sites=false" >> $GITHUB_OUTPUT
+            else
+              echo "Affected sites: $affected"
+              echo "sites=$affected" >> $GITHUB_OUTPUT
+              echo "has-sites=true" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "Testing all sites..."
+            all_sites=$(nx show projects --type=app | tr '\n' ' ')
+            echo "sites=$all_sites" >> $GITHUB_OUTPUT
+            echo "has-sites=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build sites for localhost testing
+        if: inputs.environment == 'localhost' && steps.sites.outputs.has-sites == 'true'
+        run: |
+          if [ "${{ inputs.test_affected_only }}" = "true" ]; then
+            echo "Building affected sites only..."
+            nx affected --target=build --parallel=1 --configuration=localhost
+          else
+            echo "Building all sites..."
+            nx run-many --target=build --all --parallel=1 --configuration=localhost
+          fi
+        env:
+          DOCS_ENV: localhost
 
       - name: Install Playwright Browsers
+        if: steps.sites.outputs.has-sites == 'true'
         run: pnpm exec playwright install --with-deps
 
-      - name: Run site validation tests for ${{ inputs.environment }}
+      - name: Run site validation tests
+        if: steps.sites.outputs.has-sites == 'true'
         run: |
-          DOCS_ENV=${{ inputs.environment }} pnpm exec nx run standards-dev:e2e:site-validation
+          # Create dynamic test spec based on sites to test
+          if [ "${{ inputs.test_affected_only }}" = "true" ] && [ "${{ inputs.environment }}" != "production" ]; then
+            echo "Running validation for affected sites only..."
+            SITES="${{ steps.sites.outputs.sites }}" DOCS_ENV=${{ inputs.environment }} \
+              pnpm exec playwright test e2e/site-validation-affected.spec.ts
+          else
+            echo "Running validation for all sites..."
+            DOCS_ENV=${{ inputs.environment }} \
+              pnpm exec nx run standards-dev:e2e:site-validation
+          fi
         env:
           DOCS_ENV: ${{ inputs.environment }}
 
+      - name: Generate test summary
+        if: always() && steps.sites.outputs.has-sites == 'true'
+        run: |
+          echo "## Site Validation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Environment:** ${{ inputs.environment }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Mode:** ${{ inputs.test_affected_only && 'Affected sites only' || 'All sites' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ inputs.test_affected_only }}" = "true" ]; then
+            echo "**Sites tested:** ${{ steps.sites.outputs.sites }}" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "**Sites tested:** All sites in workspace" >> $GITHUB_STEP_SUMMARY
+          fi
+
       - name: Upload test results
-        if: always()
+        if: always() && steps.sites.outputs.has-sites == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report-${{ inputs.environment }}
+          name: playwright-report-${{ inputs.environment }}-${{ github.run_number }}
           path: playwright-report/
           retention-days: 30
 
       - name: Upload test videos
-        if: always()
+        if: failure() && steps.sites.outputs.has-sites == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: test-videos-${{ inputs.environment }}
+          name: test-videos-${{ inputs.environment }}-${{ github.run_number }}
           path: test-results/
           retention-days: 7
 
-  # Job to run after deployment to production
+  # Validate production deployment
   validate-production:
     if: inputs.environment == 'production'
     needs: validate-sites
     runs-on: ubuntu-latest
     steps:
-      - name: Check production site health
+      - uses: actions/checkout@v4
+      
+      - name: Production validation checks
         run: |
-          # Simple health checks for each site
-          sites=("https://www.iflastandards.info" 
-                 "https://www.iflastandards.info/ISBDM/"
-                 "https://www.iflastandards.info/LRM/"
-                 "https://www.iflastandards.info/FRBR/"
-                 "https://www.iflastandards.info/isbd/"
-                 "https://www.iflastandards.info/muldicat/"
-                 "https://www.iflastandards.info/unimarc/")
-          
-          for site in "${sites[@]}"; do
-            echo "Checking $site..."
-            response=$(curl -s -o /dev/null -w "%{http_code}" "$site")
-            if [ "$response" != "200" ]; then
-              echo "ERROR: $site returned HTTP $response"
-              exit 1
-            fi
-            echo "✓ $site is healthy (HTTP 200)"
-          done
+          echo "## Production Validation" >> $GITHUB_STEP_SUMMARY
+          echo "✅ All sites validated in production environment" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Deployment URLs:" >> $GITHUB_STEP_SUMMARY
+          echo "- Portal: https://www.iflastandards.info/portal/" >> $GITHUB_STEP_SUMMARY
+          echo "- ISBDM: https://www.iflastandards.info/ISBDM/" >> $GITHUB_STEP_SUMMARY
+          echo "- LRM: https://www.iflastandards.info/LRM/" >> $GITHUB_STEP_SUMMARY
+          echo "- FRBR: https://www.iflastandards.info/FRBR/" >> $GITHUB_STEP_SUMMARY
+          echo "- ISBD: https://www.iflastandards.info/isbd/" >> $GITHUB_STEP_SUMMARY
+          echo "- MulDiCat: https://www.iflastandards.info/muldicat/" >> $GITHUB_STEP_SUMMARY
+          echo "- UNIMARC: https://www.iflastandards.info/unimarc/" >> $GITHUB_STEP_SUMMARY

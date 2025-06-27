@@ -17,77 +17,65 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required for NX affected
+
       - uses: pnpm/action-setup@v4
+      
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'pnpm'
+          
       - run: pnpm install --no-frozen-lockfile
 
-      - name: Build theme package
-        run: pnpm run build:theme
+      - name: Set NX SHAs for affected detection
+        uses: nrwl/nx-set-shas@v4
+        if: github.event_name == 'pull_request' && inputs.force_build_all != 'true'
 
-      - name: Build portal
-        run: pnpm exec docusaurus build portal
+      - name: Build affected or all sites
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ] && [ "${{ inputs.force_build_all }}" != "true" ]; then
+            echo "Building affected sites only..."
+            nx affected --target=build --parallel=1 --configuration=preview
+          else
+            echo "Building all sites..."
+            nx run-many --target=build --all --parallel=1 --configuration=preview
+          fi
         env:
-          BASE_URL: /standards-dev/portal/
-          NODE_ENV: production
           DOCS_ENV: preview
-          
-      - name: Build ISBDM
-        run: pnpm exec docusaurus build standards/ISBDM
-        env:
-          BASE_URL: /standards-dev/ISBDM/
+          BASE_URL_PREFIX: /standards-dev/
           NODE_ENV: production
-          DOCS_ENV: preview
-          
-      - name: Build LRM
-        run: pnpm exec docusaurus build standards/LRM
-        env:
-          BASE_URL: /standards-dev/LRM/
-          NODE_ENV: production
-          DOCS_ENV: preview
-          
-      - name: Build ISBD
-        run: pnpm exec docusaurus build standards/isbd
-        env:
-          BASE_URL: /standards-dev/isbd/
-          NODE_ENV: production
-          DOCS_ENV: preview
-          
-      - name: Build FRBR
-        run: pnpm exec docusaurus build standards/FRBR
-        env:
-          BASE_URL: /standards-dev/FRBR/
-          NODE_ENV: production
-          DOCS_ENV: preview
-          
-      - name: Build MulDiCat
-        run: pnpm exec docusaurus build standards/muldicat
-        env:
-          BASE_URL: /standards-dev/muldicat/
-          NODE_ENV: production
-          DOCS_ENV: preview
-          
-      - name: Build UNIMARC
-        run: pnpm exec docusaurus build standards/unimarc
-        env:
-          BASE_URL: /standards-dev/unimarc/
-          NODE_ENV: production
-          DOCS_ENV: preview
-          
-      - name: Combine builds
+
+      - name: Combine builds using NX project graph
         run: |
           mkdir -p build
-          cp -r portal/build/* build/
-          mkdir -p build/portal && cp -r portal/build/* build/portal/
-          mkdir -p build/ISBDM && cp -r standards/ISBDM/build/* build/ISBDM/
-          mkdir -p build/LRM && cp -r standards/LRM/build/* build/LRM/
-          mkdir -p build/isbd && cp -r standards/isbd/build/* build/isbd/
-          mkdir -p build/FRBR && cp -r standards/FRBR/build/* build/FRBR/
-          mkdir -p build/muldicat && cp -r standards/muldicat/build/* build/muldicat/
-          mkdir -p build/unimarc && cp -r standards/unimarc/build/* build/unimarc/
+          
+          # Get all built projects dynamically
+          for project in $(nx show projects --type=app); do
+            # Determine project path
+            if [ "$project" = "portal" ]; then
+              project_path="portal"
+            else
+              project_path="standards/${project}"
+            fi
+            
+            # Check if build exists for this project
+            if [ -d "${project_path}/build" ]; then
+              echo "Copying build for $project..."
+              if [ "$project" = "portal" ]; then
+                # Portal goes to root and /portal
+                cp -r ${project_path}/build/* build/ 2>/dev/null || true
+                mkdir -p build/portal
+                cp -r ${project_path}/build/* build/portal/
+              else
+                # Standards go to their respective folders
+                mkdir -p build/${project}
+                cp -r ${project_path}/build/* build/${project}/
+              fi
+            fi
+          done
           
       - name: Deploy to gh-pages
         if: github.ref == 'refs/heads/main'

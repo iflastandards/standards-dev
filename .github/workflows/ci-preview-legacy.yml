@@ -1,0 +1,97 @@
+name: build-preview
+on: 
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      force_build_all:
+        description: 'Force build all sites'
+        required: false
+        default: 'true'
+        type: boolean
+permissions: {contents: write}
+jobs:
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+      - run: pnpm install --no-frozen-lockfile
+
+      - name: Build theme package
+        run: pnpm run build:theme
+
+      - name: Build portal
+        run: pnpm exec docusaurus build portal
+        env:
+          BASE_URL: /standards-dev/portal/
+          NODE_ENV: production
+          DOCS_ENV: preview
+          
+      - name: Build ISBDM
+        run: pnpm exec docusaurus build standards/ISBDM
+        env:
+          BASE_URL: /standards-dev/ISBDM/
+          NODE_ENV: production
+          DOCS_ENV: preview
+          
+      - name: Build LRM
+        run: pnpm exec docusaurus build standards/LRM
+        env:
+          BASE_URL: /standards-dev/LRM/
+          NODE_ENV: production
+          DOCS_ENV: preview
+          
+      - name: Build ISBD
+        run: pnpm exec docusaurus build standards/isbd
+        env:
+          BASE_URL: /standards-dev/isbd/
+          NODE_ENV: production
+          DOCS_ENV: preview
+          
+      - name: Build FRBR
+        run: pnpm exec docusaurus build standards/FRBR
+        env:
+          BASE_URL: /standards-dev/FRBR/
+          NODE_ENV: production
+          DOCS_ENV: preview
+          
+      - name: Build MulDiCat
+        run: pnpm exec docusaurus build standards/muldicat
+        env:
+          BASE_URL: /standards-dev/muldicat/
+          NODE_ENV: production
+          DOCS_ENV: preview
+          
+      - name: Build UNIMARC
+        run: pnpm exec docusaurus build standards/unimarc
+        env:
+          BASE_URL: /standards-dev/unimarc/
+          NODE_ENV: production
+          DOCS_ENV: preview
+          
+      - name: Combine builds
+        run: |
+          mkdir -p build
+          cp -r portal/build/* build/
+          mkdir -p build/portal && cp -r portal/build/* build/portal/
+          mkdir -p build/ISBDM && cp -r standards/ISBDM/build/* build/ISBDM/
+          mkdir -p build/LRM && cp -r standards/LRM/build/* build/LRM/
+          mkdir -p build/isbd && cp -r standards/isbd/build/* build/isbd/
+          mkdir -p build/FRBR && cp -r standards/FRBR/build/* build/FRBR/
+          mkdir -p build/muldicat && cp -r standards/muldicat/build/* build/muldicat/
+          mkdir -p build/unimarc && cp -r standards/unimarc/build/* build/unimarc/
+          
+      - name: Deploy to gh-pages
+        if: github.ref == 'refs/heads/main'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: build
