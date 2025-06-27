@@ -31,3 +31,4 @@ test-results
 /packages/theme/test-results
 test-results/*
 /test-results/.last-run.json
+/playwright-report/index.html
