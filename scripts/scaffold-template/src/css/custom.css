@@ -1,8 +1,0 @@
-/**
- * __TITLE__ site-specific CSS customizations
- * Base IFLA styles are imported from the shared theme
- */
-
-@import '@ifla/theme/styles';
-
-/* __TITLE__-specific customizations can be added here */
