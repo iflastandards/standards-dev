@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="40" failures="0" errors="0" time="0.006188125">
+    <testsuite name="packages/theme/src/tests/config/siteConfig.test.ts" timestamp="2025-06-27T16:34:09.906Z" hostname="MacBook-M1-Pro.local" tests="40" failures="0" errors="0" skipped="0" time="0.006188125">
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; basic functionality &gt; should return correct config for portal in local environment" time="0.000847416">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; basic functionality &gt; should return correct config for LRM in production environment" time="0.000100667">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; basic functionality &gt; should return correct config for ISBDM in preview environment" time="0.000071416">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for portal in local environment" time="0.000249458">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for portal in preview environment" time="0.000142041">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for portal in development environment" time="0.000093333">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for portal in production environment" time="0.000075625">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for ISBDM in local environment" time="0.000105458">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for ISBDM in preview environment" time="0.000232291">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for ISBDM in development environment" time="0.000098625">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for ISBDM in production environment" time="0.00007725">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for LRM in local environment" time="0.000101375">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for LRM in preview environment" time="0.000072334">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for LRM in development environment" time="0.000069666">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for LRM in production environment" time="0.000067959">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for FRBR in local environment" time="0.000097708">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for FRBR in preview environment" time="0.000068917">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for FRBR in development environment" time="0.000067875">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for FRBR in production environment" time="0.000067708">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for isbd in local environment" time="0.000095583">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for isbd in preview environment" time="0.000068167">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for isbd in development environment" time="0.000068875">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for isbd in production environment" time="0.000066334">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for muldicat in local environment" time="0.000091208">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for muldicat in preview environment" time="0.00006625">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for muldicat in development environment" time="0.000065292">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for muldicat in production environment" time="0.000065041">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for unimarc in local environment" time="0.000090542">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for unimarc in preview environment" time="0.000065083">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for unimarc in development environment" time="0.000066542">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for unimarc in production environment" time="0.0001335">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for newtest in local environment" time="0.000095625">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for newtest in preview environment" time="0.000076167">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for newtest in development environment" time="0.000068416">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for newtest in production environment" time="0.000067667">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; error handling &gt; should throw error for invalid site key" time="0.000411625">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; error handling &gt; should throw error for invalid environment" time="0.000080625">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; URL structure validation &gt; should use localhost URLs for local environment" time="0.000202083">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; URL structure validation &gt; should use production URLs for production environment" time="0.00014825">
+        </testcase>
+        <testcase classname="packages/theme/src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; URL structure validation &gt; should use GitHub Pages URLs for preview environment" time="0.000223709">
+        </testcase>
+    </testsuite>
+</testsuites>

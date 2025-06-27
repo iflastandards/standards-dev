@@ -66,5 +66,11 @@
     "**/test/**/*",
     "**/__tests__/**/*",
     "**/e2e/**/*"
-  ]
+  ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "node10"
+    }
+  }
 }

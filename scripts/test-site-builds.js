@@ -59,7 +59,7 @@ function log(message, type = 'info') {
     warning: `${colors.yellow}⚠${colors.reset}`,
     test: `${colors.blue}🧪${colors.reset}`
   };
-  
+
   console.log(`${prefix[type] || ''} ${message}`);
 }
 
@@ -94,48 +94,48 @@ function execCommand(command, cwd = process.cwd()) {
 function testSiteConfig(siteKey) {
   log(`Testing configuration for ${siteKey}...`, 'test');
   const errors = [];
-  
+
   try {
     // Check if docusaurus.config.ts exists
     const siteDir = siteKey === 'portal' ? 'portal' : `standards/${siteKey}`;
     const configPath = path.join(process.cwd(), siteDir, 'docusaurus.config.ts');
-    
+
     if (!fs.existsSync(configPath)) {
       errors.push(`Configuration file not found: ${configPath}`);
       return { success: false, errors };
     }
-    
+
     // Read and check for required configuration
     const configContent = fs.readFileSync(configPath, 'utf8');
-    
+
     // Check for future flags
     if (!configContent.includes('future:')) {
       errors.push('Missing "future" configuration block');
     } else if (!configContent.includes('v4: true')) {
       errors.push('Missing or incorrect "v4: true" in future config');
     }
-    
-    // Check for new shared-config.old usage
-    if (!configContent.includes('@ifla/shared-config')) {
-      errors.push('Not using @ifla/shared-config.old for configuration');
+
+    // Check for new theme config usage
+    if (!configContent.includes('@ifla/theme/config')) {
+      errors.push('Not using @ifla/theme/config for configuration');
     }
-    
+
     // Check for DOCS_ENV usage
     if (!configContent.includes('DOCS_ENV')) {
       errors.push('Not using DOCS_ENV environment variable');
     }
-    
+
     // Validate site is properly registered
     if (siteKey !== 'portal' && !sites[siteKey]) {
       errors.push(`Site "${siteKey}" not found in siteConfigCore`);
     }
-    
+
     // Check site configuration for current environment
     const siteConfig = sites[siteKey]?.[env];
     if (siteKey !== 'portal' && !siteConfig) {
       errors.push(`No configuration found for environment "${env}"`);
     }
-    
+
     if (siteConfig) {
       // Validate URL configuration
       if (!siteConfig.url) {
@@ -144,13 +144,13 @@ function testSiteConfig(siteKey) {
       if (!siteConfig.baseUrl) {
         errors.push('Missing baseUrl in site configuration');
       }
-      
+
       // Check for localhost URLs in non-local environments
       if (env !== 'local' && siteConfig.url?.includes('localhost')) {
         errors.push(`Localhost URL found in ${env} configuration: ${siteConfig.url}`);
       }
     }
-    
+
     return { success: errors.length === 0, errors };
   } catch (error) {
     errors.push(`Configuration test failed: ${error.message}`);
@@ -161,13 +161,13 @@ function testSiteConfig(siteKey) {
 // Build a site
 function buildSite(siteKey) {
   log(`Building ${siteKey} for ${env} environment...`, 'test');
-  
+
   const siteDir = siteKey === 'portal' ? 'portal' : `standards/${siteKey}`;
   const buildPath = path.join(process.cwd(), siteDir);
-  
+
   // Set environment variable
   process.env.DOCS_ENV = env;
-  
+
   // Clean previous build
   const cleanResult = execCommand('rm -rf build', buildPath);
   if (!cleanResult.success) {
@@ -176,7 +176,7 @@ function buildSite(siteKey) {
       error: `Failed to clean build directory: ${cleanResult.error}` 
     };
   }
-  
+
   // Run the build
   let buildCommand;
   if (siteKey === 'portal') {
@@ -186,17 +186,17 @@ function buildSite(siteKey) {
     const siteKeyLower = siteKey.toLowerCase();
     buildCommand = `pnpm build:${siteKeyLower}`;
   }
-  
+
   // All builds run from root directory
   const buildResult = execCommand(buildCommand, process.cwd());
-  
+
   if (!buildResult.success) {
     return { 
       success: false, 
       error: `Build failed: ${buildResult.error}` 
     };
   }
-  
+
   // Verify build output exists
   const buildOutputPath = path.join(buildPath, 'build');
   if (!fs.existsSync(buildOutputPath)) {
@@ -205,7 +205,7 @@ function buildSite(siteKey) {
       error: 'Build directory not created' 
     };
   }
-  
+
   // Check for sitemap
   const sitemapPath = path.join(buildOutputPath, 'sitemap.xml');
   if (!fs.existsSync(sitemapPath)) {
@@ -214,11 +214,11 @@ function buildSite(siteKey) {
       error: 'Sitemap not generated' 
     };
   }
-  
+
   // Validate sitemap URLs match expected environment
   const sitemapContent = fs.readFileSync(sitemapPath, 'utf8');
   const siteConfig = sites[siteKey]?.[env];
-  
+
   if (siteConfig) {
     const expectedUrlPrefix = `${siteConfig.url}${siteConfig.baseUrl}`;
     if (!sitemapContent.includes(expectedUrlPrefix)) {
@@ -227,7 +227,7 @@ function buildSite(siteKey) {
         error: `Sitemap doesn't contain expected URL prefix: ${expectedUrlPrefix}` 
       };
     }
-    
+
     // Check for incorrect URLs
     if (env !== 'localhost' && sitemapContent.includes('localhost')) {
       return { 
@@ -236,19 +236,19 @@ function buildSite(siteKey) {
       };
     }
   }
-  
+
   return { success: true };
 }
 
 // Test a single site
 function testSite(siteKey) {
   logSection(`Testing ${siteKey}`);
-  
+
   const testResults = {
     config: null,
     build: null
   };
-  
+
   // Test configuration
   testResults.config = testSiteConfig(siteKey);
   if (testResults.config.success) {
@@ -257,7 +257,7 @@ function testSite(siteKey) {
     log('Configuration tests failed:', 'error');
     testResults.config.errors.forEach(err => log(`  - ${err}`, 'error'));
   }
-  
+
   // Test build (unless skipped)
   if (!skipBuild) {
     testResults.build = buildSite(siteKey);
@@ -270,10 +270,10 @@ function testSite(siteKey) {
     log('Skipping build test', 'warning');
     testResults.build = { success: true, skipped: true };
   }
-  
+
   // Overall result
   const passed = testResults.config.success && testResults.build.success;
-  
+
   if (passed) {
     results.passed.push(siteKey);
     log(`${siteKey} passed all tests`, 'success');
@@ -285,29 +285,29 @@ function testSite(siteKey) {
       build: testResults.build
     });
   }
-  
+
   return passed;
 }
 
 // Main execution
 async function main() {
   logSection('IFLA Standards Site Regression Testing');
-  
+
   // Validate environment
   if (!validEnvironments.includes(env)) {
     log(`Invalid environment: ${env}`, 'error');
     log(`Valid environments: ${validEnvironments.join(', ')}`, 'info');
     process.exit(1);
   }
-  
+
   log(`Testing against environment: ${env}`, 'info');
   if (skipBuild) {
     log('Build step will be skipped', 'warning');
   }
-  
+
   // Determine which sites to test
   let sitesToTest = [];
-  
+
   if (!siteOption || siteOption === 'all') {
     sitesToTest = validSites;
   } else if (validSites.includes(siteOption)) {
@@ -317,30 +317,30 @@ async function main() {
     log(`Valid sites: ${validSites.join(', ')}, all`, 'info');
     process.exit(1);
   }
-  
+
   log(`Sites to test: ${sitesToTest.join(', ')}`, 'info');
-  
+
   // Test each site
   for (const site of sitesToTest) {
     testSite(site);
   }
-  
+
   // Summary
   logSection('Test Summary');
-  
+
   log(`Total sites tested: ${sitesToTest.length}`, 'info');
   log(`Passed: ${results.passed.length}`, 'success');
   log(`Failed: ${results.failed.length}`, results.failed.length > 0 ? 'error' : 'success');
-  
+
   if (results.passed.length > 0) {
     log('\nPassed sites:', 'success');
     results.passed.forEach(site => log(`  ✓ ${site}`, 'success'));
   }
-  
+
   if (results.failed.length > 0) {
     log('\nFailed sites:', 'error');
     results.failed.forEach(site => log(`  ✗ ${site}`, 'error'));
-    
+
     log('\nError details:', 'error');
     results.errors.forEach(({ site, config, build }) => {
       log(`\n${site}:`, 'error');
@@ -353,7 +353,7 @@ async function main() {
       }
     });
   }
-  
+
   // Exit with appropriate code
   process.exit(results.failed.length > 0 ? 1 : 0);
 }

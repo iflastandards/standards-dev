@@ -5,7 +5,7 @@
  */
 
 export type Environment = 'local' | 'preview' | 'development' | 'production';
-export type SiteKey = 'portal' | 'ISBDM' | 'LRM' | 'FRBR' | 'isbd' | 'muldicat' | 'unimarc' | 'testsite' | 'newtest';
+export type SiteKey = 'portal' | 'ISBDM' | 'LRM' | 'FRBR' | 'isbd' | 'muldicat' | 'unimarc' | 'newtest';
 
 export interface SiteConfigEntry {
   url: string;
@@ -80,12 +80,6 @@ export const SITE_CONFIG: Record<SiteKey, Record<Environment, SiteConfigEntry>> 
     production: { url: 'https://www.iflastandards.info', baseUrl: '/unimarc/' },
   },
   // Test sites for scaffolding
-  testsite: {
-    local: { url: 'http://localhost:3007', baseUrl: '/testsite/', port: 3007 },
-    preview: { url: 'https://iflastandards.github.io', baseUrl: '/standards-dev/testsite/' },
-    development: { url: 'https://jonphipps.github.io', baseUrl: '/standards-dev/testsite/' },
-    production: { url: 'https://www.iflastandards.info', baseUrl: '/testsite/' },
-  },
   newtest: {
     local: { url: 'http://localhost:3008', baseUrl: '/newtest/', port: 3008 },
     preview: { url: 'https://iflastandards.github.io', baseUrl: '/standards-dev/newtest/' },

@@ -41,6 +41,11 @@
       "import": "./dist/utils/index.mjs",
       "require": "./dist/utils/index.js"
     },
+    "./config": {
+      "types": "./dist/config/index.d.ts",
+      "import": "./dist/config/index.mjs",
+      "require": "./dist/config/index.js"
+    },
     "./config/siteConfig": {
       "types": "./dist/config/siteConfig.d.ts",
       "import": "./dist/config/siteConfig.mjs",

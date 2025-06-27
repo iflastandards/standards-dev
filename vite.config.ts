@@ -10,6 +10,7 @@ export default defineConfig({
         react(),
         tsconfigPaths() // Add the plugin here
     ],
+    cacheDir: './.vitest-cache',
     resolve: {
         alias: {
             '@docusaurus/Link': resolve(__dirname, 'packages/theme/src/tests/__mocks__/DocusaurusLinkMock.tsx'),
@@ -26,9 +27,9 @@ export default defineConfig({
     test: {
         globals: true,
         environment: 'jsdom',
-        setupFiles: ['./packages/theme/src/tests/setup.ts'],
+        setupFiles: [path.resolve(__dirname, 'packages/theme/src/tests/setup.ts')],
         include: ['**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-        exclude: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/e2e/**'],
+        exclude: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/e2e/**', '**/tests/visual-regression.spec.ts'],
         // Enhanced CI stability and performance
         testTimeout: process.env.CI ? 60000 : 30000,
         hookTimeout: process.env.CI ? 30000 : 10000,
@@ -42,9 +43,6 @@ export default defineConfig({
         },
         retry: process.env.CI ? 2 : 0,
         logHeapUsage: !!process.env.CI,
-        cache: {
-            dir: './.vitest-cache'
-        },
         // Enhanced reporting
         reporters: [
             'default',

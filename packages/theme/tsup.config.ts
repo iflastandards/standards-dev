@@ -8,6 +8,7 @@ export default defineConfig({
     'components/ElementReference': 'src/components/ElementReference/index.tsx',
     'hooks/usePrevious': 'src/hooks/usePrevious.ts',
     'utils/index': 'src/utils/index.ts',
+    'config/index': 'src/config/index.ts',
     'config/siteConfig': 'src/config/siteConfig.ts',
   },
   format: ['esm', 'cjs'],

@@ -1,0 +1,1107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="460" failures="0" errors="0" time="4.710939087">
+    <testsuite name="src/tests/components/DownloadPanel.test.tsx" timestamp="2025-06-27T16:29:36.037Z" hostname="MacBook-M1-Pro.local" tests="8" failures="0" errors="0" skipped="0" time="0.100821458">
+        <testcase classname="src/tests/components/DownloadPanel.test.tsx" name="DownloadPanel &gt; renders with default content" time="0.023029208">
+        </testcase>
+        <testcase classname="src/tests/components/DownloadPanel.test.tsx" name="DownloadPanel &gt; shows &quot;Coming Soon&quot; buttons when no URLs are provided" time="0.006431834">
+        </testcase>
+        <testcase classname="src/tests/components/DownloadPanel.test.tsx" name="DownloadPanel &gt; renders active download links when URLs are provided" time="0.013216083">
+        </testcase>
+        <testcase classname="src/tests/components/DownloadPanel.test.tsx" name="DownloadPanel &gt; handles partial URL configuration" time="0.009439458">
+        </testcase>
+        <testcase classname="src/tests/components/DownloadPanel.test.tsx" name="DownloadPanel &gt; applies custom className" time="0.002763625">
+        </testcase>
+        <testcase classname="src/tests/components/DownloadPanel.test.tsx" name="DownloadPanel &gt; has proper button styling classes" time="0.0020355">
+        </testcase>
+        <testcase classname="src/tests/components/DownloadPanel.test.tsx" name="DownloadPanel &gt; has proper RDF button styling classes" time="0.001848708">
+        </testcase>
+        <testcase classname="src/tests/components/DownloadPanel.test.tsx" name="DownloadPanel &gt; renders all format sections with proper headings" time="0.04104675">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/ElementReference-improved.test.tsx" timestamp="2025-06-27T16:29:36.038Z" hostname="MacBook-M1-Pro.local" tests="15" failures="0" errors="0" skipped="0" time="0.057596125">
+        <testcase classname="src/tests/components/ElementReference-improved.test.tsx" name="ElementReference - URI Generation Logic Tests &gt; URI Prefix Logic &gt; should correctly determine prefix based on element type" time="0.000970417">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference-improved.test.tsx" name="ElementReference - URI Generation Logic Tests &gt; URI Prefix Logic &gt; should generate correct full URI based on type and ID" time="0.000128459">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference-improved.test.tsx" name="ElementReference - URI Generation Logic Tests &gt; Type Normalization Logic &gt; should normalize RDF types correctly" time="0.000747">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference-improved.test.tsx" name="ElementReference - URI Generation Logic Tests &gt; Element Relationship Processing &gt; should convert elementSuperType to subPropertyOf" time="0.000703375">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference-improved.test.tsx" name="ElementReference - URI Generation Logic Tests &gt; Element Relationship Processing &gt; should handle inverseOf relationships" time="0.000247625">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference-improved.test.tsx" name="ElementReference - URI Generation Logic Tests &gt; Table Field Filtering &gt; should filter out fields that should not appear in table" time="0.000161958">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference-improved.test.tsx" name="ElementReference - URI Generation Logic Tests &gt; RDF Serialization Logic &gt; should generate correct JSON-LD structure" time="0.000126584">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference-improved.test.tsx" name="ElementReference - URI Generation Logic Tests &gt; RDF Serialization Logic &gt; should generate correct Turtle syntax" time="0.000144042">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference-improved.test.tsx" name="ElementReference - URI Generation Logic Tests &gt; RDF Serialization Logic &gt; should generate correct RDF/XML type elements" time="0.000196959">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference-improved.test.tsx" name="ElementReference - URI Generation Logic Tests &gt; Deprecation Handling &gt; should determine deprecation status correctly" time="0.000141125">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference-improved.test.tsx" name="ElementReference - URI Generation Logic Tests &gt; Deprecation Handling &gt; should extract deprecation version info" time="0.000132791">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference-improved.test.tsx" name="ElementReference - URI Generation Logic Tests &gt; Component Integration Tests &gt; should render correct URI for different types" time="0.032289917">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference-improved.test.tsx" name="ElementReference - URI Generation Logic Tests &gt; Component Integration Tests &gt; should handle tab switching correctly" time="0.008394334">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference-improved.test.tsx" name="ElementReference - URI Generation Logic Tests &gt; Component Integration Tests &gt; should handle missing optional fields gracefully" time="0.005886708">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference-improved.test.tsx" name="ElementReference - URI Generation Logic Tests &gt; Component Integration Tests &gt; should escape special characters in output" time="0.005120916">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/ElementReference.test.tsx" timestamp="2025-06-27T16:29:36.040Z" hostname="MacBook-M1-Pro.local" tests="26" failures="0" errors="0" skipped="0" time="0.206692125">
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; URI generation by type &gt; generates Class URI with C prefix for type:Class" time="0.032171792">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; URI generation by type &gt; generates Class URI with C prefix for type with mixed case &quot;class&quot;" time="0.006652958">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; URI generation by type &gt; generates Property URI with P prefix for type:DatatypeProperty" time="0.006357459">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; URI generation by type &gt; generates Property URI with P prefix for type:ObjectProperty" time="0.007304084">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; URI generation by type &gt; generates Property URI with P prefix for type:Property" time="0.009545416">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; URI generation by type &gt; uses config values from docusaurus.config.ts for URI generation" time="0.006354666">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; RDF serialization formats by type &gt; generates proper JSON-LD for Class types" time="0.005201042">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; RDF serialization formats by type &gt; generates proper JSON-LD for ObjectProperty types" time="0.010968958">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; RDF serialization formats by type &gt; generates proper Turtle for Class types" time="0.0063125">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; RDF serialization formats by type &gt; generates proper RDF/XML for Class types" time="0.006555">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; Properties table and RDF rendering tests &gt; does not render isDefinedBy in the table but includes it in RDF" time="0.008054208">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; Properties table and RDF rendering tests &gt; does not render subPropertyOf in the table but includes it in RDF" time="0.004350875">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; Properties table and RDF rendering tests &gt; does not include upper_value in JSON-LD output" time="0.003765792">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; Component rendering with templated frontmatter structure &gt; renders with templated frontmatter structure correctly" time="0.008264333">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; Component rendering with templated frontmatter structure &gt; renders all expected fields from templated frontmatter" time="0.00743175">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; Individual attribute tests with templated frontmatter &gt; renders definition correctly" time="0.004295625">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; Individual attribute tests with templated frontmatter &gt; renders scope note correctly" time="0.008635916">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; Individual attribute tests with templated frontmatter &gt; renders domain correctly" time="0.0058475">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; Individual attribute tests with templated frontmatter &gt; renders range correctly" time="0.004863417">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; Individual attribute tests with templated frontmatter &gt; renders type correctly" time="0.009125083">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; Relationship tests with templated frontmatter &gt; renders elementSubType correctly" time="0.00402175">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; Relationship tests with templated frontmatter &gt; renders elementSuperType correctly and converts to subPropertyOf" time="0.010790333">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; Deprecation tests with templated frontmatter &gt; renders deprecation warning when deprecated is true at root level" time="0.006945709">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; Deprecation tests with templated frontmatter &gt; renders deprecatedInVersion correctly from root level" time="0.009344375">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; Deprecation tests with templated frontmatter &gt; renders willBeRemovedInVersion correctly from root level" time="0.005359">
+        </testcase>
+        <testcase classname="src/tests/components/ElementReference.test.tsx" name="ElementReference component &gt; RDF representation tests with templated frontmatter &gt; generates all RDF formats correctly" time="0.006643959">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/ExampleTable.test.tsx" timestamp="2025-06-27T16:29:36.041Z" hostname="MacBook-M1-Pro.local" tests="5" failures="0" errors="0" skipped="0" time="0.097306166">
+        <testcase classname="src/tests/components/ExampleTable.test.tsx" name="ExampleTable &gt; renders all entries correctly" time="0.032738167">
+        </testcase>
+        <testcase classname="src/tests/components/ExampleTable.test.tsx" name="ExampleTable &gt; renders detail buttons only for entries with details" time="0.004375667">
+        </testcase>
+        <testcase classname="src/tests/components/ExampleTable.test.tsx" name="ExampleTable &gt; shows details when button is clicked" time="0.037365959">
+        </testcase>
+        <testcase classname="src/tests/components/ExampleTable.test.tsx" name="ExampleTable &gt; hides details when button is clicked again" time="0.014899958">
+        </testcase>
+        <testcase classname="src/tests/components/ExampleTable.test.tsx" name="ExampleTable &gt; applies correct classes to elements" time="0.007027041">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/Figure.test.tsx" timestamp="2025-06-27T16:29:36.042Z" hostname="MacBook-M1-Pro.local" tests="6" failures="0" errors="0" skipped="0" time="0.145306375">
+        <testcase classname="src/tests/components/Figure.test.tsx" name="Figure Component &gt; renders with required props" time="0.044373667">
+        </testcase>
+        <testcase classname="src/tests/components/Figure.test.tsx" name="Figure Component &gt; renders with all props" time="0.009361583">
+        </testcase>
+        <testcase classname="src/tests/components/Figure.test.tsx" name="Figure Component &gt; processes image paths with useBaseUrl" time="0.00495875">
+        </testcase>
+        <testcase classname="src/tests/components/Figure.test.tsx" name="Figure Component &gt; has proper ARIA attributes for accessibility" time="0.003934416">
+        </testcase>
+        <testcase classname="src/tests/components/Figure.test.tsx" name="Figure Component &gt; passes accessibility test" time="0.077475583">
+        </testcase>
+        <testcase classname="src/tests/components/Figure.test.tsx" name="Figure Component &gt; handles missing alt text by using caption" time="0.003649667">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/InLink-improved.test.tsx" timestamp="2025-06-27T16:29:36.042Z" hostname="MacBook-M1-Pro.local" tests="17" failures="0" errors="0" skipped="0" time="0.109916875">
+        <testcase classname="src/tests/components/InLink-improved.test.tsx" name="InLink Component - Real Functionality Tests &gt; Smart Wrapping Logic &gt; should implement zero-width space insertion correctly" time="0.003565542">
+        </testcase>
+        <testcase classname="src/tests/components/InLink-improved.test.tsx" name="InLink Component - Real Functionality Tests &gt; Smart Wrapping Logic &gt; should handle nested React elements correctly" time="0.000426625">
+        </testcase>
+        <testcase classname="src/tests/components/InLink-improved.test.tsx" name="InLink Component - Real Functionality Tests &gt; Smart Wrapping Logic &gt; should preserve text without parentheses" time="0.000197292">
+        </testcase>
+        <testcase classname="src/tests/components/InLink-improved.test.tsx" name="InLink Component - Real Functionality Tests &gt; Smart Wrapping Logic &gt; should handle edge cases in parentheses placement" time="0.000203667">
+        </testcase>
+        <testcase classname="src/tests/components/InLink-improved.test.tsx" name="InLink Component - Real Functionality Tests &gt; URL Processing Logic &gt; should handle different URL formats correctly" time="0.000130958">
+        </testcase>
+        <testcase classname="src/tests/components/InLink-improved.test.tsx" name="InLink Component - Real Functionality Tests &gt; URL Processing Logic &gt; should preserve URL query parameters and fragments" time="0.000118167">
+        </testcase>
+        <testcase classname="src/tests/components/InLink-improved.test.tsx" name="InLink Component - Real Functionality Tests &gt; Component Integration &gt; should combine URL processing and smart wrapping" time="0.012595667">
+        </testcase>
+        <testcase classname="src/tests/components/InLink-improved.test.tsx" name="InLink Component - Real Functionality Tests &gt; Component Integration &gt; should handle complex nested structures" time="0.003797">
+        </testcase>
+        <testcase classname="src/tests/components/InLink-improved.test.tsx" name="InLink Component - Real Functionality Tests &gt; Component Integration &gt; should maintain React element props and structure" time="0.007443125">
+        </testcase>
+        <testcase classname="src/tests/components/InLink-improved.test.tsx" name="InLink Component - Real Functionality Tests &gt; Performance Considerations &gt; should handle large text efficiently" time="0.001476917">
+        </testcase>
+        <testcase classname="src/tests/components/InLink-improved.test.tsx" name="InLink Component - Real Functionality Tests &gt; Performance Considerations &gt; should handle deeply nested structures" time="0.003505417">
+        </testcase>
+        <testcase classname="src/tests/components/InLink-improved.test.tsx" name="InLink Component - Real Functionality Tests &gt; Accessibility &gt; should not affect screen reader behavior" time="0.001299875">
+        </testcase>
+        <testcase classname="src/tests/components/InLink-improved.test.tsx" name="InLink Component - Real Functionality Tests &gt; Accessibility &gt; should maintain proper link semantics" time="0.043886834">
+        </testcase>
+        <testcase classname="src/tests/components/InLink-improved.test.tsx" name="InLink Component - Real Functionality Tests &gt; CSS and Styling &gt; should apply correct classes" time="0.0016055">
+        </testcase>
+        <testcase classname="src/tests/components/InLink-improved.test.tsx" name="InLink Component - Real Functionality Tests &gt; CSS and Styling &gt; should handle style props if supported" time="0.001356708">
+        </testcase>
+        <testcase classname="src/tests/components/InLink-improved.test.tsx" name="InLink Component - Real Functionality Tests &gt; Error Handling &gt; should handle null or undefined children gracefully" time="0.000935708">
+        </testcase>
+        <testcase classname="src/tests/components/InLink-improved.test.tsx" name="InLink Component - Real Functionality Tests &gt; Error Handling &gt; should handle missing href gracefully" time="0.000842041">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/InLink.test.tsx" timestamp="2025-06-27T16:29:36.043Z" hostname="MacBook-M1-Pro.local" tests="15" failures="0" errors="0" skipped="0" time="0.129791458">
+        <testcase classname="src/tests/components/InLink.test.tsx" name="InLink Component &gt; renders with required props" time="0.026660208">
+        </testcase>
+        <testcase classname="src/tests/components/InLink.test.tsx" name="InLink Component &gt; processes URLs with useBaseUrl" time="0.002159417">
+        </testcase>
+        <testcase classname="src/tests/components/InLink.test.tsx" name="InLink Component &gt; applies additional className when provided" time="0.002863583">
+        </testcase>
+        <testcase classname="src/tests/components/InLink.test.tsx" name="InLink Component &gt; renders with complex children" time="0.003507792">
+        </testcase>
+        <testcase classname="src/tests/components/InLink.test.tsx" name="InLink Component &gt; preserves href with query parameters" time="0.002039333">
+        </testcase>
+        <testcase classname="src/tests/components/InLink.test.tsx" name="InLink Component &gt; Smart wrapping functionality &gt; adds zero-width spaces before parentheses by default" time="0.003623792">
+        </testcase>
+        <testcase classname="src/tests/components/InLink.test.tsx" name="InLink Component &gt; Smart wrapping functionality &gt; handles multiple parentheses in text" time="0.001235833">
+        </testcase>
+        <testcase classname="src/tests/components/InLink.test.tsx" name="InLink Component &gt; Smart wrapping functionality &gt; processes text within nested elements" time="0.001597084">
+        </testcase>
+        <testcase classname="src/tests/components/InLink.test.tsx" name="InLink Component &gt; Smart wrapping functionality &gt; does not add zero-width spaces when smartWrap is false" time="0.002105958">
+        </testcase>
+        <testcase classname="src/tests/components/InLink.test.tsx" name="InLink Component &gt; Smart wrapping functionality &gt; preserves text with no parentheses unchanged" time="0.0010915">
+        </testcase>
+        <testcase classname="src/tests/components/InLink.test.tsx" name="InLink Component &gt; Smart wrapping functionality &gt; handles empty parentheses correctly" time="0.000819375">
+        </testcase>
+        <testcase classname="src/tests/components/InLink.test.tsx" name="InLink Component &gt; Smart wrapping functionality &gt; works with mixed content including text and elements" time="0.001610042">
+        </testcase>
+        <testcase classname="src/tests/components/InLink.test.tsx" name="InLink Component &gt; applies correct CSS module classes" time="0.000944167">
+        </testcase>
+        <testcase classname="src/tests/components/InLink.test.tsx" name="InLink Component &gt; passes accessibility tests" time="0.064725459">
+        </testcase>
+        <testcase classname="src/tests/components/InLink.test.tsx" name="InLink Component &gt; passes accessibility tests with smart wrapping" time="0.013826166">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/Mandatory.test.tsx" timestamp="2025-06-27T16:29:36.044Z" hostname="MacBook-M1-Pro.local" tests="6" failures="0" errors="0" skipped="0" time="0.101240167">
+        <testcase classname="src/tests/components/Mandatory.test.tsx" name="Mandatory Component &gt; renders with default props" time="0.047824625">
+        </testcase>
+        <testcase classname="src/tests/components/Mandatory.test.tsx" name="Mandatory Component &gt; renders with custom props" time="0.007084167">
+        </testcase>
+        <testcase classname="src/tests/components/Mandatory.test.tsx" name="Mandatory Component &gt; processes link through useBaseUrl" time="0.004986167">
+        </testcase>
+        <testcase classname="src/tests/components/Mandatory.test.tsx" name="Mandatory Component &gt; has proper accessibility attributes" time="0.008203958">
+        </testcase>
+        <testcase classname="src/tests/components/Mandatory.test.tsx" name="Mandatory Component &gt; applies additional className when provided" time="0.002365042">
+        </testcase>
+        <testcase classname="src/tests/components/Mandatory.test.tsx" name="Mandatory Component &gt; passes accessibility test" time="0.029872583">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/OutLink.test.tsx" timestamp="2025-06-27T16:29:36.045Z" hostname="MacBook-M1-Pro.local" tests="8" failures="0" errors="0" skipped="0" time="0.102991542">
+        <testcase classname="src/tests/components/OutLink.test.tsx" name="OutLink Component &gt; renders with required props" time="0.022226833">
+        </testcase>
+        <testcase classname="src/tests/components/OutLink.test.tsx" name="OutLink Component &gt; renders internal link correctly" time="0.00505025">
+        </testcase>
+        <testcase classname="src/tests/components/OutLink.test.tsx" name="OutLink Component &gt; handles external prop override" time="0.005983208">
+        </testcase>
+        <testcase classname="src/tests/components/OutLink.test.tsx" name="OutLink Component &gt; processes internal links with useBaseUrl" time="0.002062875">
+        </testcase>
+        <testcase classname="src/tests/components/OutLink.test.tsx" name="OutLink Component &gt; adds proper accessibility attributes for external links" time="0.003057791">
+        </testcase>
+        <testcase classname="src/tests/components/OutLink.test.tsx" name="OutLink Component &gt; applies additional className when provided" time="0.002191708">
+        </testcase>
+        <testcase classname="src/tests/components/OutLink.test.tsx" name="OutLink Component &gt; auto-detects external URLs" time="0.011280458">
+        </testcase>
+        <testcase classname="src/tests/components/OutLink.test.tsx" name="OutLink Component &gt; passes accessibility tests" time="0.049079125">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/QuickStart.test.tsx" timestamp="2025-06-27T16:29:36.045Z" hostname="MacBook-M1-Pro.local" tests="10" failures="0" errors="0" skipped="0" time="0.077008917">
+        <testcase classname="src/tests/components/QuickStart.test.tsx" name="QuickStart &gt; renders with default content and paths" time="0.022064334">
+        </testcase>
+        <testcase classname="src/tests/components/QuickStart.test.tsx" name="QuickStart &gt; uses default paths when none are provided" time="0.003593875">
+        </testcase>
+        <testcase classname="src/tests/components/QuickStart.test.tsx" name="QuickStart &gt; uses custom paths when provided" time="0.002478333">
+        </testcase>
+        <testcase classname="src/tests/components/QuickStart.test.tsx" name="QuickStart &gt; applies custom className" time="0.001352792">
+        </testcase>
+        <testcase classname="src/tests/components/QuickStart.test.tsx" name="QuickStart &gt; has proper button styling classes" time="0.001976916">
+        </testcase>
+        <testcase classname="src/tests/components/QuickStart.test.tsx" name="QuickStart &gt; renders proper heading structure" time="0.030070625">
+        </testcase>
+        <testcase classname="src/tests/components/QuickStart.test.tsx" name="QuickStart &gt; handles partial path configuration" time="0.001600666">
+        </testcase>
+        <testcase classname="src/tests/components/QuickStart.test.tsx" name="QuickStart &gt; supports empty string paths" time="0.0013415">
+        </testcase>
+        <testcase classname="src/tests/components/QuickStart.test.tsx" name="QuickStart &gt; renders all navigation links as clickable elements" time="0.007374792">
+        </testcase>
+        <testcase classname="src/tests/components/QuickStart.test.tsx" name="QuickStart &gt; maintains consistent styling across all buttons" time="0.003844875">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/SeeAlso.test.tsx" timestamp="2025-06-27T16:29:36.046Z" hostname="MacBook-M1-Pro.local" tests="5" failures="0" errors="0" skipped="0" time="0.110110584">
+        <testcase classname="src/tests/components/SeeAlso.test.tsx" name="SeeAlso Component &gt; renders with text content" time="0.01498675">
+        </testcase>
+        <testcase classname="src/tests/components/SeeAlso.test.tsx" name="SeeAlso Component &gt; renders with element content" time="0.040715625">
+        </testcase>
+        <testcase classname="src/tests/components/SeeAlso.test.tsx" name="SeeAlso Component &gt; renders with multiple links" time="0.01338875">
+        </testcase>
+        <testcase classname="src/tests/components/SeeAlso.test.tsx" name="SeeAlso Component &gt; applies additional className when provided" time="0.01114525">
+        </testcase>
+        <testcase classname="src/tests/components/SeeAlso.test.tsx" name="SeeAlso Component &gt; passes accessibility test" time="0.028955917">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/Unique.test.tsx" timestamp="2025-06-27T16:29:36.047Z" hostname="MacBook-M1-Pro.local" tests="6" failures="0" errors="0" skipped="0" time="0.083017875">
+        <testcase classname="src/tests/components/Unique.test.tsx" name="Unique Component &gt; renders with default props" time="0.024796583">
+        </testcase>
+        <testcase classname="src/tests/components/Unique.test.tsx" name="Unique Component &gt; renders with custom symbol" time="0.001895334">
+        </testcase>
+        <testcase classname="src/tests/components/Unique.test.tsx" name="Unique Component &gt; renders with custom tooltip" time="0.002777708">
+        </testcase>
+        <testcase classname="src/tests/components/Unique.test.tsx" name="Unique Component &gt; applies additional className when provided" time="0.001904208">
+        </testcase>
+        <testcase classname="src/tests/components/Unique.test.tsx" name="Unique Component &gt; combines all custom props" time="0.002267709">
+        </testcase>
+        <testcase classname="src/tests/components/Unique.test.tsx" name="Unique Component &gt; passes accessibility test" time="0.04849325">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/VocabularyTable-improved.test.tsx" timestamp="2025-06-27T16:29:36.047Z" hostname="MacBook-M1-Pro.local" tests="14" failures="0" errors="0" skipped="0" time="0.866395833">
+        <testcase classname="src/tests/components/VocabularyTable-improved.test.tsx" name="VocabularyTable - Real Functionality Tests &gt; Dark Mode Functionality &gt; should render differently in dark mode vs light mode" time="0.062094792">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable-improved.test.tsx" name="VocabularyTable - Real Functionality Tests &gt; Dark Mode Functionality &gt; should maintain functionality in both light and dark modes" time="0.026902792">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable-improved.test.tsx" name="VocabularyTable - Real Functionality Tests &gt; Filtering Logic &gt; should filter by label in all languages" time="0.011242708">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable-improved.test.tsx" name="VocabularyTable - Real Functionality Tests &gt; Filtering Logic &gt; should filter by definition content" time="0.006638875">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable-improved.test.tsx" name="VocabularyTable - Real Functionality Tests &gt; Filtering Logic &gt; should handle case-insensitive filtering" time="0.005779875">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable-improved.test.tsx" name="VocabularyTable - Real Functionality Tests &gt; Filtering Logic &gt; should show no results message when filter matches nothing" time="0.011581375">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable-improved.test.tsx" name="VocabularyTable - Real Functionality Tests &gt; URI Generation &gt; should generate correct URIs based on prefix and ID" time="0.022913667">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable-improved.test.tsx" name="VocabularyTable - Real Functionality Tests &gt; URI Generation &gt; should handle different URI styles" time="0.003790875">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable-improved.test.tsx" name="VocabularyTable - Real Functionality Tests &gt; Special Characters and XSS Prevention &gt; should properly escape HTML in labels and definitions" time="0.011724667">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable-improved.test.tsx" name="VocabularyTable - Real Functionality Tests &gt; Special Characters and XSS Prevention &gt; should handle malicious content safely" time="0.005338584">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable-improved.test.tsx" name="VocabularyTable - Real Functionality Tests &gt; Edge Cases &gt; should handle empty values array" time="0.00201">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable-improved.test.tsx" name="VocabularyTable - Real Functionality Tests &gt; Edge Cases &gt; should handle missing translations" time="0.003009625">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable-improved.test.tsx" name="VocabularyTable - Real Functionality Tests &gt; Edge Cases &gt; should handle very long content" time="0.002181041">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable-improved.test.tsx" name="VocabularyTable - Real Functionality Tests &gt; Performance &gt; should handle large datasets efficiently" time="0.689803167">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/VocabularyTable.test.tsx" timestamp="2025-06-27T16:29:36.048Z" hostname="MacBook-M1-Pro.local" tests="19" failures="0" errors="0" skipped="0" time="0.159639292">
+        <testcase classname="src/tests/components/VocabularyTable.test.tsx" name="VocabularyTable &gt; renders using legacy front matter properties (RDF.values)" time="0.037126083">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable.test.tsx" name="VocabularyTable &gt; renders using new front matter properties (concepts array)" time="0.009191083">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable.test.tsx" name="VocabularyTable &gt; shows title when showTitle is true" time="0.011670417">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable.test.tsx" name="VocabularyTable &gt; generates numeric URIs with specified startCounter" time="0.007452708">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable.test.tsx" name="VocabularyTable &gt; generates kebab-case slug URIs" time="0.005957458">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable.test.tsx" name="VocabularyTable &gt; generates snake_case slug URIs" time="0.006282083">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable.test.tsx" name="VocabularyTable &gt; generates camelCase slug URIs" time="0.004824542">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable.test.tsx" name="VocabularyTable &gt; generates PascalCase slug URIs" time="0.008280667">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable.test.tsx" name="VocabularyTable &gt; adds HTML IDs to rows matching the URI fragment" time="0.009691292">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable.test.tsx" name="VocabularyTable &gt; adds data-concept-id attributes with full URIs" time="0.004716958">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable.test.tsx" name="VocabularyTable &gt; handles minimal props" time="0.003605666">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable.test.tsx" name="VocabularyTable &gt; shows the filter input by default" time="0.004405416">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable.test.tsx" name="VocabularyTable &gt; hides the filter input when showFilter is false" time="0.007032">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable.test.tsx" name="VocabularyTable &gt; hides URIs when showURIs is false" time="0.012635709">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable.test.tsx" name="VocabularyTable &gt; shows URIs by default" time="0.011787708">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable.test.tsx" name="VocabularyTable &gt; filters terms based on input" time="0.012611584">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable.test.tsx" name="VocabularyTable &gt; generates TOC items that match vocabulary values with legacy format" time="0.000946708">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable.test.tsx" name="VocabularyTable &gt; generates TOC items that match vocabulary values with new format" time="0.000236542">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTable.test.tsx" name="VocabularyTable &gt; generates TOC with correct IDs based on uri style" time="0.000114708">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/VocabularyTableDefaults.test.tsx" timestamp="2025-06-27T16:29:36.050Z" hostname="MacBook-M1-Pro.local" tests="10" failures="0" errors="0" skipped="0" time="0.140036584">
+        <testcase classname="src/tests/components/VocabularyTableDefaults.test.tsx" name="VocabularyTable with customFields defaults &gt; uses default values from customFields when not specified in props" time="0.037087375">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableDefaults.test.tsx" name="VocabularyTable with customFields defaults &gt; allows overriding individual default values" time="0.03782725">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableDefaults.test.tsx" name="VocabularyTable with customFields defaults &gt; allows overriding filterPlaceholder" time="0.005841959">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableDefaults.test.tsx" name="VocabularyTable with customFields defaults &gt; allows overriding showFilter" time="0.004199">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableDefaults.test.tsx" name="VocabularyTable with customFields defaults &gt; allows overriding uriStyle" time="0.006343958">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableDefaults.test.tsx" name="VocabularyTable with customFields defaults &gt; allows overriding caseStyle" time="0.02809975">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableDefaults.test.tsx" name="VocabularyTable with customFields defaults &gt; correctly applies multiple overrides" time="0.008856833">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableDefaults.test.tsx" name="VocabularyTable with customFields defaults &gt; generateTOC uses defaults from window.__DOCUSAURUS__" time="0.001583667">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableDefaults.test.tsx" name="VocabularyTable with customFields defaults &gt; generateTOC respects property overrides" time="0.000265584">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableDefaults.test.tsx" name="VocabularyTable with customFields defaults &gt; merges default RDF values with provided RDF values" time="0.008929">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/VocabularyTableDetails.test.tsx" timestamp="2025-06-27T16:29:36.050Z" hostname="MacBook-M1-Pro.local" tests="12" failures="0" errors="0" skipped="0" time="0.190818583">
+        <testcase classname="src/tests/components/VocabularyTableDetails.test.tsx" name="VocabularyTable Details Functionality &gt; Detail Column Header &gt; shows &quot;Detail&quot; header when concepts have additional properties" time="0.033302375">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableDetails.test.tsx" name="VocabularyTable Details Functionality &gt; Detail Column Header &gt; hides Detail column when no concepts have additional properties" time="0.011390792">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableDetails.test.tsx" name="VocabularyTable Details Functionality &gt; Expand/Collapse Buttons &gt; shows + button only for terms with additional properties" time="0.013466166">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableDetails.test.tsx" name="VocabularyTable Details Functionality &gt; Expand/Collapse Buttons &gt; expands details when + button is clicked" time="0.02386275">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableDetails.test.tsx" name="VocabularyTable Details Functionality &gt; Expand/Collapse Buttons &gt; changes button to - when expanded" time="0.010741">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableDetails.test.tsx" name="VocabularyTable Details Functionality &gt; Expand/Collapse Buttons &gt; collapses details when - button is clicked" time="0.027745958">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableDetails.test.tsx" name="VocabularyTable Details Functionality &gt; CSV Data with Details &gt; shows Detail column with CSV data containing additional properties" time="0.009828083">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableDetails.test.tsx" name="VocabularyTable Details Functionality &gt; CSV Data with Details &gt; expands CSV-based details correctly" time="0.014344167">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableDetails.test.tsx" name="VocabularyTable Details Functionality &gt; Multilingual Details &gt; shows multilingual details in current language" time="0.011891958">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableDetails.test.tsx" name="VocabularyTable Details Functionality &gt; Multilingual Details &gt; switches detail language when main language changes" time="0.023391625">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableDetails.test.tsx" name="VocabularyTable Details Functionality &gt; Alternative Labels in Details &gt; shows Detail column when concept has only altLabel" time="0.004663834">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableDetails.test.tsx" name="VocabularyTable Details Functionality &gt; Alternative Labels in Details &gt; does not show altLabel in expanded details (shown inline instead)" time="0.004757084">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/VocabularyTableNoDefaults.test.tsx" timestamp="2025-06-27T16:29:36.051Z" hostname="MacBook-M1-Pro.local" tests="3" failures="0" errors="0" skipped="0" time="0.078673291">
+        <testcase classname="src/tests/components/VocabularyTableNoDefaults.test.tsx" name="VocabularyTable with no customFields defaults &gt; falls back to hardcoded defaults when no customFields are available" time="0.038899167">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableNoDefaults.test.tsx" name="VocabularyTable with no customFields defaults &gt; correctly applies overrides even without customFields" time="0.038732875">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableNoDefaults.test.tsx" name="VocabularyTable with no customFields defaults &gt; generateTOC falls back to hardcoded defaults when no window.__DOCUSAURUS__ is available" time="0.000300791">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/VocabularyTableProfileValidation.test.tsx" timestamp="2025-06-27T16:29:36.052Z" hostname="MacBook-M1-Pro.local" tests="8" failures="0" errors="0" skipped="0" time="0.114603209">
+        <testcase classname="src/tests/components/VocabularyTableProfileValidation.test.tsx" name="VocabularyTable Profile-Based Validation &gt; Repeatable Properties &gt; accepts array notation for repeatable properties" time="0.030954375">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableProfileValidation.test.tsx" name="VocabularyTable Profile-Based Validation &gt; Repeatable Properties &gt; shows error for array notation on non-repeatable properties" time="0.01176225">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableProfileValidation.test.tsx" name="VocabularyTable Profile-Based Validation &gt; Required skos:prefLabel for All Languages &gt; shows error when prefLabel is missing for a language" time="0.015824084">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableProfileValidation.test.tsx" name="VocabularyTable Profile-Based Validation &gt; Required skos:prefLabel for All Languages &gt; shows error for each row missing prefLabel in a language" time="0.007789125">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableProfileValidation.test.tsx" name="VocabularyTable Profile-Based Validation &gt; Unknown Columns &gt; shows warning for columns not in the profile" time="0.030566292">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableProfileValidation.test.tsx" name="VocabularyTable Profile-Based Validation &gt; showCSVErrors Prop &gt; hides validation errors when showCSVErrors is false" time="0.0043685">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableProfileValidation.test.tsx" name="VocabularyTable Profile-Based Validation &gt; showCSVErrors Prop &gt; shows validation errors when showCSVErrors is true" time="0.006537125">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableProfileValidation.test.tsx" name="VocabularyTable Profile-Based Validation &gt; Profile Compliance &gt; validates all concept properties according to profile" time="0.005546833">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/VocabularyTableRealExamples.test.tsx" timestamp="2025-06-27T16:29:36.052Z" hostname="MacBook-M1-Pro.local" tests="4" failures="0" errors="0" skipped="0" time="0.052323334">
+        <testcase classname="src/tests/components/VocabularyTableRealExamples.test.tsx" name="VocabularyTable with real-world examples &gt; correctly renders a complete vocabulary like 1275.mdx" time="0.031726875">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableRealExamples.test.tsx" name="VocabularyTable with real-world examples &gt; correctly renders a minimal vocabulary using site defaults" time="0.009205">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableRealExamples.test.tsx" name="VocabularyTable with real-world examples &gt; correctly merges RDF.rdf:type from customFields" time="0.0061835">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableRealExamples.test.tsx" name="VocabularyTable with real-world examples &gt; correctly handles mixed vocabulary with some defaults and some overrides" time="0.004448667">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/VocabularyTableValidation.test.tsx" timestamp="2025-06-27T16:29:36.053Z" hostname="MacBook-M1-Pro.local" tests="12" failures="0" errors="0" skipped="0" time="0.149533209">
+        <testcase classname="src/tests/components/VocabularyTableValidation.test.tsx" name="VocabularyTable CSV Validation &gt; Duplicate Column Detection &gt; shows error for true duplicate column headers" time="0.040803958">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableValidation.test.tsx" name="VocabularyTable CSV Validation &gt; Missing Required Fields &gt; shows error for missing URI" time="0.006263791">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableValidation.test.tsx" name="VocabularyTable CSV Validation &gt; Missing Required Fields &gt; shows error for missing preferred label" time="0.010303916">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableValidation.test.tsx" name="VocabularyTable CSV Validation &gt; Missing Required Fields &gt; shows warning for missing definition" time="0.006404542">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableValidation.test.tsx" name="VocabularyTable CSV Validation &gt; Language Consistency &gt; shows warning for inconsistent language coverage in headers" time="0.013519">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableValidation.test.tsx" name="VocabularyTable CSV Validation &gt; Language Consistency &gt; shows warning for inconsistent language data in rows" time="0.006720083">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableValidation.test.tsx" name="VocabularyTable CSV Validation &gt; Invalid URI Format &gt; shows warning for invalid URI format" time="0.006450542">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableValidation.test.tsx" name="VocabularyTable CSV Validation &gt; Clean CSV Data &gt; shows no validation issues for clean data" time="0.004882875">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableValidation.test.tsx" name="VocabularyTable CSV Validation &gt; Multiple Issues &gt; shows all validation issues when multiple problems exist" time="0.016437625">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableValidation.test.tsx" name="VocabularyTable CSV Validation &gt; Validation Display &gt; shows errors with error styling" time="0.022464291">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableValidation.test.tsx" name="VocabularyTable CSV Validation &gt; Validation Display &gt; shows warnings with warning styling" time="0.010036584">
+        </testcase>
+        <testcase classname="src/tests/components/VocabularyTableValidation.test.tsx" name="VocabularyTable CSV Validation &gt; Non-CSV Data &gt; does not show validation for non-CSV data" time="0.002921958">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/config/siteConfig.test.ts" timestamp="2025-06-27T16:29:36.053Z" hostname="MacBook-M1-Pro.local" tests="36" failures="0" errors="0" skipped="0" time="0.006323125">
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; basic functionality &gt; should return correct config for portal in local environment" time="0.000996166">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; basic functionality &gt; should return correct config for LRM in production environment" time="0.000103709">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; basic functionality &gt; should return correct config for ISBDM in preview environment" time="0.000076541">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for portal in local environment" time="0.000271209">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for portal in preview environment" time="0.00016925">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for portal in development environment" time="0.000098084">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for portal in production environment" time="0.000080083">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for ISBDM in local environment" time="0.000109792">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for ISBDM in preview environment" time="0.0002045">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for ISBDM in development environment" time="0.000099959">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for ISBDM in production environment" time="0.000077916">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for LRM in local environment" time="0.000105292">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for LRM in preview environment" time="0.000075459">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for LRM in development environment" time="0.000073083">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for LRM in production environment" time="0.000072208">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for FRBR in local environment" time="0.000101958">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for FRBR in preview environment" time="0.000071875">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for FRBR in development environment" time="0.000071041">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for FRBR in production environment" time="0.000070584">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for isbd in local environment" time="0.000099375">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for isbd in preview environment" time="0.000071292">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for isbd in development environment" time="0.000070291">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for isbd in production environment" time="0.000070125">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for muldicat in local environment" time="0.000098625">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for muldicat in preview environment" time="0.000070167">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for muldicat in development environment" time="0.000070458">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for muldicat in production environment" time="0.00007025">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for unimarc in local environment" time="0.000097792">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for unimarc in preview environment" time="0.000071792">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for unimarc in development environment" time="0.000072">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; all sites in all environments &gt; should return valid config for unimarc in production environment" time="0.00014425">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; error handling &gt; should throw error for invalid site key" time="0.000411834">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; error handling &gt; should throw error for invalid environment" time="0.000090666">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; URL structure validation &gt; should use localhost URLs for local environment" time="0.000212083">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; URL structure validation &gt; should use production URLs for production environment" time="0.000176792">
+        </testcase>
+        <testcase classname="src/tests/config/siteConfig.test.ts" name="getSiteConfig &gt; URL structure validation &gt; should use GitHub Pages URLs for preview environment" time="0.000262833">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/scripts/check-mediatype-languages.test.ts" timestamp="2025-06-27T16:29:36.055Z" hostname="MacBook-M1-Pro.local" tests="11" failures="0" errors="0" skipped="0" time="0.035521833">
+        <testcase classname="src/tests/scripts/check-mediatype-languages.test.ts" name="check-mediatype-languages.mjs &gt; Command Line Arguments &gt; should show help when --help flag is used" time="0.004409375">
+            <system-out>
+Test CWD: /Users/jonphipps/Code/IFLA/standards-dev
+Script path: /Users/jonphipps/Code/IFLA/standards-dev/scripts/check-mediatype-languages.mjs
+
+            </system-out>
+        </testcase>
+        <testcase classname="src/tests/scripts/check-mediatype-languages.test.ts" name="check-mediatype-languages.mjs &gt; Command Line Arguments &gt; should handle -h alias for help" time="0.007003">
+            <system-out>
+Test CWD: /Users/jonphipps/Code/IFLA/standards-dev
+Script path: /Users/jonphipps/Code/IFLA/standards-dev/scripts/check-mediatype-languages.mjs
+
+            </system-out>
+        </testcase>
+        <testcase classname="src/tests/scripts/check-mediatype-languages.test.ts" name="check-mediatype-languages.mjs &gt; Mock Data Processing &gt; should detect language mismatches in mock data" time="0.002826708">
+            <system-out>
+Test CWD: /Users/jonphipps/Code/IFLA/standards-dev
+Script path: /Users/jonphipps/Code/IFLA/standards-dev/scripts/check-mediatype-languages.mjs
+
+            </system-out>
+        </testcase>
+        <testcase classname="src/tests/scripts/check-mediatype-languages.test.ts" name="check-mediatype-languages.mjs &gt; Mock Data Processing &gt; should generate markdown report with --markdown flag" time="0.004928458">
+            <system-out>
+Test CWD: /Users/jonphipps/Code/IFLA/standards-dev
+Script path: /Users/jonphipps/Code/IFLA/standards-dev/scripts/check-mediatype-languages.mjs
+
+            </system-out>
+        </testcase>
+        <testcase classname="src/tests/scripts/check-mediatype-languages.test.ts" name="check-mediatype-languages.mjs &gt; Mock Data Processing &gt; should generate AI-specific markdown report with --ai flag" time="0.00344575">
+            <system-out>
+Test CWD: /Users/jonphipps/Code/IFLA/standards-dev
+Script path: /Users/jonphipps/Code/IFLA/standards-dev/scripts/check-mediatype-languages.mjs
+
+            </system-out>
+        </testcase>
+        <testcase classname="src/tests/scripts/check-mediatype-languages.test.ts" name="check-mediatype-languages.mjs &gt; Language Detection Functions &gt; should correctly identify Chinese characters" time="0.001680292">
+            <system-out>
+Test CWD: /Users/jonphipps/Code/IFLA/standards-dev
+Script path: /Users/jonphipps/Code/IFLA/standards-dev/scripts/check-mediatype-languages.mjs
+
+            </system-out>
+        </testcase>
+        <testcase classname="src/tests/scripts/check-mediatype-languages.test.ts" name="check-mediatype-languages.mjs &gt; Language Detection Functions &gt; should correctly identify Cyrillic characters" time="0.00212575">
+            <system-out>
+Test CWD: /Users/jonphipps/Code/IFLA/standards-dev
+Script path: /Users/jonphipps/Code/IFLA/standards-dev/scripts/check-mediatype-languages.mjs
+
+            </system-out>
+        </testcase>
+        <testcase classname="src/tests/scripts/check-mediatype-languages.test.ts" name="check-mediatype-languages.mjs &gt; Language Detection Functions &gt; should correctly identify Arabic characters" time="0.001174333">
+            <system-out>
+Test CWD: /Users/jonphipps/Code/IFLA/standards-dev
+Script path: /Users/jonphipps/Code/IFLA/standards-dev/scripts/check-mediatype-languages.mjs
+
+            </system-out>
+        </testcase>
+        <testcase classname="src/tests/scripts/check-mediatype-languages.test.ts" name="check-mediatype-languages.mjs &gt; Language Code Mapping &gt; should return correct language names" time="0.001849834">
+            <system-out>
+Test CWD: /Users/jonphipps/Code/IFLA/standards-dev
+Script path: /Users/jonphipps/Code/IFLA/standards-dev/scripts/check-mediatype-languages.mjs
+
+            </system-out>
+        </testcase>
+        <testcase classname="src/tests/scripts/check-mediatype-languages.test.ts" name="check-mediatype-languages.mjs &gt; Language Code Mapping &gt; should handle unknown language codes" time="0.000642667">
+            <system-out>
+Test CWD: /Users/jonphipps/Code/IFLA/standards-dev
+Script path: /Users/jonphipps/Code/IFLA/standards-dev/scripts/check-mediatype-languages.mjs
+
+            </system-out>
+        </testcase>
+        <testcase classname="src/tests/scripts/check-mediatype-languages.test.ts" name="check-mediatype-languages.mjs &gt; Technical Text Detection &gt; should identify technical text patterns" time="0.001441333">
+            <system-out>
+Test CWD: /Users/jonphipps/Code/IFLA/standards-dev
+Script path: /Users/jonphipps/Code/IFLA/standards-dev/scripts/check-mediatype-languages.mjs
+
+            </system-out>
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/scripts/create-vocabulary-sheet-action.test.ts" timestamp="2025-06-27T16:29:36.057Z" hostname="MacBook-M1-Pro.local" tests="10" failures="0" errors="0" skipped="0" time="0.020626791">
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-action.test.ts" name="create-vocabulary-sheet-action &gt; configuration loading &gt; should load configuration from JSON file" time="0.014860209">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-action.test.ts" name="create-vocabulary-sheet-action &gt; configuration loading &gt; should throw error if config file is missing" time="0.001330208">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-action.test.ts" name="create-vocabulary-sheet-action &gt; configuration loading &gt; should validate required configuration fields" time="0.000443167">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-action.test.ts" name="create-vocabulary-sheet-action &gt; result output &gt; should write success result to result.json" time="0.001167292">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-action.test.ts" name="create-vocabulary-sheet-action &gt; result output &gt; should write error result on failure" time="0.000309708">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-action.test.ts" name="create-vocabulary-sheet-action &gt; index sheet functionality &gt; should create index sheet with hyperlink formula" time="0.000285417">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-action.test.ts" name="create-vocabulary-sheet-action &gt; index sheet functionality &gt; should append to existing index sheet" time="0.000244042">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-action.test.ts" name="create-vocabulary-sheet-action &gt; environment handling &gt; should use GITHUB_REPOSITORY for repo name" time="0.000254542">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-action.test.ts" name="create-vocabulary-sheet-action &gt; environment handling &gt; should fall back to ISBDM if GITHUB_REPOSITORY not set" time="0.000421834">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-action.test.ts" name="create-vocabulary-sheet-action &gt; sheet formatting &gt; should format header row with background color and bold text" time="0.00028675">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/scripts/create-vocabulary-sheet-improved.test.ts" timestamp="2025-06-27T16:29:36.058Z" hostname="MacBook-M1-Pro.local" tests="17" failures="0" errors="0" skipped="0" time="0.005087959">
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-improved.test.ts" name="create-vocabulary-sheet - Business Logic Tests &gt; Column Generation Logic &gt; should generate correct columns for values profile with multiple languages" time="0.000943584">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-improved.test.ts" name="create-vocabulary-sheet - Business Logic Tests &gt; Column Generation Logic &gt; should generate correct columns for elements profile" time="0.00015425">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-improved.test.ts" name="create-vocabulary-sheet - Business Logic Tests &gt; Column Generation Logic &gt; should handle single language correctly" time="0.000066667">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-improved.test.ts" name="create-vocabulary-sheet - Business Logic Tests &gt; Column Generation Logic &gt; should handle empty languages array" time="0.000123125">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-improved.test.ts" name="create-vocabulary-sheet - Business Logic Tests &gt; Workbook Naming Logic &gt; should generate correct workbook name" time="0.00006275">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-improved.test.ts" name="create-vocabulary-sheet - Business Logic Tests &gt; Workbook Naming Logic &gt; should handle special characters in repo name" time="0.000067917">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-improved.test.ts" name="create-vocabulary-sheet - Business Logic Tests &gt; Vocabulary Name Validation &gt; should validate vocabulary names correctly" time="0.000375833">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-improved.test.ts" name="create-vocabulary-sheet - Business Logic Tests &gt; Index Entry Generation &gt; should generate correct index entry structure" time="0.000495458">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-improved.test.ts" name="create-vocabulary-sheet - Business Logic Tests &gt; Error Handling Logic &gt; should handle missing environment variables" time="0.00055075">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-improved.test.ts" name="create-vocabulary-sheet - Business Logic Tests &gt; Error Handling Logic &gt; should handle invalid base64 encoding" time="0.000205041">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-improved.test.ts" name="create-vocabulary-sheet - Business Logic Tests &gt; Sheet Title Generation &gt; should handle vocabulary names with maximum length" time="0.000077792">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-improved.test.ts" name="create-vocabulary-sheet - Business Logic Tests &gt; Sheet Title Generation &gt; should generate unique sheet titles" time="0.00005275">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-improved.test.ts" name="create-vocabulary-sheet - Business Logic Tests &gt; Configuration Validation &gt; should require all mandatory fields" time="0.000153833">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-improved.test.ts" name="create-vocabulary-sheet - Business Logic Tests &gt; Configuration Validation &gt; should validate profile types" time="0.00015375">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-improved.test.ts" name="create-vocabulary-sheet - Business Logic Tests &gt; Language Code Validation &gt; should validate language codes" time="0.000274708">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-improved.test.ts" name="create-vocabulary-sheet - Business Logic Tests &gt; URL Generation &gt; should generate valid Google Sheets URLs" time="0.000083458">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet-improved.test.ts" name="create-vocabulary-sheet - Business Logic Tests &gt; URL Generation &gt; should handle special characters in spreadsheet IDs" time="0.000073833">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/scripts/create-vocabulary-sheet.test.ts" timestamp="2025-06-27T16:29:36.059Z" hostname="MacBook-M1-Pro.local" tests="10" failures="0" errors="0" skipped="0" time="0.012136417">
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet.test.ts" name="create-vocabulary-sheet &gt; initializeGoogle &gt; should initialize Google APIs with correct credentials" time="0.002317292">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet.test.ts" name="create-vocabulary-sheet &gt; initializeGoogle &gt; should throw error if GSHEETS_SA_KEY is not set" time="0.000741708">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet.test.ts" name="create-vocabulary-sheet &gt; findOrCreateWorkbook &gt; should return existing workbook if found" time="0.002325958">
+            <system-out>
+Found existing workbook: ISBDM-values
+
+            </system-out>
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet.test.ts" name="create-vocabulary-sheet &gt; findOrCreateWorkbook &gt; should create new workbook if not found" time="0.000517541">
+            <system-out>
+Creating new workbook: ISBDM-elements
+
+            </system-out>
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet.test.ts" name="create-vocabulary-sheet &gt; createVocabularySheet &gt; should create vocabulary sheet with correct headers" time="0.000644333">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet.test.ts" name="create-vocabulary-sheet &gt; createVocabularySheet &gt; should handle elements profile correctly" time="0.000394">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet.test.ts" name="create-vocabulary-sheet &gt; DCTAP profiles &gt; should have correct values profile columns" time="0.001223916">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet.test.ts" name="create-vocabulary-sheet &gt; DCTAP profiles &gt; should have correct elements profile columns" time="0.000366334">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet.test.ts" name="create-vocabulary-sheet &gt; error handling &gt; should handle Google API errors gracefully" time="0.001563125">
+        </testcase>
+        <testcase classname="src/tests/scripts/create-vocabulary-sheet.test.ts" name="create-vocabulary-sheet &gt; error handling &gt; should validate vocabulary name format" time="0.000331">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/scripts/detect-language-mismatches-local.test.ts" timestamp="2025-06-27T16:29:36.060Z" hostname="MacBook-M1-Pro.local" tests="16" failures="0" errors="0" skipped="0" time="0.086271917">
+        <testcase classname="src/tests/scripts/detect-language-mismatches-local.test.ts" name="detect-language-mismatches-local.js &gt; Language Code Mapping &gt; should map detected language to ISO codes correctly" time="0.006670917">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-local.test.ts" name="detect-language-mismatches-local.js &gt; Language Code Mapping &gt; should handle all major languages" time="0.008186167">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-local.test.ts" name="detect-language-mismatches-local.js &gt; Language Tag Extraction &gt; should extract language tags from column headers" time="0.003609625">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-local.test.ts" name="detect-language-mismatches-local.js &gt; Language Tag Extraction &gt; should handle edge cases" time="0.003479583">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-local.test.ts" name="detect-language-mismatches-local.js &gt; Language Tag Extraction &gt; should handle three-letter language codes" time="0.006936667">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-local.test.ts" name="detect-language-mismatches-local.js &gt; CSV Processing &gt; should process CSV data correctly" time="0.025689083">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-local.test.ts" name="detect-language-mismatches-local.js &gt; CSV Processing &gt; should handle CSV with language mismatches" time="0.005842291">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-local.test.ts" name="detect-language-mismatches-local.js &gt; File Processing &gt; should process multiple CSV files" time="0.012429042">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-local.test.ts" name="detect-language-mismatches-local.js &gt; File Processing &gt; should skip non-CSV files" time="0.004991834">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-local.test.ts" name="detect-language-mismatches-local.js &gt; Language Detection &gt; should detect various languages correctly" time="0.001164791">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-local.test.ts" name="detect-language-mismatches-local.js &gt; Language Detection &gt; should handle mixed scripts" time="0.000615917">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-local.test.ts" name="detect-language-mismatches-local.js &gt; Language Detection &gt; should return UNKNOWN for unrecognized text" time="0.000769708">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-local.test.ts" name="detect-language-mismatches-local.js &gt; Error Handling &gt; should handle missing files gracefully" time="0.000932875">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-local.test.ts" name="detect-language-mismatches-local.js &gt; Error Handling &gt; should handle malformed CSV gracefully" time="0.001933375">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-local.test.ts" name="detect-language-mismatches-local.js &gt; Output Generation &gt; should format console output correctly" time="0.000536041">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-local.test.ts" name="detect-language-mismatches-local.js &gt; Output Generation &gt; should generate summary statistics" time="0.000350958">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/scripts/detect-language-mismatches-skos.test.ts" timestamp="2025-06-27T16:29:36.062Z" hostname="MacBook-M1-Pro.local" tests="19" failures="0" errors="0" skipped="0" time="0.097368417">
+        <testcase classname="src/tests/scripts/detect-language-mismatches-skos.test.ts" name="detect-language-mismatches-skos.js &gt; Language Code Mapping for SKOS &gt; should map detected languages to ISO codes" time="0.00453975">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-skos.test.ts" name="detect-language-mismatches-skos.js &gt; Language Code Mapping for SKOS &gt; should handle Chinese language variants" time="0.003029375">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-skos.test.ts" name="detect-language-mismatches-skos.js &gt; SKOS Column Header Parsing &gt; should extract language codes from SKOS property headers" time="0.020284166">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-skos.test.ts" name="detect-language-mismatches-skos.js &gt; SKOS Column Header Parsing &gt; should handle array notation in headers" time="0.002688708">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-skos.test.ts" name="detect-language-mismatches-skos.js &gt; SKOS Column Header Parsing &gt; should return null for non-language headers" time="0.003034209">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-skos.test.ts" name="detect-language-mismatches-skos.js &gt; SKOS Vocabulary Processing &gt; should process SKOS CSV data correctly" time="0.015379834">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-skos.test.ts" name="detect-language-mismatches-skos.js &gt; SKOS Vocabulary Processing &gt; should detect language mismatches in SKOS data" time="0.00437475">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-skos.test.ts" name="detect-language-mismatches-skos.js &gt; SKOS Properties Support &gt; should handle all common SKOS properties" time="0.001009375">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-skos.test.ts" name="detect-language-mismatches-skos.js &gt; SKOS Properties Support &gt; should handle SKOS properties with array indices" time="0.001260917">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-skos.test.ts" name="detect-language-mismatches-skos.js &gt; CSV Format Handling &gt; should handle CSV with different delimiters" time="0.003644375">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-skos.test.ts" name="detect-language-mismatches-skos.js &gt; CSV Format Handling &gt; should handle quoted values with commas" time="0.003370792">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-skos.test.ts" name="detect-language-mismatches-skos.js &gt; Language Detection with langdetect &gt; should detect multiple languages correctly" time="0.002562334">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-skos.test.ts" name="detect-language-mismatches-skos.js &gt; Language Detection with langdetect &gt; should handle short text with lower confidence" time="0.002105167">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-skos.test.ts" name="detect-language-mismatches-skos.js &gt; Language Detection with langdetect &gt; should handle mixed language text" time="0.008991916">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-skos.test.ts" name="detect-language-mismatches-skos.js &gt; Output and Reporting &gt; should generate console output for mismatches" time="0.001521875">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-skos.test.ts" name="detect-language-mismatches-skos.js &gt; Output and Reporting &gt; should generate summary by language pair" time="0.002634667">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-skos.test.ts" name="detect-language-mismatches-skos.js &gt; Error Handling &gt; should handle empty CSV files" time="0.004252">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-skos.test.ts" name="detect-language-mismatches-skos.js &gt; Error Handling &gt; should handle CSV with only headers" time="0.006489083">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches-skos.test.ts" name="detect-language-mismatches-skos.js &gt; Error Handling &gt; should handle malformed language tags" time="0.002104208">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/scripts/detect-language-mismatches.test.ts" timestamp="2025-06-27T16:29:36.063Z" hostname="MacBook-M1-Pro.local" tests="14" failures="0" errors="0" skipped="0" time="0.006327417">
+        <testcase classname="src/tests/scripts/detect-language-mismatches.test.ts" name="detect-language-mismatches.js &gt; Configuration &gt; should define spreadsheet configurations" time="0.001431458">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches.test.ts" name="detect-language-mismatches.js &gt; Configuration &gt; should have comprehensive language code mappings" time="0.000173667">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches.test.ts" name="detect-language-mismatches.js &gt; Service Account Authentication &gt; should handle service account path from environment" time="0.000086625">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches.test.ts" name="detect-language-mismatches.js &gt; Service Account Authentication &gt; should fall back to default service account path" time="0.000147375">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches.test.ts" name="detect-language-mismatches.js &gt; Language Detection &gt; should detect English text correctly" time="0.000961167">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches.test.ts" name="detect-language-mismatches.js &gt; Language Detection &gt; should detect Spanish text correctly" time="0.000177334">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches.test.ts" name="detect-language-mismatches.js &gt; Language Detection &gt; should detect Chinese text correctly" time="0.000178625">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches.test.ts" name="detect-language-mismatches.js &gt; Language Detection &gt; should handle mixed language text" time="0.000078875">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches.test.ts" name="detect-language-mismatches.js &gt; Spreadsheet Processing &gt; should process spreadsheet data structure correctly" time="0.000447084">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches.test.ts" name="detect-language-mismatches.js &gt; Spreadsheet Processing &gt; should identify language mismatches in data" time="0.000336917">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches.test.ts" name="detect-language-mismatches.js &gt; Error Handling &gt; should handle missing service account gracefully" time="0.000451125">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches.test.ts" name="detect-language-mismatches.js &gt; Error Handling &gt; should handle API errors gracefully" time="0.000492583">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches.test.ts" name="detect-language-mismatches.js &gt; Output Formatting &gt; should format mismatches for console output" time="0.000130667">
+        </testcase>
+        <testcase classname="src/tests/scripts/detect-language-mismatches.test.ts" name="detect-language-mismatches.js &gt; Output Formatting &gt; should generate summary statistics" time="0.000120667">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/scripts/google-sheets-integration.test.ts" timestamp="2025-06-27T16:29:36.064Z" hostname="MacBook-M1-Pro.local" tests="16" failures="0" errors="0" skipped="0" time="0.006112709">
+        <testcase classname="src/tests/scripts/google-sheets-integration.test.ts" name="Google Sheets Integration - Real Logic Tests &gt; Service Account Authentication &gt; should correctly parse base64-encoded credentials" time="0.001364">
+        </testcase>
+        <testcase classname="src/tests/scripts/google-sheets-integration.test.ts" name="Google Sheets Integration - Real Logic Tests &gt; Service Account Authentication &gt; should handle malformed base64 gracefully" time="0.000441541">
+        </testcase>
+        <testcase classname="src/tests/scripts/google-sheets-integration.test.ts" name="Google Sheets Integration - Real Logic Tests &gt; Service Account Authentication &gt; should validate required credential fields" time="0.000110458">
+        </testcase>
+        <testcase classname="src/tests/scripts/google-sheets-integration.test.ts" name="Google Sheets Integration - Real Logic Tests &gt; Spreadsheet Operations Logic &gt; should construct correct API request for sheet creation" time="0.000195041">
+        </testcase>
+        <testcase classname="src/tests/scripts/google-sheets-integration.test.ts" name="Google Sheets Integration - Real Logic Tests &gt; Spreadsheet Operations Logic &gt; should generate correct value range for updates" time="0.000173458">
+        </testcase>
+        <testcase classname="src/tests/scripts/google-sheets-integration.test.ts" name="Google Sheets Integration - Real Logic Tests &gt; Spreadsheet Operations Logic &gt; should construct column headers with language variants correctly" time="0.0001355">
+        </testcase>
+        <testcase classname="src/tests/scripts/google-sheets-integration.test.ts" name="Google Sheets Integration - Real Logic Tests &gt; Workbook Management Logic &gt; should generate correct workbook names" time="0.000092875">
+        </testcase>
+        <testcase classname="src/tests/scripts/google-sheets-integration.test.ts" name="Google Sheets Integration - Real Logic Tests &gt; Workbook Management Logic &gt; should construct Drive API search query correctly" time="0.000077708">
+        </testcase>
+        <testcase classname="src/tests/scripts/google-sheets-integration.test.ts" name="Google Sheets Integration - Real Logic Tests &gt; Index Sheet Management &gt; should generate hyperlink formulas correctly" time="0.000224958">
+        </testcase>
+        <testcase classname="src/tests/scripts/google-sheets-integration.test.ts" name="Google Sheets Integration - Real Logic Tests &gt; Index Sheet Management &gt; should construct index entry rows correctly" time="0.000520583">
+        </testcase>
+        <testcase classname="src/tests/scripts/google-sheets-integration.test.ts" name="Google Sheets Integration - Real Logic Tests &gt; Error Recovery and Validation &gt; should validate vocabulary configuration thoroughly" time="0.000523459">
+        </testcase>
+        <testcase classname="src/tests/scripts/google-sheets-integration.test.ts" name="Google Sheets Integration - Real Logic Tests &gt; Error Recovery and Validation &gt; should handle API rate limiting gracefully" time="0.00016975">
+        </testcase>
+        <testcase classname="src/tests/scripts/google-sheets-integration.test.ts" name="Google Sheets Integration - Real Logic Tests &gt; Data Transformation &gt; should transform vocabulary data for sheet format correctly" time="0.0001185">
+        </testcase>
+        <testcase classname="src/tests/scripts/google-sheets-integration.test.ts" name="Google Sheets Integration - Real Logic Tests &gt; Data Transformation &gt; should handle missing translations gracefully" time="0.000091334">
+        </testcase>
+        <testcase classname="src/tests/scripts/google-sheets-integration.test.ts" name="Google Sheets Integration - Real Logic Tests &gt; Batch Operations &gt; should chunk large operations correctly" time="0.000461542">
+        </testcase>
+        <testcase classname="src/tests/scripts/google-sheets-integration.test.ts" name="Google Sheets Integration - Real Logic Tests &gt; Batch Operations &gt; should build batch update requests correctly" time="0.0001285">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/scripts/vocabulary-comparison-cli.test.ts" timestamp="2025-06-27T16:29:36.065Z" hostname="MacBook-M1-Pro.local" tests="11" failures="0" errors="0" skipped="1" time="0.419996125">
+        <testcase classname="src/tests/scripts/vocabulary-comparison-cli.test.ts" name="Vocabulary Comparison CLI &gt; Help Command &gt; should display help when --help is used" time="0.060406833">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-comparison-cli.test.ts" name="Vocabulary Comparison CLI &gt; Help Command &gt; should display help when -h is used" time="0.0573945">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-comparison-cli.test.ts" name="Vocabulary Comparison CLI &gt; Argument Parsing &gt; should require spreadsheet ID" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-comparison-cli.test.ts" name="Vocabulary Comparison CLI &gt; Argument Parsing &gt; should require API key environment variable" time="0.299691875">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-comparison-cli.test.ts" name="Vocabulary Comparison CLI &gt; Package.json Scripts &gt; should have compare:vocabulary script" time="0.000637125">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-comparison-cli.test.ts" name="Vocabulary Comparison CLI &gt; Package.json Scripts &gt; should have compare:vocabulary:help script" time="0.000160583">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-comparison-cli.test.ts" name="Vocabulary Comparison CLI &gt; Package.json Scripts &gt; should have compare:vocabulary:md script" time="0.00010125">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-comparison-cli.test.ts" name="Vocabulary Comparison CLI &gt; Package.json Scripts &gt; should have compare:vocabulary:validate script" time="0.00016025">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-comparison-cli.test.ts" name="parseArgs function &gt; should parse spreadsheet ID" time="0.000183458">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-comparison-cli.test.ts" name="parseArgs function &gt; should parse all flags correctly" time="0.000283375">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-comparison-cli.test.ts" name="parseArgs function &gt; should handle -md shorthand for markdown" time="0.000127208">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/scripts/vocabulary-comparison-rdfs.test.ts" timestamp="2025-06-27T16:29:36.066Z" hostname="MacBook-M1-Pro.local" tests="10" failures="0" errors="0" skipped="0" time="0.008554667">
+        <testcase classname="src/tests/scripts/vocabulary-comparison-rdfs.test.ts" name="VocabularyComparisonTool RDFS Support &gt; RDFS Element Parsing &gt; should parse RDFS classes from RDF" time="0.002595333">
+            <system-out>
+   📊 Found 1 rdfs:Class elements
+   📝 Parsed 1 elements from RDF (concepts, classes, and properties)
+
+            </system-out>
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-comparison-rdfs.test.ts" name="VocabularyComparisonTool RDFS Support &gt; RDFS Element Parsing &gt; should parse RDF properties from RDF" time="0.001251083">
+            <system-out>
+   📊 Found 1 rdf:Property elements
+   📝 Parsed 1 elements from RDF (concepts, classes, and properties)
+
+            </system-out>
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-comparison-rdfs.test.ts" name="VocabularyComparisonTool RDFS Support &gt; RDFS Element Parsing &gt; should parse OWL classes and properties" time="0.000636084">
+            <system-out>
+   📊 Found 1 owl:Class elements
+   📊 Found 1 owl:ObjectProperty elements
+   📝 Parsed 2 elements from RDF (concepts, classes, and properties)
+
+            </system-out>
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-comparison-rdfs.test.ts" name="VocabularyComparisonTool RDFS Support &gt; RDFS Element Parsing &gt; should parse mixed SKOS and RDFS elements" time="0.000600458">
+            <system-out>
+   📊 Found 1 skos:Concept elements
+   📊 Found 1 rdfs:Class elements
+   📝 Parsed 2 elements from RDF (concepts, classes, and properties)
+
+            </system-out>
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-comparison-rdfs.test.ts" name="VocabularyComparisonTool RDFS Support &gt; RDFS Sheet Parsing &gt; should extract RDFS properties from sheet data" time="0.00109825">
+            <system-out>
+   📊 Found columns for test-sheet: [
+  [32m&apos;uri&apos;[39m,
+  [32m&apos;rdfs:label&apos;[39m,
+  [32m&apos;skos:definition&apos;[39m,
+  [32m&apos;rdfs:subClassOf&apos;[39m,
+  [32m&apos;rdfs:domain&apos;[39m,
+  [32m&apos;rdfs:range&apos;[39m
+]
+   📝 Parsed 2 concepts from test-sheet
+
+            </system-out>
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-comparison-rdfs.test.ts" name="VocabularyComparisonTool RDFS Support &gt; RDFS Comparison Logic &gt; should compare RDFS class properties correctly" time="0.000431875">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-comparison-rdfs.test.ts" name="VocabularyComparisonTool RDFS Support &gt; RDFS Comparison Logic &gt; should detect RDFS property mismatches" time="0.000331417">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-comparison-rdfs.test.ts" name="VocabularyComparisonTool RDFS Support &gt; Array Comparison &gt; should compare arrays correctly" time="0.0001395">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-comparison-rdfs.test.ts" name="VocabularyComparisonTool RDFS Support &gt; Array Comparison &gt; should normalize whitespace in array comparisons" time="0.000196791">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-comparison-rdfs.test.ts" name="VocabularyComparisonTool RDFS Support &gt; Markdown Formatting &gt; should format arrays for markdown correctly" time="0.00020225">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/scripts/vocabulary-integration.test.ts" timestamp="2025-06-27T16:29:36.067Z" hostname="MacBook-M1-Pro.local" tests="9" failures="0" errors="0" skipped="0" time="0.008290333">
+        <testcase classname="src/tests/scripts/vocabulary-integration.test.ts" name="Vocabulary Creation Integration Tests &gt; End-to-end vocabulary creation &gt; should create a complete values vocabulary with all components" time="0.003657209">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-integration.test.ts" name="Vocabulary Creation Integration Tests &gt; End-to-end vocabulary creation &gt; should handle existing workbook correctly" time="0.000534334">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-integration.test.ts" name="Vocabulary Creation Integration Tests &gt; Error handling &gt; should handle authentication errors gracefully" time="0.000419">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-integration.test.ts" name="Vocabulary Creation Integration Tests &gt; Error handling &gt; should handle quota exceeded errors" time="0.00039425">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-integration.test.ts" name="Vocabulary Creation Integration Tests &gt; Error handling &gt; should validate vocabulary name format" time="0.000473583">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-integration.test.ts" name="Vocabulary Creation Integration Tests &gt; Index sheet management &gt; should create index sheet if not exists" time="0.000634708">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-integration.test.ts" name="Vocabulary Creation Integration Tests &gt; Index sheet management &gt; should append to existing index with hyperlink formula" time="0.000395291">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-integration.test.ts" name="Vocabulary Creation Integration Tests &gt; Profile-specific behavior &gt; should create correct columns for values profile" time="0.000371958">
+        </testcase>
+        <testcase classname="src/tests/scripts/vocabulary-integration.test.ts" name="Vocabulary Creation Integration Tests &gt; Profile-specific behavior &gt; should create correct columns for elements profile" time="0.000621">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" timestamp="2025-06-27T16:29:36.068Z" hostname="MacBook-M1-Pro.local" tests="28" failures="0" errors="0" skipped="0" time="0.354868625">
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; Language Selection &gt; renders language selector by default" time="0.039471125">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; Language Selection &gt; hides language selector when showLanguageSelector is false" time="0.010809708">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; Language Selection &gt; shows all available languages in selector" time="0.0145765">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; Language Selection &gt; changes display language when selector is changed" time="0.025612292">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; Language Selection &gt; displays alternative labels when available" time="0.011869834">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; Multilingual Content Display &gt; displays content in default language" time="0.020335583">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; Multilingual Content Display &gt; falls back to English when requested language is not available" time="0.0045485">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; Multilingual Content Display &gt; displays multilingual title and description" time="0.01064325">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; CSV Data Support &gt; parses CSV data correctly" time="0.015802916">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; CSV Data Support &gt; switches languages with CSV data" time="0.024476959">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; CSV Data Support &gt; uses CSV URIs when available" time="0.00779525">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; Filtering with Multilingual Content &gt; filters content in current language" time="0.027190958">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; Filtering with Multilingual Content &gt; filters by alternative labels" time="0.014317375">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; TOC Generation with Multilingual Data &gt; generates TOC in default language" time="0.000643708">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; TOC Generation with Multilingual Data &gt; generates TOC with specified language" time="0.000213208">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; TOC Generation with Multilingual Data &gt; generates TOC from CSV data" time="0.000161834">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; CSV Export Functionality &gt; exports multilingual data to CSV format" time="0.000327625">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; CSV Export Functionality &gt; handles empty concepts array gracefully" time="0.000113708">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; Locale-Aware Language Selection &gt; uses current Docusaurus locale as default language" time="0.0050985">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; Locale-Aware Language Selection &gt; falls back to English when current locale is not available in data" time="0.005030875">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; CSV File Loading &gt; loads CSV file automatically when csvFile prop is provided" time="0.019698334">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; CSV File Loading &gt; shows error state when CSV file fails to load" time="0.020435167">
+            <system-err>
+Error loading CSV file: Error: Network error
+    at [90m/Users/jonphipps/Code/IFLA/standards-dev/[39mpackages/theme/src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx:470:46
+    at [90mfile:///Users/jonphipps/Code/IFLA/standards-dev/[39mnode_modules/[4m@vitest[24m/runner/dist/chunk-hooks.js:155:11
+    at [90mfile:///Users/jonphipps/Code/IFLA/standards-dev/[39mnode_modules/[4m@vitest[24m/runner/dist/chunk-hooks.js:752:26
+    at [90mfile:///Users/jonphipps/Code/IFLA/standards-dev/[39mnode_modules/[4m@vitest[24m/runner/dist/chunk-hooks.js:1897:20
+    at new Promise (&lt;anonymous&gt;)
+    at runWithTimeout [90m(file:///Users/jonphipps/Code/IFLA/standards-dev/[39mnode_modules/[4m@vitest[24m/runner/dist/chunk-hooks.js:1863:10[90m)[39m
+    at runTest [90m(file:///Users/jonphipps/Code/IFLA/standards-dev/[39mnode_modules/[4m@vitest[24m/runner/dist/chunk-hooks.js:1574:12[90m)[39m
+    at runSuite [90m(file:///Users/jonphipps/Code/IFLA/standards-dev/[39mnode_modules/[4m@vitest[24m/runner/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///Users/jonphipps/Code/IFLA/standards-dev/[39mnode_modules/[4m@vitest[24m/runner/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///Users/jonphipps/Code/IFLA/standards-dev/[39mnode_modules/[4m@vitest[24m/runner/dist/chunk-hooks.js:1729:8[90m)[39m
+
+            </system-err>
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; CSV File Loading &gt; auto-generates vocabularyId from CSV filename" time="0.008857875">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; Simplified CSV Usage &gt; works with minimal props when using csvFile" time="0.007307667">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; Data Source Priority &gt; prefers CSV data when preferCsvData is true" time="0.006822583">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; Data Source Priority &gt; uses concepts data when preferCsvData is false" time="0.003155834">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; Error Handling and Edge Cases &gt; handles malformed multilingual data gracefully" time="0.003577334">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/multilingual-vocabulary.test.tsx" name="Multilingual VocabularyTable &gt; Error Handling and Edge Cases &gt; handles language switching when expanded details are open" time="0.043764833">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" timestamp="2025-06-27T16:29:36.070Z" hostname="MacBook-M1-Pro.local" tests="22" failures="0" errors="0" skipped="0" time="0.237676958">
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; Basic Rendering &gt; renders vocabulary table with basic props" time="0.037744375">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; Basic Rendering &gt; shows title when showTitle is true" time="0.013831">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; Basic Rendering &gt; hides title by default" time="0.006524959">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; Filtering &gt; filters terms based on search input" time="0.010820375">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; Filtering &gt; shows no results message when no matches found" time="0.007950375">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; Expandable Details &gt; shows expand button for terms with additional details" time="0.005536083">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; Expandable Details &gt; expands and collapses details correctly" time="0.018549541">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; URI Generation &gt; generates numeric URIs by default" time="0.015267958">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; URI Generation &gt; generates slug URIs when configured" time="0.007650792">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; URI Generation &gt; hides URIs when showURIs is false" time="0.005818583">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; Configuration Options &gt; hides filter when showFilter is false" time="0.003977541">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; Configuration Options &gt; uses custom filter placeholder" time="0.00509325">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; Static Methods &gt; generates TOC correctly" time="0.000340791">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; Static Methods &gt; exports to CSV format" time="0.000378292">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; Error Handling &gt; handles empty concepts array gracefully" time="0.002380958">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; Error Handling &gt; handles missing vocabularyId gracefully" time="0.004649625">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; Accessibility &gt; has proper ARIA labels" time="0.007880958">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; Accessibility &gt; has proper heading structure" time="0.039040125">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; Accessibility &gt; has proper table semantics" time="0.007554375">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; Integration with Site Config &gt; uses site config defaults" time="0.018575292">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; Integration with Site Config &gt; overrides site config with props" time="0.010429708">
+        </testcase>
+        <testcase classname="src/components/VocabularyTable/__tests__/vocabulary-table-main.test.tsx" name="VocabularyTable Component &gt; Dark Mode Support &gt; applies dark mode styles when theme is dark" time="0.0055305">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/Figure/Figure.test.tsx" timestamp="2025-06-27T16:29:36.071Z" hostname="MacBook-M1-Pro.local" tests="9" failures="0" errors="0" skipped="0" time="0.16440425">
+        <testcase classname="src/tests/components/Figure/Figure.test.tsx" name="Figure component &gt; renders correctly with required props" time="0.077004667">
+        </testcase>
+        <testcase classname="src/tests/components/Figure/Figure.test.tsx" name="Figure component &gt; renders with custom alt text" time="0.013649208">
+        </testcase>
+        <testcase classname="src/tests/components/Figure/Figure.test.tsx" name="Figure component &gt; renders with expand link" time="0.0128125">
+        </testcase>
+        <testcase classname="src/tests/components/Figure/Figure.test.tsx" name="Figure component &gt; renders with custom expand text" time="0.004743667">
+        </testcase>
+        <testcase classname="src/tests/components/Figure/Figure.test.tsx" name="Figure component &gt; uses custom alt text in expand link aria-label" time="0.012566625">
+        </testcase>
+        <testcase classname="src/tests/components/Figure/Figure.test.tsx" name="Figure component &gt; processes URLs through useBaseUrl" time="0.008478084">
+        </testcase>
+        <testcase classname="src/tests/components/Figure/Figure.test.tsx" name="Figure component &gt; applies correct CSS module classes" time="0.002125834">
+        </testcase>
+        <testcase classname="src/tests/components/Figure/Figure.test.tsx" name="Figure component &gt; has no accessibility violations" time="0.028601125">
+        </testcase>
+        <testcase classname="src/tests/components/Figure/Figure.test.tsx" name="Figure component &gt; generates unique IDs for multiple instances" time="0.003155416">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/tests/components/Mandatory/Mandatory.test.tsx" timestamp="2025-06-27T16:29:36.072Z" hostname="MacBook-M1-Pro.local" tests="13" failures="0" errors="0" skipped="0" time="0.167548542">
+        <testcase classname="src/tests/components/Mandatory/Mandatory.test.tsx" name="Mandatory component &gt; renders with default props" time="0.043664083">
+        </testcase>
+        <testcase classname="src/tests/components/Mandatory/Mandatory.test.tsx" name="Mandatory component &gt; renders with custom link" time="0.006284625">
+        </testcase>
+        <testcase classname="src/tests/components/Mandatory/Mandatory.test.tsx" name="Mandatory component &gt; renders with custom symbol" time="0.006528083">
+        </testcase>
+        <testcase classname="src/tests/components/Mandatory/Mandatory.test.tsx" name="Mandatory component &gt; renders with custom tooltip text" time="0.006380417">
+        </testcase>
+        <testcase classname="src/tests/components/Mandatory/Mandatory.test.tsx" name="Mandatory component &gt; renders with custom className" time="0.002150375">
+        </testcase>
+        <testcase classname="src/tests/components/Mandatory/Mandatory.test.tsx" name="Mandatory component &gt; renders with all custom props" time="0.004848542">
+        </testcase>
+        <testcase classname="src/tests/components/Mandatory/Mandatory.test.tsx" name="Mandatory component &gt; handles custom tooltip text with default link correctly" time="0.004107334">
+        </testcase>
+        <testcase classname="src/tests/components/Mandatory/Mandatory.test.tsx" name="Mandatory component &gt; does not render hidden label when both link and tooltip are custom" time="0.003417416">
+        </testcase>
+        <testcase classname="src/tests/components/Mandatory/Mandatory.test.tsx" name="Mandatory component &gt; processes relative URLs correctly" time="0.006549708">
+        </testcase>
+        <testcase classname="src/tests/components/Mandatory/Mandatory.test.tsx" name="Mandatory component &gt; applies correct CSS module classes" time="0.002446208">
+        </testcase>
+        <testcase classname="src/tests/components/Mandatory/Mandatory.test.tsx" name="Mandatory component &gt; has no accessibility violations" time="0.036835042">
+        </testcase>
+        <testcase classname="src/tests/components/Mandatory/Mandatory.test.tsx" name="Mandatory component &gt; has no accessibility violations with custom props" time="0.011728042">
+        </testcase>
+        <testcase classname="src/tests/components/Mandatory/Mandatory.test.tsx" name="Mandatory component &gt; has no accessibility violations with custom tooltip only" time="0.029143791">
+        </testcase>
+    </testsuite>
+</testsuites>

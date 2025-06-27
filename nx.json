@@ -44,7 +44,11 @@
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["{projectRoot}/build", "{projectRoot}/dist", "{projectRoot}/.docusaurus"],
+      "outputs": [
+        "{projectRoot}/build",
+        "{projectRoot}/dist",
+        "{projectRoot}/.docusaurus"
+      ],
       "cache": true,
       "inputs": ["production", "^production", "docusaurus"]
     },

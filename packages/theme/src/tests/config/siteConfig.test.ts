@@ -30,7 +30,7 @@ describe('getSiteConfig', () => {
   });
 
   describe('all sites in all environments', () => {
-    const sites: SiteKey[] = ['portal', 'ISBDM', 'LRM', 'FRBR', 'isbd', 'muldicat', 'unimarc'];
+    const sites: SiteKey[] = ['portal', 'ISBDM', 'LRM', 'FRBR', 'isbd', 'muldicat', 'unimarc', 'newtest'];
     const environments: Environment[] = ['local', 'preview', 'development', 'production'];
 
     sites.forEach(site => {
@@ -40,12 +40,12 @@ describe('getSiteConfig', () => {
           expect(config).toBeDefined();
           expect(config.url).toBeTruthy();
           expect(config.baseUrl).toBeTruthy();
-          
+
           // Only local environment should have port
           if (env === 'local') {
             expect(config.port).toBeDefined();
             expect(config.port).toBeGreaterThanOrEqual(3000);
-            expect(config.port).toBeLessThanOrEqual(3006);
+            expect(config.port).toBeLessThanOrEqual(3008);
           } else {
             expect(config.port).toBeUndefined();
           }
@@ -70,7 +70,7 @@ describe('getSiteConfig', () => {
 
   describe('URL structure validation', () => {
     it('should use localhost URLs for local environment', () => {
-      const sites: SiteKey[] = ['portal', 'ISBDM', 'LRM', 'FRBR', 'isbd', 'muldicat', 'unimarc'];
+      const sites: SiteKey[] = ['portal', 'ISBDM', 'LRM', 'FRBR', 'isbd', 'muldicat', 'unimarc', 'newtest'];
       sites.forEach(site => {
         const config = getSiteConfig(site, 'local');
         expect(config.url).toMatch(/^http:\/\/localhost:\d+$/);
@@ -78,7 +78,7 @@ describe('getSiteConfig', () => {
     });
 
     it('should use production URLs for production environment', () => {
-      const sites: SiteKey[] = ['portal', 'ISBDM', 'LRM', 'FRBR', 'isbd', 'muldicat', 'unimarc'];
+      const sites: SiteKey[] = ['portal', 'ISBDM', 'LRM', 'FRBR', 'isbd', 'muldicat', 'unimarc', 'newtest'];
       sites.forEach(site => {
         const config = getSiteConfig(site, 'production');
         expect(config.url).toBe('https://www.iflastandards.info');
@@ -86,7 +86,7 @@ describe('getSiteConfig', () => {
     });
 
     it('should use GitHub Pages URLs for preview environment', () => {
-      const sites: SiteKey[] = ['portal', 'ISBDM', 'LRM', 'FRBR', 'isbd', 'muldicat', 'unimarc'];
+      const sites: SiteKey[] = ['portal', 'ISBDM', 'LRM', 'FRBR', 'isbd', 'muldicat', 'unimarc', 'newtest'];
       sites.forEach(site => {
         const config = getSiteConfig(site, 'preview');
         expect(config.url).toBe('https://iflastandards.github.io');

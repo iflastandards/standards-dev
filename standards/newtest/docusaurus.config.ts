@@ -1,6 +1,20 @@
 import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import { getSiteConfig, getSiteConfigMap, type SiteKey, type Environment } from '@ifla/theme/config/siteConfig';
+
+// Get current environment from DOCS_ENV
+const DOCS_ENV = process.env.DOCS_ENV as Environment;
+if (!DOCS_ENV) {
+  throw new Error(
+    'DOCS_ENV environment variable is required but not set. ' +
+    'Valid values: local, preview, development, production'
+  );
+}
+
+// Get configuration for this site
+const siteConfig = getSiteConfig('newtest' as SiteKey, DOCS_ENV);
+const siteConfigMap = getSiteConfigMap(DOCS_ENV);
 
 const config: Config = {
   future: {
@@ -10,9 +24,9 @@ const config: Config = {
   tagline: 'Testing our scaffolding system',
   favicon: 'img/favicon.ico',
 
-  // Environment-specific URLs will be set by environment variables
-  url: process.env.SITE_URL || 'http://localhost:3007',
-  baseUrl: process.env.BASE_URL || '/newtest/',
+  // Use environment-specific URLs from site configuration
+  url: siteConfig.url,
+  baseUrl: siteConfig.baseUrl,
 
   organizationName: 'iflastandards',
   projectName: 'newtest',
@@ -23,7 +37,7 @@ const config: Config = {
   // Shared static directories
   staticDirectories: ['static', '../../packages/theme/static'],
 
-  
+
 
   i18n: {
     defaultLocale: 'en',
@@ -43,7 +57,7 @@ const config: Config = {
         indexBlog: true,
       },
     ],
-    
+
   ],
 
   presets: [

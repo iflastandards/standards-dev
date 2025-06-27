@@ -1,4 +1,7 @@
 
+// Import from the compiled theme package
+const { SITE_CONFIG, getSiteConfig } = require('@ifla/theme/config');
+
 // Environment enum matching siteConfig.ts exactly
 const DocsEnv = {
   Local: 'local',
@@ -18,15 +21,15 @@ function loadSiteConfig(siteKey, env) {
 function createSiteConfigFromEnv() {
   const sites = {};
   const environments = Object.values(DocsEnv);
-  
+
   for (const siteKey of siteKeys) {
     sites[siteKey] = {};
-    
+
     for (const env of environments) {
       sites[siteKey][env] = loadSiteConfig(siteKey, env);
     }
   }
-  
+
   return { sites, DocsEnv };
 }
 
