@@ -20,43 +20,37 @@ if (!siteKey) {
 // Load site configuration from JSON file
 function loadSiteConfig(siteKey: string): SiteTemplateConfig {
   const configPath = path.join('standards', siteKey, 'site-config.json');
-  
+
   if (!fs.existsSync(configPath)) {
-    console.error(`❌ Configuration file not found: ${configPath}`);
-    console.error('Please create a site-config.json file for this site.');
-    process.exit(1);
+    throw new Error(`Configuration file not found: ${configPath}`);
   }
 
   try {
     const configData = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-    
-    // Merge with defaults and site key
+
     const config: SiteTemplateConfig = {
       siteKey,
-      // Use smart defaults
-      title: configData.title || siteKey.toUpperCase(),
-      tagline: configData.tagline || `${siteKey} documentation`,
-      organizationName: configData.organizationName || 'iflastandards',
-      projectName: configData.projectName || siteKey,
-      // Features
-      features: configData.features || {},
-      navbar: configData.navbar || {},
-      buildConfig: configData.buildConfig || {},
-      // Vocabulary with smart defaults
-      vocabulary: configData.vocabulary ? {
-        prefix: configData.vocabulary.prefix || siteKey.toLowerCase(),
-        numberPrefix: configData.vocabulary.numberPrefix || 'T',
-        profile: configData.vocabulary.profile || `${siteKey}-values-profile.csv`,
-        elementUri: configData.vocabulary.elementUri || `https://www.iflastandards.info/${siteKey}/elements`,
-        elementProfile: configData.vocabulary.elementProfile || `${siteKey}-elements-profile.csv`,
-      } : undefined,
+      title:          configData.title          ?? siteKey.toUpperCase(),
+      tagline:        configData.tagline        ?? `${siteKey} documentation`,
+      organizationName: configData.organizationName ?? 'iflastandards',
+      projectName:      configData.projectName      ?? siteKey,
+      features:      configData.features      ?? {},
+      navbar:        configData.navbar        ?? {},
+      buildConfig:   configData.buildConfig   ?? {},
+      vocabulary:    configData.vocabulary && {
+        prefix:        configData.vocabulary.prefix        ?? siteKey.toLowerCase(),
+        numberPrefix:  configData.vocabulary.numberPrefix  ?? 'T',
+        profile:       configData.vocabulary.profile       ?? `${siteKey}-values-profile.csv`,
+        elementUri:    configData.vocabulary.elementUri    ?? `https://www.iflastandards.info/${siteKey}/elements`,
+        elementProfile:configData.vocabulary.elementProfile?? `${siteKey}-elements-profile.csv`,
+      },
     };
 
     return config;
-  } catch (error) {
-    console.error(`❌ Error reading configuration file: ${configPath}`);
-    console.error(error);
-    process.exit(1);
+  } catch (err) {
+    throw new Error(
+      `Error reading configuration file: ${configPath}\n${err instanceof Error ? err.message : String(err)}`
+    );
   }
 }
 

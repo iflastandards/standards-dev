@@ -4,7 +4,7 @@ import Heading from '@theme/Heading';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import clsx from 'clsx';
-import { type SiteKey, type SiteConfigEntry } from '@ifla/shared-config';
+import { type SiteKey, type SiteConfigEntry } from '@ifla/theme/config/siteConfig';
 import styles from './styles.module.css';
 // This will eventually check GitHub org membership
 // For now, we'll create the UI structure

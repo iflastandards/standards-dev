@@ -44,4 +44,20 @@
 - 2-site concurrent builds work correctly (unimarc/LRM both build correctly)  
 - Full 9-site builds (even sequential) cause contamination (unimarc links to /LRM/, portal links to /muldicat/)
 **CRITICAL UPDATE**: The contamination occurs regardless of concurrency level, indicating module-level static state contamination in shared-config or theme packages.
-**Fix needed**: Identify and eliminate static/global state in shared-config functions, likely in getSiteConfigMap() or theme factory functions.
+**SOLUTION FOUND**: Adding `experimental_faster: true` to the Docusaurus `future` config section completely fixes the static state contamination issue. This enables Docusaurus's experimental faster builds with better module isolation.
+
+## Static State Contamination Fix:
+
+**CRITICAL**: All site configs MUST include this in the future section to prevent cross-site contamination:
+```typescript
+future: {
+  v4: true,
+  experimental_faster: true,  // REQUIRED: Fixes static state contamination
+},
+```
+
+**What this fixes**:
+- Sites no longer inherit configuration from previously built sites
+- Each build is properly isolated with its own state
+- Broken links now point to correct baseURL (e.g., isbd links to /isbd/ not /LRM/)
+- Enables safe concurrent builds without cross-contamination

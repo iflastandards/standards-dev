@@ -50,6 +50,8 @@ export interface SiteTemplateConfig {
     enableSearch?: boolean;
     enableRedirects?: boolean;
     enableRdfDownloads?: boolean;
+    enableCustomSidebar?: boolean;
+    enableElementRedirects?: boolean;
   };
   
   // Build configuration
@@ -131,7 +133,45 @@ export const SITE_TEMPLATE = {
   individualConfigTemplate: (config: SiteTemplateConfig) => `import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
-import { getSiteConfig, getSiteConfigMap, type SiteKey, type Environment } from '@ifla/theme/config/siteConfig';
+import { getSiteConfig, getSiteConfigMap, type SiteKey, type Environment } from '@ifla/theme/config/siteConfig';${config.features?.enableCustomSidebar ? `
+import type { SidebarItemsGeneratorArgs, NormalizedSidebarItem } from '@docusaurus/plugin-content-docs/lib/sidebars/types';
+
+// Create a custom type that includes the undocumented \`defaultSidebarItemsGenerator\`
+type CustomSidebarItemsGeneratorArgs = SidebarItemsGeneratorArgs & {
+  defaultSidebarItemsGenerator: (args: SidebarItemsGeneratorArgs) => Promise<NormalizedSidebarItem[]> | NormalizedSidebarItem[];
+};
+
+// Custom sidebar generator that filters out index.mdx files
+const customSidebarGenerator = async (generatorArgs: SidebarItemsGeneratorArgs) => {
+  const { defaultSidebarItemsGenerator, ...args } = generatorArgs as CustomSidebarItemsGeneratorArgs;
+  const sidebarItems: NormalizedSidebarItem[] = await defaultSidebarItemsGenerator(args);
+
+  function filterIndexMdx(items: NormalizedSidebarItem[]): NormalizedSidebarItem[] {
+    return items
+      .filter((item: NormalizedSidebarItem) => {
+        if (item.type === 'doc') {
+          const docId = item.id || (item as any).docId || '';
+          if (docId === 'index' ||
+              docId.endsWith('/index') ||
+              docId.split('/').pop() === 'index') {
+            return false;
+          }
+        }
+        return true;
+      })
+      .map((item: NormalizedSidebarItem) => {
+        if (item.type === 'category' && item.items) {
+          return {
+            ...item,
+            items: filterIndexMdx(item.items as NormalizedSidebarItem[]),
+          };
+        }
+        return item;
+      });
+  }
+
+  return filterIndexMdx(sidebarItems);
+};` : ''}
 
 // Get current environment from DOCS_ENV
 const DOCS_ENV = process.env.DOCS_ENV as Environment;
@@ -149,6 +189,7 @@ const siteConfigMap = getSiteConfigMap(DOCS_ENV);
 const config: Config = {
   future: {
     v4: true,
+    experimental_faster: true,
   },
   title: '${config.title}',
   tagline: '${config.tagline}',
@@ -162,7 +203,8 @@ const config: Config = {
   projectName: '${config.projectName || config.siteKey}',
 
   onBrokenLinks: '${config.buildConfig?.onBrokenLinks || 'warn'}',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenMarkdownLinks: 'warn',${config.buildConfig?.onBrokenAnchors ? `
+  onBrokenAnchors: '${config.buildConfig.onBrokenAnchors}',` : ''}
 
   // Shared static directories
   staticDirectories: ['static', '../../packages/theme/static'],
@@ -221,9 +263,22 @@ const config: Config = {
       '@docusaurus/plugin-client-redirects',
       {
         redirects: [],
-        createRedirects: (existingPath: string) => {
+        createRedirects: (existingPath: string) => {${config.features?.enableElementRedirects ? `
+          // ISBDM-specific element redirects
+          // Only process element paths - be very specific to avoid interfering with other routes
+          // This regex specifically matches element paths with numeric IDs only
+          const elementMatch = existingPath.match(/^\\/docs\\/(attributes|statements|notes|relationships)\\/(\\d+)$/);
+          if (elementMatch) {
+            const elementId = elementMatch[2];
+            // Only create redirect if it's a valid numeric element ID
+            if (/^\\d+$/.test(elementId)) {
+              return [\`/docs/elements/\${elementId}\`];
+            }
+          }
+          // Don't redirect anything else - this prevents interference with other routes
+          return undefined;` : `
           // Add custom redirect logic here
-          return undefined;
+          return undefined;`}
         },
       },
     ],` : ''}
@@ -237,7 +292,8 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           editUrl: '${config.editUrl || `https://github.com/iflastandards/standards-dev/tree/main/standards/${config.siteKey}/`}',
           showLastUpdateAuthor: true,
-          showLastUpdateTime: true,
+          showLastUpdateTime: true,${config.features?.enableCustomSidebar ? `
+          sidebarItemsGenerator: customSidebarGenerator,` : ''}
           versions: {
             current: {
               label: 'Latest',

@@ -1,72 +1,16 @@
+import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import { getSiteConfig, getSiteConfigMap, type SiteKey, type Environment } from '@ifla/theme/config/siteConfig';
 import type { SidebarItemsGeneratorArgs, NormalizedSidebarItem } from '@docusaurus/plugin-content-docs/lib/sidebars/types';
-import { deepmerge } from 'deepmerge-ts';
-import { 
-  createBaseConfig, 
-  createThemeConfig, 
-  createIFLAPlugins, 
-  createStandardsPresetConfig,
-  createStandardsFooter,
-  createVocabularyConfig,
-  createStaticDirectories,
-  createStandardsNavbar,
-  getSiteConfigMap,
-  SITE_CONFIG,
-  type SiteKey,
-  type Environment,
-  type SiteConfigEntry
-} from '@ifla/shared-config';
-import navbarItems from './navbar';
 
 // Create a custom type that includes the undocumented `defaultSidebarItemsGenerator`
 type CustomSidebarItemsGeneratorArgs = SidebarItemsGeneratorArgs & {
   defaultSidebarItemsGenerator: (args: SidebarItemsGeneratorArgs) => Promise<NormalizedSidebarItem[]> | NormalizedSidebarItem[];
 };
 
-// Determine environment from DOCS_ENV
-const docsEnv = process.env['DOCS_ENV'];
-if (!docsEnv) {
-  throw new Error(
-    `❌ FATAL: DOCS_ENV environment variable is required but not set.\n` +
-    `✅ Valid values: local, preview, development, production\n` +
-    `💡 NX builds should load DOCS_ENV from root .env file automatically.\n` +
-    `💡 CI/production workflows must set DOCS_ENV explicitly.`
-  );
-}
-
-// Get configuration for this site
-const currentEnv = docsEnv as Environment;
-const siteKey: SiteKey = 'ISBDM';
-
-// Local function to retrieve site config directly from the complete array
-function getLocalSiteConfig(site: SiteKey, env: Environment): SiteConfigEntry {
-  const config = SITE_CONFIG[site]?.[env];
-  if (!config) {
-    throw new Error(`Configuration missing for ${site} in ${env}`);
-  }
-  // Return a new object to avoid shared references
-  return { ...config };
-}
-
-// Use the local function to get configuration
-const siteConfig = getLocalSiteConfig(siteKey, currentEnv);
-
-// Site metadata that was previously in .env files
-const SITE_TITLE = 'ISBD for Manifestation';
-const SITE_TAGLINE = 'International Standard Bibliographic Description for Manifestation';
-const GITHUB_REPO_URL = 'https://github.com/iflastandards/standards-dev';
-const GITHUB_EDIT_URL = 'https://github.com/iflastandards/ISBDM/tree/main/';
-
-// Vocabulary configuration
-const VOCABULARY_PREFIX = 'isbdm';
-const VOCABULARY_NUMBER_PREFIX = 'T';
-const VOCABULARY_PROFILE = 'isbdm-values-profile-revised.csv';
-const VOCABULARY_ELEMENT_URI = 'https://www.iflastandards.info/ISBDM/elements';
-const VOCABULARY_ELEMENT_PROFILE = 'isbdm-elements-profile.csv';
-
-// Custom sidebar generator for ISBDM
-const isbdmSidebarGenerator = async (generatorArgs: SidebarItemsGeneratorArgs) => {
+// Custom sidebar generator that filters out index.mdx files
+const customSidebarGenerator = async (generatorArgs: SidebarItemsGeneratorArgs) => {
   const { defaultSidebarItemsGenerator, ...args } = generatorArgs as CustomSidebarItemsGeneratorArgs;
   const sidebarItems: NormalizedSidebarItem[] = await defaultSidebarItemsGenerator(args);
 
@@ -97,121 +41,338 @@ const isbdmSidebarGenerator = async (generatorArgs: SidebarItemsGeneratorArgs) =
   return filterIndexMdx(sidebarItems);
 };
 
-const config: Config = deepmerge(
-  createBaseConfig({
-    title: SITE_TITLE,
-    tagline: SITE_TAGLINE,
-    url: siteConfig.url,
-    baseUrl: siteConfig.baseUrl,
-    projectName: 'ISBDM',
-  }),
-  {
-    // ISBDM-specific overrides
-    onBrokenLinks: 'ignore' as const, // ISBDM-specific: ignore generated element links
-    onBrokenAnchors: 'ignore' as const, // ISBDM-specific: ignore generated anchor links
+// Get current environment from DOCS_ENV
+const DOCS_ENV = process.env.DOCS_ENV as Environment;
+if (!DOCS_ENV) {
+  throw new Error(
+    'DOCS_ENV environment variable is required but not set. ' +
+    'Valid values: local, preview, development, production'
+  );
+}
 
-    // Add future config block for compliance with regression tests
-    future: {
-      v4: true,
+// Get configuration for this site
+const siteConfig = getSiteConfig('ISBDM' as SiteKey, DOCS_ENV);
+const siteConfigMap = getSiteConfigMap(DOCS_ENV);
+
+const config: Config = {
+  future: {
+    v4: true,
+    experimental_faster: true,
+  },
+  title: 'ISBD for Manifestation',
+  tagline: 'International Standard Bibliographic Description for Manifestation',
+  favicon: 'img/favicon.ico',
+
+  // Use environment-specific URLs from site configuration
+  url: siteConfig.url,
+  baseUrl: siteConfig.baseUrl,
+
+  organizationName: 'iflastandards',
+  projectName: 'ISBDM',
+
+  onBrokenLinks: 'ignore',
+  onBrokenMarkdownLinks: 'warn',
+  onBrokenAnchors: 'ignore',
+
+  // Shared static directories
+  staticDirectories: ['static', '../../packages/theme/static'],
+
+  customFields: {
+    // Site configuration map for accessing sister site URLs
+    siteConfigMap,
+    // Vocabulary configuration
+    vocabularyDefaults: {
+      prefix: "isbdm",
+      startCounter: 1000,
+      uriStyle: "numeric",
+      numberPrefix: "T", // Prefix for numeric URIs. Can be blank for no prefix.
+      caseStyle: "kebab-case",
+      showFilter: true,
+      filterPlaceholder: "Filter vocabulary terms...",
+      showTitle: false,
+      showURIs: true, // Whether to display URIs in the table, set to false for glossaries
+      showCSVErrors: false, // Whether to display CSV validation errors by default
+      profile: "isbdm-values-profile-revised.csv",
+      profileShapeId: "Concept",
+      RDF: {
+        "rdf:type": ["skos:ConceptScheme"]
+      },
+      // Common defaults for elements and defines the vocabulary properties
+      elementDefaults: {
+        uri: "https://www.iflastandards.info/ISBDM/elements",
+        classPrefix: "C", // Class Prefix for numeric URIs. Can be blank for no prefix.
+        propertyPrefix: "P", // Property Prefix for numeric URIs. Can be blank for no prefix.
+        profile: "isbdm-elements-profile.csv",
+        profileShapeId: "Element",
+      }
+    }
+  },
+
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en'],
+    localeConfigs: {
+      en: {
+        label: 'English',
+      },
     },
+  },
 
-    // Shared static directories for standards sites
-    staticDirectories: createStaticDirectories('standard'),
+  plugins: [
+    'docusaurus-plugin-sass',
+    [
+      '@easyops-cn/docusaurus-search-local',
+      {
+        hashed: true,
+        indexBlog: true,
+      },
+    ],
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        redirects: [],
+        createRedirects: (existingPath: string) => {
+          // ISBDM-specific element redirects
+          // Only process element paths - be very specific to avoid interfering with other routes
+          // This regex specifically matches element paths with numeric IDs only
+          const elementMatch = existingPath.match(/^\/docs\/(attributes|statements|notes|relationships)\/(\d+)$/);
+          if (elementMatch) {
+            const elementId = elementMatch[2];
+            // Only create redirect if it's a valid numeric element ID
+            if (/^\d+$/.test(elementId)) {
+              return [`/docs/elements/${elementId}`];
+            }
+          }
+          // Don't redirect anything else - this prevents interference with other routes
+          return undefined;
+        },
+      },
+    ],
+  ],
 
-    customFields: {
-      // Site configurations for all sites in current environment (SSG-compatible)
-      siteConfigs: getSiteConfigMap(currentEnv),
-      // ISBDM-specific vocabulary configuration using factory
-      vocabularyDefaults: createVocabularyConfig({
-        prefix: VOCABULARY_PREFIX,
-        numberPrefix: VOCABULARY_NUMBER_PREFIX,
-        profile: VOCABULARY_PROFILE,
-        elementUri: VOCABULARY_ELEMENT_URI,
-        elementProfile: VOCABULARY_ELEMENT_PROFILE,
-      }),
-    },
-
-    presets: [
-      [
-        'classic',
-        createStandardsPresetConfig({
-          editUrl: GITHUB_EDIT_URL,
-          enableBlog: true,
-          sidebarItemsGenerator: isbdmSidebarGenerator,
+  presets: [
+    [
+      'classic',
+      {
+        docs: {
+          sidebarPath: './sidebars.ts',
+          editUrl: 'https://github.com/iflastandards/standards-dev/tree/main/standards/ISBDM/',
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
-        }),
-      ],
-    ],
-
-    plugins: [
-      // IFLA standard plugins
-      ...createIFLAPlugins({
-        environment: currentEnv, // Pass environment for pure function
-        enableLocalSearch: true,
-        searchConfig: {
-          indexBlog: true, // ISBDM has a blog
-          language: ['en'],
+          sidebarItemsGenerator: customSidebarGenerator,
+          versions: {
+            current: {
+              label: 'Latest',
+              path: '',
+            },
+          },
+          lastVersion: 'current',
+          onlyIncludeVersions: ['current'],
         },
-        // imageConfig defaults are now environment-aware in the factory
-      }),
-
-      // ISBDM-specific plugins
-      [
-        '@docusaurus/plugin-client-redirects',
-        {
-          redirects: [],
-          createRedirects: (existingPath: string) => {
-            // Only process element paths - be very specific to avoid interfering with other routes
-            // This regex specifically matches element paths with numeric IDs only
-            const elementMatch = existingPath.match(/^\/docs\/(attributes|statements|notes|relationships)\/(\d+)$/);
-            if (elementMatch) {
-              const elementId = elementMatch[2];
-              // Only create redirect if it's a valid numeric element ID
-              if (/^\d+$/.test(elementId)) {
-                return [`/docs/elements/${elementId}`];
-              }
-            }
-            // Don't redirect anything else - this prevents interference with other routes
-            return undefined;
+        blog: {
+          showReadingTime: true,
+          editUrl: 'https://github.com/iflastandards/standards-dev/tree/main/standards/ISBDM/',
+          feedOptions: {
+            type: 'all',
+            title: 'ISBD for Manifestation Blog',
+            description: 'Updates and news about ISBD for Manifestation',
+            copyright: `Copyright © ${new Date().getFullYear()} IFLA.`,
+            language: 'en',
           },
         },
-      ],
-    ],
-
-    themeConfig: deepmerge(
-      createThemeConfig({
-        navbarTitle: 'ISBDM',
-        navbarItems: createStandardsNavbar({
-          title: 'ISBDM',
-          customItems: navbarItems,
-          includeBlog: true,
-          includeVersionDropdown: true,
-          includeLocaleDropdown: true,
-          includeSearch: true,
-        }),
-        footerLinks: createStandardsFooter({
-          githubUrl: GITHUB_REPO_URL,
-          includeRdfDownloads: true,
-          includeSitemap: true,
-          includeBlog: true,
-        }).links,
-        copyright: createStandardsFooter({
-          githubUrl: GITHUB_REPO_URL,
-        }).copyright,
-      }),
-      {
-        // ISBDM-specific theme overrides
-        metadata: [
-          { name: 'keywords', content: 'ifla, library, standards, isbd, manifestation, cataloging' },
-        ],
-        tableOfContents: {
-          minHeadingLevel: 2,
-          maxHeadingLevel: 6,
+        theme: {
+          customCss: './src/css/custom.css',
         },
-      } satisfies Partial<Preset.ThemeConfig>,
-    ),
-  }
-);
+      } satisfies Preset.Options,
+    ],
+  ],
+
+  themeConfig: {
+    docs: {
+      sidebar: {
+        hideable: true,
+        autoCollapseCategories: true,
+      },
+      versionPersistence: 'localStorage',
+    },
+    tableOfContents: {
+      minHeadingLevel: 2,
+      maxHeadingLevel: 6,
+    },
+    image: 'img/docusaurus-social-card.jpg',
+    navbar: {
+      title: 'ISBDM',
+      logo: {
+        alt: 'IFLA Logo',
+        src: 'img/logo-ifla_black.png',
+      },
+      items: [
+        {
+          type: 'dropdown',
+          label: 'Instructions',
+          position: 'left',
+          items: [
+            {
+              type: 'doc',
+              docId: 'intro/index',
+              label: 'Introduction',
+            },
+            {
+              type: 'doc',
+              docId: 'assess/index',
+              label: 'Assessment',
+            },
+            {
+              type: 'doc',
+              docId: 'glossary/index',
+              label: 'Glossary',
+            },
+            {
+              type: 'doc',
+              docId: 'fullex/index',
+              label: 'Examples',
+            },
+          ],
+        },
+        {
+          type: 'dropdown',
+          label: 'Elements',
+          position: 'left',
+          items: [
+            {
+              type: 'doc',
+              docId: 'statements/index',
+              label: 'Statements',
+            },
+            {
+              type: 'doc',
+              docId: 'notes/index',
+              label: 'Notes',
+            },
+            {
+              type: 'doc',
+              docId: 'attributes/index',
+              label: 'Attributes',
+            },
+            {
+              type: 'doc',
+              docId: 'relationships/index',
+              label: 'Relationships',
+            },
+          ],
+        },
+        {
+          type: 'dropdown',
+          position: 'left',
+          label: 'Values',
+          items: [
+            {
+              type: 'doc',
+              docId: 'ves/index',
+              label: 'Value Vocabularies',
+            },
+            {
+              type: 'doc',
+              docId: 'ses/index',
+              label: 'String Encodings Schemes',
+            },
+          ]
+        },
+        {
+          type: 'doc',
+          docId: 'manage',
+          label: 'Management',
+          position: 'left',
+          className: 'navbar__item--management',
+        },
+        {
+          type: 'dropdown',
+          label: 'About',
+          position: 'right',
+          items: [
+            {
+              type: 'doc',
+              docId: 'about/index',
+              label: 'About ISBDM',
+            },
+            {
+              type: 'doc',
+              docId: 'about/docusaurus-for-ifla',
+              label: 'Modern Documentation Platform',
+            },
+          ],
+        },
+        {to: '/blog', label: 'Blog', position: 'right'},
+        {
+          type: 'docsVersionDropdown',
+          position: 'right',
+        },
+        {
+          type: 'localeDropdown',
+          position: 'right',
+        },
+        {
+          type: 'search',
+          position: 'right',
+        },
+      ],
+    },
+    footer: {
+      style: 'dark',
+      links: [
+        {
+          title: 'Resources',
+          items: [
+            {
+              label: 'RDF Downloads',
+              to: '/rdf/',
+            },
+            {
+              label: 'Sitemap',
+              to: '/sitemap',
+            },
+          ],
+        },
+        {
+          title: 'Community',
+          items: [
+            {
+              label: 'IFLA Website',
+              href: 'https://www.ifla.org/',
+            },
+            {
+              label: 'IFLA Standards',
+              href: 'https://www.ifla.org/programmes/ifla-standards/',
+            },
+          ],
+        },
+        {
+          title: 'More',
+          items: [
+            {
+              label: 'Portal',
+              href: `${siteConfig.url === siteConfigMap.portal.url ? '/' : siteConfigMap.portal.url + siteConfigMap.portal.baseUrl}`,
+            },
+            {
+              label: 'GitHub',
+              href: 'https://github.com/iflastandards/standards-dev',
+            },
+          ],
+        },
+      ],
+      copyright: `
+      Copyright © ${new Date().getFullYear()} International Federation of Library Associations and Institutions (IFLA)<br />
+      <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">
+        <img src="img/cc0_by.png" alt="CC BY 4.0" style="vertical-align:middle; height:24px;" />
+      </a>
+      Gordon Dunsire and Mirna Willer (Main design and content editors).
+    `,
+    },
+    prism: {
+      theme: prismThemes.github,
+      darkTheme: prismThemes.dracula,
+    },
+  } satisfies Preset.ThemeConfig,
+};
 
 export default config;

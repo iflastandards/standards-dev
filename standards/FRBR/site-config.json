@@ -1,0 +1,31 @@
+{
+  "title": "IFLA FR Family of Models",
+  "tagline": "Conceptual Models for Bibliographic Information",
+  "organizationName": "iflastandards",
+  "projectName": "FRBR",
+  "editUrl": "https://github.com/iflastandards/standards-dev/tree/main/standards/FRBR/",
+  "features": {
+    "enableBlog": true,
+    "enableSearch": true,
+    "enableRdfDownloads": true,
+    "enableRedirects": false
+  },
+  "navbar": {
+    "includeBlog": true,
+    "includeVersionDropdown": true,
+    "includeLocaleDropdown": true,
+    "includeSearch": true
+  },
+  "vocabulary": {
+    "prefix": "ifla",
+    "numberPrefix": "T",
+    "profile": "vocabulary-profile.csv",
+    "elementUri": "https://www.iflastandards.info/elements",
+    "elementProfile": "elements-profile.csv"
+  },
+  "buildConfig": {
+    "onBrokenLinks": "warn",
+    "onBrokenMarkdownLinks": "warn",
+    "onBrokenAnchors": "warn"
+  }
+}

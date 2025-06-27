@@ -1,0 +1,33 @@
+{
+  "title": "ISBD for Manifestation",
+  "tagline": "International Standard Bibliographic Description for Manifestation",
+  "organizationName": "iflastandards",
+  "projectName": "ISBDM",
+  "editUrl": "https://github.com/iflastandards/ISBDM/tree/main/",
+  "features": {
+    "enableBlog": true,
+    "enableSearch": true,
+    "enableRdfDownloads": true,
+    "enableRedirects": true,
+    "enableCustomSidebar": false,
+    "enableElementRedirects": true
+  },
+  "navbar": {
+    "includeBlog": true,
+    "includeVersionDropdown": true,
+    "includeLocaleDropdown": true,
+    "includeSearch": true
+  },
+  "vocabulary": {
+    "prefix": "isbdm",
+    "numberPrefix": "T",
+    "profile": "isbdm-values-profile-revised.csv",
+    "elementUri": "https://www.iflastandards.info/ISBDM/elements",
+    "elementProfile": "isbdm-elements-profile.csv"
+  },
+  "buildConfig": {
+    "onBrokenLinks": "ignore",
+    "onBrokenMarkdownLinks": "warn",
+    "onBrokenAnchors": "ignore"
+  }
+}

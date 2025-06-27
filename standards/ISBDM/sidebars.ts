@@ -47,7 +47,7 @@ const sidebars = {
           type: 'category',
           label: 'Relationships',
           collapsed: false, // Expanded and can't be collapsed
-          collapsible: false, // Collapsible
+//          collapsible: false, // Collapsible
           link: {
             type: 'doc',
             id: 'relationships/index', // path relative to docs folder, without .mdx extension
