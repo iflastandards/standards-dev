@@ -13,6 +13,28 @@ export interface SiteConfigEntry {
   port?: number; // Only for local environment
 }
 
+// Type for Docusaurus site configuration objects (used in tests and components)
+export interface SiteConfig {
+  title?: string;
+  url?: string;
+  baseUrl?: string;
+  customFields?: {
+    siteKey?: string;
+    environment?: string;
+    isPortal?: boolean;
+    vocabularyDefaults?: {
+      prefix?: string;
+      startCounter?: number;
+      uriStyle?: 'numeric' | 'kebab-case';
+      caseStyle?: 'kebab-case' | 'camelCase';
+      defaultLanguage?: string;
+      availableLanguages?: readonly string[];
+    };
+    [key: string]: any;
+  };
+  [key: string]: any;
+}
+
 // Central configuration matrix - single source of truth
 export const SITE_CONFIG: Record<SiteKey, Record<Environment, SiteConfigEntry>> = {
   portal: {
