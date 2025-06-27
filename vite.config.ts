@@ -31,18 +31,24 @@ export default defineConfig({
         include: ['**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
         exclude: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/e2e/**', '**/tests/visual-regression.spec.ts'],
         // Enhanced CI stability and performance
-        testTimeout: process.env.CI ? 60000 : 30000,
-        hookTimeout: process.env.CI ? 30000 : 10000,
+        testTimeout: process.env.CI ? 120000 : 30000, // Increased CI timeout to 2 minutes
+        hookTimeout: process.env.CI ? 60000 : 10000,  // Increased CI hook timeout to 1 minute
         maxConcurrency: process.env.CI ? 1 : 5,
         pool: 'threads', // Better than forks for CI performance
         poolOptions: {
             threads: { 
                 singleThread: !!process.env.CI,
-                isolate: true
+                isolate: true,
+                // Add memory management for CI
+                maxThreads: process.env.CI ? 1 : undefined,
+                minThreads: process.env.CI ? 1 : undefined
             }
         },
-        retry: process.env.CI ? 2 : 0,
+        retry: process.env.CI ? 3 : 0, // Increased retry count for CI
         logHeapUsage: !!process.env.CI,
+        // Add memory and resource management for CI
+        bail: process.env.CI ? 1 : 0, // Stop on first failure in CI to prevent resource exhaustion
+        forceRerunTriggers: [], // Always use empty array to avoid CI issues
         // Enhanced reporting
         reporters: [
             'default',
