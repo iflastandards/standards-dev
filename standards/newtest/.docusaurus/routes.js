@@ -9,25 +9,25 @@ export default [
   },
   {
     path: '/newtest/docs',
-    component: ComponentCreator('/newtest/docs', '655'),
+    component: ComponentCreator('/newtest/docs', '3fe'),
     routes: [
       {
         path: '/newtest/docs',
-        component: ComponentCreator('/newtest/docs', '786'),
+        component: ComponentCreator('/newtest/docs', '03a'),
         routes: [
           {
             path: '/newtest/docs',
-            component: ComponentCreator('/newtest/docs', '6de'),
+            component: ComponentCreator('/newtest/docs', 'c15'),
             routes: [
               {
                 path: '/newtest/docs/getting-started/overview',
-                component: ComponentCreator('/newtest/docs/getting-started/overview', '32c'),
+                component: ComponentCreator('/newtest/docs/getting-started/overview', '6cc'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
                 path: '/newtest/docs/intro',
-                component: ComponentCreator('/newtest/docs/intro', '104'),
+                component: ComponentCreator('/newtest/docs/intro', 'a11'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               }

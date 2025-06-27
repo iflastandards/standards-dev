@@ -29,3 +29,5 @@ vitest.config.*.timestamp*test-results/
 /test-results
 test-results
 /packages/theme/test-results
+test-results/*
+/test-results/.last-run.json

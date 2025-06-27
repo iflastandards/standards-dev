@@ -60,17 +60,17 @@ jobs:
         if: github.event.inputs.site != 'all'
         run: |
           echo "🔍 Running affected validation..."
-          nx affected --target=typecheck --parallel=3
-          nx affected --target=lint --parallel=3 --quiet
-          nx affected --target=test --parallel=3
+          pnpm nx affected --target=typecheck --parallel=3
+          pnpm nx affected --target=lint --parallel=3 --quiet
+          pnpm nx affected --target=test --parallel=3
 
       - name: Run all tests (unit, lint, typecheck)
         if: github.event.inputs.site == 'all'
         run: |
           echo "🔍 Running all validation..."
-          nx run-many --target=typecheck --all --parallel=3
-          nx run-many --target=lint --all --parallel=3 --quiet
-          nx run-many --target=test --all --parallel=3
+          pnpm nx run-many --target=typecheck --all --parallel=3
+          pnpm nx run-many --target=lint --all --parallel=3 --quiet
+          pnpm nx run-many --target=test --all --parallel=3
 
       - name: Upload test results
         if: failure()
@@ -103,7 +103,7 @@ jobs:
         run: pnpm install --no-frozen-lockfile
 
       - name: Build theme package
-        run: nx build @ifla/theme
+        run: pnpm nx build @ifla/theme
 
       - name: Test site configurations
         run: |
@@ -154,22 +154,22 @@ jobs:
           
           if [ "$SITE" = "affected" ]; then
             echo "Building affected sites..."
-            nx affected --target=build --parallel=1 --configuration=$ENV
+            pnpm nx affected --target=build --parallel=1 --configuration=$ENV
           elif [ "$SITE" = "all" ]; then
             echo "Building all sites..."
-            nx run-many --target=build --all --parallel=1 --configuration=$ENV
+            pnpm nx run-many --target=build --all --parallel=1 --configuration=$ENV
           else
             echo "Building specific site: $SITE..."
-            nx build $SITE --configuration=$ENV
+            pnpm nx build $SITE --configuration=$ENV
           fi
 
       - name: Get built projects for artifacts
         id: built-projects
         run: |
           if [ "${{ github.event.inputs.site }}" = "all" ]; then
-            projects=$(nx show projects --type=app | tr '\n' ' ')
+            projects=$(pnpm nx show projects --type=app | tr '\n' ' ')
           elif [ "${{ github.event.inputs.site }}" = "affected" ] || [ -z "${{ github.event.inputs.site }}" ]; then
-            projects=$(nx show projects --affected --type=app | tr '\n' ' ')
+            projects=$(pnpm nx show projects --affected --type=app | tr '\n' ' ')
           else
             projects="${{ github.event.inputs.site }}"
           fi

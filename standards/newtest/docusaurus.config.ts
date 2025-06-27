@@ -19,6 +19,7 @@ const siteConfigMap = getSiteConfigMap(DOCS_ENV);
 const config: Config = {
   future: {
     v4: true,
+    experimental_faster: true,
   },
   title: 'New Test Site',
   tagline: 'Testing our scaffolding system',

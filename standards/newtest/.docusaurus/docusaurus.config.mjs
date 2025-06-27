@@ -10,14 +10,14 @@ export default {
       "useCssCascadeLayers": true
     },
     "experimental_faster": {
-      "swcJsLoader": false,
-      "swcJsMinimizer": false,
-      "swcHtmlMinimizer": false,
-      "lightningCssMinimizer": false,
-      "mdxCrossCompilerCache": false,
-      "rspackBundler": false,
-      "rspackPersistentCache": false,
-      "ssgWorkerThreads": false
+      "swcJsLoader": true,
+      "swcJsMinimizer": true,
+      "swcHtmlMinimizer": true,
+      "lightningCssMinimizer": true,
+      "mdxCrossCompilerCache": true,
+      "rspackBundler": true,
+      "rspackPersistentCache": true,
+      "ssgWorkerThreads": true
     },
     "experimental_storage": {
       "type": "localStorage",
@@ -28,7 +28,7 @@ export default {
   "title": "New Test Site",
   "tagline": "Testing our scaffolding system",
   "favicon": "img/favicon.ico",
-  "url": "http://localhost:3007",
+  "url": "http://localhost:3008",
   "baseUrl": "/newtest/",
   "organizationName": "iflastandards",
   "projectName": "newtest",
