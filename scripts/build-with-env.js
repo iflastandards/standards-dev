@@ -39,14 +39,13 @@ const validSites = discoverSites();
 program
   .option('--env <environment>', 'Environment to build for')
   .option('--site <site>', 'Site to build')
-  .option('--clean-packages', 'Clean and rebuild theme and preset packages before building')
+  .option('--clean-packages', 'Clean and rebuild theme package before building')
   .option('--clean-theme', 'Clean and rebuild the theme package before building')
-  .option('--clean-preset', 'Clean and rebuild the preset package before building')
   .parse(process.argv);
 
 async function main() {
   const options = program.opts();
-  let { env, site, cleanPackages, cleanTheme, cleanPreset } = options;
+  let { env, site, cleanPackages, cleanTheme } = options;
 
   // If no environment provided, ask user to select
   if (!env) {
@@ -77,7 +76,7 @@ async function main() {
   }
 
   // If clean options not specified via CLI, ask user
-  if (cleanPackages === undefined && cleanTheme === undefined && cleanPreset === undefined) {
+  if (cleanPackages === undefined && cleanTheme === undefined) {
     const cleanAnswer = await inquirer.prompt([
       {
         type: 'list',
@@ -85,23 +84,15 @@ async function main() {
         message: 'Clean packages before building?',
         choices: [
           { name: 'No cleaning', value: 'none' },
-          { name: 'Clean both theme and preset packages', value: 'packages' },
-          { name: 'Clean theme package only', value: 'theme' },
-          { name: 'Clean preset package only', value: 'preset' }
+          { name: 'Clean theme package', value: 'theme' }
         ],
         default: 'none'
       }
     ]);
     
     switch (cleanAnswer.cleanOption) {
-      case 'packages':
-        cleanPackages = true;
-        break;
       case 'theme':
         cleanTheme = true;
-        break;
-      case 'preset':
-        cleanPreset = true;
         break;
       default:
         // none - leave all as undefined/false
@@ -112,7 +103,6 @@ async function main() {
   // Default clean options to false if still undefined
   cleanPackages = cleanPackages || false;
   cleanTheme = cleanTheme || false;
-  cleanPreset = cleanPreset || false;
 
   // Validate environment
   if (!validEnvironments.includes(env)) {
@@ -127,44 +117,16 @@ async function main() {
   }
 
   // Clean and rebuild packages if requested
-  if (cleanPackages) {
-    console.log('\nCleaning and rebuilding theme and preset packages...');
+  if (cleanPackages || cleanTheme) {
+    console.log('\nCleaning and rebuilding theme package...');
     try {
-      execSync('pnpm clear:packages', { stdio: 'inherit' });
+      execSync('pnpm clear:theme', { stdio: 'inherit' });
       execSync('pnpm build:theme', { stdio: 'inherit' });
-      execSync('pnpm build:preset', { stdio: 'inherit' });
-      console.log('Theme and preset packages rebuilt successfully.');
+      console.log('Theme package rebuilt successfully.');
        
     } catch (error) {
-      console.error('Failed to rebuild packages.');
+      console.error('Failed to rebuild theme package.');
       process.exit(1);
-    }
-  } else {
-    // Clean and rebuild individual packages if requested
-    if (cleanTheme) {
-      console.log('\nCleaning and rebuilding theme package...');
-      try {
-        execSync('pnpm clear:theme', { stdio: 'inherit' });
-        execSync('pnpm build:theme', { stdio: 'inherit' });
-        console.log('Theme package rebuilt successfully.');
-         
-      } catch (error) {
-        console.error('Failed to rebuild theme package.');
-        process.exit(1);
-      }
-    }
-    
-    if (cleanPreset) {
-      console.log('\nCleaning and rebuilding preset package...');
-      try {
-        execSync('pnpm clear:preset', { stdio: 'inherit' });
-        execSync('pnpm build:preset', { stdio: 'inherit' });
-        console.log('Preset package rebuilt successfully.');
-         
-      } catch (error) {
-        console.error('Failed to rebuild preset package.');
-        process.exit(1);
-      }
     }
   }
 
