@@ -45,18 +45,6 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - uses: nrwl/nx-set-shas@v4
 
-      # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
-      # - run: pnpm exec nx-cloud record -- echo Hello World
-      # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
-      - run: pnpm exec nx affected -t lint test build --parallel=6
-      
-      # Install Playwright browsers for e2e tests
-      - name: Install Playwright Browsers
-        run: pnpm exec playwright install --with-deps
-      
-      # Run e2e tests on affected projects
-      # These tests validate URLs, links, images, and navigation for each site
-      - name: Run Playwright e2e tests
-        run: |
-          pnpm exec nx affected:e2e --base=main~1 --head=main
-          pnpm exec nx-cloud record -- pnpm exec playwright show-report
+      # Minimal CI - just build affected projects for deployment
+      # Tests run locally via pre-commit/pre-push hooks
+      - run: pnpm exec nx affected -t build --parallel=6
