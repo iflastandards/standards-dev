@@ -28,8 +28,6 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@ifla/shared-config": ["./libs/shared-config/src/index.ts"],
-      "@ifla/shared-config/*": ["./libs/shared-config/src/*"],
       "@ifla/theme": ["./packages/theme/src/index.ts"],
       "@ifla/theme/*": ["./packages/theme/src/*"],
       "@ifla/theme/components": ["./packages/theme/src/components/index.ts"],
@@ -42,7 +40,6 @@
       "@site/*": ["./*"],
       "@site/plugins/*": ["./plugins/*"],
       "@theme/*": ["./src/theme/*", "./.docusaurus/theme-fallback/*"],
-      "shared-config": ["libs/shared-config/src/index.ts"]
     }
   },
   "include": [

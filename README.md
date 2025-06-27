@@ -175,7 +175,7 @@ DOCS_ENV=production pnpm build:portal
 
 The project uses a centralized configuration system that replaced environment files in December 2024. See **[Site Configuration Architecture](developer_notes/site-configuration-architecture.md)** for complete documentation on:
 
-- Centralized configuration matrix in `libs/shared-config/src/lib/siteConfig.ts`
+- Centralized configuration matrix in `@ifla/theme/config/siteConfig`
 - Inter-site navigation with the `SiteLink` component  
 - Environment handling (local, preview, development, production)
 - Migration notes and benefits of the new approach
