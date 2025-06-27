@@ -49,8 +49,8 @@ export default defineConfig({
         },
         retry: process.env.CI ? 2 : 0, // Reduced retry count for CI
         logHeapUsage: !!process.env.CI,
-        // Disable bail in CI to see all test results
-        bail: false,
+        // Disable bail in CI to see all test results (0 = run all tests)
+        bail: 0,
         forceRerunTriggers: process.env.CI ? [] : [
             '**/vite.config.ts',
             '**/vitest.config.ts', 
