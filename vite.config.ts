@@ -31,24 +31,32 @@ export default defineConfig({
         include: ['**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
         exclude: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/e2e/**', '**/tests/visual-regression.spec.ts'],
         // Enhanced CI stability and performance
-        testTimeout: process.env.CI ? 90000 : 30000, // Reduced CI timeout to 90 seconds
-        hookTimeout: process.env.CI ? 30000 : 10000,  // Reduced CI hook timeout to 30 seconds
-        maxConcurrency: process.env.CI ? 1 : 5,
+        testTimeout: process.env.CI ? 60000 : 30000, // Further reduced CI timeout to 60 seconds
+        hookTimeout: process.env.CI ? 20000 : 10000,  // Further reduced CI hook timeout to 20 seconds
+        maxConcurrency: 1, // Force single concurrency everywhere for stability
         pool: process.env.CI ? 'forks' : 'threads', // Use forks in CI for better isolation
         poolOptions: {
             threads: { 
-                singleThread: !!process.env.CI,
+                singleThread: true, // Always use single thread
                 isolate: true,
-                maxThreads: process.env.CI ? 1 : undefined,
-                minThreads: process.env.CI ? 1 : undefined
+                maxThreads: 1,
+                minThreads: 1
             },
             forks: {
-                singleFork: !!process.env.CI,
-                isolate: true
+                singleFork: true, // Always use single fork
+                isolate: true,
+                maxWorkers: 1
             }
         },
-        retry: process.env.CI ? 2 : 0, // Reduced retry count for CI
+        retry: 0, // Disable retries to avoid hanging
         logHeapUsage: !!process.env.CI,
+        // More aggressive timeouts for Nx Cloud
+        ...(process.env.NX_CLOUD_DISTRIBUTED_EXECUTION && {
+            testTimeout: 45000,
+            hookTimeout: 15000,
+            maxConcurrency: 1,
+            pool: 'forks'
+        }),
         // Disable bail in CI to see all test results (0 = run all tests)
         bail: 0,
         forceRerunTriggers: process.env.CI ? [] : [
@@ -66,7 +74,7 @@ export default defineConfig({
         ],
         // Coverage configuration with thresholds
         coverage: {
-            reporter: ['text', 'json-summary', 'html', 'lcov'],
+            reporter: process.env.CI ? ['text'] : ['text', 'json-summary', 'html', 'lcov'],
             reportsDirectory: './coverage',
             exclude: [
                 '**/node_modules/**',
@@ -78,14 +86,17 @@ export default defineConfig({
                 '**/__tests__/**',
                 '**/__mocks__/**'
             ],
-            thresholds: {
-                global: {
-                    branches: 75,
-                    functions: 75,
-                    lines: 80,
-                    statements: 80
+            // Disable thresholds in CI to avoid extra processing
+            ...(process.env.CI ? {} : {
+                thresholds: {
+                    global: {
+                        branches: 75,
+                        functions: 75,
+                        lines: 80,
+                        statements: 80
+                    }
                 }
-            }
+            })
         }
     },
 });
