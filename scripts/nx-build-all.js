@@ -30,16 +30,28 @@ function runCommand(command, description) {
 function main() {
   console.log(colors.bold(colors.cyan('IFLA Standards - Nx Optimized Build\n')));
 
-  // Use nx run-many with proper dependencies instead of manual sequencing
-  // Nx will handle the build order based on the dependencies we configured
-  // REDUCED CONCURRENCY: Lowered from --parallel=3 to --parallel=1 to prevent race conditions
-  // that cause configuration contamination between concurrent site builds
-  runCommand(
-    'nx run-many --target=build --projects=@ifla/theme,shared-config,portal,frbr,isbd,lrm,isbdm,unimarc,muldicat --parallel=1',
-    'Building all projects with serialized builds to prevent configuration contamination'
-  );
+  // Check if we should build affected only or all projects
+  const buildMode = process.argv.includes('--affected') ? 'affected' : 'all';
+  
+  if (buildMode === 'affected') {
+    console.log(colors.cyan('🎯 Building affected projects only (faster)\n'));
+    runCommand(
+      'nx affected --target=build --parallel=1',
+      'Building affected projects with serialized builds to prevent configuration contamination'
+    );
+  } else {
+    console.log(colors.cyan('🏗️  Building all projects\n'));
+    // Use nx run-many with proper dependencies instead of manual sequencing
+    // Nx will handle the build order based on the dependencies we configured
+    // REDUCED CONCURRENCY: Lowered from --parallel=3 to --parallel=1 to prevent race conditions
+    // that cause configuration contamination between concurrent site builds
+    runCommand(
+      'nx run-many --target=build --all --parallel=1',
+      'Building all projects with serialized builds to prevent configuration contamination'
+    );
+  }
 
-  console.log(colors.bold(colors.green('\n🎉 All builds completed successfully with proper isolation!')));
+  console.log(colors.bold(colors.green(`\n🎉 ${buildMode === 'affected' ? 'Affected' : 'All'} builds completed successfully with proper isolation!`)));
 }
 
 if (require.main === module) {

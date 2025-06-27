@@ -26,8 +26,7 @@
       "{projectRoot}/sidebars.ts",
       "{projectRoot}/src/**/*",
       "{projectRoot}/static/**/*",
-      "{workspaceRoot}/packages/theme/**/*",
-      "{workspaceRoot}/libs/shared-config/**/*"
+      "{workspaceRoot}/packages/theme/**/*"
     ],
     "docusaurus-no-theme": [
       "{projectRoot}/**/*.{md,mdx}",
@@ -36,8 +35,7 @@
       "{projectRoot}/sidebars.js",
       "{projectRoot}/sidebars.ts",
       "{projectRoot}/src/**/*",
-      "{projectRoot}/static/**/*",
-      "{workspaceRoot}/libs/shared-config/**/*"
+      "{projectRoot}/static/**/*"
     ],
     "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
   },

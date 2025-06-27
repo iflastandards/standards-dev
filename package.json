@@ -10,6 +10,7 @@
     "build": "echo 'Please specify a site to build using: pnpm build:{site}' && exit 1",
     "build-env": "node scripts/build-with-env.js",
     "build:all": "node scripts/nx-build-all.js",
+    "build:all:affected": "node scripts/nx-build-all.js --affected",
     "build:all:nx": "nx run standards-dev:build-all",
     "build:affected": "nx run standards-dev:build-affected",
     "build:all:safe": "pnpm clear:all && pnpm build:all",
@@ -237,6 +238,7 @@
   "devDependencies": {
     "@docusaurus/core": "^3.8.1",
     "@docusaurus/eslint-plugin": "^3.8.1",
+    "@docusaurus/faster": "^3.8.1",
     "@docusaurus/module-type-aliases": "3.8.1",
     "@docusaurus/plugin-client-redirects": "^3.8.1",
     "@docusaurus/plugin-content-docs": "^3.8.1",

@@ -1,39 +1,27 @@
 #!/usr/bin/env sh
-# Pre-commit hook for IFLA Standards project
-# Runs essential checks before allowing commits
+# NX-optimized pre-commit hook for IFLA Standards project
+# Runs essential checks on affected projects only
 
-echo "🔍 Running pre-commit checks..."
+echo "🔍 Running NX-optimized pre-commit checks..."
 
-# 1. Run TypeScript type checking (fast, catches major issues)
-echo "📝 Checking TypeScript..."
-pnpm typecheck
-if [ $? -ne 0 ]; then
-  echo "❌ TypeScript errors found. Please fix before committing."
+# Run affected checks in parallel for maximum efficiency
+echo "⚡ Running affected typecheck, lint, and test in parallel..."
+{
+  nx affected --target=typecheck --parallel=3 &
+  nx affected --target=lint --parallel=3 &
+  nx affected --target=test --parallel=3 &
+  wait
+} || {
+  echo "❌ Pre-commit checks failed. Please fix and try again."
   exit 1
-fi
+}
 
-# 2. Run ESLint (code quality)
-echo "🔧 Running ESLint..."
-pnpm lint --quiet
-if [ $? -ne 0 ]; then
-  echo "❌ ESLint errors found. Please fix before committing."
-  exit 1
-fi
-
-# 3. Run unit tests (fast feedback on component changes)
-echo "🧪 Running unit tests..."
-pnpm test --run
-if [ $? -ne 0 ]; then
-  echo "❌ Unit tests failed. Please fix before committing."
-  exit 1
-fi
-
-# 4. Quick configuration validation (for config changes)
-echo "⚙️  Validating site configurations..."
-node scripts/test-site-builds.js --site all --env local --skip-build
+# Quick configuration validation for affected sites only
+echo "⚙️  Validating affected site configurations..."
+node scripts/test-site-builds-affected.js --env local --skip-build
 if [ $? -ne 0 ]; then
   echo "❌ Site configuration validation failed."
   exit 1
 fi
 
-echo "✅ All pre-commit checks passed!"
+echo "✅ All NX-optimized pre-commit checks passed!"

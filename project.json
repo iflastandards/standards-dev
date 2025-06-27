@@ -109,7 +109,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx run-many --target=build --projects=portal,isbdm,lrm,frbr,isbd,muldicat,unimarc --parallel=3"
+          "nx run-many --target=build --all --parallel=1"
         ]
       },
       "dependsOn": ["^build"],
@@ -121,7 +121,7 @@
     "build-affected": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "nx affected --target=build --parallel=3"
+        "command": "nx affected --target=build --parallel=1"
       },
       "dependsOn": ["^build"],
       "cache": true

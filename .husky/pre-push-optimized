@@ -63,8 +63,8 @@ if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "dev" ]; then
     exit 1
   fi
   
-  # 4. Only run E2E if portal or shared-config.old is affected
-  if echo "$AFFECTED_PROJECTS" | grep -q -E "(portal|shared-config)"; then
+  # 4. Only run E2E if portal is affected
+  if echo "$AFFECTED_PROJECTS" | grep -q "portal"; then
     echo "🌐 Portal affected - running critical E2E tests..."
     npx nx run portal:e2e || {
       echo "⚠️  E2E tests failed but continuing (non-blocking for protected branches)"
@@ -106,8 +106,8 @@ else
     exit 1
   fi
   
-  # 4. Build only one representative site if portal/shared-config.old affected
-  if echo "$AFFECTED_PROJECTS" | grep -q -E "(portal|shared-config)"; then
+  # 4. Build only one representative site if portal affected
+  if echo "$AFFECTED_PROJECTS" | grep -q "portal"; then
     echo "🏗️  Testing representative build..."
     npx nx run portal:build --skip-nx-cache=false
     if [ $? -ne 0 ]; then
