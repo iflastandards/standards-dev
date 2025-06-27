@@ -1,9 +1,0 @@
-{
-  "name": "@ifla/isbd",
-  "version": "1.0.0",
-  "private": true,
-  "dependencies": {
-    "@ifla/shared-config": "workspace:*",
-    "@ifla/theme": "workspace:*"
-  }
-}

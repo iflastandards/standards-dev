@@ -1,5 +1,4 @@
-# @ifla/shared-config
-
+# @ifla/theme
 A collection of pure configuration factory functions for Docusaurus sites in the IFLA Standards monorepo. This library provides environment-based configuration capabilities while maintaining Nx caching compatibility.
 
 ## Overview
@@ -33,7 +32,6 @@ This library is internal to the monorepo and available via workspace reference:
 // docusaurus.config.ts
 import * as dotenv from 'dotenv';
 import * as path from 'path';
-import { createBaseConfig, createThemeConfig, createIFLAPlugins, getEnvironmentName, validateEnvConfig } from '@ifla/shared-config';
 
 // Load environment variables
 const environment = getEnvironmentName();

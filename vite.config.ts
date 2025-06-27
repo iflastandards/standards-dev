@@ -21,7 +21,6 @@ export default defineConfig({
             '@theme/CodeBlock': path.resolve(__dirname, 'packages/theme/src/tests/__mocks__/CodeBlock.tsx'),
             '@theme/Heading': path.resolve(__dirname, 'packages/theme/src/tests/__mocks__/Heading.tsx'),
             '@ifla/theme': path.resolve(__dirname, 'packages/theme/src'),
-            '@ifla/shared-config': path.resolve(__dirname, 'libs/shared-config/src'),
        },
     },
     test: {

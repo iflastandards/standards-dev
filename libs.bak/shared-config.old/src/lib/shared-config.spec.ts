@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { createBaseConfig, createThemeConfig } from '../index';
 
-describe('shared-config', () => {
+describe('shared-config.old', () => {
   describe('createBaseConfig', () => {
     it('should create base configuration with provided options', () => {
       const config = createBaseConfig({

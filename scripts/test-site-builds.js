@@ -115,9 +115,9 @@ function testSiteConfig(siteKey) {
       errors.push('Missing or incorrect "v4: true" in future config');
     }
     
-    // Check for new shared-config usage
+    // Check for new shared-config.old usage
     if (!configContent.includes('@ifla/shared-config')) {
-      errors.push('Not using @ifla/shared-config for configuration');
+      errors.push('Not using @ifla/shared-config.old for configuration');
     }
     
     // Check for DOCS_ENV usage

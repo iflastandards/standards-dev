@@ -8,15 +8,16 @@ export default defineConfig({
     'components/ElementReference': 'src/components/ElementReference/index.tsx',
     'hooks/usePrevious': 'src/hooks/usePrevious.ts',
     'utils/index': 'src/utils/index.ts',
+    'config/siteConfig': 'src/config/siteConfig.ts',
   },
   format: ['esm', 'cjs'],
   dts: true,
-  splitting: true, // Code splitting for better tree-shaking
+  splitting: false, // Disable code splitting to avoid bundling issues
   sourcemap: true,
   clean: true, // Clean output directory before build
   outDir: 'dist',
   target: 'es2020', // Or your desired target
-  platform: 'browser', // 'node' or 'browser' if specific, 'neutral' for libraries
+  platform: 'neutral', // Use neutral to avoid bundling platform-specific modules
   esbuildOptions(options) {
     options.jsx = 'automatic';
     return options;
@@ -28,7 +29,6 @@ export default defineConfig({
     /^@theme\/.*/,
     'clsx',
     'prism-react-renderer',
-    '@ifla/shared-config',
   ],
   esbuildPlugins: [
     // Type assertion to work around version mismatch between tsup and esbuild

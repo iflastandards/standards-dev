@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('DOCS_ENV Validation Tests', () => {
-  // Test the shared-config getEnvironmentName function behavior
+  // Test the shared-config.old getEnvironmentName function behavior
   
   test('should require DOCS_ENV to be set', async () => {
     // Create an isolated test environment
@@ -10,10 +10,7 @@ test.describe('DOCS_ENV Validation Tests', () => {
     try {
       // Remove DOCS_ENV
       delete process.env.DOCS_ENV;
-      
-      // Dynamic import to ensure fresh module state
-      const { getEnvironmentName } = await import('../libs/shared-config/src/lib/utils/loadEnvConfig');
-      
+
       expect(() => getEnvironmentName()).toThrow('FATAL: DOCS_ENV environment variable is required but not set');
     } finally {
       // Restore original DOCS_ENV
@@ -29,10 +26,7 @@ test.describe('DOCS_ENV Validation Tests', () => {
     try {
       // Set invalid DOCS_ENV
       process.env.DOCS_ENV = 'invalid-env';
-      
-      // Dynamic import to ensure fresh module state
-      const { getEnvironmentName } = await import('../libs/shared-config/src/lib/utils/loadEnvConfig');
-      
+
       expect(() => getEnvironmentName()).toThrow('FATAL: Invalid DOCS_ENV value: \'invalid-env\'');
     } finally {
       // Restore original DOCS_ENV
@@ -51,10 +45,7 @@ test.describe('DOCS_ENV Validation Tests', () => {
     for (const validValue of validValues) {
       try {
         process.env.DOCS_ENV = validValue;
-        
-        // Dynamic import to ensure fresh module state
-        const { getEnvironmentName } = await import('../libs/shared-config/src/lib/utils/loadEnvConfig');
-        
+
         expect(() => getEnvironmentName()).not.toThrow();
         
         const result = getEnvironmentName();
@@ -86,9 +77,7 @@ test.describe('DOCS_ENV Validation Tests', () => {
       try {
         process.env.DOCS_ENV = input;
         
-        // Dynamic import to ensure fresh module state  
-        const { getEnvironmentName } = await import('../libs/shared-config/src/lib/utils/loadEnvConfig');
-        
+
         const result = getEnvironmentName();
         expect(result, `DOCS_ENV=${input} should map to ${expected}`).toBe(expected);
       } finally {

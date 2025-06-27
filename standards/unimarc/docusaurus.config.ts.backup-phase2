@@ -1,74 +1,29 @@
 import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
-import { getSiteConfig, getSiteConfigMap, type SiteKey, type Environment } from '@ifla/theme/config/siteConfig';
-
-// Get current environment from DOCS_ENV
-const DOCS_ENV = process.env.DOCS_ENV as Environment;
-if (!DOCS_ENV) {
-  throw new Error(
-    'DOCS_ENV environment variable is required but not set. ' +
-    'Valid values: local, preview, development, production'
-  );
-}
-
-// Get configuration for this site
-const siteConfig = getSiteConfig('unimarc' as SiteKey, DOCS_ENV);
-const siteConfigMap = getSiteConfigMap(DOCS_ENV);
 
 const config: Config = {
   future: {
     v4: true,
-    experimental_faster: true,
   },
   title: 'UNIMARC',
   tagline: 'Universal MARC Format',
   favicon: 'img/favicon.ico',
 
-  // Use environment-specific URLs from site configuration
-  url: siteConfig.url,
-  baseUrl: siteConfig.baseUrl,
+  // Environment-specific URLs will be set by environment variables
+  url: process.env.SITE_URL || 'http://localhost:3006',
+  baseUrl: process.env.BASE_URL || '/unimarc/',
 
   organizationName: 'iflastandards',
   projectName: 'unimarc',
 
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
-  onBrokenAnchors: "warn",
 
   // Shared static directories
   staticDirectories: ['static', '../../packages/theme/static'],
 
-  customFields: {
-    // Site configuration map for accessing sister site URLs
-    siteConfigMap,
-    // Vocabulary configuration for UNIMARC
-    vocabularyDefaults: {
-      prefix: "unimarc",
-      startCounter: 1000,
-      uriStyle: "numeric",
-      numberPrefix: "T", // Prefix for numeric URIs. Can be blank for no prefix.
-      caseStyle: "kebab-case",
-      showFilter: true,
-      filterPlaceholder: "Filter vocabulary terms...",
-      showTitle: false,
-      showURIs: true, // Whether to display URIs in the table, set to false for glossaries
-      showCSVErrors: false, // Whether to display CSV validation errors by default
-      profile: "unimarc-values-profile.csv",
-      profileShapeId: "Concept",
-      RDF: {
-        "rdf:type": ["skos:ConceptScheme"]
-      },
-      // Common defaults for elements and defines the vocabulary properties
-      elementDefaults: {
-        uri: "https://www.iflastandards.info/unimarc/elements",
-        classPrefix: "C", // Class Prefix for numeric URIs. Can be blank for no prefix.
-        propertyPrefix: "P", // Property Prefix for numeric URIs. Can be blank for no prefix.
-        profile: "unimarc-elements-profile.csv",
-        profileShapeId: "Element",
-      }
-    }
-  },
+  
 
   i18n: {
     defaultLocale: 'en',
@@ -89,6 +44,7 @@ const config: Config = {
         indexBlog: true,
       },
     ],
+    
   ],
 
   presets: [
@@ -158,18 +114,6 @@ const config: Config = {
           label: 'Blog',
           position: 'right',
         },
-        {
-          type: 'docsVersionDropdown',
-          position: 'right',
-        },
-        {
-          type: 'localeDropdown',
-          position: 'right',
-        },
-        {
-          type: 'search',
-          position: 'right',
-        },
       ],
     },
     footer: {
@@ -206,7 +150,7 @@ const config: Config = {
           items: [
             {
               label: 'Portal',
-              href: `${siteConfig.url === siteConfigMap.portal.url ? '/' : siteConfigMap.portal.url + siteConfigMap.portal.baseUrl}`,
+              href: (process.env.SITE_URL || 'http://localhost:3006').replace(':3006', ':3000').replace('/unimarc', ''),
             },
             {
               label: 'GitHub',

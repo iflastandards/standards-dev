@@ -40,9 +40,22 @@
       "types": "./dist/utils/index.d.ts",
       "import": "./dist/utils/index.mjs",
       "require": "./dist/utils/index.js"
+    },
+    "./config/siteConfig": {
+      "types": "./dist/config/siteConfig.d.ts",
+      "import": "./dist/config/siteConfig.mjs",
+      "require": "./dist/config/siteConfig.js"
     }
   },
   "gitHead": "04e45d41a75574005543a45032997cb9a32c645e",
   "module": "dist/index.mjs",
-  "types": "dist/index.d.ts"
+  "types": "dist/index.d.ts",
+  "peerDependencies": {
+    "@docusaurus/core": "^3.8.1",
+    "@docusaurus/theme-common": "^3.8.1",
+    "@docusaurus/plugin-content-docs": "^3.8.1",
+    "@docusaurus/theme-classic": "^3.8.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
 }

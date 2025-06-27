@@ -1,0 +1,28 @@
+{
+  "title": "MulDiCat",
+  "tagline": "Multilingual Dictionary of Cataloguing Terms and Concepts",
+  "organizationName": "iflastandards",
+  "projectName": "muldicat",
+  "features": {
+    "enableBlog": true,
+    "enableSearch": true,
+    "enableRdfDownloads": true
+  },
+  "navbar": {
+    "includeBlog": true,
+    "includeVersionDropdown": true,
+    "includeLocaleDropdown": true,
+    "includeSearch": true
+  },
+  "vocabulary": {
+    "prefix": "ifla",
+    "numberPrefix": "T",
+    "profile": "vocabulary-profile.csv",
+    "elementUri": "https://www.iflastandards.info/elements",
+    "elementProfile": "elements-profile.csv"
+  },
+  "buildConfig": {
+    "onBrokenLinks": "warn",
+    "onBrokenMarkdownLinks": "warn"
+  }
+}

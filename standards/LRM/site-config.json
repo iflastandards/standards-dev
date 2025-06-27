@@ -1,0 +1,31 @@
+{
+  "title": "IFLA LRM",
+  "tagline": "Library Reference Model",
+  "organizationName": "iflastandards",
+  "projectName": "LRM",
+  "editUrl": "https://github.com/iflastandards/LRM/tree/main/",
+  "features": {
+    "enableBlog": true,
+    "enableSearch": true,
+    "enableRdfDownloads": true,
+    "enableRedirects": false
+  },
+  "navbar": {
+    "includeBlog": true,
+    "includeVersionDropdown": true,
+    "includeLocaleDropdown": true,
+    "includeSearch": true
+  },
+  "vocabulary": {
+    "prefix": "lrm",
+    "numberPrefix": "E",
+    "profile": "lrm-profile-revised.csv",
+    "elementUri": "https://www.iflastandards.info/LRM/elements",
+    "elementProfile": "lrm-elements-profile.csv"
+  },
+  "buildConfig": {
+    "onBrokenLinks": "warn",
+    "onBrokenMarkdownLinks": "warn",
+    "onBrokenAnchors": "warn"
+  }
+}

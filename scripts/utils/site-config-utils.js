@@ -1,5 +1,3 @@
-// Updated to use the new centralized configuration system
-const { getSiteConfig, SITE_CONFIG } = require('../../libs/shared-config/dist/index.cjs.js');
 
 // Environment enum matching siteConfig.ts exactly
 const DocsEnv = {

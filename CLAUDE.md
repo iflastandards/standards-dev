@@ -13,6 +13,7 @@
 - ALWAYS Use context7 and look for code examples at the beginning of a coding session
 - ALWAYS consult the docusaurus v3.8 documentation at https://docusaurus.io/docs during planning to identify best parctices and correct architecture
 - remember to always run tests with --skip-nx-cache
+- for generating individual site configs, use the script: /Users/jonphipps/Code/IFLA/standards-dev/scripts/generate-individual-config.ts
 
 ## Key Insights for Docusaurus Navigation and Configuration:
 

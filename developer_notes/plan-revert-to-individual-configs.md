@@ -80,7 +80,7 @@ Create a self-contained template docusaurus.config.ts based on the working pre-c
 
 **Key changes from current template**:
 ```typescript
-// REMOVE all shared-config imports
+// REMOVE all shared-config.old imports
 // REPLACE with direct environment logic:
 const config: Config = {
   title: '__TITLE__',

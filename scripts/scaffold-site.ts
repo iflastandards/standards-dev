@@ -3,8 +3,7 @@
  * Site Scaffolding Script for IFLA Standards
  * 
  * Creates a complete new site using the proven template that eliminates contamination.
- * Supports both shared-config and individual config approaches.
- * 
+ *
  * Usage:
  *   pnpm tsx scripts/scaffold-site.ts --siteKey=mysite --title="My Site" --tagline="My tagline"
  *   pnpm tsx scripts/scaffold-site.ts --preset=standard --siteKey=mysite --title="My Site" --tagline="My tagline"
@@ -95,13 +94,13 @@ async function createFileFromTemplate(
   }
 }
 
-// Update SITE_CONFIG if using shared-config
+// Update SITE_CONFIG if using shared-config.old
 async function updateSiteConfig(config: SiteTemplateConfig, dryRun: boolean = false): Promise<void> {
   // Always skip SITE_CONFIG update since we're using individual configs
   console.log('   ℹ️  Individual config - skipping SITE_CONFIG update');
   return;
 
-  const siteConfigPath = 'libs/shared-config/src/lib/siteConfig.ts';
+  const siteConfigPath = 'shared-config.oldpackages/theme/src/conf/siteConfig.ts';
   
   if (dryRun) {
     console.log(`   📝 Would update: ${siteConfigPath}`);

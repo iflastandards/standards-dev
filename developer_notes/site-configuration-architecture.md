@@ -63,7 +63,7 @@ export function mapDocsEnvToEnvironment(docsEnv?: string): Environment
 Each site's configuration automatically uses the centralized config:
 
 ```typescript
-import { getSiteConfig, mapDocsEnvToEnvironment } from '@ifla/shared-config';
+import { getSiteConfig, mapDocsEnvToEnvironment } from '@ifla/shared-config.old';
 
 const currentEnv = mapDocsEnvToEnvironment(process.env.DOCS_ENV);
 const siteConfig = getSiteConfig('portal', currentEnv);
@@ -185,7 +185,7 @@ DOCS_ENV=preview pnpm build:isbdm
 
 ### 1. Add to Configuration Matrix
 ```typescript
-// In libs/shared-config/src/lib/siteConfig.ts
+// In libs/shared-config.old/src/lib/siteConfig.ts
 export const SITE_CONFIG: Record<SiteKey, Record<Environment, SiteConfigEntry>> = {
   // ... existing sites
   'new-site': {
@@ -202,7 +202,7 @@ export type SiteKey = 'portal' | 'ISBDM' | 'LRM' | 'FRBR' | 'isbd' | 'muldicat' 
 
 ### 2. Update docusaurus.config.ts
 ```typescript
-import { getSiteConfig, mapDocsEnvToEnvironment } from '@ifla/shared-config';
+import { getSiteConfig, mapDocsEnvToEnvironment } from '@ifla/shared-config.old';
 
 const currentEnv = mapDocsEnvToEnvironment(process.env.DOCS_ENV);
 const siteConfig = getSiteConfig('new-site', currentEnv);
@@ -261,13 +261,13 @@ SiteLink component usage is tested in component tests and E2E tests.
 
 ### Debug Environment Detection
 ```typescript
-import { mapDocsEnvToEnvironment } from '@ifla/shared-config';
+import { mapDocsEnvToEnvironment } from '@ifla/shared-config.old';
 console.log('Current environment:', mapDocsEnvToEnvironment(process.env.DOCS_ENV));
 ```
 
 ### Debug URL Generation
 ```typescript
-import { getSiteUrl } from '@ifla/shared-config';
+import { getSiteUrl } from '@ifla/shared-config.old';
 console.log('Portal URL:', getSiteUrl('portal', '/docs/intro', 'local'));
 ```
 

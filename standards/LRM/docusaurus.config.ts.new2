@@ -1,7 +1,10 @@
+================================================================================
+Individual docusaurus.config.ts for LRM:
+================================================================================
 import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
-import { getSiteConfig, getSiteConfigMap, type SiteKey, type Environment } from '@ifla/theme/config/siteConfig';
+import { getSiteConfig, getSiteConfigMap, type SiteKey, type Environment } from '@ifla/theme';
 
 // Get current environment from DOCS_ENV
 const DOCS_ENV = process.env.DOCS_ENV as Environment;
@@ -13,16 +16,15 @@ if (!DOCS_ENV) {
 }
 
 // Get configuration for this site
-const siteConfig = getSiteConfig('unimarc' as SiteKey, DOCS_ENV);
+const siteConfig = getSiteConfig('LRM' as SiteKey, DOCS_ENV);
 const siteConfigMap = getSiteConfigMap(DOCS_ENV);
 
 const config: Config = {
   future: {
     v4: true,
-    experimental_faster: true,
   },
-  title: 'UNIMARC',
-  tagline: 'Universal MARC Format',
+  title: 'IFLA LRM',
+  tagline: 'Library Reference Model',
   favicon: 'img/favicon.ico',
 
   // Use environment-specific URLs from site configuration
@@ -30,11 +32,10 @@ const config: Config = {
   baseUrl: siteConfig.baseUrl,
 
   organizationName: 'iflastandards',
-  projectName: 'unimarc',
+  projectName: 'LRM',
 
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
-  onBrokenAnchors: "warn",
 
   // Shared static directories
   staticDirectories: ['static', '../../packages/theme/static'],
@@ -42,29 +43,29 @@ const config: Config = {
   customFields: {
     // Site configuration map for accessing sister site URLs
     siteConfigMap,
-    // Vocabulary configuration for UNIMARC
+    // Vocabulary configuration
     vocabularyDefaults: {
-      prefix: "unimarc",
+      prefix: "lrm",
       startCounter: 1000,
       uriStyle: "numeric",
-      numberPrefix: "T", // Prefix for numeric URIs. Can be blank for no prefix.
+      numberPrefix: "E", // Prefix for numeric URIs. Can be blank for no prefix.
       caseStyle: "kebab-case",
       showFilter: true,
       filterPlaceholder: "Filter vocabulary terms...",
       showTitle: false,
       showURIs: true, // Whether to display URIs in the table, set to false for glossaries
       showCSVErrors: false, // Whether to display CSV validation errors by default
-      profile: "unimarc-values-profile.csv",
+      profile: "lrm-profile-revised.csv",
       profileShapeId: "Concept",
       RDF: {
         "rdf:type": ["skos:ConceptScheme"]
       },
       // Common defaults for elements and defines the vocabulary properties
       elementDefaults: {
-        uri: "https://www.iflastandards.info/unimarc/elements",
+        uri: "https://www.iflastandards.info/LRM/elements",
         classPrefix: "C", // Class Prefix for numeric URIs. Can be blank for no prefix.
         propertyPrefix: "P", // Property Prefix for numeric URIs. Can be blank for no prefix.
-        profile: "unimarc-elements-profile.csv",
+        profile: "lrm-elements-profile.csv",
         profileShapeId: "Element",
       }
     }
@@ -89,6 +90,7 @@ const config: Config = {
         indexBlog: true,
       },
     ],
+    
   ],
 
   presets: [
@@ -97,7 +99,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/iflastandards/standards-dev/tree/main/standards/unimarc/',
+          editUrl: 'https://github.com/iflastandards/standards-dev/tree/main/standards/LRM/',
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
           versions: {
@@ -111,11 +113,11 @@ const config: Config = {
         },
         blog: {
           showReadingTime: true,
-          editUrl: 'https://github.com/iflastandards/standards-dev/tree/main/standards/unimarc/',
+          editUrl: 'https://github.com/iflastandards/standards-dev/tree/main/standards/LRM/',
           feedOptions: {
             type: 'all',
-            title: 'UNIMARC Blog',
-            description: 'Updates and news about UNIMARC',
+            title: 'IFLA LRM Blog',
+            description: 'Updates and news about IFLA LRM',
             copyright: `Copyright © ${new Date().getFullYear()} IFLA.`,
             language: 'en',
           },
@@ -141,7 +143,7 @@ const config: Config = {
     },
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'unimarc',
+      title: 'LRM',
       logo: {
         alt: 'IFLA Logo',
         src: 'img/logo-ifla_black.png',
@@ -153,11 +155,7 @@ const config: Config = {
           position: 'left',
           label: 'Introduction',
         },
-        {
-          to: '/blog',
-          label: 'Blog',
-          position: 'right',
-        },
+        {to: '/blog', label: 'Blog', position: 'right'},
         {
           type: 'docsVersionDropdown',
           position: 'right',

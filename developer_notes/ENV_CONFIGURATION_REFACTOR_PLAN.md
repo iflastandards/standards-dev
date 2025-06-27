@@ -70,7 +70,7 @@ VOCABULARY_PROPERTY_PREFIX=prop
 
 ### 4. Shared Configuration (Pure Functions)
 ```typescript
-// libs/shared-config/src/createBaseConfig.ts
+// libs/shared-config.old/src/createBaseConfig.ts
 export function createBaseConfig(options: BaseConfigOptions) {
   return {
     title: options.title,
@@ -94,7 +94,7 @@ export function createBaseConfig(options: BaseConfigOptions) {
   };
 }
 
-// libs/shared-config/src/createThemeConfig.ts
+// libs/shared-config.old/src/createThemeConfig.ts
 export function createThemeConfig(options: ThemeConfigOptions) {
   return {
     prism: {
@@ -135,7 +135,7 @@ export function createThemeConfig(options: ThemeConfigOptions) {
 import 'dotenv/config';
 import type { Config } from '@docusaurus/types';
 import { deepmerge } from 'deepmerge-ts';
-import { createBaseConfig, createThemeConfig } from '@ifla/shared-config';
+import { createBaseConfig, createThemeConfig } from '@ifla/shared-config.old';
 import navbarItems from './navbar';
 
 const config: Config = deepmerge(
@@ -210,7 +210,7 @@ export default config;
 ```typescript
 // packages/theme/src/tests/config/siteConfig.test.ts
 import { describe, it, expect } from 'vitest';
-import { loadEnvConfig, buildSiteUrl } from '@ifla/shared-config';
+import { loadEnvConfig, buildSiteUrl } from '@ifla/shared-config.old';
 
 describe('getSiteUrl', () => {
   it('should load from env files', () => {

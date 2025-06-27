@@ -83,7 +83,7 @@ Create `standards/your-site-key/docusaurus.config.ts` using the centralized conf
 import type { Config } from '@docusaurus/types';
 import type { Preset } from '@docusaurus/preset-classic';
 import { themes as prismThemes } from 'prism-react-renderer';
-import { getSiteConfig, mapDocsEnvToEnvironment, type SiteKey } from '@ifla/shared-config';
+import { getSiteConfig, mapDocsEnvToEnvironment, type SiteKey } from '@ifla/shared-config.old';
 
 const currentEnv = mapDocsEnvToEnvironment(process.env.DOCS_ENV);
 const siteConfig = getSiteConfig('your-site-key', currentEnv);

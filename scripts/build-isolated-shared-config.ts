@@ -1,15 +1,15 @@
 #!/usr/bin/env tsx
 /**
- * Test: Build shared-config separately for each site to eliminate symlink contamination
+ * Test: Build shared-config.old separately for each site to eliminate symlink contamination
  * 
  * IMPORTANT: This is part of Phase 0 investigation documented in:
  * /developer_notes/plan-revert-to-individual-configs.md
  * Re-read that plan after any auto-compact to maintain context!
  * 
- * Theory: The symlink means all sites use the same shared-config module instance.
+ * Theory: The symlink means all sites use the same shared-config.old module instance.
  * If that module has stateful behavior, it contaminates across builds.
  * 
- * Solution: Build and install shared-config locally for each site.
+ * Solution: Build and install shared-config.old locally for each site.
  */
 
 import { execSync } from 'child_process';
@@ -27,7 +27,7 @@ const SITES = [
 ];
 
 async function buildIsolatedSharedConfig() {
-  console.log('🔬 Testing isolated shared-config builds to eliminate symlink contamination...\n');
+  console.log('🔬 Testing isolated shared-config.old builds to eliminate symlink contamination...\n');
   
   for (const site of SITES) {
     try {
@@ -35,15 +35,15 @@ async function buildIsolatedSharedConfig() {
       console.log(`Building isolated shared-config for ${site.key}...`);
       console.log('='.repeat(60));
       
-      // Step 1: Build shared-config with fresh state
-      console.log('1. Building fresh shared-config...');
-      execSync('nx build shared-config --skip-nx-cache', {
+      // Step 1: Build shared-config.old with fresh state
+      console.log('1. Building fresh shared-config.old...');
+      execSync('nx build shared-config.old --skip-nx-cache', {
         stdio: 'inherit',
         env: { ...process.env, DOCS_ENV: 'local' },
       });
       
       // Step 2: Remove existing symlink
-      const symlinkPath = path.join(site.dir, 'node_modules', '@ifla', 'shared-config');
+      const symlinkPath = path.join(site.dir, 'node_modules', '@ifla', 'shared-config.old');
       console.log('2. Removing symlink...');
       try {
         await fs.unlink(symlinkPath);
@@ -52,13 +52,13 @@ async function buildIsolatedSharedConfig() {
         console.log(`   No symlink to remove (this is fine)`);
       }
       
-      // Step 3: Copy built shared-config dist to local node_modules
-      const sourceDistPath = path.join('libs', 'shared-config', 'dist');
-      const sourcePackageJsonPath = path.join('libs', 'shared-config', 'package.json');
+      // Step 3: Copy built shared-config.old dist to local node_modules
+      const sourceDistPath = path.join('libs', 'shared-config.old', 'dist');
+      const sourcePackageJsonPath = path.join('libs', 'shared-config.old', 'package.json');
       const targetDir = path.dirname(symlinkPath);
       const targetPath = symlinkPath;
       
-      console.log('3. Installing shared-config locally...');
+      console.log('3. Installing shared-config.old locally...');
       await fs.mkdir(targetDir, { recursive: true });
       await fs.mkdir(targetPath, { recursive: true });
       
@@ -74,8 +74,8 @@ async function buildIsolatedSharedConfig() {
       
       console.log(`   Installed: ${targetPath}`);
       
-      // Step 4: Build the site with isolated shared-config
-      console.log('4. Building site with isolated shared-config...');
+      // Step 4: Build the site with isolated shared-config.old
+      console.log('4. Building site with isolated shared-config.old...');
       const buildCommand = `build:${site.key.toLowerCase()} --skip-nx-cache`;
       
       execSync(`pnpm ${buildCommand}`, {
@@ -90,9 +90,9 @@ async function buildIsolatedSharedConfig() {
       
       // Restore symlink on failure
       try {
-        const symlinkPath = path.join(site.dir, 'node_modules', '@ifla', 'shared-config');
+        const symlinkPath = path.join(site.dir, 'node_modules', '@ifla', 'shared-config.old');
         await fs.rm(symlinkPath, { recursive: true, force: true });
-        await fs.symlink('../../../libs/shared-config', symlinkPath);
+        await fs.symlink('../../../libs/shared-config.old', symlinkPath);
         console.log('   Restored symlink after failure');
       } catch (restoreError) {
         console.log('   Could not restore symlink, you may need to run pnpm install');
@@ -102,7 +102,7 @@ async function buildIsolatedSharedConfig() {
     }
   }
   
-  console.log('🎉 All sites built with isolated shared-config!');
+  console.log('🎉 All sites built with isolated shared-config.old!');
   console.log('\nNext steps:');
   console.log('1. Run: pnpm serve:all');
   console.log('2. Verify contamination is eliminated');
@@ -115,9 +115,9 @@ async function restoreSymlinks() {
   
   for (const site of SITES) {
     try {
-      const symlinkPath = path.join(site.dir, 'node_modules', '@ifla', 'shared-config');
+      const symlinkPath = path.join(site.dir, 'node_modules', '@ifla', 'shared-config.old');
       await fs.rm(symlinkPath, { recursive: true, force: true });
-      await fs.symlink('../../../libs/shared-config', symlinkPath);
+      await fs.symlink('../../../libs/shared-config.old', symlinkPath);
       console.log(`✅ Restored symlink for ${site.key}`);
     } catch (error) {
       console.log(`⚠️  Could not restore symlink for ${site.key}`);

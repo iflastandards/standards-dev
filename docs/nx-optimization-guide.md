@@ -103,7 +103,6 @@ Each project now has optimized targets:
 {
   "targets": {
     "build": {
-      "dependsOn": ["^build", "shared-config:build"],
       "cache": true,
       "inputs": ["production", "^production", "docusaurus"]
     },

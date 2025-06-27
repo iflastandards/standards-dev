@@ -4,7 +4,7 @@
   "sourceRoot": "standards/LRM",
   "projectType": "application",
   "tags": ["docusaurus", "site", "standard", "lrm"],
-  "implicitDependencies": ["shared-config", "@ifla/theme"],
+  "implicitDependencies": ["@ifla/theme"],
   "targets": {
     "build": {
       "executor": "nx:run-commands",
@@ -17,7 +17,7 @@
         "^build",
         {
           "target": "build",
-          "projects": ["shared-config", "@ifla/theme"]
+          "projects": ["@ifla/theme"]
         }
       ],
       "inputs": ["production", "^production", "docusaurus-no-theme"]

@@ -4,7 +4,7 @@ import Heading from '@theme/Heading';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './styles.module.css';
-// Define types locally since they're not exported from shared-config
+// Define types locally since they're not exported from shared-config.old
 type SiteKey = 'portal' | 'ISBDM' | 'LRM' | 'FRBR' | 'isbd' | 'muldicat' | 'unimarc';
 
 enum DocsEnv {

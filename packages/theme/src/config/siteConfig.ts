@@ -1,7 +1,7 @@
 /**
  * Self-contained site configuration for all IFLA sites across all environments.
  * This is the single source of truth for site URLs and base paths.
- * Moved from shared-config to theme to eliminate cross-package dependencies.
+ * Moved from shared-config.old to theme to eliminate cross-package dependencies.
  */
 
 export type Environment = 'local' | 'preview' | 'development' | 'production';

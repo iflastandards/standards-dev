@@ -1,4 +1,4 @@
-// Main exports for shared-config library
+// Main exports for shared-config.old library
 export * from './lib/createBaseConfig';
 export * from './lib/createThemeConfig';
 export * from './lib/createPluginConfig';

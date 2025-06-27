@@ -3,7 +3,7 @@
 // packages/theme/src/components/SiteLink.tsx
 import React, { JSX } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { type SiteKey, type SiteConfigEntry } from '@ifla/shared-config';
+import { type SiteKey, type SiteConfigEntry } from '../config/siteConfig';
 
 /**
  * A component for creating robust, environment-aware links between different IFLA Docusaurus sites.

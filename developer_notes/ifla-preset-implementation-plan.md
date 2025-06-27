@@ -44,7 +44,7 @@ import {
   createStandardsNavbar,
   getEnvironmentName, 
   validateEnvConfig 
-} from '@ifla/shared-config';
+} from '@ifla/shared-config.old';
 import navbarItems from './navbar';
 
 // Determine environment

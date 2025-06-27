@@ -7,10 +7,10 @@
  * Re-read that plan after any auto-compact to maintain context!
  * 
  * Theory: Docusaurus build caching is causing contamination between sites.
- * Even with isolated shared-config, the theme or other build artifacts
+ * Even with isolated shared-config.old, the theme or other build artifacts
  * are being shared and causing state contamination.
  * 
- * Solution: Build shared-config, theme, and site completely independently
+ * Solution: Build shared-config.old, theme, and site completely independently
  * with cache clearing between each step. Store local copies in each site's
  * node_modules to ensure complete isolation.
  */
@@ -37,7 +37,7 @@ async function clearAllCaches() {
     execSync('nx reset', { stdio: 'inherit' });
     
     // Clear shared build outputs
-    execSync('rimraf ./libs/shared-config/dist ./packages/theme/dist', { stdio: 'inherit' });
+    execSync('rimraf ./libs/shared-config.old/dist ./packages/theme/dist', { stdio: 'inherit' });
     
     // Clear webpack cache
     execSync('rimraf node_modules/.cache', { stdio: 'inherit' });
@@ -49,16 +49,16 @@ async function clearAllCaches() {
 }
 
 async function buildSharedConfigFresh(): Promise<void> {
-  console.log('📦 Building fresh shared-config...');
+  console.log('📦 Building fresh shared-config.old...');
   
   await clearAllCaches();
   
-  execSync('nx build shared-config --skip-nx-cache', {
+  execSync('nx build shared-config.old --skip-nx-cache', {
     stdio: 'inherit',
     env: { ...process.env, DOCS_ENV: 'local' },
   });
   
-  console.log('✅ Fresh shared-config built\n');
+  console.log('✅ Fresh shared-config.old built\n');
 }
 
 async function buildThemeFresh(): Promise<void> {
@@ -128,7 +128,7 @@ async function buildSiteWithLocalDeps(site: { key: string; dir: string }): Promi
 
 async function buildCompletelyIsolated() {
   console.log('🔬 Testing completely isolated builds...\n');
-  console.log('Each site will get fresh builds of shared-config and theme\n');
+  console.log('Each site will get fresh builds of shared-config.old and theme\n');
   console.log('='.repeat(70));
   
   for (const site of SITES) {
@@ -137,17 +137,17 @@ async function buildCompletelyIsolated() {
       console.log(`Building completely isolated ${site.key}...`);
       console.log('='.repeat(60));
       
-      // Step 1: Build fresh shared-config
+      // Step 1: Build fresh shared-config.old
       await buildSharedConfigFresh();
       
       // Step 2: Build fresh theme
       await buildThemeFresh();
       
-      // Step 3: Install shared-config locally
+      // Step 3: Install shared-config.old locally
       await installLocalDependency(
         site.dir,
         '@ifla/shared-config',
-        'libs/shared-config'
+        'libs/shared-config.old'
       );
       
       // Step 4: Install theme locally
@@ -184,7 +184,7 @@ async function restoreNormalSetup() {
   for (const site of SITES) {
     try {
       // Remove local copies
-      const sharedConfigPath = path.join(site.dir, 'node_modules', '@ifla', 'shared-config');
+      const sharedConfigPath = path.join(site.dir, 'node_modules', '@ifla', 'shared-config.old');
       const themePath = path.join(site.dir, 'node_modules', '@ifla', 'theme');
       
       await fs.rm(sharedConfigPath, { recursive: true, force: true });

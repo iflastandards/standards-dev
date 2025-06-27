@@ -1,0 +1,28 @@
+{
+  "title": "UNIMARC",
+  "tagline": "Universal MARC Format",
+  "organizationName": "iflastandards",
+  "projectName": "unimarc",
+  "features": {
+    "enableBlog": true,
+    "enableSearch": true,
+    "enableRdfDownloads": true
+  },
+  "navbar": {
+    "includeBlog": true,
+    "includeVersionDropdown": true,
+    "includeLocaleDropdown": true,
+    "includeSearch": true
+  },
+  "vocabulary": {
+    "numberPrefix": "T",
+    "profile": "unimarc-values-profile.csv",
+    "elementUri": "https://www.iflastandards.info/unimarc/elements",
+    "elementProfile": "unimarc-elements-profile.csv"
+  },
+  "buildConfig": {
+    "onBrokenLinks": "warn",
+    "onBrokenMarkdownLinks": "warn",
+    "onBrokenAnchors": "warn"
+  }
+}
