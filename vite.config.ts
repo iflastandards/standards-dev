@@ -48,7 +48,13 @@ export default defineConfig({
         logHeapUsage: !!process.env.CI,
         // Add memory and resource management for CI
         bail: process.env.CI ? 1 : 0, // Stop on first failure in CI to prevent resource exhaustion
-        forceRerunTriggers: [], // Always use empty array to avoid CI issues
+        forceRerunTriggers: process.env.CI ? [] : [
+            '**/vite.config.ts',
+            '**/vitest.config.ts', 
+            '**/package.json',
+            '**/.env',
+            '**/tsconfig.json'
+        ], // Force rerun on config changes in local dev, empty in CI to avoid iteration issues
         // Enhanced reporting
         reporters: [
             'default',
