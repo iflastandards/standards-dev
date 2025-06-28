@@ -14,7 +14,7 @@
       "configurations": {
         "development": {
           "env": {
-            "DOCS_ENV": "dev"
+            "DOCS_ENV": "development"
           }
         },
         "production": {
