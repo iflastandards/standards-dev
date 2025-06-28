@@ -67,29 +67,42 @@ if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "dev" ]; then
   if echo "$AFFECTED_PROJECTS" | grep -q "portal"; then
     echo "🌐 Portal affected - running E2E tests against built files..."
     
-    # Start servers for built files
-    echo "🚀 Starting servers for built files..."
-    pnpm serve:all &
-    SERVER_PID=$!
-    
-    # Wait for servers to be ready
-    echo "⏳ Waiting for servers to start..."
-    sleep 10
-    
-    # Check if portal is accessible
+    # Check if servers are already running
     if curl -s http://localhost:3000 > /dev/null; then
-      echo "✅ Servers ready, running E2E tests..."
+      echo "✅ Servers already running, using existing servers for E2E tests..."
       npx playwright test --config=playwright.config.pre-push.ts || {
         echo "⚠️  E2E tests failed but continuing (non-blocking for protected branches)"
       }
     else
-      echo "❌ Servers failed to start, skipping E2E tests"
+      echo "🚀 Starting servers for built files..."
+      # Stop any existing servers first
+      pnpm stop:all || true
+      sleep 2
+      
+      # Start fresh servers
+      pnpm serve:all &
+      SERVER_PID=$!
+      
+      # Wait for servers to be ready
+      echo "⏳ Waiting for servers to start..."
+      sleep 10
+      
+      # Check if portal is accessible
+      if curl -s http://localhost:3000 > /dev/null; then
+        echo "✅ Servers ready, running E2E tests..."
+        npx playwright test --config=playwright.config.pre-push.ts || {
+          echo "⚠️  E2E tests failed but continuing (non-blocking for protected branches)"
+        }
+        
+        # Cleanup our servers
+        echo "🧹 Stopping servers..."
+        kill $SERVER_PID 2>/dev/null || true
+        pnpm stop:all || true
+      else
+        echo "❌ Servers failed to start, skipping E2E tests"
+        kill $SERVER_PID 2>/dev/null || true
+      fi
     fi
-    
-    # Cleanup servers
-    echo "🧹 Stopping servers..."
-    kill $SERVER_PID 2>/dev/null || true
-    pnpm stop:all || true
     
   else
     echo "📝 Portal not affected - skipping E2E tests"
