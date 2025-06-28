@@ -1,27 +1,15 @@
 #!/usr/bin/env sh
-# NX-optimized pre-commit hook for IFLA Standards project
-# Runs essential checks on affected projects only
+# Group 3: Pre-commit tests (Fast feedback for commits)
+# Uses the new organized test structure
 
-echo "🔍 Running NX-optimized pre-commit checks..."
+echo "🔍 Running Group 3: Pre-commit tests..."
 
-# Run affected checks in parallel for maximum efficiency
-echo "⚡ Running affected typecheck, lint, and test in parallel..."
-{
-  nx affected --target=typecheck --parallel=3 &
-  nx affected --target=lint --parallel=3 &
-  nx affected --target=test --parallel=3 &
-  wait
-} || {
-  echo "❌ Pre-commit checks failed. Please fix and try again."
-  exit 1
-}
+# Use the optimized pre-commit command from package.json
+pnpm test:pre-commit
 
-# Quick configuration validation for affected sites only
-echo "⚙️  Validating affected site configurations..."
-node scripts/test-site-builds-affected.js --env local --skip-build
 if [ $? -ne 0 ]; then
-  echo "❌ Site configuration validation failed."
+  echo "❌ Pre-commit tests failed. Please fix and try again."
   exit 1
 fi
 
-echo "✅ All NX-optimized pre-commit checks passed!"
+echo "✅ Group 3 pre-commit tests passed!"

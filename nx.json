@@ -51,13 +51,16 @@
       "inputs": ["production", "^production", "docusaurus"]
     },
     "test": {
-      "dependsOn": ["^test"],
+      "dependsOn": ["^build"],
       "cache": true,
+      "outputs": ["{projectRoot}/coverage", "{projectRoot}/test-results"],
       "inputs": [
         "default",
         "{projectRoot}/test/**/*",
         "{projectRoot}/**/*.test.{js,ts,jsx,tsx}",
-        "{projectRoot}/**/*.spec.{js,ts,jsx,tsx}"
+        "{projectRoot}/**/*.spec.{js,ts,jsx,tsx}",
+        "{workspaceRoot}/vite.config.ts",
+        "{workspaceRoot}/vitest.config.*"
       ]
     },
     "lint": {
@@ -70,6 +73,7 @@
       ]
     },
     "typecheck": {
+      "dependsOn": ["^build"],
       "cache": true,
       "inputs": [
         "default",

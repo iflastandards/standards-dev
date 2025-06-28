@@ -45,6 +45,10 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - uses: nrwl/nx-set-shas@v4
 
-      # Minimal CI - just build affected projects for deployment
-      # Tests run locally via pre-commit/pre-push hooks
+      # Run CI-focused tests (Group 5: Environment/Infrastructure focus)
+      # Development tool tests run locally via pre-commit/pre-push hooks
+      - name: Run CI tests
+        run: pnpm test:ci
+
+      # Build affected projects for deployment
       - run: pnpm exec nx affected -t build --parallel=6

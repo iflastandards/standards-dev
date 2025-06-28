@@ -35,9 +35,54 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Build validation**: `nx run standards-dev:validate:builds`
 
 #### Comprehensive Test Suites
-- **Pre-commit**: `pnpm test:pre-commit` (typecheck + lint + test + config)
-- **Regression**: `nx run standards-dev:regression:full`
-- **Fast regression**: `nx run standards-dev:regression:fast`
+### Testing Commands (5 Organized Groups)
+
+The project uses a 5-group testing strategy optimized for efficiency and cost management:
+
+#### Group 1: Selective Tests (On-Demand Development)
+- **Individual unit tests**: `nx test portal`, `nx test @ifla/theme`, `nx test isbdm`
+- **Affected tests**: `pnpm test` (now Nx-optimized: `nx affected --target=test --parallel=3`)
+- **All unit tests**: `pnpm test:all` (parallel across all projects)
+- **E2E by browser**: `pnpm test:e2e:chromium`, `pnpm test:e2e:firefox`, `pnpm test:e2e:mobile`
+- **Debug E2E**: `pnpm test:e2e:debug`, `pnpm test:e2e:ui`
+- **Visual regression**: `pnpm test:regression:visual`
+
+#### Group 2: Comprehensive Tests (Test Everything)
+- **Full suite**: `pnpm test:comprehensive` (typecheck + lint + test + build + E2E)
+- **All unit tests**: `pnpm test:comprehensive:unit`
+- **All E2E tests**: `pnpm test:comprehensive:e2e`
+- **All builds**: `pnpm test:comprehensive:builds`
+
+#### Group 3: Pre-Commit Tests (Git Hook - Fast Feedback)
+- **Automatic**: Runs on `git commit`
+- **Manual**: `pnpm test:pre-commit`
+- **What runs**: `nx affected --targets=typecheck,lint,test --parallel=3` + config validation
+- **Target**: < 60 seconds
+
+#### Group 4: Pre-Push Tests (Git Hook - Deployment Focus)
+- **Automatic**: Runs on `git push` (branch-aware)
+- **Manual**: `pnpm test:pre-push`
+- **Feature branch**: Fast validation only
+- **Protected branch**: Full affected testing + builds
+- **Target**: < 180 seconds
+
+#### Group 5: CI Tests (Environment/Infrastructure Focus)
+- **CI suite**: `pnpm test:ci` (deployment-critical tests only)
+- **Connectivity**: `pnpm test:ci:connectivity` (external services)
+- **Config validation**: `pnpm test:ci:config` (production environment)
+- **Focus**: Environment-specific issues, not development tools
+
+#### Core Development Commands (Nx-Optimized)
+- **Lint**: `pnpm lint` (now: `nx affected --target=lint --parallel=3`)
+- **TypeCheck**: `pnpm typecheck` (now: `nx affected --target=typecheck --parallel=3`)
+- **Build affected**: `pnpm build:affected` (now: `nx affected --target=build --parallel=3`)
+
+#### Performance Targets
+- **Selective**: < 30s
+- **Comprehensive**: < 300s  
+- **Pre-commit**: < 60s
+- **Pre-push**: < 180s
+- **CI**: < 180s
 
 ### Build System Architecture
 - **Nx monorepo** with workspace-level coordination

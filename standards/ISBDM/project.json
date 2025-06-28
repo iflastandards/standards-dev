@@ -50,7 +50,27 @@
         "testPathPattern": ["{projectRoot}/src/**/*.{test,spec}.{js,ts,jsx,tsx}"]
       },
       "outputs": ["{projectRoot}/coverage"],
-      "cache": true
+      "cache": true,
+      "inputs": [
+        "default",
+        "{projectRoot}/src/**/*.{test,spec}.{js,ts,jsx,tsx}",
+        "{workspaceRoot}/vite.config.ts",
+        "{workspaceRoot}/vitest.config.*"
+      ]
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit",
+        "cwd": "standards/ISBDM"
+      },
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": [
+        "default",
+        "{projectRoot}/tsconfig.json",
+        "{workspaceRoot}/tsconfig.json"
+      ]
     },
     "e2e": {
       "executor": "nx:run-commands",

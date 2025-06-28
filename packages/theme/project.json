@@ -27,7 +27,14 @@
         "testPathPattern": ["packages/theme/src/tests", "packages/theme/src/components/**/__tests__"]
       },
       "outputs": ["{projectRoot}/coverage"],
-      "cache": true
+      "cache": true,
+      "inputs": [
+        "default",
+        "{projectRoot}/src/**/*.{test,spec}.{js,ts,jsx,tsx}",
+        "{projectRoot}/src/tests/**/*",
+        "{workspaceRoot}/vite.config.ts",
+        "{workspaceRoot}/vitest.config.*"
+      ]
     },
     "typecheck": {
       "executor": "nx:run-commands",
@@ -36,6 +43,7 @@
         "cwd": "packages/theme"
       },
       "cache": true,
+      "dependsOn": ["^build"],
       "inputs": [
         "default",
         "{projectRoot}/tsconfig.json",

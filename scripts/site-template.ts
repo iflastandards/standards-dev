@@ -63,71 +63,100 @@ export interface SiteTemplateConfig {
 
 export const SITE_TEMPLATE = {
   // NX project.json template
-  projectJsonTemplate: (config: SiteTemplateConfig) => `{
-  "name": "${config.siteKey.toLowerCase()}",
-  "root": "standards/${config.siteKey}",
-  "sourceRoot": "standards/${config.siteKey}",
-  "projectType": "application",
-  "tags": ["docusaurus", "site", "standard", "${config.siteKey.toLowerCase()}"],
-  "implicitDependencies": ["@ifla/theme"],
-  "targets": {
-    "build": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "docusaurus build standards/${config.siteKey}"
+  projectJsonTemplate: (config: SiteTemplateConfig) => ({
+    name: config.siteKey.toLowerCase(),
+    root: `standards/${config.siteKey}`,
+    sourceRoot: `standards/${config.siteKey}`,
+    projectType: "application",
+    tags: ["docusaurus", "site", "standard", config.siteKey.toLowerCase()],
+    implicitDependencies: ["@ifla/theme"],
+    targets: {
+      build: {
+        executor: "nx:run-commands",
+        options: {
+          command: `docusaurus build standards/${config.siteKey}`
+        },
+        outputs: ["{projectRoot}/build"],
+        cache: true,
+        dependsOn: [
+          "^build",
+          {
+            target: "build",
+            projects: ["@ifla/theme"]
+          }
+        ],
+        inputs: ["production", "^production", "docusaurus-no-theme"]
       },
-      "outputs": ["{projectRoot}/build"],
-      "cache": true,
-      "dependsOn": [
-        "^build",
-        {
-          "target": "build",
-          "projects": ["@ifla/theme"]
-        }
-      ],
-      "inputs": ["production", "^production", "docusaurus"]
-    },
-    "start": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "docusaurus start standards/${config.siteKey} --port ${config.port || 3007}"
+      start: {
+        executor: "nx:run-commands",
+        options: {
+          command: `docusaurus start standards/${config.siteKey} --port ${config.port || 3007}`
+        },
+        cache: false
       },
-      "cache": false
-    },
-    "serve": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "docusaurus serve standards/${config.siteKey} --port ${config.port || 3007}"
+      serve: {
+        executor: "nx:run-commands",
+        options: {
+          command: `docusaurus serve standards/${config.siteKey} --port ${config.port || 3007}`
+        },
+        cache: false
       },
-      "cache": false
-    },
-    "clear": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "docusaurus clear standards/${config.siteKey}"
+      clear: {
+        executor: "nx:run-commands",
+        options: {
+          command: `docusaurus clear standards/${config.siteKey}`
+        },
+        cache: false
       },
-      "cache": false
-    },
-    "e2e": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "playwright test e2e/standards-smoke.spec.ts e2e/vocabulary-functionality.spec.ts"
+      test: {
+        executor: "@nx/vite:test",
+        options: {
+          config: "{workspaceRoot}/vite.config.ts",
+          testPathPattern: ["{projectRoot}/src/**/*.{test,spec}.{js,ts,jsx,tsx}"]
+        },
+        outputs: ["{projectRoot}/coverage"],
+        cache: true,
+        inputs: [
+          "default",
+          "{projectRoot}/src/**/*.{test,spec}.{js,ts,jsx,tsx}",
+          "{workspaceRoot}/vite.config.ts",
+          "{workspaceRoot}/vitest.config.*"
+        ]
       },
-      "dependsOn": ["build"],
-      "cache": true,
-      "inputs": [
-        "default",
-        "{workspaceRoot}/e2e/standards-smoke.spec.ts",
-        "{workspaceRoot}/e2e/vocabulary-functionality.spec.ts",
-        "{workspaceRoot}/playwright.config.ts"
-      ],
-      "outputs": [
-        "{workspaceRoot}/test-results",
-        "{workspaceRoot}/playwright-report"
-      ]
+      typecheck: {
+        executor: "nx:run-commands",
+        options: {
+          command: "tsc --noEmit",
+          cwd: `standards/${config.siteKey}`
+        },
+        cache: true,
+        dependsOn: ["^build"],
+        inputs: [
+          "default",
+          "{projectRoot}/tsconfig.json",
+          "{workspaceRoot}/tsconfig.json"
+        ]
+      },
+      e2e: {
+        executor: "nx:run-commands",
+        options: {
+          command: "playwright test e2e/standards-smoke.spec.ts e2e/vocabulary-functionality.spec.ts"
+        },
+        dependsOn: ["build"],
+        cache: true,
+        inputs: [
+          "default",
+          "{workspaceRoot}/e2e/standards-smoke.spec.ts",
+          "{workspaceRoot}/e2e/vocabulary-functionality.spec.ts",
+          "{workspaceRoot}/playwright.config.ts"
+        ],
+        outputs: [
+          "{workspaceRoot}/test-results",
+          "{workspaceRoot}/playwright-report"
+        ]
+      }
     }
-  }
-}`,
+  }),
 
   // Individual docusaurus.config.ts template (based on clean Docusaurus + old ISBDM)
   individualConfigTemplate: (config: SiteTemplateConfig) => `import { themes as prismThemes } from 'prism-react-renderer';
