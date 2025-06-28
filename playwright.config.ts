@@ -77,9 +77,11 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: process.env.CI ? 'pnpm serve:all' : 'pnpm start:all',
+    command: process.env.CI 
+      ? 'node scripts/start-with-port-cleanup.js serve' 
+      : 'node scripts/start-with-port-cleanup.js start',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
-    timeout: 60 * 1000,
+    timeout: 120 * 1000, // Increased timeout to account for port cleanup
   },
 });
