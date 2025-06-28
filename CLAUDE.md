@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Package manager**: Always use `pnpm` (never npm or yarn)
 - **Build single site**: `pnpm build standards/{name}` or `nx build {name}`
 - **Start dev server**: `pnpm start:{site}` (e.g., `pnpm start:portal`, `pnpm start:isbdm`)
-- **Test execution**: `pnpm test --skip-nx-cache` (always skip nx cache for tests)
+- **Test execution**: `pnpm test` (uses nx cache for performance with nx-affected)
 - **Type checking**: `pnpm typecheck`
 - **Linting**: `pnpm lint`
 
@@ -29,7 +29,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Environment-specific**: `nx run standards-dev:e2e:site-validation:production`
 
 #### Build & Configuration Testing
-- **Config validation**: `node scripts/test-site-builds.js --site all --env localhost --skip-build`
+- **Config validation**: `node scripts/test-site-builds.js --site all --env local --skip-build`
 - **Full build tests**: `node scripts/test-site-builds.js --site all --env production`
 - **Affected builds**: `nx run standards-dev:build-affected`
 - **Build validation**: `nx run standards-dev:validate:builds`
@@ -147,6 +147,12 @@ standards-dev/
 - **E2E testing**: Playwright for interface testing when needed
 - **Always test before commits**: Tests must pass before offering to commit
 
+### Scaffolding and Templates
+- **CRITICAL**: Always check and update scaffolding templates when making configuration changes that affect all sites
+- **Template locations**: `scripts/site-template.ts` and `scripts/scaffold-site.ts`
+- **Pattern**: When fixing issues in existing sites, verify the scaffold template doesn't propagate the same issue to future sites
+- **Example**: If removing test targets from existing sites, also remove from site template
+
 ## Test Placement Decision Tree (CRITICAL - Reference When Creating Tests)
 
 **ALWAYS use this decision tree when creating new tests to ensure they run in the correct scenario:**
@@ -261,7 +267,7 @@ const { workspaceRoot, scriptsDir, tmpDir, packagesDir, themeDir } = setupTestPa
 ### Deployment and Build Management
 - **Server coordination**: Ask user to start servers/builds rather than waiting for timeouts
 - **Environment awareness**: Warn when environment isn't set to project root
-- **Nx optimization**: Use `--skip-nx-cache` for reliable test runs
+- **Nx optimization**: Use nx cache for performance; only skip with `--skip-nx-cache` when debugging cache-specific issues
 
 ## Vocabulary and Content Management
 
@@ -391,7 +397,7 @@ nx run standards-dev:validate:builds  # Post-build validation
 
 # Script-based testing
 node scripts/test-site-builds.js --site all --env production
-node scripts/test-site-builds.js --site portal --env localhost --skip-build
+node scripts/test-site-builds.js --site portal --env local --skip-build
 ```
 
 #### Comprehensive Test Suites

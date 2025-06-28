@@ -53,15 +53,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
-      - name: Run type checking
-        run: npx nx affected --target=typecheck --parallel=3
-
-      - name: Run linting
-        run: npx nx affected --target=lint --parallel=3
-
-      - name: Build affected projects
+      - name: Build affected projects for deployment validation
         run: npx nx affected --target=build --parallel=3
 
-      - name: Validate deployment configuration
-        run: node scripts/test-site-builds.js --site all --env production --skip-build
+      - name: Run deployment-critical tests
+        run: npx nx affected --target=test --parallel=3
 

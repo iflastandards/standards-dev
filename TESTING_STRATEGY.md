@@ -119,7 +119,7 @@ nx affected --target=lint --parallel=3
 nx affected --target=test --parallel=3
 
 # Configuration validation only
-node scripts/test-site-builds.js --site all --env localhost --skip-build
+node scripts/test-site-builds.js --site all --env local --skip-build
 
 # Representative build test (if portal affected)
 nx run portal:build
@@ -132,7 +132,7 @@ nx affected --target=test --parallel=3
 nx affected --target=build --parallel=3
 
 # Complete configuration validation
-node scripts/test-site-builds.js --site all --env localhost --skip-build
+node scripts/test-site-builds.js --site all --env local --skip-build
 
 # Critical E2E (if portal affected)
 nx run portal:e2e

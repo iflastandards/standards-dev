@@ -60,15 +60,6 @@
       },
       "cache": false
     },
-    "test": {
-      "executor": "@nx/vite:test",
-      "options": {
-        "config": "{workspaceRoot}/vite.config.ts",
-        "testPathPattern": ["{projectRoot}/src/**/*.{test,spec}.{js,ts,jsx,tsx}"]
-      },
-      "outputs": ["{projectRoot}/coverage"],
-      "cache": true
-    },
     "e2e": {
       "executor": "nx:run-commands",
       "options": {

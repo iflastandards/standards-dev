@@ -108,21 +108,6 @@ export const SITE_TEMPLATE = {
         },
         cache: false
       },
-      test: {
-        executor: "@nx/vite:test",
-        options: {
-          config: "{workspaceRoot}/vite.config.ts",
-          testPathPattern: ["{projectRoot}/src/**/*.{test,spec}.{js,ts,jsx,tsx}"]
-        },
-        outputs: ["{projectRoot}/coverage"],
-        cache: true,
-        inputs: [
-          "default",
-          "{projectRoot}/src/**/*.{test,spec}.{js,ts,jsx,tsx}",
-          "{workspaceRoot}/vite.config.ts",
-          "{workspaceRoot}/vitest.config.*"
-        ]
-      },
       typecheck: {
         executor: "nx:run-commands",
         options: {

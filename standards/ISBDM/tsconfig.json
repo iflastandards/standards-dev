@@ -1,0 +1,24 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@ifla/theme": ["../../packages/theme/src/index.ts"],
+      "@ifla/theme/*": ["../../packages/theme/src/*"],
+      "@ifla/theme/components": ["../../packages/theme/src/components/index.ts"],
+      "@ifla/theme/components/*": ["../../packages/theme/src/components/*"],
+      "@ifla/theme/config": ["../../packages/theme/src/config/index.ts"],
+      "@ifla/theme/config/*": ["../../packages/theme/src/config/*"],
+      "@ifla/theme/styles": ["../../packages/theme/src/styles/index.css"],
+      "@ifla/theme/utils": ["../../packages/theme/src/utils/index.ts"],
+      "@ifla/theme/utils/*": ["../../packages/theme/src/utils/*"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "docs/**/*",
+    "docusaurus.config.ts",
+    "sidebars.ts",
+    "navbar.ts"
+  ]
+}

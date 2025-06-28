@@ -48,7 +48,7 @@ pnpm test:builds:production # All sites production build
 pnpm test:portal:e2e        # Portal end-to-end testing
 
 # Individual site testing
-node scripts/test-site-builds.js --site ISBDM --env localhost
+node scripts/test-site-builds.js --site ISBDM --env local
 ./scripts/test-portal-builds.sh
 ```
 
@@ -234,7 +234,7 @@ IFLA Standards Site Regression Testing
 
 ### 3. Build Process Tests
 **Location**: `scripts/test-site-builds.js`
-**Command**: `node scripts/test-site-builds.js --site ISBDM --env localhost`
+**Command**: `node scripts/test-site-builds.js --site ISBDM --env local`
 
 #### Build Verification:
 - ✅ **Compilation Success**: All TypeScript/MDX files compile

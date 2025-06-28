@@ -14,12 +14,12 @@ pnpm build --env production --site portal
 # Build all sites for preview environment with theme rebuild
 pnpm build --env preview --site all --clean-theme
 
-# Build single standard for localhost
-pnpm build --env localhost --site isbdm
+# Build single standard for local
+pnpm build --env local --site isbdm
 ```
 
 ### Options
-- `--env` : Environment to build for (localhost, preview, production)
+- `--env` : Environment to build for (local, preview, production)
 - `--site` : Site to build (all, portal, isbdm, lrm, frbr, isbd, muldicat, unimarc)
 - `--clean-theme` : Clean and rebuild theme package before building
 
@@ -35,7 +35,7 @@ pnpm build --env localhost --site isbdm
 1. **Environment Configuration**
    - Sets `DOCS_ENV` environment variable before building
    - This affects how Docusaurus configures URLs and paths
-   - Valid environments: `localhost`, `preview`, `production`
+   - Valid environments: `local`, `preview`, `production`
 
 2. **Interactive Mode**
    - Uses `inquirer` to prompt for missing options
@@ -72,7 +72,7 @@ pnpm build --env localhost --site isbdm
 ### Environment Impact
 
 The `DOCS_ENV` variable affects:
-- **localhost**: baseUrl = '/', url = 'http://localhost:3000'
+- **local**: baseUrl = '/', url = 'http://local:3000'
 - **preview**: baseUrl = '/standards-dev/', url = 'https://iflastandards.github.io'
 - **production**: baseUrl = '/', url = 'https://www.iflastandards.info'
 
@@ -112,7 +112,7 @@ To add new build options:
 **Daily Development**
 ```bash
 # Quick build for testing
-pnpm build --env localhost --site portal
+pnpm build --env local --site portal
 ```
 
 **Before PR/Deployment**
