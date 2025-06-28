@@ -1,7 +1,8 @@
 name: build-preview
 on: 
-  push:
-    branches: [main]
+  # Disabled - legacy workflow superseded by nx-smart-deploy.yml
+  # push:
+  #   branches: [main]
   pull_request:
     branches: [main]
   workflow_dispatch:

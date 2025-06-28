@@ -1,8 +1,9 @@
 name: Test Site Builds
 
 on:
-  push:
-    branches: [main, dev]
+  # Disabled - legacy workflow superseded by nx-optimized-ci.yml
+  # push:
+  #   branches: [main, dev]
     paths:
       - 'packages/**'
       - 'standards/**'

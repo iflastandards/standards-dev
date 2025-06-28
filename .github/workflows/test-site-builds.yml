@@ -1,17 +1,18 @@
 name: Test Site Builds
 
 on:
-  push:
-    branches: [main, dev]
-    paths:
-      - 'packages/**'
-      - 'standards/**'
-      - 'portal/**'
-      - 'scripts/**'
-      - '.github/workflows/**'
-      - 'package.json'
-      - 'pnpm-lock.yaml'
-      - 'tsconfig.json'
+  # Disabled - superseded by nx-optimized-ci.yml
+  # push:
+  #   branches: [main, dev]
+  #   paths:
+  #     - 'packages/**'
+  #     - 'standards/**'
+  #     - 'portal/**'
+  #     - 'scripts/**'
+  #     - '.github/workflows/**'
+  #     - 'package.json'
+  #     - 'pnpm-lock.yaml'
+  #     - 'tsconfig.json'
   pull_request:
     branches: [main, dev]
   workflow_dispatch:
