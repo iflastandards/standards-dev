@@ -1,0 +1,363 @@
+/* StandardHomePage/styles.module.scss - Using IFLA Green colors */
+@import '../../styles/variables';
+
+.standardHomepage {
+  margin: 0;
+  padding: 0;
+}
+
+/* Tab Navigation */
+.tabNavigation {
+  display: flex;
+  background: white;
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.tabButton {
+  padding: 10px 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: transparent;
+  color: #666;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #f4f4f4;
+    border-color: $ifla-green-dark;
+  }
+}
+
+.tabButtonActive {
+  background: $ifla-green-dark;
+  color: white;
+  border-color: $ifla-green-dark;
+  font-weight: bold;
+}
+
+/* Tab Content */
+.tabContent {
+  background: white;
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Welcome Tab */
+.welcomeTab {
+  padding: 0;
+}
+
+.heroSection {
+  background: linear-gradient(135deg, $ifla-green-dark 0%, rgba(74, 143, 91, 0.2) 100%);
+  padding: 40px;
+  color: white;
+}
+
+.heroContent {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logoContainer {
+  flex-shrink: 0;
+}
+
+.iflaLogo {
+  height: 60px;
+  width: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.95;
+}
+
+.titleContainer {
+  flex: 1;
+}
+
+.heroTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+  color: white;
+}
+
+.heroSubtitle {
+  font-size: 1rem;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.quickStats {
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  padding: 20px;
+  text-align: center;
+  min-width: 180px;
+  backdrop-filter: blur(10px);
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.statLabel {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.statValue {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.welcomeContent {
+  padding: 40px;
+}
+
+/* Contents Tab */
+.contentsTab {
+  padding: 40px;
+}
+
+.contentsPlaceholder {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 40px;
+}
+
+.contentsOverview {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.contentsHeader {
+  margin-bottom: 40px;
+
+  h2 {
+    color: $ifla-green-dark;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+  }
+
+  p {
+    color: #666;
+    margin: 0;
+  }
+}
+
+.contentsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.documentationSection,
+.vocabulariesSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  h3 {
+    color: $ifla-green-dark;
+    font-size: 1.125rem;
+    font-weight: bold;
+    margin: 0;
+  }
+}
+
+.elementSetsGroup,
+.vocabulariesGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  h4 {
+    color: $ifla-green-dark;
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0;
+  }
+}
+
+.vocabulariesDescription {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0 0 15px 0;
+}
+
+/* Content Cards */
+.contentCard {
+  background: #f4f4f4;
+  border: 1px solid #e1e5e9;
+  border-radius: 6px;
+  padding: 20px;
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 2px 8px rgba(45, 104, 64, 0.1);
+  }
+
+  h4, h5 {
+    color: $ifla-green-dark;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+  }
+
+  p {
+    color: #666;
+    font-size: 12px;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+  }
+}
+
+.featuredCard {
+  background: #f0f8f0;
+  border-color: #c8e6c9;
+  border-width: 2px;
+}
+
+.elementCount {
+  background: $ifla-green;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-radius: 12px;
+  float: right;
+}
+
+.contentLink {
+  color: $ifla-green;
+  font-size: 12px;
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover {
+    color: $ifla-green-dark;
+    text-decoration: underline;
+  }
+}
+
+/* Vocabulary Grid */
+.vocabularyGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+.vocabularyCard {
+  background: #f4f4f4;
+  border: 1px solid #e1e5e9;
+  border-radius: 4px;
+  padding: 15px;
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 2px 8px rgba(45, 104, 64, 0.1);
+  }
+
+  h6 {
+    color: $ifla-green-dark;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0 0 8px 0;
+  }
+
+  p {
+    color: #666;
+    font-size: 11px;
+    margin: 0 0 8px 0;
+    line-height: 1.4;
+  }
+}
+
+.vocabularyLink {
+  color: $ifla-green;
+  font-size: 10px;
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover {
+    color: $ifla-green-dark;
+    text-decoration: underline;
+  }
+}
+
+.addedInfo {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #e1e5e9;
+  text-align: center;
+
+  p {
+    color: #999;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .heroContent {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .quickStats {
+    min-width: auto;
+    width: 100%;
+  }
+
+  .contentsGrid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .vocabularyGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .tabContent,
+  .welcomeContent,
+  .contentsTab {
+    padding: 20px;
+  }
+
+  .heroSection {
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 1.5rem;
+  }
+
+  .tabNavigation {
+    padding: 8px;
+  }
+
+  .tabButton {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+}
