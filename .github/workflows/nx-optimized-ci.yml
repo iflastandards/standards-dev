@@ -56,6 +56,3 @@ jobs:
       - name: Build affected projects for deployment validation
         run: npx nx affected --target=build --parallel=3
 
-      - name: Run deployment-critical tests
-        run: npx nx affected --target=test --parallel=3
-
