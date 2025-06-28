@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Layout from '@theme/Layout';
-import { StandardHomePage } from '@ifla/theme';
+import { StandardHomePage, InLink } from '@ifla/theme';
 
 const frontMatter = {
   title: "International Standard Bibliographic Description",
@@ -93,9 +93,9 @@ const ContentsContent: React.FC = () => (
           <p style={{ color: '#666', fontSize: '12px', margin: '0 0 10px 0', lineHeight: 1.4 }}>
             Overview of ISBD principles, scope, and application guidelines
           </p>
-          <a href="/ISBD/docs/introduction" style={contentsStyles.contentLink}>
+          <InLink href="/docs/introduction" className="button button--primary button--sm">
             → View introduction
-          </a>
+          </InLink>
         </div>
 
         <div style={contentsStyles.contentCard}>
@@ -103,9 +103,9 @@ const ContentsContent: React.FC = () => (
           <p style={{ color: '#666', fontSize: '12px', margin: '0 0 10px 0', lineHeight: 1.4 }}>
             Criteria and methods for evaluating bibliographic descriptions
           </p>
-          <a href="/ISBD/docs/assessment" style={contentsStyles.contentLink}>
+          <InLink href="/docs/assessment" className="button button--primary button--sm">
             → View assessment
-          </a>
+          </InLink>
         </div>
 
         <div style={contentsStyles.contentCard}>
@@ -113,9 +113,9 @@ const ContentsContent: React.FC = () => (
           <p style={{ color: '#666', fontSize: '12px', margin: '0 0 10px 0', lineHeight: 1.4 }}>
             Practical examples of ISBD application across different resource types
           </p>
-          <a href="/ISBD/docs/examples" style={contentsStyles.contentLink}>
+          <InLink href="/docs/examples" className="button button--primary button--sm">
             → Browse examples
-          </a>
+          </InLink>
         </div>
 
         <div style={contentsStyles.contentCard}>
@@ -123,9 +123,9 @@ const ContentsContent: React.FC = () => (
           <p style={{ color: '#666', fontSize: '12px', margin: '0 0 10px 0', lineHeight: 1.4 }}>
             Definitions of key terms and concepts used throughout ISBD
           </p>
-          <a href="/ISBD/docs/glossary" style={contentsStyles.contentLink}>
+          <InLink href="/docs/glossary" className="button button--primary button--sm">
             → View glossary
-          </a>
+          </InLink>
         </div>
 
         <div style={contentsStyles.contentCard}>
@@ -133,9 +133,9 @@ const ContentsContent: React.FC = () => (
           <p style={{ color: '#666', fontSize: '12px', margin: '0 0 10px 0', lineHeight: 1.4 }}>
             History, development, and maintenance of the ISBD standard
           </p>
-          <a href="/ISBD/docs/about" style={contentsStyles.contentLink}>
+          <InLink href="/docs/about" className="button button--primary button--sm">
             → Learn more
-          </a>
+          </InLink>
         </div>
       </div>
 
@@ -155,9 +155,9 @@ const ContentsContent: React.FC = () => (
               Standard Bibliographic Description (ISBD), consolidated edition, published by De Gruyter
               Saur in July 2011 (ISBN 978-3-11-026379-4).
             </p>
-            <a href="/ISBD/docs/elements" style={contentsStyles.contentLink}>
+            <InLink href="/docs/elements" className="button button--primary button--sm">
               → Browse elements
-            </a>
+            </InLink>
           </div>
 
           <div style={contentsStyles.contentCard}>
@@ -169,9 +169,9 @@ const ContentsContent: React.FC = () => (
               label, and definition as each element in the constrained version, but no domain
               (i.e. Resource) or range is declared.
             </p>
-            <a href="/ISBD/docs/elements/unconstrained" style={contentsStyles.contentLink}>
+            <InLink href="/docs/elements/unconstrained" className="button button--primary button--sm">
               → View unconstrained elements
-            </a>
+            </InLink>
           </div>
         </div>
 
@@ -193,9 +193,9 @@ const ContentsContent: React.FC = () => (
                 Content form categories reflect the fundamental form or forms in which the content
                 of a resource is expressed.
               </p>
-              <a href="/ISBD/docs/terms/contentform" style={contentsStyles.vocabularyLink}>
+              <InLink href="/docs/terms/contentform" className="button button--primary button--sm">
                 → View vocabulary
-              </a>
+              </InLink>
             </div>
 
             <div style={contentsStyles.contentCard}>
@@ -204,9 +204,9 @@ const ContentsContent: React.FC = () => (
                 Compound terms for qualified ISBD content forms that map to RDA/ONIX Framework
                 for Resource Categorization base content categories.
               </p>
-              <a href="/ISBD/docs/terms/contentformbase" style={contentsStyles.vocabularyLink}>
+              <InLink href="/docs/terms/contentformbase" className="button button--primary button--sm">
                 → View vocabulary
-              </a>
+              </InLink>
             </div>
 
             <div style={contentsStyles.contentCard}>
@@ -216,9 +216,9 @@ const ContentsContent: React.FC = () => (
                 the image content of a resource is intended to be perceived which expand the content
                 form category of image.
               </p>
-              <a href="/ISBD/docs/terms/contentqualification/dimensionality" style={contentsStyles.vocabularyLink}>
+              <InLink href="/docs/terms/contentqualification/dimensionality" className="button button--primary button--sm">
                 → View vocabulary
-              </a>
+              </InLink>
             </div>
 
             <div style={contentsStyles.contentCard}>
@@ -227,9 +227,9 @@ const ContentsContent: React.FC = () => (
                 Content qualification sub-categories for the perceived presence or absence of
                 movement in the image content of a resource which expand the content form category of image.
               </p>
-              <a href="/ISBD/docs/terms/contentqualification/motion" style={contentsStyles.vocabularyLink}>
+              <InLink href="/docs/terms/contentqualification/motion" className="button button--primary button--sm">
                 → View vocabulary
-              </a>
+              </InLink>
             </div>
 
             <div style={contentsStyles.contentCard}>
@@ -239,9 +239,9 @@ const ContentsContent: React.FC = () => (
                 which the content of a resource as published is intended to be perceived, which expand
                 content form categories.
               </p>
-              <a href="/ISBD/docs/terms/contentqualification/sensoryspecification" style={contentsStyles.vocabularyLink}>
+              <InLink href="/docs/terms/contentqualification/sensoryspecification" className="button button--primary button--sm">
                 → View vocabulary
-              </a>
+              </InLink>
             </div>
 
             <div style={contentsStyles.contentCard}>
@@ -249,9 +249,9 @@ const ContentsContent: React.FC = () => (
               <p style={{ color: '#666', fontSize: '11px', margin: '0 0 8px 0', lineHeight: 1.4 }}>
                 Content qualification sub-categories for type which expand content form categories.
               </p>
-              <a href="/ISBD/docs/terms/contentqualification/type" style={contentsStyles.vocabularyLink}>
+              <InLink href="/docs/terms/contentqualification/type" className="button button--primary button--sm">
                 → View vocabulary
-              </a>
+              </InLink>
             </div>
 
             <div style={contentsStyles.contentCard}>
@@ -262,9 +262,9 @@ const ContentsContent: React.FC = () => (
                 housing of a carrier in combination with the type of intermediation device required
                 to render, view, run, etc., the content of a resource.
               </p>
-              <a href="/ISBD/docs/terms/mediatype" style={contentsStyles.vocabularyLink}>
+              <InLink href="/docs/terms/mediatype" className="button button--primary button--sm">
                 → View vocabulary
-              </a>
+              </InLink>
             </div>
           </div>
         </div>
@@ -282,6 +282,20 @@ export default function HomePage(): React.ReactElement {
     <Layout
       title="ISBD"
       description="International Standard Bibliographic Description - The global standard for bibliographic description">
+      <style>{`
+        .button button--primary button--sm {
+          color: #4a8f5b !important;
+          font-size: 12px;
+          text-decoration: none;
+          font-weight: 500;
+        }
+        .button button--primary button--sm {
+          color: #4a8f5b !important;
+          font-size: 10px;
+          text-decoration: none;
+          font-weight: 500;
+        }
+      `}</style>
       <StandardHomePage
         frontMatter={frontMatter}
         contentsContent={<ContentsContent />}
@@ -321,44 +335,24 @@ export default function HomePage(): React.ReactElement {
           </p>
 
           <div style={{ display: 'flex', gap: '15px', margin: '30px 0' }}>
-            <a
-              href="/ISBD/docs/elements"
-              style={{
-                padding: '10px 20px',
-                background: '#2d6840',
-                color: 'white',
-                textDecoration: 'none',
-                borderRadius: '6px',
-                fontWeight: 'bold'
-              }}
+            <InLink
+              href="/docs/elements"
+              className="button button--primary button--lg"
             >
               Browse Elements
-            </a>
-            <a
-              href="/ISBD/docs/terms"
-              style={{
-                padding: '10px 20px',
-                border: '2px solid #2d6840',
-                color: '#2d6840',
-                textDecoration: 'none',
-                borderRadius: '6px',
-                fontWeight: 'bold'
-              }}
+            </InLink>
+            <InLink
+              href="/docs/terms"
+              className="button button--primary button--lg"
             >
               View Vocabularies
-            </a>
-            <a
-              href="/ISBD/docs/examples"
-              style={{
-                padding: '10px 20px',
-                border: '1px solid #666',
-                color: '#666',
-                textDecoration: 'none',
-                borderRadius: '6px'
-              }}
+            </InLink>
+            <InLink
+              href="/docs/examples"
+              className="button button--primary button--lg"
             >
               See Examples
-            </a>
+            </InLink>
           </div>
         </section>
       </StandardHomePage>

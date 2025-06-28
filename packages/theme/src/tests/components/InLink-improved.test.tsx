@@ -265,8 +265,8 @@ describe('InLink Component - Real Functionality Tests', () => {
       const link = container.querySelector('a');
       const classes = link?.className.split(' ') || [];
       
-      // Should have base class and additional class
-      expect(classes.length).toBeGreaterThanOrEqual(2);
+      // With custom className, should only have that class (no default styles)
+      expect(classes.length).toBe(1);
       expect(classes).toContain('additional-class');
     });
 

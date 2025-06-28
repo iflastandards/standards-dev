@@ -9,17 +9,17 @@ export interface InLinkProps {
    * URL to link to - will be processed through useBaseUrl
    */
   href: string;
-  
+
   /**
    * Link content
    */
   children: React.ReactNode;
-  
+
   /**
    * CSS class name
    */
   className?: string;
-  
+
   /**
    * Enable smart wrapping before parentheses
    * @default true
@@ -69,7 +69,7 @@ export const InLink: React.FC<InLinkProps> = ({
 }) => {
   // Process URL through useBaseUrl
   const processedHref = useBaseUrl(href);
-  
+
   // Process children for smart wrapping if enabled
   const processedChildren = useMemo(() => {
     if (smartWrap) {
@@ -77,15 +77,21 @@ export const InLink: React.FC<InLinkProps> = ({
     }
     return children;
   }, [children, smartWrap]);
-  
+
+  // Memoize className computation to ensure proper re-rendering
+  const computedClassName = useMemo(() => {
+    // If custom className is provided, use only that (no default styles)
+    if (className) {
+      return className;
+    }
+    // Otherwise, apply default IFLA link styling
+    return clsx('linkInline', styles.inLink);
+  }, [className]);
+
   return (
     <Link
       to={processedHref}
-      className={clsx(
-        'linkInline',
-        styles.inLink,
-        className
-      )}
+      className={computedClassName}
     >
       {processedChildren}
     </Link>
