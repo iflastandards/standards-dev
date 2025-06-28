@@ -1,9 +1,10 @@
 name: Deploy Dev Environment
 
 on:
-  push:
-    branches:
-      - dev
+  # Disabled - legacy workflow superseded by deploy-dev.yml
+  # push:
+  #   branches:
+  #     - dev
   workflow_dispatch:
     inputs:
       force_build_all:
