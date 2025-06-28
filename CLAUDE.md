@@ -56,7 +56,7 @@ The project uses a 5-group testing strategy optimized for efficiency and cost ma
 #### Group 3: Pre-Commit Tests (Git Hook - Fast Feedback)
 - **Automatic**: Runs on `git commit`
 - **Manual**: `pnpm test:pre-commit`
-- **What runs**: `nx affected --targets=typecheck,lint,test --parallel=3` + config validation
+- **What runs**: `nx affected --targets=typecheck,lint,test:unit --parallel=3` + config validation
 - **Target**: < 60 seconds
 
 #### Group 4: Pre-Push Tests (Git Hook - Deployment Focus)
@@ -144,8 +144,103 @@ standards-dev/
 - **Pre-commit**: TypeScript, ESLint, unit tests run automatically
 - **Pre-push**: Build regression tests (branch-aware) run automatically  
 - **Test runner**: Vitest for unit/integration tests
-- **E2E testing**: Puppeteer for interface testing when needed
+- **E2E testing**: Playwright for interface testing when needed
 - **Always test before commits**: Tests must pass before offering to commit
+
+## Test Placement Decision Tree (CRITICAL - Reference When Creating Tests)
+
+**ALWAYS use this decision tree when creating new tests to ensure they run in the correct scenario:**
+
+### 🎯 **Where to Put New Tests**
+
+```
+📁 Test Placement Decision Tree
+│
+├── 🔧 **Unit Tests** (Pure logic, no external deps)
+│   └── 📍 Location: `packages/theme/src/tests/components/ComponentName.test.tsx`
+│   └── 🎯 Target: Runs in `test:unit` (pre-commit) + `test` (comprehensive)
+│   └── ✅ Examples: Component rendering, pure functions, config parsing
+│
+├── 🔗 **Integration Tests** (External APIs, file system, CLI tools)
+│   ├── 📍 Scripts: `packages/theme/src/tests/scripts/`
+│   ├── 📍 External Services: `packages/theme/src/tests/deployment/`
+│   └── 🎯 Target: Only runs in `test:integration` (comprehensive testing)
+│   └── ✅ Examples: Google Sheets API, file operations, CLI execution
+│
+├── 🌐 **E2E Tests** (Browser automation, full user workflows)
+│   ├── 📍 Workspace: `/e2e/site-validation.spec.ts`
+│   ├── 📍 Site-specific: `standards/SITE/e2e/feature.e2e.test.ts`
+│   └── 🎯 Target: `nx run standards-dev:e2e` or `nx run SITE:e2e`
+│   └── ✅ Examples: Navigation, form submission, visual checks
+│
+└── 🎯 **Performance/Visual** (Screenshots, load testing)
+    └── 📍 Location: `/e2e/visual-regression-enhanced.spec.ts`
+    └── 🎯 Target: Specialized E2E runs
+```
+
+### 🚦 **Quick Decision Questions**
+
+**Ask yourself when creating a test:**
+
+1. **Does it make network calls or use external APIs?** → Integration test
+2. **Does it render in a browser or test user flows?** → E2E test  
+3. **Does it test component logic in isolation?** → Unit test
+4. **Does it validate file system operations?** → Integration test
+5. **Does it test configuration parsing only?** → Unit test
+
+### 📋 **Test Coverage by Scenario**
+
+| Scenario | Unit Tests | Integration Tests | E2E Tests | When It Runs |
+|----------|------------|-------------------|-----------|--------------|
+| **Pre-commit** | ✅ Fast feedback | ❌ Too slow | ❌ Too slow | Every `git commit` |
+| **Pre-push** | ✅ | ✅ | ❌ | Every `git push` |  
+| **Comprehensive** | ✅ | ✅ | ✅ | Manual/CI full runs |
+| **Affected** | ✅ Only changed | ✅ Only changed | ❌ | Development workflow |
+| **CI** | ✅ | ✅ | ✅ | Production deployments |
+
+### 🎪 **Examples of Correct Placement**
+
+```typescript
+// ✅ Unit Test - packages/theme/src/tests/components/
+describe('VocabularyTable', () => {
+  it('renders headers correctly', () => {
+    // Tests pure component logic
+  });
+});
+
+// ✅ Integration Test - packages/theme/src/tests/scripts/  
+describe('Google Sheets API', () => {
+  it('fetches vocabulary data', async () => {
+    // Tests external API integration
+  });
+});
+
+// ✅ E2E Test - /e2e/
+test('user can navigate between sites', async ({ page }) => {
+  // Tests full browser workflows
+});
+```
+
+**Key principle**: Unit tests run fast in pre-commit for immediate feedback, integration tests run in comprehensive scenarios, E2E tests validate complete user experiences.
+
+### 🛠️ **Test Utilities**
+
+For consistent directory handling in tests, use the `workspaceUtils` helper:
+
+```typescript
+import { findWorkspaceRoot, getScriptPath, setupTestPaths } from '../utils/workspaceUtils';
+
+// Get workspace root reliably (instead of process.cwd())
+const workspaceRoot = findWorkspaceRoot();
+
+// Get path to scripts
+const scriptPath = getScriptPath('vocabulary-comparison.mjs');
+
+// Get common test paths
+const { workspaceRoot, scriptsDir, tmpDir, packagesDir, themeDir } = setupTestPaths();
+```
+
+**Always use `workspaceUtils` instead of `process.cwd()` in integration tests** to ensure consistent directory resolution regardless of test execution context.
 
 ### Content and Navigation Rules
 - **Never hardcode URLs**: Always use SiteLink component or configuration-based URLs

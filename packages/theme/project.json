@@ -36,6 +36,45 @@
         "{workspaceRoot}/vitest.config.*"
       ]
     },
+    "test:unit": {
+      "executor": "@nx/vite:test",
+      "options": {
+        "config": "{workspaceRoot}/vite.config.ts",
+        "exclude": [
+          "**/scripts/**",
+          "**/deployment/**"
+        ]
+      },
+      "outputs": ["{projectRoot}/coverage"],
+      "cache": true,
+      "inputs": [
+        "default",
+        "{projectRoot}/src/**/*.{test,spec}.{js,ts,jsx,tsx}",
+        "!{projectRoot}/src/tests/scripts/**/*",
+        "!{projectRoot}/src/tests/deployment/**/*",
+        "{workspaceRoot}/vite.config.ts",
+        "{workspaceRoot}/vitest.config.*"
+      ]
+    },
+    "test:integration": {
+      "executor": "@nx/vite:test", 
+      "options": {
+        "config": "{workspaceRoot}/vite.config.ts",
+        "include": [
+          "**/scripts/**",
+          "**/deployment/**"
+        ]
+      },
+      "outputs": ["{projectRoot}/coverage"],
+      "cache": true,
+      "inputs": [
+        "default",
+        "{projectRoot}/src/tests/scripts/**/*",
+        "{projectRoot}/src/tests/deployment/**/*",
+        "{workspaceRoot}/vite.config.ts",
+        "{workspaceRoot}/vitest.config.*"
+      ]
+    },
     "typecheck": {
       "executor": "nx:run-commands",
       "options": {

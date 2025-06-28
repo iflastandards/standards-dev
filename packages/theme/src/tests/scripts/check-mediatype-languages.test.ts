@@ -3,6 +3,7 @@ import { exec } from 'child_process';
 import { promisify } from 'util';
 import path from 'path';
 import fs from 'fs/promises';
+import { getScriptPath, setupTestPaths } from '../utils/workspaceUtils';
 
 const execAsync = promisify(exec);
 
@@ -14,9 +15,8 @@ const mockEnv = {
 };
 
 describe('check-mediatype-languages.mjs', () => {
-  const projectRoot = path.resolve(__dirname, '../../../../..');
-  const scriptPath = path.join(projectRoot, 'scripts', 'check-mediatype-languages.mjs');
-  const tmpDir = path.join(projectRoot, 'tmp');
+  const scriptPath = getScriptPath('check-mediatype-languages.mjs');
+  const { workspaceRoot, tmpDir } = setupTestPaths();
 
   beforeEach(async () => {
     // Debug: Check current working directory

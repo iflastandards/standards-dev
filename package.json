@@ -137,7 +137,7 @@
     "test:full": "pnpm typecheck && pnpm lint --quiet && pnpm test && pnpm test:builds:config",
     "test:regression": "nx run standards-dev:regression:full",
     "test:regression:nx:fast": "nx run standards-dev:regression:fast",
-    "test:pre-commit": "nx affected --targets=typecheck,lint,test --parallel=3 && node scripts/test-site-builds-affected.js --env local --skip-build",
+    "test:pre-commit": "nx affected --targets=typecheck,lint,test:unit --parallel=3 && node scripts/test-site-builds-affected.js --env local --skip-build",
     "test:pre-push": "pnpm test:pre-commit && pnpm test:builds:critical",
     "test:pre-push:nx": "nx affected --target=lint && nx affected --target=typecheck && nx affected --target=test && nx affected --target=build",
     "test:e2e": "nx run standards-dev:e2e",

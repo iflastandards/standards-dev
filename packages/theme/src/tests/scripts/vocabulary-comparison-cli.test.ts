@@ -5,12 +5,13 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { exec } from 'child_process';
 import { promisify } from 'util';
-import path from 'path';
+import { getScriptPath, setupTestPaths } from '../utils/workspaceUtils';
 
 const execAsync = promisify(exec);
 
 describe('Vocabulary Comparison CLI', () => {
-    const scriptPath = path.join(process.cwd(), '../../scripts/vocabulary-comparison.mjs');
+    const scriptPath = getScriptPath('vocabulary-comparison.mjs');
+    const { workspaceRoot } = setupTestPaths();
 
     // Skip these tests in CI environment
     if (process.env.CI) {
