@@ -25,14 +25,28 @@
     "start": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "docusaurus start standards/FRBR --port 3005"
+        "command": "docusaurus start standards/FRBR --port 3003"
       },
       "cache": false
     },
     "serve": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "docusaurus serve standards/FRBR --port 3005"
+        "command": "docusaurus serve standards/FRBR --port 3003"
+      },
+      "cache": false
+    },
+    "start:robust": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/utils/port-manager.js site frbr && docusaurus start standards/FRBR --port 3003"
+      },
+      "cache": false
+    },
+    "serve:robust": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/utils/port-manager.js site frbr && docusaurus serve standards/FRBR --port 3003"
       },
       "cache": false
     },

@@ -42,14 +42,28 @@
     "start": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "docusaurus start standards/muldicat --port 3007"
+        "command": "docusaurus start standards/muldicat --port 3005"
       },
       "cache": false
     },
     "serve": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "docusaurus serve standards/muldicat --port 3007"
+        "command": "docusaurus serve standards/muldicat --port 3005"
+      },
+      "cache": false
+    },
+    "start:robust": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/utils/port-manager.js site muldicat && docusaurus start standards/muldicat --port 3005"
+      },
+      "cache": false
+    },
+    "serve:robust": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/utils/port-manager.js site muldicat && docusaurus serve standards/muldicat --port 3005"
       },
       "cache": false
     },

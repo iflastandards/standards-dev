@@ -6,11 +6,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Essential Commands
 - **Package manager**: Always use `pnpm` (never npm or yarn)
-- **Build single site**: `pnpm build standards/{name}` or `nx build {name}`
-- **Start dev server**: `pnpm start:{site}` (e.g., `pnpm start:portal`, `pnpm start:isbdm`)
-- **Test execution**: `pnpm test` (uses nx cache for performance with nx-affected)
-- **Type checking**: `pnpm typecheck`
-- **Linting**: `pnpm lint`
+- **Build single site**: `nx build {name}` (e.g., `nx build portal`, `nx build isbdm`)
+- **Start dev server**: `nx start {site}` or `nx run {site}:start:robust` (with port cleanup)
+- **Serve built site**: `nx serve {site}` or `nx run {site}:serve:robust` (with port cleanup)
+- **Test execution**: `pnpm test` (nx affected with parallel execution)
+- **Type checking**: `pnpm typecheck` (nx affected with parallel execution)
+- **Linting**: `pnpm lint` (nx affected with parallel execution)
 
 ### Testing Commands
 
@@ -84,11 +85,37 @@ The project uses a 5-group testing strategy optimized for efficiency and cost ma
 - **Pre-push**: < 180s
 - **CI**: < 180s
 
+#### Standardized Test Infrastructure
+All projects now have consistent test targets:
+- **`test`**: Full test suite for the project
+- **`test:unit`**: Unit tests only (fast feedback, excludes external dependencies)
+- **`test:integration`**: Integration tests only (external APIs, file system, CLI tools)
+
+Example usage:
+```bash
+# Run all tests for affected projects
+nx affected --target=test --parallel=3
+
+# Run only unit tests for fast feedback
+nx affected --target=test:unit --parallel=3
+
+# Run integration tests for comprehensive validation
+nx run-many --target=test:integration --all
+```
+
 ### Build System Architecture
-- **Nx monorepo** with workspace-level coordination
+- **Nx monorepo** with workspace-level coordination and optimal caching
 - **Docusaurus v3.8** for all site generation
 - **Build targets**: Each site is an independent Nx project with its own build target
 - **Theme package**: Custom `@ifla/theme` package provides shared components and configuration
+
+#### Enhanced Nx Dependency Management
+- **Automatic theme rebuilds**: All sites depend on `@ifla/theme` and rebuild when theme changes
+- **Input patterns**: `docusaurus` and `docusaurus-no-theme` inputs optimize cache invalidation
+- **Implicit dependencies**: Sites have `"implicitDependencies": ["@ifla/theme"]` for proper dependency tracking
+- **Affected commands**: `nx affected` automatically detects which projects need rebuilding based on file changes
+- **Parallel execution**: Up to 6 concurrent processes for optimal performance
+- **Cache optimization**: Nx caching reduces build times by ~70% in CI environments
 
 ### Site Configuration System
 The project recently migrated (December 2024) from shared-config to **self-contained configurations**:
@@ -268,6 +295,41 @@ const { workspaceRoot, scriptsDir, tmpDir, packagesDir, themeDir } = setupTestPa
 - **Server coordination**: Ask user to start servers/builds rather than waiting for timeouts
 - **Environment awareness**: Warn when environment isn't set to project root
 - **Nx optimization**: Use nx cache for performance; only skip with `--skip-nx-cache` when debugging cache-specific issues
+
+### Port Management System
+The project includes robust port conflict resolution integrated with Nx targets to prevent server startup failures:
+
+#### Port Mappings
+- **Portal**: 3000, **ISBDM**: 3001, **LRM**: 3002, **FRBR**: 3003
+- **ISBD**: 3004, **MulDiCat**: 3005, **UniMARC**: 3006, **NewTest**: 3008
+
+#### Essential Port Commands
+- **Kill all ports**: `pnpm ports:kill` (silent) or `pnpm ports:kill:verbose`
+- **Kill specific site**: `pnpm ports:kill:site isbd`
+- **Robust server startup**: `pnpm start:robust` or `pnpm start:robust:nx`
+- **Robust built site serving**: `pnpm serve:robust` or `pnpm serve:robust:nx`
+
+#### Nx-Integrated Commands
+- **Single site robust start**: `nx run {site}:start:robust` (e.g., `nx run portal:start:robust`)
+- **Single site robust serve**: `nx run {site}:serve:robust` (e.g., `nx run isbdm:serve:robust`)
+- **All sites robust start**: `nx run standards-dev:start-all:robust`
+- **All sites robust serve**: `nx run standards-dev:serve-all:robust`
+
+#### Key Components
+- **Port Manager** (`scripts/utils/port-manager.js`): Detects and kills processes on specific ports using `lsof` and `kill -9`
+- **Robust Startup** (`scripts/start-with-port-cleanup.js`): Automatically clears ports before starting servers
+- **Nx Targets**: All projects have `start:robust` and `serve:robust` targets integrated with port cleanup
+- **Playwright Integration**: E2E tests use robust startup to prevent port conflicts
+
+#### Usage Guidelines
+- **Prefer robust commands** when starting dev servers to avoid port conflicts
+- **Use Nx targets** for consistent workspace-level operations
+- **Automatic conflict resolution**: Scripts detect occupied ports and kill conflicting processes
+- **Testing integration**: Port cleanup runs automatically during E2E test initialization
+- **Graceful shutdown**: Scripts handle SIGTERM/SIGINT for clean port cleanup
+
+#### Problem Solved
+Previously, tests would fail with "port already in use" errors when dev servers were running. The port management system automatically kills conflicting processes, ensuring reliable server startup regardless of existing processes. Now fully integrated with Nx for consistent workspace management.
 
 ## Vocabulary and Content Management
 

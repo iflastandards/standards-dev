@@ -104,6 +104,8 @@
     "start:robust:site": "node scripts/start-with-port-cleanup.js start",
     "serve:robust": "node scripts/start-with-port-cleanup.js serve",
     "serve:robust:site": "node scripts/start-with-port-cleanup.js serve",
+    "start:robust:nx": "nx run standards-dev:start-all:robust",
+    "serve:robust:nx": "nx run standards-dev:serve-all:robust",
     "swizzle": "docusaurus swizzle",
     "test": "nx affected --target=test --parallel=3",
     "test:ui": "nx test --ui",

@@ -1,51 +1,62 @@
 # Quick Reference Guide
 
-## Common Commands
+## Common Commands (Nx-Optimized)
 
 ### Building and Testing
 ```bash
 # Build theme package
-pnpm build:theme
+nx build @ifla/theme            # Nx command (recommended)
+pnpm build:theme                 # Package.json shortcut
 
-# Build specific site
-pnpm build:portal    # Portal (port 3000)
-pnpm build:isbdm     # ISBDM (port 3001)
-pnpm build:lrm       # LRM (port 3002)
-pnpm build:frbr      # FRBR (port 3003)
-pnpm build:isbd      # ISBD (port 3004)
-pnpm build:muldicat  # Muldicat (port 3005)
-pnpm build:unimarc   # Unimarc (port 3006)
+# Build specific site (Nx commands recommended)
+nx build portal                  # Portal (port 3000)
+nx build isbdm                   # ISBDM (port 3001)
+nx build lrm                     # LRM (port 3002)
+nx build frbr                    # FRBR (port 3003)
+nx build isbd                    # ISBD (port 3004)
+nx build muldicat                # Muldicat (port 3005)
+nx build unimarc                 # Unimarc (port 3006)
+nx build newtest                 # NewTest (port 3008)
 
-# Start development server (ports are predefined)
-pnpm start:portal    # http://localhost:3000
-pnpm start:isbdm     # http://localhost:3001
-pnpm start:lrm       # http://localhost:3002
-pnpm start:frbr      # http://localhost:3003
+# Start development server with robust port cleanup (RECOMMENDED)
+nx run portal:start:robust       # http://localhost:3000 (with port cleanup)
+nx run isbdm:start:robust        # http://localhost:3001 (with port cleanup)
+nx run lrm:start:robust          # http://localhost:3002 (with port cleanup)
+nx run frbr:start:robust         # http://localhost:3003 (with port cleanup)
 
-# Build/start all sites
-pnpm build:all       # Builds all sites concurrently (recommended)
-pnpm build:all:sequential  # Builds all sites sequentially (backup option)
-pnpm start:all       # Starts all sites on different ports
-pnpm stop:all        # Kills all running docusaurus processes
+# Build/start all sites (Nx optimized)
+nx run-many --target=build --all           # Build all sites in parallel
+nx affected --target=build                 # Build only affected sites (faster)
+nx run standards-dev:start-all:robust      # Start all sites with port cleanup
+pnpm start:robust                          # Package.json shortcut for robust start
+
+# Port management
+pnpm ports:kill                  # Kill all project ports
+pnpm ports:kill:verbose          # Kill all ports with details
+pnpm ports:kill:site portal      # Kill specific site port
 
 # Clear build artifacts
-pnpm clear:all       # Removes all .docusaurus and build folders
-pnpm clear:webpack   # Clear webpack cache only
+pnpm clear:all                   # Removes all .docusaurus and build folders
+nx reset                         # Clear Nx cache
+pnpm clear:webpack               # Clear webpack cache only
 
-# Testing and validation
-pnpm test            # Run vitest tests
-pnpm test:ui         # Run vitest with UI
-pnpm test:watch      # Run tests in watch mode
-pnpm typecheck       # TypeScript type checking
+# Testing and validation (Nx optimized)
+pnpm test                        # Run affected tests (Nx optimized)
+nx test @ifla/theme              # Run theme tests only
+nx affected --target=test:unit   # Run unit tests for affected projects
+nx affected --target=test:integration # Run integration tests for affected projects
+pnpm test:ui                     # Run vitest with UI
+pnpm test:watch                  # Run tests in watch mode
+pnpm typecheck                   # TypeScript checking (affected only)
 
 # Deployment
-pnpm deploy          # Trigger GitHub Actions deployment
-pnpm deploy:status   # Check deployment status
+pnpm deploy                      # Trigger GitHub Actions deployment
+pnpm deploy:status               # Check deployment status
 
 # Validation scripts
-pnpm validate:site-links        # Validate all site links
-pnpm validate:navigation        # Validate navigation URLs
-pnpm validate:env-urls          # Validate environment URLs
+pnpm validate:site-links         # Validate all site links
+pnpm validate:navigation         # Validate navigation URLs
+pnpm validate:env-urls           # Validate environment URLs
 ```
 
 ### Site Management
@@ -102,7 +113,7 @@ export type SiteKey = 'portal' | 'ISBDM' | 'LRM' | 'fr' | 'isbd' | 'muldicat' | 
 }
 ```
 
-**Port assignments:** Portal:3000, ISBDM:3001, LRM:3002, fr:3003, isbd:3004, muldicat:3005, unimarc:3006
+**Port assignments:** Portal:3000, ISBDM:3001, LRM:3002, FRBR:3003, ISBD:3004, MulDiCat:3005, UniMARC:3006, NewTest:3008
 
 **Also update concurrent scripts:**
 ```json

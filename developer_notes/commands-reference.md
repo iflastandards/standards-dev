@@ -4,10 +4,11 @@ This document contains all available commands in the IFLA standards-dev monorepo
 
 ## Quick Usage
 The most common commands you'll use:
-- `pnpm build:{site}` - Build a specific site
+- `nx build {site}` - Build a specific site (e.g., `nx build portal`)
+- `nx run {site}:start:robust` - Start dev server with port cleanup
 - `pnpm lint:fix` - Fix linting issues
-- `pnpm start:{site}` - Start dev server for a site
-- `pnpm test` - Run tests
+- `pnpm test` - Run affected tests with Nx optimization
+- `pnpm start:robust` - Start all sites with port cleanup
 
 ## Developer Information
 
@@ -22,6 +23,104 @@ Commands are organized by their primary function. All commands are run from the 
 - ISBD: 3004
 - MulDiCat: 3005
 - UNIMARC: 3006
+- NewTest: 3008
+
+### Nx Integration
+This project uses Nx for monorepo management with:
+- **Dependency tracking**: Theme changes automatically rebuild dependent sites
+- **Parallel execution**: Up to 6 concurrent processes
+- **Smart caching**: 70% faster builds in CI with cache optimization
+- **Affected commands**: Only build/test projects impacted by changes
+
+---
+
+## 🚀 Nx-Optimized Commands
+
+### Nx Build Commands (Recommended)
+```bash
+# Single site builds
+nx build portal                      # Build portal site
+nx build isbdm                       # Build ISBDM site  
+nx build lrm                         # Build LRM site
+nx build frbr                        # Build FRBR site
+nx build isbd                        # Build ISBD site
+nx build muldicat                    # Build MulDiCat site
+nx build unimarc                     # Build UNIMARC site
+
+# Workspace builds
+nx run-many --target=build --all     # Build all sites in parallel
+nx affected --target=build           # Build only affected sites
+nx run standards-dev:build-all       # Build all via workspace target
+nx run standards-dev:build-affected  # Build affected via workspace target
+```
+
+### Nx Start Commands (Development)
+```bash
+# Standard start (no port cleanup)
+nx start portal                      # Start portal dev server
+nx start isbdm                       # Start ISBDM dev server
+
+# Robust start (with automatic port cleanup)
+nx run portal:start:robust           # Start portal with port cleanup
+nx run isbdm:start:robust             # Start ISBDM with port cleanup
+nx run standards-dev:start-all:robust # Start all sites with port cleanup
+
+# Package.json shortcuts
+pnpm start:robust                    # Start all with port cleanup
+pnpm start:robust:nx                 # Via Nx workspace target
+```
+
+### Nx Serve Commands (Production)
+```bash
+# Standard serve
+nx serve portal                      # Serve built portal
+nx serve isbdm                       # Serve built ISBDM
+
+# Robust serve (with automatic port cleanup)
+nx run portal:serve:robust           # Serve portal with port cleanup
+nx run isbdm:serve:robust            # Serve ISBDM with port cleanup
+nx run standards-dev:serve-all:robust # Serve all sites with port cleanup
+
+# Package.json shortcuts
+pnpm serve:robust                    # Serve all with port cleanup
+pnpm serve:robust:nx                 # Via Nx workspace target
+```
+
+### Nx Test Commands
+```bash
+# Run tests
+nx test                              # Run all tests
+nx test @ifla/theme                  # Run theme tests only
+nx test portal                       # Run portal tests only
+nx affected --target=test            # Run tests for affected projects
+nx run-many --target=test --all      # Run all project tests
+
+# Test types
+nx affected --target=test:unit       # Run unit tests only (fast feedback)
+nx affected --target=test:integration # Run integration tests only
+nx run-many --target=test:unit --all # All unit tests
+nx run-many --target=test:integration --all # All integration tests
+```
+
+### Port Management Commands
+```bash
+# Kill ports manually
+pnpm ports:kill                      # Kill all project ports silently
+pnpm ports:kill:verbose              # Kill all ports with detailed output
+pnpm ports:kill:site portal          # Kill specific site port
+node scripts/utils/port-manager.js all --verbose # Direct port manager usage
+node scripts/utils/port-manager.js site isbdm    # Kill specific site port
+node scripts/utils/port-manager.js port 3001     # Kill specific port number
+```
+
+### Nx Utility Commands
+```bash
+nx graph                             # View project dependency graph
+nx show projects                     # List all projects
+nx show projects --with-target=test  # Show projects with test targets
+nx affected --target=build --dry-run # See what would be affected
+nx reset                             # Clear Nx cache
+```
 
 ---
 
@@ -225,33 +324,59 @@ pnpm prepare                # Setup Husky git hooks
 
 ## 🎯 Common Workflows
 
-### Before Committing
+### Before Committing (Nx-Optimized)
 ```bash
-pnpm lint:fix               # Fix linting issues
-pnpm typecheck              # Check TypeScript
-pnpm test                   # Run tests
+pnpm lint:fix                        # Fix linting issues
+pnpm typecheck                       # Check TypeScript (affected only)
+pnpm test                            # Run affected tests
+nx affected --target=build --dry-run # See what would be affected
 ```
 
-### Building After Theme Changes
+### Building After Theme Changes (Nx-Optimized)
 ```bash
-pnpm build:theme            # Build the theme package
-pnpm build:lrm              # Test with one site first
+nx build @ifla/theme                 # Build the theme package
+nx affected --target=build           # Build all affected sites automatically
+# OR test with one site first
+nx build lrm                         # Test with one site first
 ```
 
-### Full Site Validation
+### Full Site Validation (Nx-Optimized)
 ```bash
-pnpm build:all:safe         # Clean build everything
-pnpm validate:navigation    # Check navigation
-pnpm validate:built-site    # Check built sites
-pnpm validate:env-urls      # Check environment URLs
+nx run standards-dev:build-all       # Build all sites via workspace target
+pnpm validate:navigation             # Check navigation
+pnpm validate:built-site             # Check built sites
+pnpm validate:env-urls               # Check environment URLs
 ```
 
-### Testing a Single Site
+### Testing a Single Site (Nx-Optimized)
 ```bash
-pnpm build:lrm              # Build specific site
-pnpm serve:lrm              # Serve to test
+nx build lrm                         # Build specific site (with theme deps)
+nx run lrm:serve:robust              # Serve with port cleanup
 # OR for development
-pnpm start:lrm              # Start dev server
+nx run lrm:start:robust              # Start dev server with port cleanup
+```
+
+### Working with Multiple Sites
+```bash
+# Start all sites for development
+pnpm start:robust                    # All sites with port cleanup
+# OR
+nx run standards-dev:start-all:robust # Via Nx workspace target
+
+# Build only affected sites (faster CI)
+nx affected --target=build --parallel=3
+
+# Run tests for affected projects only
+nx affected --target=test:unit --parallel=3
+```
+
+### Port Conflict Resolution
+```bash
+# If getting port conflicts
+pnpm ports:kill:verbose              # Kill all ports with details
+nx run portal:start:robust           # Start with automatic cleanup
+# OR use direct port manager
+node scripts/utils/port-manager.js site portal --verbose
 ```
 
 ### Cleaning Up Problems

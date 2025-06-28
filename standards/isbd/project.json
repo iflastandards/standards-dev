@@ -25,14 +25,28 @@
     "start": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "docusaurus start standards/isbd --port 3006"
+        "command": "docusaurus start standards/isbd --port 3004"
       },
       "cache": false
     },
     "serve": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "docusaurus serve standards/isbd --port 3006"
+        "command": "docusaurus serve standards/isbd --port 3004"
+      },
+      "cache": false
+    },
+    "start:robust": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/utils/port-manager.js site isbd && docusaurus start standards/isbd --port 3004"
+      },
+      "cache": false
+    },
+    "serve:robust": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/utils/port-manager.js site isbd && docusaurus serve standards/isbd --port 3004"
       },
       "cache": false
     },

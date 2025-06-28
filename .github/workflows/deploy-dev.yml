@@ -61,6 +61,14 @@ jobs:
       - name: Setup NX Cloud
         uses: nrwl/nx-set-shas@v4
         
+      - name: Debug NX setup
+        run: |
+          echo "NX_BASE: $NX_BASE"
+          echo "NX_HEAD: $NX_HEAD" 
+          echo "Current HEAD: $(git rev-parse HEAD)"
+          echo "Previous commits:"
+          git log --oneline -5
+          
       - name: Detect affected projects
         id: affected
         run: |
@@ -71,10 +79,41 @@ jobs:
             echo "has-affected=true" >> $GITHUB_OUTPUT
           else
             echo "Detecting affected projects..."
+            echo "Base SHA: $NX_BASE"
+            echo "Head SHA: $NX_HEAD"
+            
+            # Show what would be affected (including libraries for debugging)
+            echo "All affected projects:"
+            nx show projects --affected || echo "Failed to get affected projects"
+            
+            # Get affected apps for deployment
             affected=$(nx show projects --affected --type=app 2>/dev/null | tr '\n' ' ' || echo "")
             if [ -z "$affected" ]; then
-              echo "No affected projects found"
-              echo "has-affected=false" >> $GITHUB_OUTPUT
+              echo "No affected app projects found"
+              echo "Trying with explicit base SHA..."
+              if [ -n "$NX_BASE" ]; then
+                affected=$(nx show projects --affected --type=app --base=$NX_BASE 2>/dev/null | tr '\n' ' ' || echo "")
+              fi
+              
+              # Special handling for theme changes - if theme is affected, all apps should rebuild
+              if [ -z "$affected" ]; then
+                echo "Checking if theme package is affected..."
+                theme_affected=$(nx show projects --affected | grep "@ifla/theme" || echo "")
+                if [ -n "$theme_affected" ]; then
+                  echo "Theme package is affected - rebuilding all sites"
+                  affected=$(nx show projects --type=app | tr '\n' ' ')
+                  echo "All projects due to theme change: $affected"
+                  echo "projects=$affected" >> $GITHUB_OUTPUT
+                  echo "has-affected=true" >> $GITHUB_OUTPUT
+                else
+                  echo "No affected projects found - setting has-affected=false"
+                  echo "has-affected=false" >> $GITHUB_OUTPUT
+                fi
+              else
+                echo "Found affected projects with explicit base: $affected"
+                echo "projects=$affected" >> $GITHUB_OUTPUT
+                echo "has-affected=true" >> $GITHUB_OUTPUT
+              fi
             else
               echo "Affected projects: $affected"
               echo "projects=$affected" >> $GITHUB_OUTPUT

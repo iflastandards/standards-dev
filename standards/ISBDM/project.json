@@ -36,6 +36,20 @@
       },
       "cache": false
     },
+    "start:robust": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/utils/port-manager.js site isbdm && docusaurus start standards/ISBDM --port 3001"
+      },
+      "cache": false
+    },
+    "serve:robust": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/utils/port-manager.js site isbdm && docusaurus serve standards/ISBDM --port 3001"
+      },
+      "cache": false
+    },
     "clear": {
       "executor": "nx:run-commands",
       "options": {
@@ -54,6 +68,45 @@
       "inputs": [
         "default",
         "{projectRoot}/src/**/*.{test,spec}.{js,ts,jsx,tsx}",
+        "{workspaceRoot}/vite.config.ts",
+        "{workspaceRoot}/vitest.config.*"
+      ]
+    },
+    "test:unit": {
+      "executor": "@nx/vite:test",
+      "options": {
+        "config": "{workspaceRoot}/vite.config.ts",
+        "exclude": [
+          "**/scripts/**",
+          "**/deployment/**"
+        ]
+      },
+      "outputs": ["{projectRoot}/coverage"],
+      "cache": true,
+      "inputs": [
+        "default",
+        "{projectRoot}/src/**/*.{test,spec}.{js,ts,jsx,tsx}",
+        "!{projectRoot}/src/tests/scripts/**/*",
+        "!{projectRoot}/src/tests/deployment/**/*",
+        "{workspaceRoot}/vite.config.ts",
+        "{workspaceRoot}/vitest.config.*"
+      ]
+    },
+    "test:integration": {
+      "executor": "@nx/vite:test", 
+      "options": {
+        "config": "{workspaceRoot}/vite.config.ts",
+        "include": [
+          "**/scripts/**",
+          "**/deployment/**"
+        ]
+      },
+      "outputs": ["{projectRoot}/coverage"],
+      "cache": true,
+      "inputs": [
+        "default",
+        "{projectRoot}/src/tests/scripts/**/*",
+        "{projectRoot}/src/tests/deployment/**/*",
         "{workspaceRoot}/vite.config.ts",
         "{workspaceRoot}/vitest.config.*"
       ]

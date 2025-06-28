@@ -133,10 +133,24 @@
       },
       "cache": false
     },
+    "start-all:robust": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/start-with-port-cleanup.js start"
+      },
+      "cache": false
+    },
     "serve-all": {
       "executor": "nx:run-commands", 
       "options": {
         "command": "pnpm serve:all"
+      },
+      "cache": false
+    },
+    "serve-all:robust": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/start-with-port-cleanup.js serve"
       },
       "cache": false
     },

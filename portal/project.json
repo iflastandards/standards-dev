@@ -29,10 +29,24 @@
       },
       "cache": false
     },
+    "start:robust": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/utils/port-manager.js site portal && docusaurus start portal"
+      },
+      "cache": false
+    },
     "serve": {
       "executor": "nx:run-commands",
       "options": {
         "command": "docusaurus serve portal"
+      },
+      "cache": false
+    },
+    "serve:robust": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/utils/port-manager.js site portal && docusaurus serve portal"
       },
       "cache": false
     },

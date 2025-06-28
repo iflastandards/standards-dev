@@ -36,6 +36,20 @@
       },
       "cache": false
     },
+    "start:robust": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/utils/port-manager.js site lrm && docusaurus start standards/LRM --port 3002"
+      },
+      "cache": false
+    },
+    "serve:robust": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/utils/port-manager.js site lrm && docusaurus serve standards/LRM --port 3002"
+      },
+      "cache": false
+    },
     "clear": {
       "executor": "nx:run-commands",
       "options": {
