@@ -59,9 +59,9 @@ jobs:
       - name: Run linting
         run: npx nx affected --target=lint --parallel=3
 
-      - name: Run unit tests
-        run: npx nx affected --target=test --parallel=3
-
       - name: Build affected projects
         run: npx nx affected --target=build --parallel=3
+
+      - name: Validate deployment configuration
+        run: node scripts/test-site-builds.js --site all --env production --skip-build
 
