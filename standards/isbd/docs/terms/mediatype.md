@@ -1,5 +1,7 @@
 ---
 title: ISBD Media Type
+sidebar_label: Media Type
+sidebar_position: 160
 ---
 
 # ISBD Media Type

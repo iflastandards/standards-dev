@@ -1,5 +1,7 @@
 ---
 title: ISBD Content Form
+sidebar_position: 110
+sidebar_label: Content Form
 ---
 
 # ISBD Content Form

@@ -1,5 +1,7 @@
 ---
 title: ISBD Content Qualification of Sensory Specification
+sidebar_label: Sensory Specification
+sidebar_position: 140
 ---
 
 # ISBD Content Qualification of Sensory Specification

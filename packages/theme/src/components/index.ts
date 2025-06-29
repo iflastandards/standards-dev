@@ -22,7 +22,7 @@ export { default as Mandatory } from './Mandatory';
 export { default as Unique } from './Unique';
 export { default as Figure } from './Figure';
 export { ExampleTable } from './ExampleTable';
-export { default as StandardHomePage } from './StandardHomePage';
+
 
 
 // Legacy exports for backward compatibility
@@ -63,5 +63,4 @@ export type {
   RDFMetadata
 } from './VocabularyTable';
 
-// Export StandardHomePage types
-export type { StandardHomePageProps } from './StandardHomePage';
+

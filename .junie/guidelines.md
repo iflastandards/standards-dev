@@ -12,10 +12,28 @@ The IFLA Standards project is a monorepo containing multiple packages and standa
 - **standards/**: Contains individual standard sites (FRBR, ISBD, ISBDM, LRM, MulDiCat, UniMARC)
 - **portal/**: The main portal site
 
-### Build Commands
+### Nx Integration
+The project has been restructured to integrate Nx for optimized builds, testing, and caching. Nx commands are now the **recommended approach** for development.
+
+### Build Commands (Nx Optimized)
 
 ```bash
-# Build a specific site
+# Build specific sites (Nx commands - RECOMMENDED)
+nx build portal                  # Portal (port 3000)
+nx build isbdm                   # ISBDM (port 3001)
+nx build lrm                     # LRM (port 3002)
+nx build frbr                    # FRBR (port 3003)
+nx build isbd                    # ISBD (port 3004)
+nx build muldicat                # Muldicat (port 3005)
+nx build unimarc                 # Unimarc (port 3006)
+nx build @ifla/theme             # Build theme package
+
+# Build all sites (Nx optimized)
+nx run-many --target=build --all           # Build all sites in parallel
+nx affected --target=build                 # Build only affected sites (faster)
+pnpm build:all:nx                          # Package.json shortcut
+
+# Legacy pnpm commands (still available)
 pnpm build:portal     # Build the portal site
 pnpm build:isbdm      # Build the ISBDM standard
 pnpm build:lrm        # Build the LRM standard
@@ -23,20 +41,32 @@ pnpm build:frbr       # Build the FRBR standard
 pnpm build:isbd       # Build the ISBD standard
 pnpm build:muldicat   # Build the MulDiCat standard
 pnpm build:unimarc    # Build the UniMARC standard
-
-# Build all sites
 pnpm build:all        # Build all sites in parallel
 pnpm build:all:safe   # Clear all builds first, then build all sites
-pnpm build:all:sequential  # Build all sites sequentially
-
-# Build only affected sites (based on changes)
-pnpm build:affected
 ```
 
-### Development Commands
+### Development Commands (Nx Optimized)
 
 ```bash
-# Start development server for a specific site
+# Start development servers with robust port cleanup (RECOMMENDED)
+nx run portal:start:robust       # http://localhost:3000 (with port cleanup)
+nx run isbdm:start:robust        # http://localhost:3001 (with port cleanup)
+nx run lrm:start:robust          # http://localhost:3002 (with port cleanup)
+nx run frbr:start:robust         # http://localhost:3003 (with port cleanup)
+nx run isbd:start:robust         # http://localhost:3004 (with port cleanup)
+nx run muldicat:start:robust     # http://localhost:3005 (with port cleanup)
+nx run unimarc:start:robust      # http://localhost:3006 (with port cleanup)
+
+# Start all sites with port cleanup
+nx run standards-dev:start-all:robust      # Start all sites with port cleanup
+pnpm start:robust                          # Package.json shortcut for robust start
+
+# Port management
+pnpm ports:kill                  # Kill all project ports
+pnpm ports:kill:verbose          # Kill all ports with details
+pnpm ports:kill:site portal      # Kill specific site port
+
+# Legacy pnpm commands (still available)
 pnpm start:portal     # Start the portal site (port 3000)
 pnpm start:isbdm      # Start the ISBDM standard (port 3001)
 pnpm start:lrm        # Start the LRM standard (port 3002)
@@ -44,13 +74,20 @@ pnpm start:frbr       # Start the FRBR standard (port 3003)
 pnpm start:isbd       # Start the ISBD standard (port 3004)
 pnpm start:muldicat   # Start the MulDiCat standard (port 3005)
 pnpm start:unimarc    # Start the UniMARC standard (port 3006)
-
-# Start all development servers
 pnpm start:all        # Start all sites in parallel
 
 # Serve built sites
 pnpm serve:portal     # Serve the built portal site
 pnpm serve:all        # Serve all built sites
+```
+
+### Cache Management
+
+```bash
+# Clear build artifacts
+pnpm clear:all                   # Removes all .docusaurus and build folders
+nx reset                         # Clear Nx cache
+pnpm clear:webpack               # Clear webpack cache only
 ```
 
 ### Configuration Architecture
@@ -194,14 +231,27 @@ The project uses a multi-layered testing approach:
 - Custom components are available in the `@ifla/theme` package
 - Site configuration is managed through a hierarchical system
 
+### Nx Workflow Benefits
+
+- **Smart Caching**: Nx caches build outputs, test results, and lint results locally and in the cloud
+- **Affected Detection**: Only builds/tests projects that have changed or are affected by changes
+- **Parallel Execution**: Runs tasks in parallel across multiple CPU cores
+- **Distributed Execution**: CI jobs can run across multiple agents for faster completion
+- **Build Analytics**: Track performance and optimization opportunities
+
 ### Performance Considerations
 
-- Use the NX build system for efficient builds and testing
-- The `build:affected` command only builds sites affected by changes
-- Consider using the `serve:all` command to test all sites locally without rebuilding
+- **Use Nx commands**: Prefer `nx build portal` over `pnpm build:portal` for better caching
+- **Affected builds**: Use `nx affected --target=build` for faster builds in PRs
+- **Cache management**: Nx automatically handles cache invalidation based on file changes
+- **Parallel testing**: Use `nx run-many --target=test --all` for parallel test execution
+- **Port cleanup**: Use `:robust` variants for development servers to handle port conflicts
 
 ### Troubleshooting
 
-- If you encounter build issues, try clearing the cache with `pnpm clear:all`
-- For test failures, check the test output for specific error messages
-- For dependency issues, ensure you're using the correct pnpm version
+- **Build issues**: Try `pnpm clear:all` followed by `nx reset` to clear all caches
+- **Port conflicts**: Use `pnpm ports:kill` to kill all project ports, or `pnpm ports:kill:site <sitename>` for specific sites
+- **Test failures**: Check test output for specific error messages; use `pnpm test:ui` for interactive debugging
+- **Dependency issues**: Ensure you're using the correct pnpm version; run `pnpm install` to refresh dependencies
+- **Nx cache issues**: Use `nx reset` to clear Nx cache if builds behave unexpectedly
+- **TypeScript errors**: Run `pnpm typecheck` to check for type errors across all projects

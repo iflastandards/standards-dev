@@ -6,3 +6,8 @@
 @import '@ifla/theme/styles';
 
 /* ISBD-specific customizations can be added here */
+
+/* Fix button height by removing paragraph margins */
+a.button p {
+  margin-bottom: 0 !important;
+}

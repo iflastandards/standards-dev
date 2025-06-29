@@ -1,5 +1,7 @@
 ---
 title: ISBD Content Qualification of Type
+sidebar_label: Type
+sidebar_position: 150
 ---
 
 # ISBD Content Qualification of Type

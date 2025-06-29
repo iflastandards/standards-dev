@@ -1,5 +1,7 @@
 ---
 title: ISBD Content Qualification of Dimensionality
+sidebar_label: Dimensionality
+sidebar_position: 125
 ---
 
 # ISBD Content Qualification of Dimensionality

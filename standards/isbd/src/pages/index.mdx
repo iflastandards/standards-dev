@@ -1,0 +1,93 @@
+---
+hide_table_of_contents: true
+---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import { InLink } from '@ifla/theme';
+import styles from './index.module.css';
+
+<div style={{
+  background: `linear-gradient(100deg, rgba(45, 104, 64, 1) 0%, rgba(45, 104, 64, 0.8) 100%)`,
+  color: 'white',
+  padding: '40px 20px',
+  marginBottom: '40px',
+  marginTop: '-2rem',
+  marginLeft: 'calc(-1 * var(--ifm-spacing-horizontal))',
+  marginRight: 'calc(-1 * var(--ifm-spacing-horizontal))',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '20px'
+}}>
+  <img 
+    src={useBaseUrl('/img/logo-ifla_black.png')} 
+    alt="IFLA Logo"
+    style={{ height: '60px', flexShrink: 0 }}
+  />
+  <div style={{ textAlign: 'left' }}>
+    <h1 style={{ fontSize: '2.2rem', margin: '0 0 5px 0' }}>International Standard Bibliographic Description</h1>
+    <p style={{ fontSize: '1.1rem', margin: '0', opacity: '0.9' }}>ISBD: The global standard for bibliographic description</p>
+  </div>
+</div>
+
+## About ISBD
+
+The International Standard Bibliographic Description (ISBD) is a set of rules produced by the International Federation of Library Associations and Institutions (IFLA) to create a bibliographic description in a standard, human-readable form, especially for use in a bibliography or a library catalogue.
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px', margin: '40px 0' }}>
+  <div>
+    <h3>Key Features</h3>
+    
+    <div style={{ padding: '20px', background: 'white', border: '1px solid #e1e5e9', borderRadius: '6px', marginBottom: '20px' }}>
+      <h4>📚 Comprehensive Coverage</h4>
+      <p>Over 1,000 elements covering all aspects of bibliographic description from title and statement of responsibility to physical description and notes.</p>
+    </div>
+
+    <div style={{ padding: '20px', background: 'white', border: '1px solid #e1e5e9', borderRadius: '6px', marginBottom: '20px' }}>
+      <h4>🌍 International Standard</h4>
+      <p>Developed by IFLA and used globally by libraries, archives, and cultural institutions for consistent bibliographic description across all media types.</p>
+    </div>
+
+    <div style={{ padding: '20px', background: 'white', border: '1px solid #e1e5e9', borderRadius: '6px' }}>
+      <h4>⚙️ Machine Readable</h4>
+      <p>Available in multiple RDF formats for integration with modern library systems, semantic web applications, and linked data initiatives.</p>
+    </div>
+  </div>
+
+  <div>
+    <h3>Getting Started</h3>
+    
+    <p>Explore the vocabulary structure, download RDF formats, or browse implementation examples in the documentation sections.</p>
+    
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '20px' }}>
+      <InLink
+        href="/docs/"
+        className="button button--primary button--lg"
+        style={{ display: 'block', textAlign: 'center' }}
+      >
+        Browse Contents
+      </InLink>
+      <InLink
+        href="/docs/elements"
+        className="button button--primary button--lg"
+        style={{ display: 'block', textAlign: 'center' }}
+      >
+        Browse Elements
+      </InLink>
+      <InLink
+        href="/docs/terms"
+        className="button button--primary button--lg"
+        style={{ display: 'block', textAlign: 'center' }}
+      >
+        View Vocabularies
+      </InLink>
+      <InLink
+        href="/docs/examples"
+        className="button button--primary button--lg"
+        style={{ display: 'block', textAlign: 'center' }}
+      >
+        See Examples
+      </InLink>
+    </div>
+  </div>
+</div>

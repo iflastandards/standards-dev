@@ -1,5 +1,7 @@
 ---
 title: ISBD Content Form Qualified Base
+sidebar_label: Qualified Base
+sidebar_position: 120
 ---
 
 # ISBD Content Form Qualified Base

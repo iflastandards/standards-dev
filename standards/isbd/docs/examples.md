@@ -1,5 +1,6 @@
 ---
 title: Examples & Use Cases
+sidebar_position: 1002
 ---
 
 # Examples & Use Cases

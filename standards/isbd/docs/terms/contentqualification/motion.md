@@ -1,5 +1,7 @@
 ---
 title: ISBD Content Qualification of Motion
+sidebar_label: Motion
+sidebar_position: 130
 ---
 
 # ISBD Content Qualification of Motion

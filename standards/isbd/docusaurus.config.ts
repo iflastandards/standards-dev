@@ -30,7 +30,7 @@ const config: Config = {
   baseUrl: siteConfig.baseUrl,
 
   organizationName: 'iflastandards',
-  projectName: 'isbd',
+  projectName: 'ISBD',
 
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
@@ -141,7 +141,7 @@ const config: Config = {
     },
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'isbd',
+      title: 'ISBD',
       logo: {
         alt: 'IFLA Logo',
         src: 'img/logo-ifla_black.png',
@@ -149,9 +149,14 @@ const config: Config = {
       items: [
         {
           type: 'doc',
-          docId: 'intro',
+          docId: 'index',
           position: 'left',
-          label: 'Introduction',
+          label: 'Overview',
+        },
+        {
+          to: 'manage',
+          position: 'right',
+          label: 'Management',
         },
         {to: '/blog', label: 'Blog', position: 'right'},
         {

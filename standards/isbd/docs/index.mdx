@@ -1,112 +1,207 @@
 ---
-id: index
-title: International Standard Bibliographic Description
-slug: /
+sidebar_position: 1
+title: ISBD Overview
+sidebar_label: Overview
+description: ISBD Documentation Contents Overview
 hide_table_of_contents: true
 ---
 
-import { Figure } from '@ifla/theme';
-import { InLink } from '@ifla/theme';
-import { OutLink } from '@ifla/theme';
-import { QuickStart, DownloadPanel } from '@ifla/theme';
+import CompactButton from '../src/components/CompactButton';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-# International Standard Bibliographic Description
-
-<div className="row my-2">
-  <div className="col-md-5">
-    <div className="row gx-0 me-4">
-      <div className="col-md-12">
-        <nav className="d-flex flex-column" aria-label="Navigation for main sections">
-          <div className="d-flex align-items-center">
-            <InLink to="/intro/" className="linkMenuEntry">Introduction</InLink>
-          </div>
-
-          <div className="d-flex align-items-center">
-            <InLink to="/elements/" className="linkMenuEntry">ISBD Element Sets</InLink>
-          </div>
-
-          <div className="d-flex align-items-center">
-            <InLink to="/examples/" className="linkMenuEntry">Value Vocabularies</InLink>
-          </div>
-        </nav>
-      </div>
-    </div>
-  </div>
-
-  <div className="col-md-7 border rounded">
-    <div className="row my-2">
-      <div className="tptit">
-        <p>International Standard Bibliographic Description</p>
-      </div>
-
-      <div className="tpsor">
-        <p>Developed by the ISBD Review Group</p>
-        <p>Approved by the IFLA Committee on Standards</p>
-        <p>Endorsed by the IFLA Professional Committee</p>
-      </div>
-
-      <div className="tppub">
-        <p>Published as an online resource by IFLA: International Federation of Library Associations and Institutions</p>
-        <p>First version: 1971</p>
-        <p>Current version: Consolidated Edition 2011</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<QuickStart
-  introductionPath="/intro/"
-  elementsPath="/elements/"
-  examplesPath="/examples/"
-/>
-
-<DownloadPanel
-  pdfUrl="#"
-  ttlUrl="/rdf/ttl/isbd.ttl"
-  jsonLdUrl="/rdf/jsonld/isbd.jsonld"
-  xmlUrl="/rdf/xml/isbd.xml"
-/>
-
-## Overview
+# ISBD Contents Overview
 
 This page introduces the ISBD Element Sets and Value Vocabularies.
 
-## ISBD Element Sets
+<Tabs groupId="isbd-overview">
+  <TabItem value="elements" label="Element Sets" default>
+    <div style={{ marginTop: '20px' }}>
 
-* **ISBD Elements** - The ISBD element set is a registration of classes and properties from International Standard Bibliographic Description (ISBD), consolidated edition, published by De Gruyter Saur in July 2011 (ISBN 978-3-11-026379-4).
+    {/* ISBD Element Sets */}
+    <div style={{ marginBottom: '30px' }}>
+      <h3>ISBD Element Sets</h3>
 
-* **ISBD Elements (unconstrained)** - The ISBD element set is a registration of classes and properties from International Standard Bibliographic Description (ISBD), consolidated edition, published by De Gruyter Saur in July 2011 (ISBN 978-3-11-026379-4). This version has the same local URI part, label, and definition as each element in the constrained version, but no domain (i.e. Resource) or range is declared.
+      <div style={{ background: '#f0f8f0', border: '2px solid #c8e6c9', borderRadius: '6px', padding: '20px', marginBottom: '20px' }}>
+        <h4>ISBD Elements</h4>
+        <span style={{ background: '#4a8f5b', color: 'white', fontSize: '10px', fontWeight: 'bold', padding: '2px 8px', borderRadius: '12px', float: 'right' }}>1,000+ elements</span>
+        <p style={{ color: '#666', marginBottom: '15px' }}>
+          The ISBD element set is a registration of classes and properties from International
+          Standard Bibliographic Description (ISBD), consolidated edition, published by De Gruyter
+          Saur in July 2011 (ISBN 978-3-11-026379-4).
+        </p>
+        <CompactButton href="/docs/elements">
+          → Browse elements
+        </CompactButton>
+      </div>
 
-## ISBD Value Vocabularies
+      <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px', marginBottom: '20px' }}>
+        <h4>ISBD Elements (unconstrained)</h4>
+        <p style={{ color: '#666', marginBottom: '15px' }}>
+          The ISBD element set is a registration of classes and properties from International
+          Standard Bibliographic Description (ISBD), consolidated edition, published by De Gruyter
+          Saur in July 2011 (ISBN 978-3-11-026379-4). This version has the same local URI part,
+          label, and definition as each element in the constrained version, but no domain
+          (i.e. Resource) or range is declared.
+        </p>
+        <CompactButton href="/docs/elements/unconstrained">
+          → View unconstrained elements
+        </CompactButton>
+      </div>
+    </div>
 
-The ISBD element set vocabulary includes RDF classes and properties corresponding to ISBD elements. Six concept vocabularies give the controlled terminologies of the ISBD area 0 content forms, qualifications, and media types. Each class, concept, and property has a Uniform Resource Identifier (URI) for use in Semantic Web data triples.
+    </div>
+  </TabItem>
 
-* **ISBD Content Form** - Content form categories reflect the fundamental form or forms in which the content of a resource is expressed.
+  <TabItem value="vocabularies" label="Value Vocabularies">
+    <div style={{ marginTop: '20px' }}>
+      <p style={{ color: '#666', marginBottom: '15px' }}>
+        The ISBD element set vocabulary includes RDF classes and properties corresponding to ISBD elements.
+        Six concept vocabularies give the controlled terminologies of the ISBD area 0 content forms,
+        qualifications, and media types. Each class, concept, and property has a Uniform Resource
+        Identifier (URI) for use in Semantic Web data triples.
+      </p>
 
-* **ISBD Content Form Qualified Base** - Compound terms for qualified ISBD content forms that map to RDA/ONIX Framework for Resource Categorization base content categories.
+      {/* Vocabulary Grid */}
+      <div style={{ display: 'grid', gap: '15px' }}>
+        <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px' }}>
+          <h5>ISBD Content Form</h5>
+          <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '10px' }}>
+            Content form categories reflect the fundamental form or forms in which the content
+            of a resource is expressed.
+          </p>
+          <CompactButton href="/docs/terms/contentform">
+            → View vocabulary
+          </CompactButton>
+        </div>
 
-* **ISBD Content Qualification of Dimensionality** - Content qualification sub-categories for the number of spatial dimensions in which the image content of a resource is intended to be perceived which expand the content form category of image.
+        <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px' }}>
+          <h5>ISBD Content Form Qualified Base</h5>
+          <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '10px' }}>
+            Compound terms for qualified ISBD content forms that map to RDA/ONIX Framework
+            for Resource Categorization base content categories.
+          </p>
+          <CompactButton href="/docs/terms/contentformbase">
+            → View vocabulary
+          </CompactButton>
+        </div>
 
-* **ISBD Content Qualification of Motion** - Content qualification sub-categories for the perceived presence or absence of movement in the image content of a resource which expand the content form category of image.
+        <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px' }}>
+          <h5>ISBD Content Qualification of Dimensionality</h5>
+          <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '10px' }}>
+            Content qualification sub-categories for the number of spatial dimensions in which
+            the image content of a resource is intended to be perceived which expand the content
+            form category of image.
+          </p>
+          <CompactButton href="/docs/terms/contentqualification/dimensionality">
+            → View vocabulary
+          </CompactButton>
+        </div>
 
-* **ISBD Content Qualification of Sensory Specification** - Content qualification sub-categories for sensory specification, a human sense through which the content of a resource as published is intended to be perceived, which expand content form categories.
+        <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px' }}>
+          <h5>ISBD Content Qualification of Motion</h5>
+          <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '10px' }}>
+            Content qualification sub-categories for the perceived presence or absence of
+            movement in the image content of a resource which expand the content form category of image.
+          </p>
+          <CompactButton href="/docs/terms/contentqualification/motion">
+            → View vocabulary
+          </CompactButton>
+        </div>
 
-* **ISBD Content Qualification of Type** - Content qualification sub-categories for type which expand content form categories.
+        <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px' }}>
+          <h5>ISBD Content Qualification of Sensory Specification</h5>
+          <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '10px' }}>
+            Content qualification sub-categories for sensory specification, a human sense through
+            which the content of a resource as published is intended to be perceived, which expand
+            content form categories.
+          </p>
+          <CompactButton href="/docs/terms/contentqualification/sensoryspecification">
+            → View vocabulary
+          </CompactButton>
+        </div>
 
-* **ISBD Media Type** - Media type categories record the type or types of carrier used to convey the content of the resource. Categories generally reflect the format of the storage medium and housing of a carrier in combination with the type of intermediation device required to render, view, run, etc., the content of a resource.
+        <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px' }}>
+          <h5>ISBD Content Qualification of Type</h5>
+          <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '10px' }}>
+            Content qualification sub-categories for type which expand content form categories.
+          </p>
+          <CompactButton href="/docs/terms/contentqualification/type">
+            → View vocabulary
+          </CompactButton>
+        </div>
 
-*Added to this site: July 2020*
+        <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px' }}>
+          <h5>ISBD Media Type</h5>
+          <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '10px' }}>
+            Media type categories record the type or types of carrier used to convey the content
+            of the resource. Categories generally reflect the format of the storage medium and
+            housing of a carrier in combination with the type of intermediation device required
+            to render, view, run, etc., the content of a resource.
+          </p>
+          <CompactButton href="/docs/terms/mediatype">
+            → View vocabulary
+          </CompactButton>
+        </div>
+      </div>
+    </div>
+  </TabItem>
 
-<div className="row my-1 py-1 navISBDMMain text-center">
-  <p className="m-0 p-0">&#10058;<OutLink to="/siteMap" className="linkFooter">Site map</OutLink>&#10058;</p>
-  <div className="m-1 p-0">
-    <OutLink to="https://creativecommons.org/licenses/by/4.0/" className="me-1">
-      <Figure
-        src="img/cc0_by.png"
-        alt="Badge for Creative Commons Attribution 4.0 International license"
-        caption=""
-      />
-    </OutLink>
-    <p className="m-0">ISBD Review Group (Main design and content editors).</p>
-  </div>
+  <TabItem value="documentation" label="Documentation">
+    <div style={{ marginTop: '20px' }}>
+      <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px', marginBottom: '20px' }}>
+        <h3>Introduction</h3>
+        <p style={{ color: '#666', marginBottom: '15px' }}>
+          Overview of ISBD principles, scope, and application guidelines
+        </p>
+        <CompactButton href="/docs/introduction">
+          → View introduction
+        </CompactButton>
+      </div>
+
+      <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px', marginBottom: '20px' }}>
+        <h3>Assessment Guidelines</h3>
+        <p style={{ color: '#666', marginBottom: '15px' }}>
+          Criteria and methods for evaluating bibliographic descriptions
+        </p>
+        <CompactButton href="/docs/assessment">
+          → View assessment
+        </CompactButton>
+      </div>
+
+      <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px', marginBottom: '20px' }}>
+        <h3>Examples & Use Cases</h3>
+        <p style={{ color: '#666', marginBottom: '15px' }}>
+          Practical examples of ISBD application across different resource types
+        </p>
+        <CompactButton href="/docs/examples">
+          → Browse examples
+        </CompactButton>
+      </div>
+
+      <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px', marginBottom: '20px' }}>
+        <h3>Glossary</h3>
+        <p style={{ color: '#666', marginBottom: '15px' }}>
+          Definitions of key terms and concepts used throughout ISBD
+        </p>
+        <CompactButton href="/docs/glossary">
+          → View glossary
+        </CompactButton>
+      </div>
+
+      <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px', marginBottom: '20px' }}>
+        <h3>About ISBD</h3>
+        <p style={{ color: '#666', marginBottom: '15px' }}>
+          History, development, and maintenance of the ISBD standard
+        </p>
+        <CompactButton href="/docs/about">
+          → Learn more
+        </CompactButton>
+      </div>
+    </div>
+  </TabItem>
+</Tabs>
+
+<div style={{ marginTop: '40px', paddingTop: '20px', borderTop: '1px solid #e1e5e9', textAlign: 'center', color: '#999', fontSize: '0.9rem' }}>
+  <p><em>Added to this site: July 2020</em></p>
 </div>

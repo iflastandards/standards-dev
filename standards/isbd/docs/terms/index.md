@@ -1,5 +1,7 @@
 ---
 title: All ISBD Vocabularies
+sidebar_label: All Vocabularies
+sidebar_position: 100
 ---
 
 # All ISBD Vocabularies
