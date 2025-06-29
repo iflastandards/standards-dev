@@ -148,10 +148,10 @@
       }
     }
   ],
-  "nxCloudId": "6857fccbb755d4191ce6fbe4",
-  "defaultBase": "main",
+  "nxCloudId": "686155f6ee99673f43464d29",
+  "defaultBase": "dev",
   "affected": {
-    "defaultBase": "main"
+    "defaultBase": "dev"
   },
   "cli": {
     "analytics": false
