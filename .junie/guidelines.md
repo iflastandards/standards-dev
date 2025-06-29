@@ -507,6 +507,7 @@ The project implements comprehensive Nx optimizations with proper `dependsOn` ru
 **Community Resources**:
 - **Docusaurus Community**: https://docusaurus.community/ - Community plugins and resources
 - **Awesome Docusaurus**: https://github.com/weecology/awesome-docusaurus - Curated list of resources
+- **Official Docusaurus Website Source**: https://github.com/facebook/docusaurus/tree/main/website - Real-world implementation patterns and configurations
 
 **Development Tools**:
 - **TypeScript Support**: https://docusaurus.io/docs/typescript-support - TypeScript configuration and usage
