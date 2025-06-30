@@ -75,6 +75,10 @@ jobs:
           echo "Running Group 5 CI tests - Environment/Infrastructure Focus"
           echo "Skipping typecheck/lint/unit tests - already validated by pre-commit hooks"
           
+          # Build theme package first (required for config validation)
+          echo "🔧 Building theme package for config validation..."
+          npx nx run @ifla/theme:build
+          
           # Group 5: Environment-specific validation only
           echo "🌐 Running CI connectivity tests..."
           pnpm test:ci:connectivity
