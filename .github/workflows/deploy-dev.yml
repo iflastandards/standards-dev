@@ -11,6 +11,11 @@ on:
         required: false
         default: 'false'
         type: boolean
+      skip_nx_cache:
+        description: 'Skip Nx cache (force fresh builds)'
+        required: false
+        default: 'false'
+        type: boolean
 
 permissions:
   contents: read
@@ -127,17 +132,27 @@ jobs:
         if: steps.affected.outputs.has-affected == 'true'
         run: |
           FORCE_BUILD="${{ inputs.force_build_all }}"
+          SKIP_CACHE="${{ inputs.skip_nx_cache }}"
+          
+          # Add skip cache flag if requested
+          CACHE_FLAG=""
+          if [ "$SKIP_CACHE" = "true" ]; then
+            echo "Skipping Nx cache for fresh builds"
+            CACHE_FLAG="--skip-nx-cache"
+          fi
+          
           if [ "$FORCE_BUILD" = "true" ]; then
             echo "Force building all projects"
-            pnpm nx run-many --target=build --all --parallel=1 --configuration=development
+            pnpm nx run-many --target=build --all --parallel=1 --configuration=development $CACHE_FLAG
           else
             echo "Building affected projects"
-            pnpm nx affected --target=build --parallel=1 --configuration=development
+            pnpm nx affected --target=build --parallel=1 --configuration=development $CACHE_FLAG
           fi
         env:
           DOCS_ENV: development
           NODE_ENV: production
           BASE_URL_PREFIX: /standards-dev/
+          NX_SKIP_NX_CACHE: ${{ inputs.skip_nx_cache == 'true' && 'true' || '' }}
 
       - name: Upload artifacts for each built project
         if: steps.affected.outputs.has-affected == 'true'

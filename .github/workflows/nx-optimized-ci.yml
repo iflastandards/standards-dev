@@ -7,6 +7,12 @@ on:
   pull_request:
     branches: [main, dev]
   workflow_dispatch:
+    inputs:
+      skip_nx_cache:
+        description: 'Skip Nx cache (force fresh builds)'
+        required: false
+        default: 'false'
+        type: boolean
 
 env:
   NX_BRANCH: ${{ github.event.number || github.ref_name }}
@@ -17,6 +23,8 @@ env:
   # Fallback environment variables for sites that need them
   SITE_TITLE: IFLA Standards Portal
   SITE_TAGLINE: International Federation of Library Associations and Institutions
+  # Skip Nx cache if requested via workflow dispatch
+  NX_SKIP_NX_CACHE: ${{ inputs.skip_nx_cache == 'true' && 'true' || '' }}
 
 jobs:
   ci:
@@ -54,5 +62,11 @@ jobs:
         run: pnpm install --no-frozen-lockfile
 
       - name: Build affected projects for deployment validation
-        run: npx nx affected --target=build --parallel=3
+        run: |
+          CACHE_FLAG=""
+          if [ "$NX_SKIP_NX_CACHE" = "true" ]; then
+            echo "Skipping Nx cache for fresh builds"
+            CACHE_FLAG="--skip-nx-cache"
+          fi
+          npx nx affected --target=build --parallel=3 $CACHE_FLAG
 
