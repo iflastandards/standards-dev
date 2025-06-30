@@ -1,5 +1,6 @@
-name: Nx Optimized CI
-# Optimized CI pipeline for Nx workspace
+name: Primary CI (Fast Feedback)
+# Primary CI pipeline optimized for fast feedback on all changes
+# Runs Group 5 tests (environment/infrastructure focus) to catch deployment issues
 
 on:
   push:

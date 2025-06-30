@@ -1,4 +1,6 @@
-name: Nx Smart Deploy
+name: Production Deployment
+# Production deployment pipeline for main branch
+# Includes comprehensive validation and deployment to GitHub Pages
 
 on:
   push:

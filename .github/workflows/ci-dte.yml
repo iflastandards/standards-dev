@@ -1,11 +1,11 @@
-name: CI-DTE (Distributed Task Execution)
-# High-performance CI pipeline with Nx Cloud Distributed Task Execution
+name: Comprehensive CI (Weekly Testing)
+# High-performance comprehensive testing with Nx Cloud Distributed Task Execution
+# Runs weekly and on-demand for thorough validation of the entire codebase
 
 on:
-  push:
-    branches: [main, dev]
-  pull_request:
-    branches: [main, dev]
+  schedule:
+    # Run every Sunday at 2 AM UTC (comprehensive weekly testing)
+    - cron: '0 2 * * 0'
   workflow_dispatch:
     inputs:
       distribute:
@@ -19,6 +19,12 @@ on:
         default: '4'
         type: choice
         options: ['2', '3', '4', '6', '8']
+      test_scope:
+        description: 'Testing scope'
+        required: false
+        default: 'comprehensive'
+        type: choice
+        options: ['comprehensive', 'affected-only']
 
 permissions:
   actions: read
@@ -82,21 +88,39 @@ jobs:
       - name: Derive SHAs for Nx Affected
         uses: nrwl/nx-set-shas@v4
 
-      # Group 5: CI Tests - Environment/Infrastructure Focus Only
-      - name: CI Tests - Environment/Infrastructure Focus (Group 5)
+      # Comprehensive Testing - Group 5 + Additional Validation
+      - name: Comprehensive Testing Suite
         run: |
-          echo "🚀 Running Group 5 CI tests - Environment/Infrastructure Focus"
-          echo "📝 Skipping typecheck/lint/unit tests - already validated by pre-commit hooks"
-          echo "💰 Cost optimization: avoiding redundant testing of locally-validated functionality"
+          TEST_SCOPE="${{ github.event.inputs.test_scope || 'comprehensive' }}"
+          echo "🚀 Running comprehensive testing suite - scope: $TEST_SCOPE"
           
-          echo "🌐 Running CI connectivity tests..."
-          pnpm test:ci:connectivity
-          
-          echo "⚙️ Running CI configuration validation..."
-          pnpm test:ci:config
-          
-          echo "🏗️ Running deployment build validation..."
-          pnpm exec nx affected -t build --parallel=4
+          if [ "$TEST_SCOPE" = "comprehensive" ]; then
+            echo "🧪 Running ALL tests (comprehensive mode)"
+            
+            echo "🌐 Running CI connectivity tests..."
+            pnpm test:ci:connectivity
+            
+            echo "⚙️ Running CI configuration validation..."
+            pnpm test:ci:config
+            
+            echo "🏗️ Running full build validation..."
+            pnpm exec nx run-many -t build --all --parallel=4
+            
+            echo "🧩 Running all unit tests..."
+            pnpm exec nx run-many -t test --all --parallel=3
+            
+          else
+            echo "⚡ Running affected tests only (affected-only mode)"
+            
+            echo "🌐 Running CI connectivity tests..."
+            pnpm test:ci:connectivity
+            
+            echo "⚙️ Running CI configuration validation..."
+            pnpm test:ci:config
+            
+            echo "🏗️ Running affected build validation..."
+            pnpm exec nx affected -t build --parallel=4
+          fi
         env:
           NODE_OPTIONS: '--max-old-space-size=8192'
 

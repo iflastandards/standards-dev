@@ -1,4 +1,6 @@
-name: Deploy Dev Environment
+name: Development Deployment
+# Development environment deployment for dev branch
+# Deploys affected sites to development GitHub Pages environment
 
 on:
   push:
