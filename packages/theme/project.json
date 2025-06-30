@@ -12,14 +12,7 @@
         "tsConfig": "packages/theme/tsconfig.build.json",
         "main": "packages/theme/src/index.ts"
       },
-      "outputs": ["{workspaceRoot}/dist"],
-      "cache": true,
-      "inputs": [
-        "production",
-        "{projectRoot}/src/**/*",
-        "{projectRoot}/tsconfig.build.json",
-        "{projectRoot}/package.json"
-      ]
+      "outputs": ["{workspaceRoot}/dist"]
     },
     "build": {
       "executor": "nx:run-commands",
@@ -32,7 +25,6 @@
         "parallel": false
       },
       "outputs": ["{projectRoot}/dist"],
-      "cache": true,
       "inputs": [
         "production",
         "{projectRoot}/src/**/*",
@@ -47,16 +39,7 @@
       "options": {
         "config": "{workspaceRoot}/vite.config.ts",
         "testPathPattern": ["packages/theme/src/tests", "packages/theme/src/components/**/__tests__"]
-      },
-      "outputs": ["{projectRoot}/coverage"],
-      "cache": true,
-      "inputs": [
-        "default",
-        "{projectRoot}/src/**/*.{test,spec}.{js,ts,jsx,tsx}",
-        "{projectRoot}/src/tests/**/*",
-        "{workspaceRoot}/vite.config.ts",
-        "{workspaceRoot}/vitest.config.*"
-      ]
+      }
     },
     "test:unit": {
       "executor": "@nx/vite:test",
@@ -66,17 +49,7 @@
           "**/scripts/**",
           "**/deployment/**"
         ]
-      },
-      "outputs": ["{projectRoot}/coverage"],
-      "cache": true,
-      "inputs": [
-        "default",
-        "{projectRoot}/src/**/*.{test,spec}.{js,ts,jsx,tsx}",
-        "!{projectRoot}/src/tests/scripts/**/*",
-        "!{projectRoot}/src/tests/deployment/**/*",
-        "{workspaceRoot}/vite.config.ts",
-        "{workspaceRoot}/vitest.config.*"
-      ]
+      }
     },
     "test:integration": {
       "executor": "@nx/vite:test", 
@@ -86,30 +59,14 @@
           "**/scripts/**",
           "**/deployment/**"
         ]
-      },
-      "outputs": ["{projectRoot}/coverage"],
-      "cache": true,
-      "inputs": [
-        "default",
-        "{projectRoot}/src/tests/scripts/**/*",
-        "{projectRoot}/src/tests/deployment/**/*",
-        "{workspaceRoot}/vite.config.ts",
-        "{workspaceRoot}/vitest.config.*"
-      ]
+      }
     },
     "typecheck": {
       "executor": "nx:run-commands",
       "options": {
         "command": "tsc --noEmit",
         "cwd": "packages/theme"
-      },
-      "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": [
-        "default",
-        "{projectRoot}/tsconfig.json",
-        "{workspaceRoot}/tsconfig.json"
-      ]
+      }
     }
   }
 }

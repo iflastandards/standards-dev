@@ -11,60 +11,44 @@
       "options": {
         "command": "docusaurus build standards/ISBDM"
       },
-      "outputs": ["{projectRoot}/build"],
-      "cache": true,
-      "dependsOn": ["^build"],
       "inputs": ["production", "^production", "docusaurus"]
     },
     "start": {
       "executor": "nx:run-commands",
       "options": {
         "command": "docusaurus start standards/ISBDM --port 3001"
-      },
-      "cache": false
+      }
     },
     "serve": {
       "executor": "nx:run-commands",
       "options": {
         "command": "docusaurus serve standards/ISBDM --port 3001"
-      },
-      "cache": false
+      }
     },
     "start:robust": {
       "executor": "nx:run-commands",
       "options": {
         "command": "node scripts/utils/port-manager.js site isbdm && docusaurus start standards/ISBDM --port 3001"
-      },
-      "cache": false
+      }
     },
     "serve:robust": {
       "executor": "nx:run-commands",
       "options": {
         "command": "node scripts/utils/port-manager.js site isbdm && docusaurus serve standards/ISBDM --port 3001"
-      },
-      "cache": false
+      }
     },
     "clear": {
       "executor": "nx:run-commands",
       "options": {
         "command": "docusaurus clear standards/ISBDM"
-      },
-      "cache": false
+      }
     },
     "test": {
       "executor": "@nx/vite:test",
       "options": {
         "config": "{workspaceRoot}/vite.config.ts",
         "testPathPattern": ["{projectRoot}/src/**/*.{test,spec}.{js,ts,jsx,tsx}"]
-      },
-      "outputs": ["{projectRoot}/coverage"],
-      "cache": true,
-      "inputs": [
-        "default",
-        "{projectRoot}/src/**/*.{test,spec}.{js,ts,jsx,tsx}",
-        "{workspaceRoot}/vite.config.ts",
-        "{workspaceRoot}/vitest.config.*"
-      ]
+      }
     },
     "test:unit": {
       "executor": "@nx/vite:test",
@@ -74,17 +58,7 @@
           "**/scripts/**",
           "**/deployment/**"
         ]
-      },
-      "outputs": ["{projectRoot}/coverage"],
-      "cache": true,
-      "inputs": [
-        "default",
-        "{projectRoot}/src/**/*.{test,spec}.{js,ts,jsx,tsx}",
-        "!{projectRoot}/src/tests/scripts/**/*",
-        "!{projectRoot}/src/tests/deployment/**/*",
-        "{workspaceRoot}/vite.config.ts",
-        "{workspaceRoot}/vitest.config.*"
-      ]
+      }
     },
     "test:integration": {
       "executor": "@nx/vite:test", 
@@ -94,38 +68,20 @@
           "**/scripts/**",
           "**/deployment/**"
         ]
-      },
-      "outputs": ["{projectRoot}/coverage"],
-      "cache": true,
-      "inputs": [
-        "default",
-        "{projectRoot}/src/tests/scripts/**/*",
-        "{projectRoot}/src/tests/deployment/**/*",
-        "{workspaceRoot}/vite.config.ts",
-        "{workspaceRoot}/vitest.config.*"
-      ]
+      }
     },
     "typecheck": {
       "executor": "nx:run-commands",
       "options": {
         "command": "tsc --noEmit",
         "cwd": "standards/ISBDM"
-      },
-      "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": [
-        "default",
-        "{projectRoot}/tsconfig.json",
-        "{workspaceRoot}/tsconfig.json"
-      ]
+      }
     },
     "e2e": {
       "executor": "nx:run-commands",
       "options": {
         "command": "playwright test e2e/standards-smoke.spec.ts e2e/vocabulary-functionality.spec.ts"
       },
-      "dependsOn": ["build"],
-      "cache": true,
       "inputs": [
         "default",
         "{workspaceRoot}/e2e/standards-smoke.spec.ts",

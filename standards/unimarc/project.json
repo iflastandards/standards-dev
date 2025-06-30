@@ -11,53 +11,43 @@
       "options": {
         "command": "docusaurus build standards/unimarc"
       },
-      "outputs": ["{projectRoot}/build"],
-      "cache": true,
-      "dependsOn": ["^build"],
       "inputs": ["production", "^production", "docusaurus"]
     },
     "start": {
       "executor": "nx:run-commands",
       "options": {
         "command": "docusaurus start standards/unimarc --port 3006"
-      },
-      "cache": false
+      }
     },
     "serve": {
       "executor": "nx:run-commands",
       "options": {
         "command": "docusaurus serve standards/unimarc --port 3006"
-      },
-      "cache": false
+      }
     },
     "start:robust": {
       "executor": "nx:run-commands",
       "options": {
         "command": "node scripts/utils/port-manager.js site unimarc && docusaurus start standards/unimarc --port 3006"
-      },
-      "cache": false
+      }
     },
     "serve:robust": {
       "executor": "nx:run-commands",
       "options": {
         "command": "node scripts/utils/port-manager.js site unimarc && docusaurus serve standards/unimarc --port 3006"
-      },
-      "cache": false
+      }
     },
     "clear": {
       "executor": "nx:run-commands",
       "options": {
         "command": "docusaurus clear standards/unimarc"
-      },
-      "cache": false
+      }
     },
     "e2e": {
       "executor": "nx:run-commands",
       "options": {
         "command": "playwright test e2e/standards-smoke.spec.ts e2e/vocabulary-functionality.spec.ts"
       },
-      "dependsOn": ["build"],
-      "cache": true,
       "inputs": [
         "default",
         "{workspaceRoot}/e2e/standards-smoke.spec.ts",
@@ -74,14 +64,7 @@
       "options": {
         "command": "tsc --noEmit",
         "cwd": "standards/unimarc"
-      },
-      "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": [
-        "default", 
-        "{projectRoot}/tsconfig.json",
-        "{workspaceRoot}/tsconfig.json"
-      ]
+      }
     }
   }
 }

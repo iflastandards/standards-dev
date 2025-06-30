@@ -9,9 +9,7 @@
       "executor": "@nx/vite:test",
       "options": {
         "config": "./vite.config.ts"
-      },
-      "outputs": ["{projectRoot}/coverage"],
-      "cache": true
+      }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
@@ -23,20 +21,13 @@
           "!build/**/*",
           "!.nx/**/*"
         ]
-      },
-      "cache": true
+      }
     },
     "typecheck": {
       "executor": "nx:run-commands",
       "options": {
         "command": "tsc --noEmit"
-      },
-      "cache": true,
-      "inputs": [
-        "default",
-        "{workspaceRoot}/tsconfig.json",
-        "{workspaceRoot}/tsconfig.*.json"
-      ]
+      }
     },
     "e2e": {
       "executor": "nx:run-commands",
@@ -44,15 +35,10 @@
         "command": "playwright test"
       },
       "dependsOn": ["build-all"],
-      "cache": true,
       "inputs": [
         "default",
         "{projectRoot}/e2e/**/*",
         "{projectRoot}/playwright.config.ts"
-      ],
-      "outputs": [
-        "{projectRoot}/test-results",
-        "{projectRoot}/playwright-report"
       ]
     },
     "e2e:ui": {
@@ -60,8 +46,7 @@
       "options": {
         "command": "playwright test --ui"
       },
-      "dependsOn": ["build-all"],
-      "cache": false
+      "dependsOn": ["build-all"]
     },
     "e2e:site-validation": {
       "executor": "nx:run-commands",
@@ -69,16 +54,11 @@
         "command": "playwright test e2e/site-validation.spec.ts"
       },
       "dependsOn": ["build-all"],
-      "cache": true,
       "inputs": [
         "default",
         "{projectRoot}/e2e/site-validation.spec.ts",
         "{projectRoot}/playwright.config.ts",
         "{projectRoot}/packages/theme/src/config/siteConfigCore.ts"
-      ],
-      "outputs": [
-        "{projectRoot}/test-results",
-        "{projectRoot}/playwright-report"
       ]
     },
     "e2e:site-validation:dev": {
@@ -86,24 +66,21 @@
       "options": {
         "command": "DOCS_ENV=development playwright test e2e/site-validation.spec.ts"
       },
-      "dependsOn": ["build-all"],
-      "cache": true
+      "dependsOn": ["build-all"]
     },
     "e2e:site-validation:preview": {
       "executor": "nx:run-commands",
       "options": {
         "command": "DOCS_ENV=preview playwright test e2e/site-validation.spec.ts"
       },
-      "dependsOn": ["build-all"],
-      "cache": true
+      "dependsOn": ["build-all"]
     },
     "e2e:site-validation:production": {
       "executor": "nx:run-commands",
       "options": {
         "command": "DOCS_ENV=production playwright test e2e/site-validation.spec.ts"
       },
-      "dependsOn": ["build-all"],
-      "cache": true
+      "dependsOn": ["build-all"]
     },
     "build-all": {
       "executor": "nx:run-commands",
@@ -123,60 +100,52 @@
       "options": {
         "command": "nx affected --target=build --parallel=1"
       },
-      "dependsOn": ["^build"],
-      "cache": true
+      "dependsOn": ["^build"]
     },
     "start-all": {
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpm start:all"
-      },
-      "cache": false
+      }
     },
     "start-all:robust": {
       "executor": "nx:run-commands",
       "options": {
         "command": "node scripts/start-with-port-cleanup.js start"
-      },
-      "cache": false
+      }
     },
     "serve-all": {
       "executor": "nx:run-commands", 
       "options": {
         "command": "pnpm serve:all"
-      },
-      "cache": false
+      }
     },
     "serve-all:robust": {
       "executor": "nx:run-commands",
       "options": {
         "command": "node scripts/start-with-port-cleanup.js serve"
-      },
-      "cache": false
+      }
     },
     "validate:builds": {
       "executor": "nx:run-commands",
       "options": {
         "command": "node scripts/test-site-builds.js --skip-build"
       },
-      "dependsOn": ["build-all"],
-      "cache": true
+      "dependsOn": ["build-all"]
     },
     "validate:builds:production": {
       "executor": "nx:run-commands",
       "options": {
         "command": "node scripts/test-site-builds.js --env production --skip-build"
       },
-      "dependsOn": ["build-all"],
-      "cache": true
+      "dependsOn": ["build-all"]
     },
     "validate:build-warnings": {
       "executor": "nx:run-commands",
       "options": {
         "command": "node scripts/validate-build-warnings.js --validate-all"
       },
-      "dependsOn": ["build-all"],
-      "cache": true
+      "dependsOn": ["build-all"]
     },
     "regression:full": {
       "executor": "nx:run-commands",
@@ -191,8 +160,7 @@
           "nx run standards-dev:e2e"
         ],
         "parallel": false
-      },
-      "cache": false
+      }
     },
     "regression:fast": {
       "executor": "nx:run-commands",
@@ -204,15 +172,13 @@
           "nx affected --target=build --parallel=3"
         ],
         "parallel": false
-      },
-      "cache": true
+      }
     },
     "build": {
       "executor": "nx:run-commands",
       "options": {
         "command": "echo 'Workspace root - no build needed'"
-      },
-      "cache": true
+      }
     }
   }
 }

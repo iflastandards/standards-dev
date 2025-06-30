@@ -168,13 +168,11 @@
     "test:visual:update": "npx playwright test e2e/visual-regression-enhanced.spec.ts --update-snapshots",
     "test:performance": "npx playwright test e2e/performance.spec.ts",
     "test:coverage": "pnpm test --coverage",
-
     "// GROUP 2: COMPREHENSIVE TESTS": "Full validation suites",
     "test:comprehensive": "nx run-many --targets=typecheck,lint,test,build --all --parallel=3 && nx run standards-dev:e2e",
     "test:comprehensive:unit": "nx run-many --target=test --all --parallel=3",
     "test:comprehensive:e2e": "nx run standards-dev:e2e && nx run-many --target=e2e --all",
     "test:comprehensive:builds": "nx run-many --target=build --all --parallel=3 && node scripts/test-site-builds.js --site all --env production",
-
     "// GROUP 5: CI TESTS": "Environment/infrastructure focus",
     "test:ci": "pnpm typecheck && pnpm vitest run --config vitest.config.ci.ts && node scripts/test-site-builds.js --site all --env production --skip-build",
     "test:ci:connectivity": "pnpm vitest run --config vitest.config.ci.ts packages/theme/src/tests/deployment/external-services.test.ts",
@@ -337,6 +335,7 @@
     "lint-staged": "^16.1.2",
     "npm-run-all": "^4.1.5",
     "nx": "21.2.1",
+    "nx-cloud": "^19.1.0",
     "playwright": "^1.52.0",
     "postcss": "^8.5.5",
     "postcss-modules": "^6.0.1",

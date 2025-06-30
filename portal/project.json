@@ -11,73 +11,50 @@
       "options": {
         "command": "docusaurus build portal"
       },
-      "outputs": ["{projectRoot}/build"],
-      "cache": true,
-      "dependsOn": [
-        "^build",
-        {
-          "target": "build",
-          "projects": ["@ifla/theme"]
-        }
-      ],
       "inputs": ["production", "^production", "docusaurus-no-theme"]
     },
     "start": {
       "executor": "nx:run-commands",
       "options": {
         "command": "docusaurus start portal"
-      },
-      "cache": false
+      }
     },
     "start:robust": {
       "executor": "nx:run-commands",
       "options": {
         "command": "node scripts/utils/port-manager.js site portal && docusaurus start portal"
-      },
-      "cache": false
+      }
     },
     "serve": {
       "executor": "nx:run-commands",
       "options": {
         "command": "docusaurus serve portal"
-      },
-      "cache": false
+      }
     },
     "serve:robust": {
       "executor": "nx:run-commands",
       "options": {
         "command": "node scripts/utils/port-manager.js site portal && docusaurus serve portal"
-      },
-      "cache": false
+      }
     },
     "clear": {
       "executor": "nx:run-commands",
       "options": {
         "command": "docusaurus clear portal"
-      },
-      "cache": false
+      }
     },
     "typecheck": {
       "executor": "nx:run-commands",
       "options": {
         "command": "tsc --noEmit",
         "cwd": "portal"
-      },
-      "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": [
-        "default", 
-        "{projectRoot}/tsconfig.json",
-        "{workspaceRoot}/tsconfig.json"
-      ]
+      }
     },
     "e2e": {
       "executor": "nx:run-commands",
       "options": {
         "command": "playwright test e2e/portal-smoke.spec.ts"
       },
-      "dependsOn": ["build"],
-      "cache": true,
       "inputs": [
         "default",
         "{workspaceRoot}/e2e/portal-smoke.spec.ts",
@@ -87,6 +64,18 @@
         "{workspaceRoot}/test-results",
         "{workspaceRoot}/playwright-report"
       ]
+    },
+    "build-all": {
+      "executor": "@nx/workspace:run-commands",
+      "options": {
+        "command": "nx run-many --target=build --all"
+      }
+    },
+    "start-robust": {
+      "executor": "@nx/workspace:run-commands",
+      "options": {
+        "command": "concurrently \"nx run portal:start:robust\" \"nx run isbd:start:robust\" \"nx run isbdm:start:robust\" \"nx run lrm:start:robust\" \"nx run frbr:start:robust\" \"nx run muldicat:start:robust\" \"nx run unimarc:start:robust\""
+      }
     }
   }
 }

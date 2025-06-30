@@ -11,53 +11,43 @@
       "options": {
         "command": "docusaurus build standards/isbd"
       },
-      "outputs": ["{projectRoot}/build"],
-      "cache": true,
-      "dependsOn": ["^build"],
       "inputs": ["production", "^production", "docusaurus"]
     },
     "start": {
       "executor": "nx:run-commands",
       "options": {
         "command": "docusaurus start standards/isbd --port 3004"
-      },
-      "cache": false
+      }
     },
     "serve": {
       "executor": "nx:run-commands",
       "options": {
         "command": "docusaurus serve standards/isbd --port 3004"
-      },
-      "cache": false
+      }
     },
     "start:robust": {
       "executor": "nx:run-commands",
       "options": {
         "command": "node scripts/utils/port-manager.js site isbd && docusaurus start standards/isbd --port 3004"
-      },
-      "cache": false
+      }
     },
     "serve:robust": {
       "executor": "nx:run-commands",
       "options": {
         "command": "node scripts/utils/port-manager.js site isbd && docusaurus serve standards/isbd --port 3004"
-      },
-      "cache": false
+      }
     },
     "clear": {
       "executor": "nx:run-commands",
       "options": {
         "command": "docusaurus clear standards/isbd"
-      },
-      "cache": false
+      }
     },
     "e2e": {
       "executor": "nx:run-commands",
       "options": {
         "command": "playwright test e2e/standards-smoke.spec.ts e2e/vocabulary-functionality.spec.ts"
       },
-      "dependsOn": ["build"],
-      "cache": true,
       "inputs": [
         "default",
         "{workspaceRoot}/e2e/standards-smoke.spec.ts",
@@ -74,14 +64,7 @@
       "options": {
         "command": "tsc --noEmit",
         "cwd": "standards/isbd"
-      },
-      "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": [
-        "default", 
-        "{projectRoot}/tsconfig.json",
-        "{workspaceRoot}/tsconfig.json"
-      ]
+      }
     }
   }
 }

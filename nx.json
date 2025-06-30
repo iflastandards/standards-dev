@@ -38,45 +38,35 @@
       "{projectRoot}/static/**/*"
     ],
     "sharedGlobals": [
-      "{workspaceRoot}/.github/workflows/ci.yml",
       "{workspaceRoot}/package.json",
       "{workspaceRoot}/pnpm-lock.yaml",
+      "{workspaceRoot}/nx.json",
       "{workspaceRoot}/tsconfig.json",
-      "{workspaceRoot}/.github/workflows/ci-dte.yml"
+      "{workspaceRoot}/eslint.config.mjs",
+      "{workspaceRoot}/.prettierrc",
+      "{workspaceRoot}/vite.config.ts",
+      "{workspaceRoot}/playwright.config.ts",
+      "{workspaceRoot}/.github/workflows/**/*"
     ]
+    // keep the rest
   },
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [
-        "{projectRoot}/build",
-        "{projectRoot}/dist",
-        "{projectRoot}/.docusaurus"
-      ],
-      "cache": true,
-      "inputs": ["production", "^production", "docusaurus"]
+      "inputs": ["production", "^production"],
+      "outputs": ["{projectRoot}/build", "{projectRoot}/dist"],
+      "cache": true
     },
     "test": {
       "dependsOn": ["^build"],
-      "cache": true,
-      "outputs": ["{projectRoot}/coverage", "{projectRoot}/test-results"],
-      "inputs": [
-        "default",
-        "{projectRoot}/test/**/*",
-        "{projectRoot}/**/*.test.{js,ts,jsx,tsx}",
-        "{projectRoot}/**/*.spec.{js,ts,jsx,tsx}",
-        "{workspaceRoot}/vite.config.ts",
-        "{workspaceRoot}/vitest.config.*"
-      ]
+      "inputs": ["default", "^default", { "runtime": "node -v" }],
+      "outputs": [],
+      "cache": true
     },
     "lint": {
-      "cache": true,
-      "inputs": [
-        "default",
-        "{workspaceRoot}/.eslintrc.json",
-        "{workspaceRoot}/eslint.config.js",
-        "{workspaceRoot}/eslint.config.mjs"
-      ]
+      "inputs": ["default", "^default"],
+      "outputs": [],
+      "cache": true
     },
     "typecheck": {
       "dependsOn": ["^build"],
@@ -175,5 +165,11 @@
     "analytics": false
   },
   "parallel": 8,
-  "cacheDirectory": ".nx/cache"
+  "cacheDirectory": ".nx/cache",
+  "runtimeCacheInputs": [
+    "node -v",
+    "pnpm --version",
+    "echo $NODE_ENV",
+    "echo $DOCUSAURUS_SWIZZLE"
+  ]
 }
