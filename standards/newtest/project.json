@@ -74,6 +74,20 @@
         "{workspaceRoot}/test-results",
         "{workspaceRoot}/playwright-report"
       ]
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit",
+        "cwd": "standards/newtest"
+      },
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": [
+        "default", 
+        "{projectRoot}/tsconfig.json",
+        "{workspaceRoot}/tsconfig.json"
+      ]
     }
   }
 }

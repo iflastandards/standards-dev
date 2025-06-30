@@ -1,11 +1,12 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "rootDir": "../../",
-    "baseUrl": "../../",
+    "baseUrl": ".",
+    "composite": true,
+    "noEmit": false // Ensure this is not set to true
   },
   "include": [
-    "src/**/*",
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",

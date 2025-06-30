@@ -1,5 +1,5 @@
 // Standard site configuration fixtures for testing
-import type { SiteConfig } from '@ifla/theme/config/siteConfig';
+import type { SiteConfig } from '../../config/siteConfig';
 
 export const mockSiteConfig: Partial<SiteConfig> = {
   title: 'Test Site',

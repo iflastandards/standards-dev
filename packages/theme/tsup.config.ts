@@ -1,5 +1,6 @@
 import { defineConfig } from 'tsup';
 import { sassPlugin, postcssModules } from 'esbuild-sass-plugin';
+import type { Plugin } from 'esbuild';
 
 export default defineConfig({
   entry: {
@@ -12,7 +13,8 @@ export default defineConfig({
     'config/siteConfig': 'src/config/siteConfig.ts',
   },
   format: ['esm', 'cjs'],
-  dts: true,
+  // Disable built-in DTS generation due to TypeScript project conflicts
+  dts: false,
   splitting: false, // Disable code splitting to avoid bundling issues
   sourcemap: true,
   clean: true, // Clean output directory before build
@@ -32,7 +34,7 @@ export default defineConfig({
     'prism-react-renderer',
   ],
   esbuildPlugins: [
-    // Type assertion to work around version mismatch between tsup and esbuild
-    sassPlugin({ transform: postcssModules({}) }) as any,
+    // Properly type the sass plugin
+    sassPlugin({ transform: postcssModules({}) }) as Plugin,
   ],
 });

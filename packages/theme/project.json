@@ -8,8 +8,12 @@
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "pnpm exec tsup",
-        "cwd": "packages/theme"
+        "commands": [
+          "pnpm exec tsup",
+          "tsc --project tsconfig.build.json"
+        ],
+        "cwd": "packages/theme",
+        "parallel": false
       },
       "outputs": ["{projectRoot}/dist"],
       "cache": true,
@@ -17,6 +21,7 @@
         "production",
         "{projectRoot}/src/**/*",
         "{projectRoot}/tsup.config.ts",
+        "{projectRoot}/tsconfig.build.json",
         "{projectRoot}/package.json"
       ]
     },

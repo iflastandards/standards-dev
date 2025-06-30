@@ -18,7 +18,6 @@
   },
   "include": [
     "src/**/*",
-    "docs/**/*",
     "docusaurus.config.ts",
     "sidebars.ts",
     "navbar.ts"
