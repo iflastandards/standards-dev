@@ -13,14 +13,8 @@
       },
       "outputs": ["{projectRoot}/build"],
       "cache": true,
-      "dependsOn": [
-        "^build",
-        {
-          "target": "build",
-          "projects": ["@ifla/theme"]
-        }
-      ],
-      "inputs": ["production", "^production", "docusaurus-no-theme"]
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production", "docusaurus"]
     },
     "start": {
       "executor": "nx:run-commands",

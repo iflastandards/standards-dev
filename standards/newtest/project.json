@@ -13,13 +13,7 @@
       },
       "outputs": ["{projectRoot}/build"],
       "cache": true,
-      "dependsOn": [
-        "^build",
-        {
-          "target": "build",
-          "projects": ["@ifla/theme"]
-        }
-      ],
+      "dependsOn": ["^build"],
       "inputs": ["production", "^production", "docusaurus"]
     },
     "start": {

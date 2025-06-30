@@ -5,12 +5,28 @@
   "projectType": "library",
   "tags": ["library", "theme"],
   "targets": {
+    "build:tsc": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "../../dist",
+        "tsConfig": "packages/theme/tsconfig.build.json",
+        "main": "packages/theme/src/index.ts"
+      },
+      "outputs": ["{workspaceRoot}/dist"],
+      "cache": true,
+      "inputs": [
+        "production",
+        "{projectRoot}/src/**/*",
+        "{projectRoot}/tsconfig.build.json",
+        "{projectRoot}/package.json"
+      ]
+    },
     "build": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "pnpm exec tsup",
-          "tsc --project tsconfig.build.json"
+          "nx run @ifla/theme:build:tsc",
+          "pnpm exec tsup"
         ],
         "cwd": "packages/theme",
         "parallel": false
@@ -23,7 +39,8 @@
         "{projectRoot}/tsup.config.ts",
         "{projectRoot}/tsconfig.build.json",
         "{projectRoot}/package.json"
-      ]
+      ],
+      "dependsOn": ["build:tsc"]
     },
     "test": {
       "executor": "@nx/vite:test",
