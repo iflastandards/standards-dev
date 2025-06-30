@@ -13,6 +13,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Type checking**: `pnpm typecheck` (nx affected with parallel execution)
 - **Linting**: `pnpm lint` (nx affected with parallel execution)
 
+### Site Scaffolding Commands
+- **Create new site**: `pnpm tsx scripts/scaffold-site.ts --siteKey=newsite --title="New Standard" --tagline="A new IFLA standard"`
+- **Template location**: Complete site template in `scripts/scaffold-template/` with ISBD-matching structure
+- **Generated files**: `docusaurus.config.ts`, `project.json`, all content pages, and CompactButton component
+- **Features**: Tabbed overview pages, comprehensive documentation structure, Nx integration
+- **Documentation**: See `developer_notes/current-scaffolding-plan.md` for complete system details
+
 ### Testing Commands
 
 #### NX Testing Commands
@@ -159,8 +166,10 @@ standards-dev/
 ### Key Configuration Patterns
 
 #### Site Config Generation
-- **Template system**: `scripts/site-template.ts` generates complete site configurations
-- **Individual configs**: Each site has a `site-config.json` defining its unique properties
+- **Template system**: `scripts/site-template.ts` and complete scaffold template in `scripts/scaffold-template/`
+- **Individual configs**: Generated from template files with placeholder replacement
+- **Rich content structure**: Tabbed overview pages, comprehensive documentation, CompactButton components
+- **Configuration templates**: `docusaurus.config.ts.template` and `project.json.template` for dynamic generation
 - **Feature flags**: Support for custom sidebars, element redirects, RDF downloads, etc.
 
 #### Environment and Navigation
@@ -179,9 +188,15 @@ standards-dev/
 
 ### Scaffolding and Templates
 - **CRITICAL**: Always check and update scaffolding templates when making configuration changes that affect all sites
-- **Template locations**: `scripts/site-template.ts` and `scripts/scaffold-site.ts`
+- **Template system**: Complete site template in `scripts/scaffold-template/` with rich content structure
+- **Template files**: `docusaurus.config.ts.template`, `project.json.template`, and complete directory structure
+- **Key components**: CompactButton component, tabbed overview pages, comprehensive documentation structure
+- **Scaffolding script**: `scripts/scaffold-site.ts` generates new sites from template with placeholder replacement
+- **Template structure**: Matches ISBD pattern with Element Sets, Value Vocabularies, and Documentation tabs
 - **Pattern**: When fixing issues in existing sites, verify the scaffold template doesn't propagate the same issue to future sites
+- **Component consistency**: Template includes reusable CompactButton and navigation patterns
 - **Example**: If removing test targets from existing sites, also remove from site template
+- **Documentation**: See `developer_notes/current-scaffolding-plan.md` for complete system documentation
 
 ## Test Placement Decision Tree (CRITICAL - Reference When Creating Tests)
 
