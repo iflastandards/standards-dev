@@ -1,0 +1,66 @@
+name: Preview CI (Deployment Validation)
+# Lightweight CI for preview repo - focuses on deployment readiness
+# Comprehensive testing happens on development fork with Nx Cloud
+
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [dev]
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+env:
+  HUSKY: 0
+  # Preview environment configuration
+  DOCS_ENV: preview
+  SITE_TITLE: IFLA Standards Portal
+  SITE_TAGLINE: International Federation of Library Associations and Institutions
+
+jobs:
+  preview-validation:
+    name: Preview Deployment Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Preview Environment Validation
+        run: |
+          echo "🔍 Preview CI - Deployment Validation Only"
+          echo "Note: Comprehensive testing handled by development fork"
+          
+          # Build theme package (required for all validation)
+          echo "🔧 Building theme package..."
+          npx nx run @ifla/theme:build
+          
+          # Basic TypeScript check for deployment readiness
+          echo "📝 TypeScript compilation check..."
+          npx tsc --noEmit
+          
+          # Quick configuration validation
+          echo "⚙️ Configuration validation..."
+          node scripts/test-site-builds.js --site portal --env preview --skip-build
+          
+          # Build one representative site to verify deployment readiness
+          echo "🏗️ Preview deployment build test..."
+          npx nx run portal:build
+          
+          echo "✅ Preview environment ready for deployment"
