@@ -1,0 +1,142 @@
+name: Comprehensive CI (Weekly Testing)
+# High-performance comprehensive testing with Nx Cloud Distributed Task Execution
+# Runs weekly and on-demand for thorough validation of the entire codebase
+
+on:
+  schedule:
+    # Run every Sunday at 2 AM UTC (comprehensive weekly testing)
+    - cron: '0 2 * * 0'
+  workflow_dispatch:
+    inputs:
+      distribute:
+        description: 'Enable distributed task execution'
+        required: false
+        default: 'true'
+        type: boolean
+      agents:
+        description: 'Number of agents for DTE'
+        required: false
+        default: '4'
+        type: choice
+        options: ['2', '3', '4', '6', '8']
+      test_scope:
+        description: 'Testing scope'
+        required: false
+        default: 'comprehensive'
+        type: choice
+        options: ['comprehensive', 'affected-only']
+
+permissions:
+  actions: read
+  contents: read
+
+env:
+  NX_BRANCH: ${{ github.event.number || github.ref_name }}
+  NX_RUN_GROUP: ${{ github.run_id }}
+  HUSKY: 0
+  # Environment detection matching your existing setup
+  DOCS_ENV: ${{ github.event_name == 'pull_request' && 'preview' || github.ref_name == 'main' && 'production' || github.ref_name == 'dev' && 'development' || 'development' }}
+  SITE_TITLE: IFLA Standards Portal
+  SITE_TAGLINE: International Federation of Library Associations and Institutions
+  # Secrets for integration tests
+  GOOGLE_SHEETS_API_KEY: ${{ secrets.GOOGLE_SHEETS_API_KEY }}
+  GSHEETS_SA_KEY: ${{ secrets.GSHEETS_SA_KEY }}
+
+jobs:
+  main:
+    name: DTE CI Pipeline
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout [Pull Request]
+        uses: actions/checkout@v4
+        if: ${{ github.event_name == 'pull_request' }}
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          filter: tree:0
+
+      - name: Checkout [Default Branch]
+        uses: actions/checkout@v4
+        if: ${{ github.event_name != 'pull_request' }}
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          filter: tree:0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      # Enable Distributed Task Execution BEFORE dependencies
+      - name: Start Nx Cloud DTE
+        run: |
+          AGENT_COUNT="${{ github.event.inputs.agents || '4' }}"
+          pnpm dlx nx-cloud start-ci-run --distribute-on="${AGENT_COUNT} linux-medium-js" --stop-agents-after="e2e"
+        if: github.event.inputs.distribute != 'false'
+
+      - name: Setup Node.js with Cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Derive SHAs for Nx Affected
+        uses: nrwl/nx-set-shas@v4
+
+      # Comprehensive Testing - Group 5 + Additional Validation
+      - name: Comprehensive Testing Suite
+        run: |
+          TEST_SCOPE="${{ github.event.inputs.test_scope || 'comprehensive' }}"
+          echo "🚀 Running comprehensive testing suite - scope: $TEST_SCOPE"
+          
+          if [ "$TEST_SCOPE" = "comprehensive" ]; then
+            echo "🧪 Running ALL tests (comprehensive mode)"
+            
+            echo "🌐 Running CI connectivity tests..."
+            pnpm test:ci:connectivity
+            
+            echo "⚙️ Running CI configuration validation..."
+            pnpm test:ci:config
+            
+            echo "🏗️ Running full build validation..."
+            pnpm exec nx run-many -t build --all --parallel=4
+            
+            echo "🧩 Running all unit tests..."
+            pnpm exec nx run-many -t test --all --parallel=3
+            
+          else
+            echo "⚡ Running affected tests only (affected-only mode)"
+            
+            echo "🌐 Running CI connectivity tests..."
+            pnpm test:ci:connectivity
+            
+            echo "⚙️ Running CI configuration validation..."
+            pnpm test:ci:config
+            
+            echo "🏗️ Running affected build validation..."
+            pnpm exec nx affected -t build --parallel=4
+          fi
+        env:
+          NODE_OPTIONS: '--max-old-space-size=8192'
+
+      # Configuration Validation (matches your existing CI)
+      - name: Validate Site Configurations
+        run: node scripts/test-site-builds.js --site all --env $DOCS_ENV --skip-build
+        if: success()
+
+      # E2E Tests (Distributed across agents)
+      - name: Run E2E Tests
+        run: pnpm exec nx affected -t e2e --parallel=3
+        if: success()
+        env:
+          NODE_OPTIONS: '--max-old-space-size=8192'
+
+      # Summary
+      - name: Nx Cloud Summary
+        run: pnpm exec nx-cloud stop-all-agents
+        if: always()

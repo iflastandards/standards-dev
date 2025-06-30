@@ -1,0 +1,84 @@
+name: Primary CI (Fast Feedback)
+# Primary CI pipeline optimized for fast feedback on all changes
+# Runs Group 5 tests (environment/infrastructure focus) to catch deployment issues
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+  workflow_dispatch:
+    inputs:
+      skip_nx_cache:
+        description: 'Skip Nx cache (force fresh builds)'
+        required: false
+        default: 'false'
+        type: boolean
+
+env:
+  NX_BRANCH: ${{ github.event.number || github.ref_name }}
+  NX_RUN_GROUP: ${{ github.run_id }}
+  HUSKY: 0
+  # Set DOCS_ENV based on branch/event type for proper environment detection
+  DOCS_ENV: ${{ github.event_name == 'pull_request' && 'preview' || github.ref_name == 'main' && 'production' || github.ref_name == 'dev' && 'development' || 'development' }}
+  # Fallback environment variables for sites that need them
+  SITE_TITLE: IFLA Standards Portal
+  SITE_TAGLINE: International Federation of Library Associations and Institutions
+  # Skip Nx cache if requested via workflow dispatch
+  NX_SKIP_NX_CACHE: ${{ inputs.skip_nx_cache == 'true' && 'true' || '' }}
+
+jobs:
+  ci:
+    name: CI Pipeline
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout [Pull Request]
+        uses: actions/checkout@v4
+        if: ${{ github.event_name == 'pull_request' }}
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Checkout [Default Branch]
+        uses: actions/checkout@v4
+        if: ${{ github.event_name != 'pull_request' }}
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: CI Tests - Environment/Infrastructure Focus (Group 5)
+        run: |
+          echo "Running Group 5 CI tests - Environment/Infrastructure Focus"
+          echo "Skipping typecheck/lint/unit tests - already validated by pre-commit hooks"
+          
+          # Group 5: Environment-specific validation only
+          echo "🌐 Running CI connectivity tests..."
+          pnpm test:ci:connectivity
+          
+          echo "⚙️ Running CI configuration validation..."
+          pnpm test:ci:config
+          
+          echo "🏗️ Running deployment build validation..."
+          CACHE_FLAG=""
+          if [ "$NX_SKIP_NX_CACHE" = "true" ]; then
+            echo "Skipping Nx cache for fresh builds"
+            CACHE_FLAG="--skip-nx-cache"
+          fi
+          npx nx affected --target=build --parallel=3 $CACHE_FLAG
+
