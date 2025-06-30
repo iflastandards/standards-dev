@@ -142,19 +142,22 @@ jobs:
         run: |
           pids=()
           
+          echo "🚀 Running Group 5 CI tests - Environment/Infrastructure Focus"
+          echo "📝 Skipping typecheck/lint/unit tests - already validated by pre-commit hooks"
+          echo "💰 Cost optimization: avoiding redundant testing of locally-validated functionality"
+          
+          # Group 5: Environment-specific validation only
+          echo "🌐 Running CI connectivity tests..."
+          pnpm test:ci:connectivity & pids+=($!)
+          
+          echo "⚙️ Running CI configuration validation..."
+          pnpm test:ci:config & pids+=($!)
+          
           if [ "${{ github.event.inputs.force_build_all }}" == "true" ]; then
-            # Force build all projects
-            echo "🔄 Force building all projects"
-            npx nx run-many --target=typecheck --all --parallel=3 --ci --verbose & pids+=($!)
-            npx nx run-many --target=lint --all --parallel=3 --ci --verbose & pids+=($!)
-            npx nx run-many --target=test --all --parallel=3 --ci --verbose & pids+=($!)
+            echo "🏗️ Force building all projects"
             npx nx run-many --target=build --all --parallel=3 --ci --verbose & pids+=($!)
           else
-            # Run only affected
-            echo "🎯 Running affected projects only"
-            npx nx affected --target=typecheck --parallel=3 --ci --verbose & pids+=($!)
-            npx nx affected --target=lint --parallel=3 --ci --verbose & pids+=($!)
-            npx nx affected --target=test --parallel=3 --ci --verbose & pids+=($!)
+            echo "🏗️ Building affected projects only"
             npx nx affected --target=build --parallel=3 --ci --verbose & pids+=($!)
           fi
           

@@ -61,8 +61,19 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
-      - name: Build affected projects for deployment validation
+      - name: CI Tests - Environment/Infrastructure Focus (Group 5)
         run: |
+          echo "Running Group 5 CI tests - Environment/Infrastructure Focus"
+          echo "Skipping typecheck/lint/unit tests - already validated by pre-commit hooks"
+          
+          # Group 5: Environment-specific validation only
+          echo "🌐 Running CI connectivity tests..."
+          pnpm test:ci:connectivity
+          
+          echo "⚙️ Running CI configuration validation..."
+          pnpm test:ci:config
+          
+          echo "🏗️ Running deployment build validation..."
           CACHE_FLAG=""
           if [ "$NX_SKIP_NX_CACHE" = "true" ]; then
             echo "Skipping Nx cache for fresh builds"

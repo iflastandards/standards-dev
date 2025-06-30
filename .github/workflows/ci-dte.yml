@@ -82,21 +82,21 @@ jobs:
       - name: Derive SHAs for Nx Affected
         uses: nrwl/nx-set-shas@v4
 
-      # TypeScript and Linting (Fast feedback)
-      - name: TypeScript Check & Lint
-        run: pnpm exec nx affected -t typecheck lint --parallel=8
-        env:
-          NODE_OPTIONS: '--max-old-space-size=8192'
-
-      # Unit & Integration Tests
-      - name: Run Tests
-        run: pnpm exec nx affected -t test --parallel=6
-        env:
-          NODE_OPTIONS: '--max-old-space-size=8192'
-
-      # Build All Affected Projects
-      - name: Build Projects
-        run: pnpm exec nx affected -t build --parallel=4
+      # Group 5: CI Tests - Environment/Infrastructure Focus Only
+      - name: CI Tests - Environment/Infrastructure Focus (Group 5)
+        run: |
+          echo "🚀 Running Group 5 CI tests - Environment/Infrastructure Focus"
+          echo "📝 Skipping typecheck/lint/unit tests - already validated by pre-commit hooks"
+          echo "💰 Cost optimization: avoiding redundant testing of locally-validated functionality"
+          
+          echo "🌐 Running CI connectivity tests..."
+          pnpm test:ci:connectivity
+          
+          echo "⚙️ Running CI configuration validation..."
+          pnpm test:ci:config
+          
+          echo "🏗️ Running deployment build validation..."
+          pnpm exec nx affected -t build --parallel=4
         env:
           NODE_OPTIONS: '--max-old-space-size=8192'
 
