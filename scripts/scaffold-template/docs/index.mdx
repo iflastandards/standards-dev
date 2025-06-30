@@ -1,25 +1,157 @@
 ---
-id: index
-title: __TITLE__
-slug: /
+sidebar_position: 1
+title: {{TITLE}} Overview
+sidebar_label: Overview
+description: {{TITLE}} Documentation Contents Overview
 hide_table_of_contents: true
 ---
 
-import { QuickStart, DownloadPanel } from '@ifla/theme';
+import CompactButton from '../src/components/CompactButton';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-# __TITLE__
+# {{TITLE}} Contents Overview
 
-<QuickStart
-  standard="__CODE__"
-  introductionPath="/intro/"
-  elementsPath="/elements/"
-  examplesPath="/examples/"
-/>
+This page introduces the {{TITLE}} Element Sets and Value Vocabularies.
 
-<DownloadPanel
-  standard="__CODE__"
-  pdfUrl="#"
-  ttlUrl="/rdf/ttl/__LOWERCASE_CODE__.ttl"
-  jsonLdUrl="/rdf/jsonld/__LOWERCASE_CODE__.jsonld"
-  xmlUrl="/rdf/xml/__LOWERCASE_CODE__.xml"
-/>
+<Tabs groupId="{{SITE_KEY}}-overview">
+  <TabItem value="elements" label="Element Sets" default>
+    <div style={{ marginTop: '20px' }}>
+
+    {/* {{TITLE}} Element Sets */}
+    <div style={{ marginBottom: '30px' }}>
+      <h3>{{TITLE}} Element Sets</h3>
+
+      <div style={{ background: '#f0f8f0', border: '2px solid #c8e6c9', borderRadius: '6px', padding: '20px', marginBottom: '20px' }}>
+        <h4>{{TITLE}} Elements</h4>
+        <span style={{ background: '#4a8f5b', color: 'white', fontSize: '10px', fontWeight: 'bold', padding: '2px 8px', borderRadius: '12px', float: 'right' }}>Core elements</span>
+        <p style={{ color: '#666', marginBottom: '15px' }}>
+          The {{TITLE}} element set provides a comprehensive framework for describing resources
+          according to international standards. These elements form the foundation for consistent
+          and interoperable bibliographic description.
+        </p>
+        <CompactButton href="/docs/elements">
+          → Browse elements
+        </CompactButton>
+      </div>
+
+      <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px', marginBottom: '20px' }}>
+        <h4>{{TITLE}} Elements (unconstrained)</h4>
+        <p style={{ color: '#666', marginBottom: '15px' }}>
+          The unconstrained version of {{TITLE}} elements provides greater flexibility in application.
+          This version has the same local URI part, label, and definition as each element in the
+          constrained version, but no domain or range restrictions are declared.
+        </p>
+        <CompactButton href="/docs/elements/unconstrained">
+          → View unconstrained elements
+        </CompactButton>
+      </div>
+    </div>
+
+    </div>
+  </TabItem>
+
+  <TabItem value="vocabularies" label="Value Vocabularies">
+    <div style={{ marginTop: '20px' }}>
+      <p style={{ color: '#666', marginBottom: '15px' }}>
+        The {{TITLE}} value vocabularies provide controlled terminologies for consistent description.
+        Each concept has a Uniform Resource Identifier (URI) for use in Semantic Web data triples,
+        enabling interoperability and linked data applications.
+      </p>
+
+      {/* Vocabulary Grid */}
+      <div style={{ display: 'grid', gap: '15px' }}>
+        <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px' }}>
+          <h5>Primary Vocabulary</h5>
+          <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '10px' }}>
+            The main controlled vocabulary for {{TITLE}}, providing standardized terms
+            for consistent resource description.
+          </p>
+          <CompactButton href="/docs/terms">
+            → View vocabulary
+          </CompactButton>
+        </div>
+
+        <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px' }}>
+          <h5>Supporting Vocabularies</h5>
+          <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '10px' }}>
+            Additional vocabularies that support specific aspects of {{TITLE}} implementation
+            and provide specialized terminology.
+          </p>
+          <CompactButton href="/docs/terms">
+            → Browse vocabularies
+          </CompactButton>
+        </div>
+
+        <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px' }}>
+          <h5>Extension Vocabularies</h5>
+          <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '10px' }}>
+            Vocabularies that extend {{TITLE}} for specific communities or use cases,
+            while maintaining compatibility with the core standard.
+          </p>
+          <CompactButton href="/docs/terms">
+            → Explore extensions
+          </CompactButton>
+        </div>
+      </div>
+    </div>
+  </TabItem>
+
+  <TabItem value="documentation" label="Documentation">
+    <div style={{ marginTop: '20px' }}>
+      <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px', marginBottom: '20px' }}>
+        <h3>Introduction</h3>
+        <p style={{ color: '#666', marginBottom: '15px' }}>
+          Overview of {{TITLE}} principles, scope, and application guidelines
+        </p>
+        <CompactButton href="/docs/introduction">
+          → View introduction
+        </CompactButton>
+      </div>
+
+      <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px', marginBottom: '20px' }}>
+        <h3>Assessment Guidelines</h3>
+        <p style={{ color: '#666', marginBottom: '15px' }}>
+          Criteria and methods for evaluating implementations of {{TITLE}}
+        </p>
+        <CompactButton href="/docs/assessment">
+          → View assessment
+        </CompactButton>
+      </div>
+
+      <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px', marginBottom: '20px' }}>
+        <h3>Examples & Use Cases</h3>
+        <p style={{ color: '#666', marginBottom: '15px' }}>
+          Practical examples of {{TITLE}} application across different resource types
+        </p>
+        <CompactButton href="/docs/examples">
+          → Browse examples
+        </CompactButton>
+      </div>
+
+      <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px', marginBottom: '20px' }}>
+        <h3>Glossary</h3>
+        <p style={{ color: '#666', marginBottom: '15px' }}>
+          Definitions of key terms and concepts used throughout {{TITLE}}
+        </p>
+        <CompactButton href="/docs/glossary">
+          → View glossary
+        </CompactButton>
+      </div>
+
+      <div style={{ background: '#f4f4f4', border: '1px solid #e1e5e9', borderRadius: '6px', padding: '20px', marginBottom: '20px' }}>
+        <h3>About {{TITLE}}</h3>
+        <p style={{ color: '#666', marginBottom: '15px' }}>
+          History, development, and maintenance of the {{TITLE}} standard
+        </p>
+        <CompactButton href="/docs/about">
+          → Learn more
+        </CompactButton>
+      </div>
+    </div>
+  </TabItem>
+</Tabs>
+
+<div style={{ marginTop: '40px', paddingTop: '20px', borderTop: '1px solid #e1e5e9', textAlign: 'center', color: '#999', fontSize: '0.9rem' }}>
+  <p><em>Last updated: {{LAST_UPDATED}}</em></p>
+</div>

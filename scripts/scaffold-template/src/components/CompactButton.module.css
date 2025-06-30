@@ -1,0 +1,11 @@
+.compactButton {
+  padding: 6px 16px !important;
+  font-size: 0.875rem !important;
+  line-height: 1.2 !important;
+  min-height: auto !important;
+}
+
+/* Remove paragraph margin from this button */
+.compactButton > p {
+  margin-bottom: 0 !important;
+}
