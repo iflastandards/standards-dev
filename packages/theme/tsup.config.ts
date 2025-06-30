@@ -15,7 +15,7 @@ export default defineConfig({
   format: ['esm', 'cjs'],
   // Disable built-in DTS generation due to TypeScript project conflicts
   dts: false,
-  splitting: false, // Disable code splitting to avoid bundling issues
+  splitting: true, // Enable code splitting for better optimization
   sourcemap: true,
   clean: true, // Clean output directory before build
   outDir: 'dist',
@@ -23,6 +23,8 @@ export default defineConfig({
   platform: 'neutral', // Use neutral to avoid bundling platform-specific modules
   esbuildOptions(options) {
     options.jsx = 'automatic';
+    options.treeShaking = true;
+    options.minify = true;
     return options;
   },
   external: [

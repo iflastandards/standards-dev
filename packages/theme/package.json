@@ -1,6 +1,7 @@
 {
   "name": "@ifla/theme",
   "version": "0.0.0",
+  "sideEffects": false,
   "files": [
     "LICENSE",
     "README.md",

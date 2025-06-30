@@ -39,7 +39,7 @@
       "@ifla/theme/utils/*": ["./packages/theme/src/utils/*"],
       "@site/*": ["./*"],
       "@site/plugins/*": ["./plugins/*"],
-      "@theme/*": ["./src/theme/*", "./.docusaurus/theme-fallback/*"],
+      "@theme/*": ["./src/theme/*", "./.docusaurus/theme-fallback/*"]
     }
   },
   "include": [
