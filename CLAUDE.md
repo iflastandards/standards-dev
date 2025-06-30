@@ -20,6 +20,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Features**: Tabbed overview pages, comprehensive documentation structure, Nx integration
 - **Documentation**: See `developer_notes/current-scaffolding-plan.md` for complete system details
 
+### Nx Workflow Benefits and Optimization
+- **Smart Caching**: Nx caches build outputs, test results, and lint results locally and in the cloud
+- **Affected Detection**: Only builds/tests projects that have changed or are affected by changes
+- **Parallel Execution**: Runs tasks in parallel across multiple CPU cores for optimal performance
+- **Distributed Execution**: CI jobs can run across multiple agents for faster completion
+- **Task Pipeline Configuration**: `dependsOn` rules ensure correct build order (theme builds first, then sites in parallel)
+- **Build Analytics**: Track performance and optimization opportunities
+
+### Performance Optimization Guidelines
+- **Use Nx commands**: Prefer `nx build portal` over `pnpm build:portal` for better caching
+- **Affected builds**: Use `nx affected --target=build` for faster builds in PRs
+- **Robust port cleanup**: Use `:robust` variants (e.g., `nx run portal:start:robust`) for automatic port conflict resolution
+- **Cache management**: Nx automatically handles cache invalidation based on file changes
+- **Parallel testing**: Use `nx run-many --target=test --all` for parallel test execution across all projects
+
 ### Testing Commands
 
 #### NX Testing Commands
@@ -303,6 +318,64 @@ const { workspaceRoot, scriptsDir, tmpDir, packagesDir, themeDir } = setupTestPa
 - **Planning approach**: Break complex projects into epics and tasks
 - **Progress tracking**: Use TodoWrite/TodoRead tools for systematic tracking
 - **Documentation**: Always consult Docusaurus v3.8 docs during planning
+
+### API Documentation References
+
+**Core Docusaurus v3.8 Documentation**:
+- **Main Documentation**: https://docusaurus.io/docs - Core concepts, configuration, and guides
+- **CLI Reference**: https://docusaurus.io/docs/cli - Command-line interface documentation
+- **API Reference**: https://docusaurus.io/docs/api/docusaurus-config - Configuration API details
+- **Plugin APIs**: https://docusaurus.io/docs/api/plugins - Plugin development and configuration
+- **Theme APIs**: https://docusaurus.io/docs/api/themes - Theme customization and components
+
+**Styling and UI Framework**:
+- **Infima CSS Framework**: https://infima.dev/docs/ - Design system and CSS utilities used by Docusaurus
+- **Styling Guide**: https://docusaurus.io/docs/styling-layout - Layout and styling best practices
+
+**Community Resources**:
+- **Docusaurus Community**: https://docusaurus.community/ - Community plugins and resources
+- **Awesome Docusaurus**: https://github.com/weecology/awesome-docusaurus - Curated list of resources
+- **Official Docusaurus Website Source**: https://github.com/facebook/docusaurus/tree/main/website - Real-world implementation patterns and configurations
+
+**Development Tools**:
+- **TypeScript Support**: https://docusaurus.io/docs/typescript-support - TypeScript configuration and usage
+- **MDX Documentation**: https://mdxjs.com/docs/ - MDX syntax and component integration
+- **React Documentation**: https://react.dev/reference/react - React APIs for custom components
+- **FontAwesome React**: https://docs.fontawesome.com/web/use-with/react - Icon integration for React components
+
+**UI Components**:
+- **MUI X Data Grid**: https://mui.com/x/react-data-grid/ - Advanced data grid component with sorting, filtering, and pagination
+- **MUI X Tree View**: https://mui.com/x/react-tree-view/ - Tree view component for hierarchical data display
+- **Base UI React**: https://base-ui.com/react/overview/quick-start - Headless React components for building custom UIs
+
+#### API Documentation Usage Guidelines
+
+**For Development Planning**:
+1. **Configuration Changes**: Always reference https://docusaurus.io/docs/api/docusaurus-config before modifying `docusaurus.config.ts`
+2. **Plugin Integration**: Check https://docusaurus.io/docs/api/plugins for plugin APIs and lifecycle methods
+3. **Theme Customization**: Use https://docusaurus.io/docs/api/themes for theme component overrides
+4. **Component Development**: Reference React docs for hooks and component patterns
+5. **Icon Integration**: Use https://docs.fontawesome.com/web/use-with/react for FontAwesome icon implementation in React components
+6. **Data Grid Components**: Use https://mui.com/x/react-data-grid/ for advanced table functionality with sorting, filtering, and pagination
+7. **Tree View Components**: Use https://mui.com/x/react-tree-view/ for hierarchical data display and navigation
+8. **Custom UI Components**: Use https://base-ui.com/react/overview/quick-start for headless components when building custom interfaces
+
+**For Code Implementation**:
+1. **Version Compatibility**: Always verify Docusaurus version (≥3.8) before suggesting APIs
+2. **TypeScript Types**: Prefer official TypeScript definitions from Docusaurus packages
+3. **Best Practices**: Follow patterns from official documentation examples
+4. **Performance**: Reference optimization guides for build and runtime performance
+
+**For Troubleshooting**:
+1. **Error Resolution**: Check official troubleshooting guides first
+2. **Migration Issues**: Use migration guides for version updates
+3. **Community Solutions**: Search community resources for common issues
+4. **GitHub Issues**: Reference official Docusaurus GitHub for known issues
+
+#### Context7 MCP Integration
+- **Real-time Examples**: Use Context7 MCP for live code examples from Docusaurus community plugins
+- **Type Definitions**: Prefer Context7 over static docs for up-to-date TypeScript types
+- **Plugin Discovery**: Use Context7 to find and evaluate community plugins
 
 ### Search and Code Discovery
 - **Search priority**: Search `/Users/jonphipps/Code/IFLA/standards-dev` first, then git history/branches, then `/Users/jonphipps/Code/IFLA/`
@@ -608,3 +681,41 @@ e2e/
 ├── portal-smoke.spec.ts
 └── vocabulary-functionality.spec.ts
 ```
+
+## Branch-Aware Testing and Git Hooks
+
+### Pre-Commit Testing (Automatic)
+Runs automatically on every `git commit` for fast feedback:
+- **TypeScript checking**: Full type validation across affected projects
+- **ESLint validation**: Code quality checks with auto-fixing where possible
+- **Unit tests**: 446+ unit/integration tests for fast feedback loops
+- **Configuration validation**: Site config validation without builds
+- **Target time**: < 60 seconds for immediate feedback
+
+### Pre-Push Testing (Branch-Aware)
+Automatically runs on `git push` with different strategies based on branch:
+
+#### Protected Branches (main/dev)
+- **Full portal production build**: Complete build validation
+- **ISBDM production build**: Critical site build testing
+- **Portal E2E testing**: User workflow validation
+- **Complete regression suite**: Comprehensive validation
+- **Target time**: ~5-10 minutes for complete confidence
+
+#### Feature Branches
+- **Configuration validation**: Fast config checks
+- **Representative build testing**: Sample build validation
+- **Abbreviated regression testing**: Essential checks only
+- **Target time**: ~2-3 minutes for efficient development
+
+### GitHub Actions Integration
+- **Matrix builds**: All 7 sites built in parallel across multiple runners
+- **Environment testing**: Validates deployment configurations
+- **URL validation**: Comprehensive link checking
+- **Smart caching**: Nx cache optimization reduces CI time by ~70%
+
+### Cost Optimization Strategy
+**Local Testing (Free)**: Comprehensive coverage via automated git hooks ensures high quality
+**CI Testing (Paid)**: Focused on environment-specific validation, avoiding redundant testing of locally-validated functionality
+
+This approach provides high deployment confidence while minimizing CI compute costs through intelligent local validation.
