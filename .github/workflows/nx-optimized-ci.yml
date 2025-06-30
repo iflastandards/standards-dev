@@ -1,6 +1,7 @@
-name: Primary CI (Fast Feedback)
-# Primary CI pipeline optimized for fast feedback on all changes
-# Runs Group 5 tests (environment/infrastructure focus) to catch deployment issues
+name: Development CI (Nx Cloud)
+# Comprehensive CI for development fork with Nx Cloud integration
+# Full testing suite for development iteration and feedback
+# NOTE: Preview repo uses separate lightweight preview-ci.yml
 
 on:
   push:
@@ -62,10 +63,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
-      - name: CI Tests - Environment/Infrastructure Focus (Group 5)
+      - name: Development CI - Comprehensive Testing with Nx Cloud
         run: |
-          echo "Running Group 5 CI tests - Environment/Infrastructure Focus"
-          echo "Skipping typecheck/lint/unit tests - already validated by pre-commit hooks"
+          echo "🚀 Development CI with Nx Cloud - Comprehensive Testing"
+          echo "Running on development fork for full feedback loop"
           
           # Group 5: Environment-specific validation only
           echo "🌐 Running CI connectivity tests..."
