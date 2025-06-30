@@ -18,8 +18,8 @@ export default defineConfig({
       // Configuration tests - critical for proper site behavior
       'packages/theme/src/tests/config/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
       
-      // Exclude all script tests (development tools)
-      // These are already validated locally and don't affect deployment
+      // Deployment tests - external service connectivity for CI environments
+      'packages/theme/src/tests/deployment/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
     ],
     exclude: [
       ...(baseConfig.test?.exclude || []),
