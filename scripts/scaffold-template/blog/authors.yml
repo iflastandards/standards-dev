@@ -1,0 +1,5 @@
+site_admin:
+  name: Site Admin
+  title: {{TITLE}} Site Administrator
+  url: https://www.iflastandards.info/
+  image_url: https://www.ifla.org/wp-content/uploads/2019/05/cropped-ifla-favicon-192x192.png

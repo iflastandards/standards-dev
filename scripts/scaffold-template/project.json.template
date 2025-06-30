@@ -1,0 +1,86 @@
+{
+  "name": "{{SITE_KEY_LOWER}}",
+  "root": "standards/{{SITE_KEY}}",
+  "sourceRoot": "standards/{{SITE_KEY}}",
+  "projectType": "application",
+  "tags": ["docusaurus", "site", "standard", "{{SITE_KEY_LOWER}}"],
+  "implicitDependencies": ["@ifla/theme"],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docusaurus build standards/{{SITE_KEY}}"
+      },
+      "outputs": ["{projectRoot}/build"],
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production", "docusaurus"]
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docusaurus start standards/{{SITE_KEY}} --port {{PORT}}"
+      },
+      "cache": false
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docusaurus serve standards/{{SITE_KEY}} --port {{PORT}}"
+      },
+      "cache": false
+    },
+    "start:robust": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/utils/port-manager.js site {{SITE_KEY_LOWER}} && docusaurus start standards/{{SITE_KEY}} --port {{PORT}}"
+      },
+      "cache": false
+    },
+    "serve:robust": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/utils/port-manager.js site {{SITE_KEY_LOWER}} && docusaurus serve standards/{{SITE_KEY}} --port {{PORT}}"
+      },
+      "cache": false
+    },
+    "clear": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docusaurus clear standards/{{SITE_KEY}}"
+      },
+      "cache": false
+    },
+    "e2e": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "playwright test e2e/standards-smoke.spec.ts"
+      },
+      "dependsOn": ["build"],
+      "cache": true,
+      "inputs": [
+        "default",
+        "{workspaceRoot}/e2e/standards-smoke.spec.ts",
+        "{workspaceRoot}/playwright.config.ts"
+      ],
+      "outputs": [
+        "{workspaceRoot}/test-results",
+        "{workspaceRoot}/playwright-report"
+      ]
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit",
+        "cwd": "standards/{{SITE_KEY}}"
+      },
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": [
+        "default", 
+        "{projectRoot}/tsconfig.json",
+        "{workspaceRoot}/tsconfig.json"
+      ]
+    }
+  }
+}
